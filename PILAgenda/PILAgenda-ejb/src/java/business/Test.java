@@ -12,7 +12,7 @@ public class Test {
     private int j;
 
     public Test() {
-        System.out.println("Je suis le mal !");
+        System.out.println("Je suis un test !");
     }
      
     
