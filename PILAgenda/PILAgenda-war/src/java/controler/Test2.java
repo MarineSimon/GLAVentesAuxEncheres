@@ -2,18 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package business;
+package controler;
 
 /**
  *
  * @author soleneantoine
  */
-public class Test {
-    private int j;
-
-    public Test() {
-        System.out.println("Je suis un test !");
-    }
-     
+public class Test2 {
     
 }
