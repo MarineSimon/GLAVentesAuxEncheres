@@ -9,5 +9,6 @@ package business;
  * @author soleneantoine
  */
 public class Test {
+    private int i;
     
 }
