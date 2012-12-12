@@ -10,5 +10,10 @@ package business;
  */
 public class Test {
     private int i;
+
+    public Test() {
+        System.out.println("Je suis le maaaaaaaal !");
+    }
+    
     
 }
