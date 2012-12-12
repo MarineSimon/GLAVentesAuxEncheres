@@ -15,4 +15,4 @@ public class Test {
     public Test() {
         System.out.println("Je suis le maaaaaaaal !");
     }
-}
+} 
