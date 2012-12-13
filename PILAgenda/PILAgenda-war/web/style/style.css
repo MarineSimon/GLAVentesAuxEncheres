@@ -1,0 +1,26 @@
+/* 
+    Document   : style
+    Created on : 13 déc. 2012, 13:11:17
+    Author     : soleneantoine
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+body {
+    background: url('../resources/pictures/light_toast.png');
+}
+
+#content {
+    background: rgba(255, 255, 255, 0.4);
+    margin: 80px;
+    padding: 10px;
+}
+
+#inlineCal {
+    font-size: 11px;
+}
+
