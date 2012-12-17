@@ -37,33 +37,34 @@ public class UserAgenda implements Serializable {
     @Column(name = "ADDRESS")
     private String address;
 
-    @OneToMany(targetEntity = CustomizeEvent.class, mappedBy="user")
-    private Set<CustomizeEvent> customizeEvents;
-    
-    @OneToMany(targetEntity = Event.class, mappedBy="user")
-    private Set<Event> events;
-    
-    @OneToMany(targetEntity = Task.class, mappedBy="user")
+    @OneToMany(mappedBy = "taskOwner")
     private Set<Task> tasks;
     
-    @OneToMany(targetEntity = GroupAgenda.class, mappedBy="admin")
-    private Set<GroupAgenda> groupsAdmin;
+    @OneToMany(mappedBy = "customizedEventOwner")
+    private Set<CustomizeEvent> customizedEvents;
+      
+    @OneToMany(mappedBy = "eventOwner")
+    private Set<Event> events;
     
-    @ManyToMany(mappedBy="users")
-    private Set<GroupAgenda> groupsUser;
-   
-    @ManyToMany(mappedBy="guests")
-    private Set<GroupAgenda> groupsGuest;
+    @OneToMany(mappedBy = "groupAdministrator")
+    private Set<GroupAgenda> administratedGroups;
     
-    @ManyToMany(mappedBy="users")
+    @OneToMany(mappedBy = "agendaOwner")
     private Set<Agenda> agendas;
     
-    @ManyToMany(mappedBy="followedAgendas")
+    @ManyToMany
+    private Set<GroupAgenda> belongToGroups;
+    
+    @ManyToMany
+    private Set<GroupAgenda> guestToGroups;
+    
+    @ManyToMany
     private Set<Agenda> followedAgendas;
     
-    @ManyToMany(mappedBy="displayedAgendas")
+    @ManyToMany
     private Set<Agenda> displayedAgendas;
-      
+    
+    
     public Long getId() {
         return id;
     }

@@ -30,10 +30,10 @@ public class CustomizeEvent implements Serializable {
     private String comment;
     
     @ManyToOne
-    private Event event;
+    private UserAgenda customizedEventOwner;
     
     @ManyToOne
-    private UserAgenda user;
+    private Event relatedEvent;
 
     public Long getId() {
         return id;
