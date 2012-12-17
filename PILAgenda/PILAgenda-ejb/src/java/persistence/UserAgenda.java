@@ -23,7 +23,6 @@ public class UserAgenda implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
     @Column(name = "EMAIL")
     private String email;
     @Column(name = "PASSWORD")
