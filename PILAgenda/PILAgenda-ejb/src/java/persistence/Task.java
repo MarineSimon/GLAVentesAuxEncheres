@@ -32,7 +32,7 @@ public class Task implements Serializable {
     private String description;
     
     @ManyToOne
-    private UserAgenda user;
+    private UserAgenda taskOwner;
     
     public Long getId() {
         return id;

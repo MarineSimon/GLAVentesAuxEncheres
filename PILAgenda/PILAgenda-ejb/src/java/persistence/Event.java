@@ -41,20 +41,20 @@ public class Event implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     
+    @OneToMany(mappedBy="relatedEvent")
+    private Set<CustomizeEvent> customizedEvents;
+    
     @OneToOne
     private Periodicity periodicity;
     
-    @OneToMany(targetEntity = CustomizeEvent.class, mappedBy="event")
-    private Set<CustomizeEvent> customizeEvents;
-    
     @ManyToOne
-    private UserAgenda user;
+    private UserAgenda eventOwner;
     
-    @ManyToMany(mappedBy="guestsEvents")
-    private Set<Event> guestsEvents;
+    @ManyToMany
+    private Set<Agenda> belongToAgendas;
     
-    @ManyToMany(mappedBy="acceptedEvents")
-    private Set<Event> acceptedEvents;
+    @ManyToMany
+    private Set<Agenda> guestToAgendas;
     
     public Long getId() {
         return id;

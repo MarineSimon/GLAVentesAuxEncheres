@@ -31,16 +31,16 @@ public class GroupAgenda implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     
-    @OneToMany(targetEntity = Agenda.class, mappedBy="groupsAdmin")
-    private Set<Agenda> agendas;
-    
     @ManyToOne
-    private UserAgenda admin;
+    private UserAgenda groupAdministrator;
     
-    @ManyToMany
+    @OneToMany(mappedBy = "belongToGroup")
+    private Set<Agenda> groupAgendas;
+    
+    @ManyToMany(mappedBy = "belongToGroups")
     private Set<UserAgenda> users;
     
-    @ManyToMany
+    @ManyToMany(mappedBy = "guestToGroups")
     private Set<UserAgenda> guests;
     
 
