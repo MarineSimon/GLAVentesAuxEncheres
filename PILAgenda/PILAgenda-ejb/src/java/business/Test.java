@@ -9,7 +9,7 @@ package business;
  * @author soleneantoine
  */
 public class Test {
-    private int i;
+    private int j;
 
     public Test() {
         System.out.println("Je suis un test !");
