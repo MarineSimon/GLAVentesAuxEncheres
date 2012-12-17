@@ -11,7 +11,7 @@ package business;
 public class Test {
 
     public Test(String bonjour) {
-        System.out.println("Je suis un test qui devrait faire un conflit (parce que j'ai viré le i)");
+        System.out.println("Je suis un test qui devrait faire un conflit");
     }
      
     
