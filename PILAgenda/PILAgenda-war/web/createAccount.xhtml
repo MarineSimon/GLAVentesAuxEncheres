@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="style/style.css"/>
+    </h:head>
+    <h:body>
+        <div id ="content">
+            <h:form>
+                <p:messages id="messages" showDetail="true" autoUpdate="true"/> 
+                
+                <h:panelGrid columns="2" cellpadding="5">  
+                    
+                    <h:panelGrid columns="2" cellpadding="5">  
+                            <h:outputText value="Nom: " />
+                            <p:inputText value="" />
+                            <h:outputText value="Prénom " />
+                            <p:inputText value=""/>
+                            <h:outputText value="Adresse email: " />
+                            <p:inputText value=""/>
+                            <h:outputText value="Numéro de téléphone " />
+                            <p:inputText value=""/>
+
+                            <h:outputLabel for="pwd" value="Mot de passe:" />  
+                            <p:password id="pwd" value="" match="cpwd" label="Password" required="true"/>  
+                            <h:outputLabel for="cpwd" value="Confirmer le mot de passe: " />  
+                            <p:password id="cpwd" value="" label="Confirm Password" required="true"/>  
+
+                            <h:outputText value="Affichage du Weekend: " />  
+                            <p:selectBooleanButton value="" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close"/>  
+
+                            
+
+                     </h:panelGrid>
+                    
+                    <h:panelGrid columns="2" cellpadding="5">  
+                            <h:outputText value="Langues: " />  
+                            <p:selectOneMenu value="" effect="fade" style="width:160px" >  
+                                <f:selectItem itemLabel="Espagnol"  itemValue=""/> 
+                                <f:selectItem itemLabel="Francais" itemValue=""/>
+                            </p:selectOneMenu>  
+                            <h:outputText value="Pays: " />  
+                            <p:selectOneMenu value="" effect="fade" style="width:160px">  
+                                <f:selectItem itemLabel="Espagne"  itemValue=""/> 
+                                <f:selectItem itemLabel="France" itemValue=""/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Localité: " />  
+                            <p:selectOneMenu value="" effect="fade" style="width:160px">  
+                                <f:selectItem itemLabel="Metz"  itemValue=""/> 
+                                <f:selectItem itemLabel="Nancy" itemValue=""/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Fuseau horaire: " />  
+                            <p:selectOneMenu value="" effect="fade" style="width:160px">  
+                                <f:selectItem itemLabel="Fuseau 1" itemValue=""/> 
+                                <f:selectItem itemLabel="Fuseau 2" itemValue=""/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Format d'heure: " />  
+                            <p:selectOneMenu value="" effect="fade" style="width:160px">  
+                                <f:selectItem itemLabel="Format 1"  itemValue=""/> 
+                                <f:selectItem itemLabel="Format 2" itemValue=""/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Durée par défaut: " />  
+                            <p:selectOneMenu value="" effect="fold" editable="true">  
+                                <f:selectItem itemLabel="1h" itemValue="" />  
+                                <f:selectItem itemLabel="2h" itemValue="" />
+                            </p:selectOneMenu> 
+                            <h:outputText value="Raccourci clavier: " />  
+                            <p:selectBooleanButton value="" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close"/>  
+
+
+                     </h:panelGrid>
+                </h:panelGrid>
+                
+                <p:commandButton id="saveButton" value="Confirmer" />
+                <p:commandButton id="cancelButton" value="Annuler" />
+            </h:form>
+        </div>
+    </h:body>
+</html>
+
+
+
