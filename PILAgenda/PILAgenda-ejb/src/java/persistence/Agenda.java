@@ -6,11 +6,14 @@ package persistence;
 
 import java.awt.Color;
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -35,7 +38,26 @@ public class Agenda implements Serializable {
     private String name;
     @Column(name = "DESCRIPTION")
     private String description;
-
+    
+     
+    @ManyToOne
+    private GroupAgenda group;
+    
+    @ManyToMany
+    private Set<UserAgenda> users;
+    
+    @ManyToMany
+    private Set<UserAgenda> followedAgendas;
+    
+    @ManyToMany
+    private Set<UserAgenda> displayedAgendas;
+    
+    @ManyToMany
+    private Set<Event> guestsEvents;
+    
+    @ManyToMany
+    private Set<Event> acceptedEvents;
+    
     public Long getId() {
         return id;
     }

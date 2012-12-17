@@ -5,11 +5,15 @@
 package persistence;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -26,6 +30,19 @@ public class GroupAgenda implements Serializable {
     private String name;
     @Column(name = "DESCRIPTION")
     private String description;
+    
+    @OneToMany(targetEntity = Agenda.class, mappedBy="groupsAdmin")
+    private Set<Agenda> agendas;
+    
+    @ManyToOne
+    private UserAgenda admin;
+    
+    @ManyToMany
+    private Set<UserAgenda> users;
+    
+    @ManyToMany
+    private Set<UserAgenda> guests;
+    
 
     public String getName() {
         return name;

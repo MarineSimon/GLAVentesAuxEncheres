@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -46,8 +47,24 @@ public class UserAgenda implements Serializable {
     @OneToMany(targetEntity = Task.class, mappedBy="user")
     private Set<Task> tasks;
     
+    @OneToMany(targetEntity = GroupAgenda.class, mappedBy="admin")
+    private Set<GroupAgenda> groupsAdmin;
     
+    @ManyToMany(mappedBy="users")
+    private Set<GroupAgenda> groupsUser;
+   
+    @ManyToMany(mappedBy="guests")
+    private Set<GroupAgenda> groupsGuest;
     
+    @ManyToMany(mappedBy="users")
+    private Set<Agenda> agendas;
+    
+    @ManyToMany(mappedBy="followedAgendas")
+    private Set<Agenda> followedAgendas;
+    
+    @ManyToMany(mappedBy="displayedAgendas")
+    private Set<Agenda> displayedAgendas;
+      
     public Long getId() {
         return id;
     }

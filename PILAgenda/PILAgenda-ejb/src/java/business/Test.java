@@ -9,10 +9,9 @@ package business;
  * @author soleneantoine
  */
 public class Test {
-    private int i;
 
-    public Test() {
-        System.out.println("Je suis un test !");
+    public Test(String bonjour) {
+        System.out.println("Je suis un test qui devrait faire un conflit");
     }
      
     
