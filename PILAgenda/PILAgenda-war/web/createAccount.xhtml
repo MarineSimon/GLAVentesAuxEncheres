@@ -17,21 +17,21 @@
                     
                     <h:panelGrid columns="2" cellpadding="5">  
                             <h:outputText value="Nom: " />
-                            <p:inputText value="" />
+                            <p:inputText value="#{userBean.lastname}" />
                             <h:outputText value="Prénom " />
-                            <p:inputText value=""/>
+                            <p:inputText value="#{userBean.firstname}"/>
                             <h:outputText value="Adresse email: " />
-                            <p:inputText value=""/>
+                            <p:inputText value="#{userBean.mail}"/>
                             <h:outputText value="Numéro de téléphone " />
-                            <p:inputText value=""/>
+                            <p:inputText value="#{userBean.phone}"/>
 
                             <h:outputLabel for="pwd" value="Mot de passe:" />  
-                            <p:password id="pwd" value="" match="cpwd" label="Password" required="true"/>  
+                            <p:password id="pwd" value="#{userBean.password}" match="cpwd" label="Password" required="true"/>  
                             <h:outputLabel for="cpwd" value="Confirmer le mot de passe: " />  
                             <p:password id="cpwd" value="" label="Confirm Password" required="true"/>  
 
                             <h:outputText value="Affichage du Weekend: " />  
-                            <p:selectBooleanButton value="" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close"/>  
+                            <p:selectBooleanButton value="#{userBean.displayWeek}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close"/>  
 
                             
 
@@ -39,43 +39,43 @@
                     
                     <h:panelGrid columns="2" cellpadding="5">  
                             <h:outputText value="Langues: " />  
-                            <p:selectOneMenu value="" effect="fade" style="width:160px" >  
-                                <f:selectItem itemLabel="Espagnol"  itemValue=""/> 
-                                <f:selectItem itemLabel="Francais" itemValue=""/>
+                            <p:selectOneMenu value="#{userBean.language}" effect="fade" style="width:160px" >  
+                                <f:selectItem itemLabel="Espagnol"  itemValue="Espagnol"/> 
+                                <f:selectItem itemLabel="Francais" itemValue="Francais"/>
                             </p:selectOneMenu>  
                             <h:outputText value="Pays: " />  
-                            <p:selectOneMenu value="" effect="fade" style="width:160px">  
-                                <f:selectItem itemLabel="Espagne"  itemValue=""/> 
-                                <f:selectItem itemLabel="France" itemValue=""/>
+                            <p:selectOneMenu value="#{userBean.country}" effect="fade" style="width:160px">  
+                                <f:selectItem itemLabel="Espagne"  itemValue="Espagne"/> 
+                                <f:selectItem itemLabel="France" itemValue="France"/>
                             </p:selectOneMenu>
                             <h:outputText value="Localité: " />  
-                            <p:selectOneMenu value="" effect="fade" style="width:160px">  
-                                <f:selectItem itemLabel="Metz"  itemValue=""/> 
-                                <f:selectItem itemLabel="Nancy" itemValue=""/>
+                            <p:selectOneMenu value="#{userBean.locality}" effect="fade" style="width:160px">  
+                                <f:selectItem itemLabel="Metz"  itemValue="Metz"/> 
+                                <f:selectItem itemLabel="Nancy" itemValue="Nancy"/>
                             </p:selectOneMenu>
                             <h:outputText value="Fuseau horaire: " />  
-                            <p:selectOneMenu value="" effect="fade" style="width:160px">  
-                                <f:selectItem itemLabel="Fuseau 1" itemValue=""/> 
-                                <f:selectItem itemLabel="Fuseau 2" itemValue=""/>
+                            <p:selectOneMenu value="#{userBean.timeZone}" effect="fade" style="width:160px">  
+                                <f:selectItem itemLabel="Fuseau 1" itemValue="Fuseau1"/> 
+                                <f:selectItem itemLabel="Fuseau 2" itemValue="Fuseau2"/>
                             </p:selectOneMenu>
                             <h:outputText value="Format d'heure: " />  
-                            <p:selectOneMenu value="" effect="fade" style="width:160px">  
-                                <f:selectItem itemLabel="Format 1"  itemValue=""/> 
-                                <f:selectItem itemLabel="Format 2" itemValue=""/>
+                            <p:selectOneMenu value="#{userBean.hourFormat}" effect="fade" style="width:160px">  
+                                <f:selectItem itemLabel="Format 1"  itemValue="Format1"/> 
+                                <f:selectItem itemLabel="Format 2" itemValue="Format2"/>
                             </p:selectOneMenu>
                             <h:outputText value="Durée par défaut: " />  
-                            <p:selectOneMenu value="" effect="fold" editable="true">  
-                                <f:selectItem itemLabel="1h" itemValue="" />  
-                                <f:selectItem itemLabel="2h" itemValue="" />
+                            <p:selectOneMenu value="#{userBean.defaultDuration}" effect="fold" editable="true">  
+                                <f:selectItem itemLabel="1h" itemValue="1h" />  
+                                <f:selectItem itemLabel="2h" itemValue="2h" />
                             </p:selectOneMenu> 
                             <h:outputText value="Raccourci clavier: " />  
-                            <p:selectBooleanButton value="" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close"/>  
+                            <p:selectBooleanButton value="#{userBean.keyboardShortcut}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close"/>  
 
 
                      </h:panelGrid>
                 </h:panelGrid>
                 
-                <p:commandButton id="saveButton" value="Confirmer" />
+                <p:commandButton id="saveButton" value="Confirmer"  />
                 <p:commandButton id="cancelButton" value="Annuler" />
             </h:form>
         </div>
