@@ -4,11 +4,8 @@
  */
 package controler;
 
-import java.util.Date;
 import javax.inject.Named;
-import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
-import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
 /**
