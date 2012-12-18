@@ -39,24 +39,24 @@ public class Agenda implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     
-     
     @ManyToOne
-    private GroupAgenda group;
+    private UserAgenda agendaOwner;
     
-    @ManyToMany
-    private Set<UserAgenda> users;
+    @ManyToOne
+    private GroupAgenda belongToGroup;
     
-    @ManyToMany
-    private Set<UserAgenda> followedAgendas;
+    @ManyToMany(mappedBy = "followedAgendas")
+    private Set<UserAgenda> followers;
     
-    @ManyToMany
-    private Set<UserAgenda> displayedAgendas;
+    @ManyToMany(mappedBy = "displayedAgendas")
+    private Set<UserAgenda> displayers;
     
-    @ManyToMany
-    private Set<Event> guestsEvents;
-    
-    @ManyToMany
+    @ManyToMany(mappedBy = "belongToAgendas")
     private Set<Event> acceptedEvents;
+    
+    @ManyToMany(mappedBy = "guestToAgendas")
+    private Set<Event> guestEvents;
+    
     
     public Long getId() {
         return id;
