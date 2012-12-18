@@ -10,6 +10,8 @@
     </h:head>
     <h:body>
         <div id ="content">
+            <div id="account"><img src="resources/pictures/settings.png" width="50px" id="settings"/></div>
+            <div style="clear: both"></div>
             <div id="content_left">
                 <p:calendar mode="inline" id="inlineCal"/>
                 <div id ="calendriers">
@@ -19,6 +21,7 @@
                     <input type="checkbox" name="calendrier3" value="Loisirs">Loisirs</input><br/>
                     
                     <input type="button" class="button" value="Créer un agenda"/>
+                    <div style="clear: both"></div>
                 </div>
                 
                 <div id ="groupes">
@@ -28,12 +31,47 @@
                     <input type="checkbox" name="groupe3" value="Groupe3">Groupe3</input><br/>
                     
                     <input type="button" class="button" value="Créer un groupe"/>
+                    <div style="clear: both"></div>
                 </div>
             </div>  
             
             <div id="content_middle">
-                <h:form>
-                    <p:schedule value="#{scheduleBean.model}" view="agendaWeek"/>   
+                <h:form>  
+  
+                    <p:growl id="messages" showDetail="true" />  
+
+                    <p:schedule value="#{scheduleBean.eventModel}" widgetVar="myschedule">  
+
+                        <p:ajax event="dateSelect" listener="#{scheduleBean.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
+                        <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
+                        <p:ajax event="eventMove" listener="#{scheduleBean.onEventMove}" update="messages" />  
+                        <p:ajax event="eventResize" listener="#{scheduleBean.onEventResize}" update="messages" />  
+
+                    </p:schedule>  
+
+                    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">  
+                        <h:panelGrid id="eventDetails" columns="2">  
+                            <h:outputLabel for="title" value="Title:" />  
+                            <p:inputText id="title" value="#{scheduleBean.event.title}" required="true"/>  
+
+                            <h:outputLabel for="from" value="From:" />  
+                            <p:inputMask id="from" value="#{scheduleBean.event.startDate}" mask="99/99/9999">  
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                            </p:inputMask>  
+
+                            <h:outputLabel for="to" value="To:" />  
+                            <p:inputMask id="to" value="#{scheduleBean.event.endDate}" mask="99/99/9999">  
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                            </p:inputMask>  
+
+                            <h:outputLabel for="allDay" value="All Day:" />  
+                            <h:selectBooleanCheckbox id="allDay" value="#{scheduleBean.event.allDay}" />  
+
+                            <p:commandButton type="reset" value="Reset" />  
+                            <p:commandButton value="Save" actionListener="#{scheduleBean.addEvent}" oncomplete="myschedule.update();eventDialog.hide();"/>  
+                        </h:panelGrid>  
+                    </p:dialog>  
+
                 </h:form>
             </div>
             
@@ -44,7 +82,8 @@
                     <input type="checkbox" name="tache2" value="tache2">Tâche 2</input><br/>
                     <input type="checkbox" name="tache3" value="tache3">Tâche 3</input><br/>
                     
-                    <input type="button" class="button" value="Créer un agenda"/>
+                    <input type="button" class="button" value="Créer une tâche"/>
+                    <div style="clear: both"></div>
                 </div>
             </div>
             <div style="clear: both"></div>

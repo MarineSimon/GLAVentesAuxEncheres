@@ -16,7 +16,7 @@ body {
 }
 
 h1 {
-    color : #5F83B9;
+    color : #5c93b2;
 }
 
 #content {
@@ -34,6 +34,7 @@ h1 {
     float: left;
     width: 54%;
     margin-right: 10px;
+    margin-left: 10px;
 } 
 
 #content_right{
@@ -54,8 +55,21 @@ h1 {
     border-radius: 2px;
     margin-top: 20px;
     background: white;
-    width: 210px;
 }
+
+#taches{
+   margin-top: 0px; 
+}
+
+#account {
+    margin: 10px;
+    float: right
+}
+
+#settings{
+    cursor: pointer;
+}
+
 .title {
     background: #E3E3E3;
     background: #E3E3E3 linear-gradient(top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
@@ -78,10 +92,30 @@ h1 {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
-    background: #5F83B9;
+    background: #5c93b2;
     color : white;
     padding: 7px;
     border: none;
     cursor: pointer;
+    float: right;
 }
 
+.ui-widget-header {
+    background: white;
+}
+    
+#j_idt9 {
+    font-size: 13px;
+}
+
+.ui-datepicker .ui-datepicker-calendar .ui-state-default {
+    color : #5c93b2;
+} 
+
+.ui-datepicker .ui-datepicker-current-day .ui-state-highlight, .ui-datepicker .ui-datepicker-current-day .ui-state-default {
+    background: #5c93b2;
+}
+
+.ui-datepicker {
+    width: auto;
+}
