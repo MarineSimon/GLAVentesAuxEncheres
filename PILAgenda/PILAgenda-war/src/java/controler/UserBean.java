@@ -24,6 +24,9 @@ public class UserBean{
     private String lastname;
     private String firstname;
     private String mail;
+    private String mail1;
+    private String mail2;
+    private String mail3;
     private int phone;
     private String password;
     private String language;
@@ -51,12 +54,33 @@ public class UserBean{
         this.firstname = firstname;
     }
 
-    public String getMail() {
-        return mail;
+    public void createMail() {
+        this.mail = mail1+"@"+mail2+"."+mail3;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public String getMail1() {
+        return mail1;
+    }
+
+    public void setMail1(String mail1) {
+        this.mail1 = mail1;
+    }
+
+    public String getMail2() {
+        return mail2;
+    }
+
+    public void setMail2(String mail2) {
+        this.mail2 = mail2;
+    }
+
+    public String getMail3() {
+        return mail3;
+    }
+
+    public void setMail3(String mail3) {
+        this.mail3 = mail3;
+        this.mail = mail1+"@"+mail2+"."+mail3;
     }
 
     public int getPhone() {
@@ -80,7 +104,6 @@ public class UserBean{
     }
 
     public void setLanguage(String language) {
-                System.out.println(""+language);
         this.language = language;
     }
 
