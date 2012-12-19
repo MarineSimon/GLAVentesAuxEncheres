@@ -69,8 +69,6 @@ public class Event implements Serializable {
         this.description = description;
         this.periodicity = periodicity;
         this.eventOwner = eventOwner;
-        this.belongToAgendas = (Set<Agenda>) new ArrayList<Agenda>();
-        this.belongToAgendas.add(agenda);
     }
     
     
