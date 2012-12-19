@@ -27,7 +27,7 @@ public class UserBean{
     private String mail1;
     private String mail2;
     private String mail3;
-    private int phone;
+    private String phone;
     private String password;
     private String language;
     private String country;
@@ -83,11 +83,11 @@ public class UserBean{
         this.mail = mail1+"@"+mail2+"."+mail3;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
