@@ -26,11 +26,9 @@ public class UserBean{
     private String lastname;
     private String firstname;
     private String mail;
-    private String mail1;
-    private String mail2;
-    private String mail3;
     private String phone;
     private String password;
+    private String confirmPassword;
     private String language;
     private String country;
     private String locality;
@@ -56,33 +54,12 @@ public class UserBean{
         this.firstname = firstname;
     }
 
-    public void createMail() {
-        this.mail = mail1+"@"+mail2+"."+mail3;
+    public String getMail() {
+        return mail;
     }
 
-    public String getMail1() {
-        return mail1;
-    }
-
-    public void setMail1(String mail1) {
-        this.mail1 = mail1;
-    }
-
-    public String getMail2() {
-        return mail2;
-    }
-
-    public void setMail2(String mail2) {
-        this.mail2 = mail2;
-    }
-
-    public String getMail3() {
-        return mail3;
-    }
-
-    public void setMail3(String mail3) {
-        this.mail3 = mail3;
-        this.mail = mail1+"@"+mail2+"."+mail3;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public String getPhone() {
@@ -101,6 +78,14 @@ public class UserBean{
         this.password = password;
     }
 
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+    
     public String getLanguage() {
         return language;
     }
@@ -166,12 +151,15 @@ public class UserBean{
     }
     
     public String addAccount(){
-        user = new UserAgenda();
-        user.setEmail(mail);
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
-        user.setPassword(password);
-        local.addAccount(user);
+        if (this.confirmPassword.equals(this.password)){
+            user = new UserAgenda();
+            user.setEmail(mail);
+            user.setFirstname(firstname);
+            user.setLastname(lastname);
+            user.setPassword(password);
+            local.addAccount(user);
+        }
+        
         return "accountCreate";
     }
     
