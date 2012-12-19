@@ -7,32 +7,39 @@
     <h:head>
         <title>Facelet Title</title>
         <link rel="stylesheet" href="style/style.css"/>
+        <link rel=""/>
+        <script type="text/javascript" src="resources/js/config_schedule.js"></script>
     </h:head>
     <h:body>
+        <header>PIL Agenda - 2012/2013<img src="resources/pictures/glyphicons_137_cogwheels.png" width="30px" id="settings"/></header>
         <div id ="content">
-            <div id="account"><img src="resources/pictures/settings.png" width="50px" id="settings"/></div>
+            
             <div style="clear: both"></div>
             <div id="content_left">
+                <h:form>
                 <p:calendar mode="inline" id="inlineCal"/>
                 <div id ="calendriers">
-                    <div class="title">Agendas : </div>
-                    <input type="checkbox" name="calendrier1" value="Fac">Fac</input><br/>
-                    <input type="checkbox" name="calendrier2" value="Personnel">Personnel</input><br/>
-                    <input type="checkbox" name="calendrier3" value="Loisirs">Loisirs</input><br/>
+                    <div class="title">Agendas : <a href="#"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
+                    <div class="inside_box">
+                        <input type="checkbox" name="calendrier1" value="Fac">Fac</input><br/>
+                        <input type="checkbox" name="calendrier2" value="Personnel">Personnel</input><br/>
+                        <input type="checkbox" name="calendrier3" value="Loisirs">Loisirs</input><br/>
+                    </div>
                     
-                    <input type="button" class="button" value="Créer un agenda"/>
                     <div style="clear: both"></div>
                 </div>
                 
                 <div id ="groupes">
-                    <div class="title">Groupes : </div>
-                    <input type="checkbox" name="groupe1" value="Groupe1">Groupe1</input><br/>
-                    <input type="checkbox" name="groupe2" value="Groupe2">Groupe2</input><br/>
-                    <input type="checkbox" name="groupe3" value="Groupe3">Groupe3</input><br/>
+                    <div class="title">Groupes : <a href="#"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
+                    <div class="inside_box">
+                        <input type="checkbox" name="groupe1" value="Groupe1">Groupe1</input><br/>
+                        <input type="checkbox" name="groupe2" value="Groupe2">Groupe2</input><br/>
+                        <input type="checkbox" name="groupe3" value="Groupe3">Groupe3</input><br/>
+                    </div>
                     
-                    <input type="button" class="button" value="Créer un groupe"/>
                     <div style="clear: both"></div>
                 </div>
+                </h:form>
             </div>  
             
             <div id="content_middle">
@@ -40,7 +47,7 @@
   
                     <p:growl id="messages" showDetail="true" />  
 
-                    <p:schedule value="#{scheduleBean.eventModel}" widgetVar="myschedule">  
+                    <p:schedule value="#{scheduleBean.eventModel}" widgetVar="myschedule" view="agendaWeek" locale="fr">  
 
                         <p:ajax event="dateSelect" listener="#{scheduleBean.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
                         <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
@@ -76,15 +83,18 @@
             </div>
             
             <div id="content_right">
+                <h:form>
                 <div id ="taches">
-                    <div class="title">Tâches : </div>
-                    <input type="checkbox" name="tache1" value="tache1">Tâche 1</input><br/>
-                    <input type="checkbox" name="tache2" value="tache2">Tâche 2</input><br/>
-                    <input type="checkbox" name="tache3" value="tache3">Tâche 3</input><br/>
-                    
-                    <input type="button" class="button" value="Créer une tâche"/>
+                    <div class="title">Tâches : <a href="#"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
+                    <div class="inside_box">
+                        Tâche 1<br/>
+                        Tâche 2<br/>
+                        Tâche 3<br/>
+                    </div>
+
                     <div style="clear: both"></div>
                 </div>
+                </h:form>
             </div>
             <div style="clear: both"></div>
         </div>    
