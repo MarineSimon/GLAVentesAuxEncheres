@@ -7,6 +7,8 @@ package business;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import library.UserBeanLocalInterface;
 import persistence.UserAgenda;
 
@@ -17,9 +19,12 @@ import persistence.UserAgenda;
 @Stateless
 @LocalBean
 public class UserBeanLocal implements UserBeanLocalInterface{
+    @PersistenceContext(unitName="PILAgenda-PU")
+    private EntityManager em;
 
     @Override
     public UserAgenda addAccount(UserAgenda ua) {
+        em.persist(ua);
         return ua;
     }
 

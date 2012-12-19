@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import persistence.UserAgenda;
 
 /**
  *
@@ -21,6 +22,7 @@ public class UserBean{
     @EJB
     private UserBeanLocal local;
     
+    private UserAgenda user;
     private String lastname;
     private String firstname;
     private String mail;
@@ -162,4 +164,15 @@ public class UserBean{
     public void setKeyboardShortcut(boolean keyboardShortcut) {
         this.keyboardShortcut = keyboardShortcut;
     }
+    
+    public String addAccount(){
+        user = new UserAgenda();
+        user.setEmail(mail);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setPassword(password);
+        local.addAccount(user);
+        return "accountCreate";
+    }
+    
 }
