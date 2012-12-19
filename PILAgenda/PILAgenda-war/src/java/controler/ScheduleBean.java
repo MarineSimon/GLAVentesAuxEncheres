@@ -32,8 +32,10 @@ public class ScheduleBean {
         private ScheduleModel eventModel;
         private ScheduleEvent event = new DefaultScheduleEvent();
         private ScheduleModel lazyEventModel;
+        private EventBean eventBean;
         
         public ScheduleBean() {
+            eventBean = new EventBean();
             eventModel = new DefaultScheduleModel();  
             eventModel.addEvent(new DefaultScheduleEvent("Champions League Match",
                                 previousDay8Pm(), previousDay11Pm()));
@@ -87,11 +89,11 @@ public class ScheduleBean {
         }
         
         public void addEvent(ActionEvent actionEvent) {  
+            
             if(event.getId() == null)  
                 eventModel.addEvent(event);  
             else  
                 eventModel.updateEvent(event);  
-
             event = new DefaultScheduleEvent();  
         }
         

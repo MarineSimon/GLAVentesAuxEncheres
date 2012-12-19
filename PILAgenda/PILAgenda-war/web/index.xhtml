@@ -56,24 +56,29 @@
 
                         <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">  
                             <h:panelGrid id="eventDetails" columns="2">  
-                                <h:outputLabel for="title" value="Title:" />  
-                                <p:inputText id="title" value="#{scheduleBean.event.title}" required="true"/>  
+                                <h:outputLabel for="title" value="Title :" />  
+                                <p:inputText id="title" value="#{eventBean.title}" required="true"/>
+                                
+                                <h:outputLabel for="location" value="Location :" />  
+                                <p:inputMask id="location" value="#{eventBean.location}" mask="99/99/9999">  
+                                </p:inputMask>  
 
-                                <h:outputLabel for="from" value="From:" />  
-                                <p:inputMask id="from" value="#{scheduleBean.event.startDate}" mask="99/99/9999">  
+                                <h:outputLabel for="from" value="From :" />  
+                                <p:inputMask id="from" value="#{eventBean.startDate}" mask="99/99/9999">  
                                     <f:convertDateTime pattern="dd/MM/yyyy" />  
                                 </p:inputMask>  
 
-                                <h:outputLabel for="to" value="To:" />  
-                                <p:inputMask id="to" value="#{scheduleBean.event.endDate}" mask="99/99/9999">  
+                                <h:outputLabel for="to" value="To :" />  
+                                <p:inputMask id="to" value="#{eventBean.endDate}" mask="99/99/9999">  
                                     <f:convertDateTime pattern="dd/MM/yyyy" />  
-                                </p:inputMask>  
-
-                                <h:outputLabel for="allDay" value="All Day:" />  
-                                <h:selectBooleanCheckbox id="allDay" value="#{scheduleBean.event.allDay}" />  
+                                </p:inputMask> 
+                                
+                                <h:outputLabel for="agenda" value="Agenda :" />  
+                                <p:inputMask id="agenda" value="#{eventBean.location}" mask="99/99/9999">  
+                                </p:inputMask>
 
                                 <p:commandButton type="reset" value="Reset" />  
-                                <p:commandButton value="Save" actionListener="#{scheduleBean.addEvent}" oncomplete="myschedule.update();eventDialog.hide();"/>  
+                                <p:commandButton value="Save" actionListener="#{eventBean.addEvent}" oncomplete="myschedule.update();eventDialog.hide();"/>  
                             </h:panelGrid>  
                         </p:dialog>  
 
