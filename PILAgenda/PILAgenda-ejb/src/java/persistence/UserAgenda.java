@@ -36,8 +36,6 @@ public class UserAgenda implements Serializable {
     private String lang;
     @Column(name = "ADDRESS")
     private String address;
-    @Column(name = "PWD")
-    private String pwd;
     @Column(name = "PHONE")
     private String phone;
     @Column(name = "SEEWEEKEND")
@@ -93,7 +91,6 @@ public class UserAgenda implements Serializable {
         this.firstname = firstname;
         this.lang = lang;
         this.address = address;
-        this.pwd = pwd;
         this.country = country;
         this.city = city;
         this.timeZone = timeZone;
@@ -155,14 +152,6 @@ public class UserAgenda implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
     }
 
     public Set<Task> getTasks() {
