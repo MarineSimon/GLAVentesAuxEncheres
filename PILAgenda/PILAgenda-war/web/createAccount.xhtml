@@ -3,18 +3,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"      >
-    <h:head>
-        <title>Facelet Title</title>
-        <link rel="stylesheet" href="style/style.css"/>
-    </h:head>
-    <h:body>
-        <div id ="content">
+      xmlns:p="http://primefaces.org/ui"      
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="template.xhtml">
+        <ui:define name="title">
+                   Création compte
+        </ui:define>
+    
+        <ui:define name="content">
             <h:form>
                 <p:messages id="messages" showDetail="true" autoUpdate="true"/> 
                 
-                <h:panelGrid columns="2" cellpadding="5">  
-                    
+                <h:panelGrid columns="2" cellpadding="">  
                     <h:panelGrid columns="2" cellpadding="5">  
                             <h:outputText value="Nom : " />
                             <p:inputText value="#{userBean.lastname}" style="width:280px"/>
@@ -35,8 +35,6 @@
                             
                             <h:outputText value="Affichage du Weekend : " />  
                             <p:selectBooleanButton value="#{userBean.displayWeek}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close"/>  
-
-                            
 
                      </h:panelGrid>
                     
@@ -74,15 +72,14 @@
                             <h:outputText value="Raccourci clavier : " />  
                             <p:selectBooleanButton value="#{userBean.keyboardShortcut}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close"/>  
 
-
                      </h:panelGrid>
                 </h:panelGrid>
                 
                 <p:commandButton id="saveButton" value="Confirmer" action="#{userBean.addAccount()}"/>
                 <p:commandButton id="cancelButton" value="Annuler" />
             </h:form>
-        </div>
-    </h:body>
+        </ui:define>
+    </ui:composition>
 </html>
 
 

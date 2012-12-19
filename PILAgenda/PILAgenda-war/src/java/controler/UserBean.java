@@ -153,10 +153,21 @@ public class UserBean{
     public String addAccount(){
         if (this.confirmPassword.equals(this.password)){
             user = new UserAgenda();
+            
             user.setEmail(mail);
             user.setFirstname(firstname);
             user.setLastname(lastname);
             user.setPassword(password);
+            user.setCity(locality);
+            user.setCountry(country);
+            user.setKeyboardShortcut(keyboardShortcut);
+            user.setDefaultEventDuration(defaultDuration);
+            user.setSeeWeekEnd(displayWeek);
+            user.setLang(language);
+            user.setPhone(phone);
+            user.setHourFormat(hourFormat);
+            user.setTimeZone(timeZone);
+            
             local.addAccount(user);
         }
         
