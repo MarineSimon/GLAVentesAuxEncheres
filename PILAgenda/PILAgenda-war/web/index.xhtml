@@ -8,11 +8,13 @@
     
     <ui:composition template="template.xhtml">
         <ui:define name="title">
-            Page test
+            Accueil
         </ui:define>
         
         <ui:define name="content">
-            <div style="clear: both"></div>
+            <div style="clear: both">
+                
+            </div>
                 <div id="content_left">
                     <h:form>
                     <p:calendar mode="inline" id="inlineCal"/>
@@ -45,7 +47,7 @@
 
                         <p:growl id="messages" showDetail="true" />  
 
-                        <p:schedule value="#{scheduleBean.eventModel}" widgetVar="myschedule" view="agendaDay" locale="fr">  
+                        <p:schedule value="#{scheduleBean.eventModel}" widgetVar="myschedule" view="agendaDay" locale="fr" rightHeaderTemplate="agendaDay,agendaWeek,month">  
 
                             <p:ajax event="dateSelect" listener="#{scheduleBean.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
                             <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
@@ -94,7 +96,9 @@
                     </div>
                     </h:form>
                 </div>
-                <div style="clear: both"></div>
+            <div style="clear: both">
+                
+            </div>
         </ui:define>
 
     </ui:composition>
