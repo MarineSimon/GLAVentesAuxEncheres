@@ -11,9 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.ManyToMany;
 
 /**
  *
@@ -42,6 +42,16 @@ public class GroupAgenda implements Serializable {
     
     @ManyToMany(mappedBy = "guestToGroups")
     private Set<UserAgenda> guests;
+
+    public GroupAgenda() {
+    }
+
+    public GroupAgenda(String name, String description, UserAgenda groupAdministrator) {
+        this.name = name;
+        this.description = description;
+        this.groupAdministrator = groupAdministrator;
+    }
+    
     
 
     public String getName() {

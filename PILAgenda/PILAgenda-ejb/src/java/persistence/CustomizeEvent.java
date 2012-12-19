@@ -20,10 +20,15 @@ import javax.persistence.ManyToOne;
 @Entity
 public class CustomizeEvent implements Serializable {
     private static final long serialVersionUID = 1L;
+    private final int TYPE_ALERT_AUCUN = 0;
+    private final int TYPE_ALERT_EMAIL = 1;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    @Column(name = "TYPEALARM")
+    private int typeAlarm;
     @Column(name = "ALARM")
     private Date alarm;
     @Column(name = "COMMENT")
@@ -34,6 +39,19 @@ public class CustomizeEvent implements Serializable {
     
     @ManyToOne
     private Event relatedEvent;
+
+    public CustomizeEvent() {
+    }
+
+    public CustomizeEvent(int typeAlarm, Date alarm, String comment, UserAgenda customizedEventOwner, Event relatedEvent) {
+        this.typeAlarm = typeAlarm;
+        this.alarm = alarm;
+        this.comment = comment;
+        this.customizedEventOwner = customizedEventOwner;
+        this.relatedEvent = relatedEvent;
+    }
+    
+    
 
     public Long getId() {
         return id;

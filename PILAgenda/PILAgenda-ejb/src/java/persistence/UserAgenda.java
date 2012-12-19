@@ -11,8 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -36,6 +36,25 @@ public class UserAgenda implements Serializable {
     private String lang;
     @Column(name = "ADDRESS")
     private String address;
+    @Column(name = "PWD")
+    private String pwd;
+    @Column(name = "PHONE")
+    private String phone;
+    @Column(name = "SEEWEEKEND")
+    private boolean seeWeekEnd;
+    @Column(name = "COUNTRY")
+    private String country;
+    @Column(name = "CITY")
+    private String city;
+    @Column(name = "TIMEZONE")
+    private String timeZone;
+    @Column(name = "HOURFORMAT")
+    private String hourFormat;
+    @Column(name = "DEFAULTEVENTDURATION")
+    private String defaultEventDuration;
+    @Column(name = "KEYBOARDSHORTCUT")
+    private boolean keyboardShortcut;
+    
 
     @OneToMany(mappedBy = "taskOwner")
     private Set<Task> tasks;
@@ -63,8 +82,29 @@ public class UserAgenda implements Serializable {
     
     @ManyToMany
     private Set<Agenda> displayedAgendas;
+
+    public UserAgenda() {
+    }
+
+    public UserAgenda(String email, String password, String lastname, String firstname, String lang, String address, String pwd, String country, String city, String timeZone, String hourFormat, String defaultEventDuration) {
+        this.email = email;
+        this.password = password;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.lang = lang;
+        this.address = address;
+        this.pwd = pwd;
+        this.country = country;
+        this.city = city;
+        this.timeZone = timeZone;
+        this.hourFormat = hourFormat;
+        this.defaultEventDuration = defaultEventDuration;
+        //Ajouter agenda par défaut
+    }
     
     
+    
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -116,9 +156,155 @@ public class UserAgenda implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-    
-    
 
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public Set<CustomizeEvent> getCustomizedEvents() {
+        return customizedEvents;
+    }
+
+    public void setCustomizedEvents(Set<CustomizeEvent> customizedEvents) {
+        this.customizedEvents = customizedEvents;
+    }
+
+    public Set<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(Set<Event> events) {
+        this.events = events;
+    }
+
+    public Set<GroupAgenda> getAdministratedGroups() {
+        return administratedGroups;
+    }
+
+    public void setAdministratedGroups(Set<GroupAgenda> administratedGroups) {
+        this.administratedGroups = administratedGroups;
+    }
+
+    public Set<Agenda> getAgendas() {
+        return agendas;
+    }
+
+    public void setAgendas(Set<Agenda> agendas) {
+        this.agendas = agendas;
+    }
+
+    public Set<GroupAgenda> getBelongToGroups() {
+        return belongToGroups;
+    }
+
+    public void setBelongToGroups(Set<GroupAgenda> belongToGroups) {
+        this.belongToGroups = belongToGroups;
+    }
+
+    public Set<GroupAgenda> getGuestToGroups() {
+        return guestToGroups;
+    }
+
+    public void setGuestToGroups(Set<GroupAgenda> guestToGroups) {
+        this.guestToGroups = guestToGroups;
+    }
+
+    public Set<Agenda> getFollowedAgendas() {
+        return followedAgendas;
+    }
+
+    public void setFollowedAgendas(Set<Agenda> followedAgendas) {
+        this.followedAgendas = followedAgendas;
+    }
+
+    public Set<Agenda> getDisplayedAgendas() {
+        return displayedAgendas;
+    }
+
+    public void setDisplayedAgendas(Set<Agenda> displayedAgendas) {
+        this.displayedAgendas = displayedAgendas;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public boolean isSeeWeekEnd() {
+        return seeWeekEnd;
+    }
+
+    public void setSeeWeekEnd(boolean seeWeekEnd) {
+        this.seeWeekEnd = seeWeekEnd;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getTimeZone() {
+        return timeZone;
+    }
+
+    public void setTimeZone(String timeZone) {
+        this.timeZone = timeZone;
+    }
+
+    public String getHourFormat() {
+        return hourFormat;
+    }
+
+    public void setHourFormat(String hourFormat) {
+        this.hourFormat = hourFormat;
+    }
+
+    public String getDefaultEventDuration() {
+        return defaultEventDuration;
+    }
+
+    public void setDefaultEventDuration(String defaultEventDuration) {
+        this.defaultEventDuration = defaultEventDuration;
+    }
+
+    public boolean isKeyboardShortcut() {
+        return keyboardShortcut;
+    }
+
+    public void setKeyboardShortcut(boolean keyboardShortcut) {
+        this.keyboardShortcut = keyboardShortcut;
+    }
+    
+    
+    
+    
+    // Default Functions
     public void setId(Long id) {
         this.id = id;
     }

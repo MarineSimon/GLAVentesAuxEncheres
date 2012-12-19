@@ -33,6 +33,18 @@ public class Task implements Serializable {
     
     @ManyToOne
     private UserAgenda taskOwner;
+
+    public Task() {
+    }
+
+    public Task(String name, Date limitDate, String description, UserAgenda taskOwner) {
+        this.name = name;
+        this.limitDate = limitDate;
+        this.description = description;
+        this.taskOwner = taskOwner;
+    }
+    
+    
     
     public Long getId() {
         return id;

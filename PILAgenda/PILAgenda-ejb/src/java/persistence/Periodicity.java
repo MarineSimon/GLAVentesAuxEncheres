@@ -30,6 +30,31 @@ public class Periodicity implements Serializable {
     @Column(name = "LIMITDATE")
     private Date limitDate;
 
+    public Periodicity() {
+    }
+
+    public Periodicity(int typePeriod) {
+        this.typePeriod = typePeriod;
+    }
+
+    public Periodicity(int typePeriod, int numberOfRepetition) {
+        this.typePeriod = typePeriod;
+        this.numberOfRepetition = numberOfRepetition;
+    }
+
+    public Periodicity(int typePeriod, Date limitDate) {
+        this.typePeriod = typePeriod;
+        this.limitDate = limitDate;
+    }
+
+    public Periodicity(int typePeriod, int numberOfRepetition, Date limitDate) {
+        this.typePeriod = typePeriod;
+        this.numberOfRepetition = numberOfRepetition;
+        this.limitDate = limitDate;
+    }
+
+    
+    
     public Long getId() {
         return id;
     }
