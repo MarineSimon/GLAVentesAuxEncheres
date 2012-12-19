@@ -56,7 +56,17 @@ public class Agenda implements Serializable {
     
     @ManyToMany(mappedBy = "guestToAgendas")
     private Set<Event> guestEvents;
+
+    public Agenda(int access, Color color, String name, String description, UserAgenda agendaOwner) {
+        this.access = access;
+        this.color = color;
+        this.name = name;
+        this.description = description;
+        this.agendaOwner = agendaOwner;
+    }
     
+    public Agenda(){
+    }
     
     public Long getId() {
         return id;

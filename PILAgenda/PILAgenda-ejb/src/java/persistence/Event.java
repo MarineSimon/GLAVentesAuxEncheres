@@ -6,6 +6,7 @@ package persistence;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,6 +56,23 @@ public class Event implements Serializable {
     
     @ManyToMany
     private Set<Agenda> guestToAgendas;
+
+    public Event() {
+    }
+
+    public Event(String name, String place, Date beginDate, Date endDate, int visibility, String description, Periodicity periodicity, UserAgenda eventOwner, Agenda agenda) {
+        this.name = name;
+        this.place = place;
+        this.beginDate = beginDate;
+        this.endDate = endDate;
+        this.visibility = visibility;
+        this.description = description;
+        this.periodicity = periodicity;
+        this.eventOwner = eventOwner;
+        this.belongToAgendas = (Set<Agenda>) new ArrayList<Agenda>();
+        this.belongToAgendas.add(agenda);
+    }
+    
     
     public Long getId() {
         return id;
