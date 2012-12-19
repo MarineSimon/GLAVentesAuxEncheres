@@ -5,8 +5,11 @@
 package controler;
 
 import java.awt.event.ActionEvent;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -36,6 +39,7 @@ public class ScheduleBean {
         
         public ScheduleBean() {
             eventBean = new EventBean();
+            
             eventModel = new DefaultScheduleModel();  
             eventModel.addEvent(new DefaultScheduleEvent("Champions League Match",
                                 previousDay8Pm(), previousDay11Pm()));
@@ -89,7 +93,12 @@ public class ScheduleBean {
         }
         
         public void addEvent(ActionEvent actionEvent) {  
-            
+            System.out.println("AddEvent appelé");
+        try {
+            eventBean.addEvent();
+        } catch (ParseException ex) {
+            Logger.getLogger(ScheduleBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
             if(event.getId() == null)  
                 eventModel.addEvent(event);  
             else  

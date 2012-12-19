@@ -13,7 +13,6 @@
         
         <ui:define name="content">
             <div style="clear: both">
-                
             </div>
                 <div id="content_left">
                     <h:form>
@@ -56,31 +55,91 @@
 
                         </p:schedule>  
 
-                        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">  
+                        <p:dialog widgetVar="eventDialog" header="Add event" showEffect="clip" hideEffect="clip">  
                             <h:panelGrid id="eventDetails" columns="2">  
-                                <h:outputLabel for="title" value="Title :" />  
-                                <p:inputText id="title" value="#{eventBean.title}" required="true"/>
+                                <h:outputLabel for="title" value="Name :" />  
+                                <p:inputText id="title" value="#{eventBean.name}" required="true"/>
                                 
                                 <h:outputLabel for="location" value="Location :" />  
-                                <p:inputMask id="location" value="#{eventBean.location}" mask="99/99/9999">  
-                                </p:inputMask>  
+                                <p:inputText id="location" value="#{eventBean.location}" ></p:inputText>
 
                                 <h:outputLabel for="from" value="From :" />  
-                                <p:inputMask id="from" value="#{eventBean.startDate}" mask="99/99/9999">  
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />  
-                                </p:inputMask>  
+                                <p:calendar value="#{eventBean.beginDate}" id="from" pattern="dd/MM/yyyy HH:mm" required="true"/>
+                                
 
                                 <h:outputLabel for="to" value="To :" />  
-                                <p:inputMask id="to" value="#{eventBean.endDate}" mask="99/99/9999">  
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />  
-                                </p:inputMask> 
+                                <p:calendar value="#{eventBean.endDate}" pattern="dd/MM/yyyy HH:mm" id="to" required="true"/> 
                                 
-                                <h:outputLabel for="agenda" value="Agenda :" />  
-                                <p:inputMask id="agenda" value="#{eventBean.location}" mask="99/99/9999">  
-                                </p:inputMask>
+                                <h:outputLabel for="agenda" value="Agenda :" />
+                                
+                                <p:selectOneMenu id="agenda">
+                                    <f:selectItem itemLabel="default" itemValue="default"/>
+                                    <f:selectItem itemLabel="liste des agenda" itemValue="other"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel></p:outputLabel>
+                                <!--<p:accordionPanel activeIndex="1">
+                                    <p:tab title="more informations">-->
+                                <!--<h:outputLabel for="again" value="Peridocity"/>
+                                <p:panel>
+                                    <p:selectOneMenu id="again">
+                                        <f:selectItem itemLabel="None" itemValue="none"/>
+                                        <f:selectItem itemLabel="Each year" itemValue="year"/>
+                                        <f:selectItem itemLabel="Each month" itemValue="mounth"/>
+                                        <f:selectItem itemLabel="Each week" itemValue="week"/>
+                                        <f:selectItem itemLabel="Each day" itemValue="day"/>
+                                    </p:selectOneMenu><br/>
+                                    <p:outputPanel id="repeat">
+                                        <p:selectOneRadio id="rpt" layout="custom">
+                                            <f:selectItem itemLabel="repeat" itemValue="1"/>
+                                            <f:selectItem itemLabel="until" itemValue="2"/>
+                                        </p:selectOneRadio>
+                                        <h:panelGrid columns="4" cellspacing="0" onclick="">
+                                            <p:radioButton id="rpt1" for="rpt" itemIndex="0"/>
+                                            <h:outputLabel for="rpt1" value="Repeat"/>
+                                            <p:spinner id="times" min="0" size="6"/>
+                                            <h:outputLabel for="rpt1" value="time"/>
 
-                                <p:commandButton type="reset" value="Reset" />  
-                                <p:commandButton value="Save" actionListener="#{eventBean.addEvent}" oncomplete="myschedule.update();eventDialog.hide();"/>  
+                                            <p:radioButton id="rpt2" for="rpt" itemIndex="1"/>
+                                            <h:outputLabel for="rpt2" value="until"/>
+                                            <p:calendar pattern="dd/MM/yyyy" size="6"/>
+
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+                                </p:panel>
+
+                                    <h:outputLabel for="alarm" value="Alarm"/>  
+                                    <p:selectOneMenu id="alarm">
+                                        <f:selectItem itemValue="none" itemLabel="None"/>
+                                        <f:selectItem itemValue="mail" itemLabel="Mail"/>
+                                        <f:selectItem itemValue="sms" itemLabel="SMS"/>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel value="Prevent me"/>  
+                                    <p:panel>
+                                        <p:spinner size="4"/> <br />
+                                    <p:selectOneMenu id="againAlarme" >
+                                            <f:selectItem itemLabel="never" itemValue="none"/>
+                                            <f:selectItem itemLabel="minute(s) before" itemValue="min"/>
+                                            <f:selectItem itemLabel="hour(s) before" itemValue="hour"/>
+                                            <f:selectItem itemLabel="day(s) before" itemValue="day"/>
+                                            <f:selectItem itemLabel="month(s) before" itemValue="mounth"/>
+                                            <f:selectItem itemLabel="year(s) before" itemValue="year"/>
+                                        </p:selectOneMenu>
+                                    </p:panel>
+                                    <h:outputLabel value="Invite"/>
+                                    <p:panel>
+                                        <p:inputTextarea rows="1"/>
+                                        <p:button icon="ui-icon-search"/>
+                                    </p:panel>-->
+                                    <h:outputLabel for="description" value="Description"/>
+                                    <p:inputTextarea rows="3" cols="30" id="description" label="description" value="#{eventBean.description}"/>
+                                    <!--<h:outputLabel for="comment" value="Comment"/>
+                                    <p:inputTextarea rows="3" cols="30" id="comment" label="comment"/>-->
+                                    <!--</p:tab>
+                                </p:accordionPanel>-->
+                                <p:panel style="border:none">
+                                    <p:commandButton type="reset" value="Reset" />  
+                                    <p:commandButton value="Save" actionListener="#{eventBean.addEvent}" onsuccess="myschedule.update()" onerror=""/>  <!--eventDialog.hide() -->
+                                </p:panel>
                             </h:panelGrid>  
                         </p:dialog>  
 
