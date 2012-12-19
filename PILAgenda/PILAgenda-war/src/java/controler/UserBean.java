@@ -5,9 +5,13 @@
 package controler;
 
 import business.UserBeanLocal;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import persistence.UserAgenda;
 
@@ -170,8 +174,7 @@ public class UserBean{
             
             local.addAccount(user);
         }
-        
-        return "accountCreate";
+        return "index";
     }
     
 }
