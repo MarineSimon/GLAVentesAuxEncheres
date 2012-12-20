@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 import library.EventBeanLocalInterface;
 import persistence.Event;

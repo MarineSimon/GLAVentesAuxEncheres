@@ -17,18 +17,19 @@
             <ui:insert name="content">
                 
                 <h:form>
+                    <p:messages id="messages" showDetail="true" autoUpdate="true"/> 
                 <h:panelGrid id="eventDetails">  
-                                <h:outputLabel for="title" value="Name : *" />  
-                                <p:inputText id="title" value="#{eventBean.name}" required="true"/>
+                                <h:outputLabel for="title" value="Name* : " />  
+                                <p:inputText id="title" value="#{eventBean.name}" required="true" validatorMessage="Ce champ est obligatorie"/>
                                 
                                 <h:outputLabel for="location" value="Location :" />  
                                 <p:inputText id="location" value="#{eventBean.location}" ></p:inputText>
 
-                                <h:outputLabel for="from" value="From : *" />  
+                                <h:outputLabel for="from" value="From* : " />  
                                 <p:calendar value="#{eventBean.beginDate}" id="from" pattern="dd/MM/yyyy HH:mm" required="true"/>
                                 
 
-                                <h:outputLabel for="to" value="To : *" />  
+                                <h:outputLabel for="to" value="To* : " />  
                                 <p:calendar value="#{eventBean.endDate}" pattern="dd/MM/yyyy HH:mm" id="to" required="true"/> 
                                 
                                 <h:outputLabel for="agenda" value="Agenda :" />

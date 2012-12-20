@@ -4,12 +4,11 @@
  */
 package business;
 
-import library.EventBeanLocalInterface;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import library.EventBeanLocalInterface;
 import persistence.Event;
-import persistence.UserAgenda;
 
 /**
  *
