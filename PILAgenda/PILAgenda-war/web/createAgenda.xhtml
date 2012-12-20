@@ -12,33 +12,47 @@
 
         <ui:define name="content">
             <h:form>
-                <p:panelGrid columns="2">
+                <h:panelGrid columns="2" style="margin:auto">
                     <f:facet name="header">
                         Nouvel Agenda
                     </f:facet>
 
                     Nom
-                    <p:inputText id="name" label="Nom Agenda" value="#{agendaMangedBean.nameAgenda}" required="true"/>
+                    <p:inputText id="name" label="Nom Agenda" value="#{agendaMangedBean.nameAgenda}" required="true" style="width:100%"/>
                     Description
-                    <h:inputTextarea rows="5" value="#{agendaMangedBean.description}"/>
+                    <h:inputTextarea rows="5" value="#{agendaMangedBean.description}" style="width:100%"/>
                     Accessibilité
-                    <p:selectOneMenu id="privacy" label="privacy" value="#{agendaMangedBean.accessibility}">
+                    <p:selectOneMenu id="privacy" label="privacy" value="#{agendaMangedBean.accessibility}" style="width:100%">
                         <f:selectItem itemValue="Prive" itemLabel="Prive"/>
                         <f:selectItem itemValue="Public" itemLabel="Public"/>
                         <f:selectItem itemValue="Partage" itemLabel="Partage"/>
                     </p:selectOneMenu>
                     Inviter un groupe
-                    <p:selectOneMenu value="#{agendaMangedBean.groups}">
+                    <p:selectOneMenu value="#{agendaMangedBean.groups}" style="width:100%">
                         <f:selectItem itemLabel="group 1"/>
                         <f:selectItem itemLabel="group 2"/>
                     </p:selectOneMenu>
                     Couleur
-                    <p:colorPicker mode="inline" value="#{agendaMangedBean.color}"/>
+                    <p:colorPicker id="popupCP" value="#{agendaMangedBean.color}" widgetVar="picker"/>
+                    
+                    <!--<p:colorPicker mode="inline" value="#{agendaMangedBean.color}"/>-->
+                    
+                    <p:dialog modal="true" widgetVar="dlg" showEffect="fade" hideEffect="fade" header="Selected Colors" resizable="false">  
+                        <h:panelGrid columns="2" id="grid">  
+                            <h:outputText value="Color 1: " />  
+                            <h:outputText value="#{colorBean.color1}" style="background-color:\##{colorBean.color1}"/>  
 
+                            <h:outputText value="Color 2: " />  
+                            <h:outputText value="#{colorBean.color2}" style="background-color:\##{colorBean.color2}"/>  
+                        </h:panelGrid>  
+                    </p:dialog> 
+
+                    <h:commandButton id="cancelButton" value="Annuler" />
                     <h:commandButton id="saveButton" value="Confirmer" action="#{agendaMangedBean.createNewAgenda()}"/>
-                    <h:commandButton id="cancelButton" value="Anuller" action="viewAgenda"/>
 
-                </p:panelGrid>
+                
+
+                </h:panelGrid>
             </h:form>
 
         </ui:define>
