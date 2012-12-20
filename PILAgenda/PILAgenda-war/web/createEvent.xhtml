@@ -11,6 +11,7 @@
             </ui:define>
             <ui:define name="content">
                 <h:form>
+                    <p:messages id="messages" showDetail="true" autoUpdate="true"/> 
                     <h:panelGrid columns="2" cellpadding="" class="center"> 
                                 <h:outputLabel for="title" value="Nom : *" />  
                                 <p:inputText id="title" value="#{eventBean.name}" required="true" style="width: 100%"/>
@@ -70,7 +71,7 @@
                                 
                                 
                                 <p:commandButton type="reset" value="Reset"/>  
-                                <p:commandButton value="Sauvegarder" action="#{eventBean.addEvent()}" type="submit"/>
+                                <h:commandButton value="Sauvegarder" action="#{eventBean.addEvent()}" type="submit"/>
                                     
                     </h:panelGrid>              
 
