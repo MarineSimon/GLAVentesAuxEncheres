@@ -106,6 +106,7 @@ public class EventBean {
     }
     
     public String addEvent() throws ParseException {
+        System.out.println("test");
         String res = "viewAgenda";
         this.eventAdded = true;
         DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US); //Wed Dec 19 21:45:00 CET 2012

@@ -5,11 +5,13 @@
 package controler;
 
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -30,7 +32,8 @@ import org.primefaces.model.ScheduleModel;
  */
 
 @Named(value = "scheduleBean")
-public class ScheduleBean {
+@SessionScoped
+public class ScheduleBean implements Serializable{
     
         private ScheduleModel eventModel;
         private ScheduleEvent event = new DefaultScheduleEvent();

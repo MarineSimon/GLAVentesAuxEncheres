@@ -19,11 +19,11 @@
                     <h:form>
                     <p:calendar mode="inline" id="inlineCal"/>
                     <div id ="calendriers">
-                        <div class="title">Agendas : <a href="#"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
+                        <div class="title">Agendas : <a href="faces/createAgenda.xhtml"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
                         <div class="inside_box">
-                            <input type="checkbox" name="calendrier1" value="Fac">Fac</input><br/>
-                            <input type="checkbox" name="calendrier2" value="Personnel">Personnel</input><br/>
-                            <input type="checkbox" name="calendrier3" value="Loisirs">Loisirs</input><br/>
+                            <p:selectManyCheckbox value="#{agendaMangedBean.listAllAgenda()}" layout="pageDirection">
+                                <f:selectItems value="#{agendaMangedBean.listAllAgenda()}"/>
+                            </p:selectManyCheckbox>
                         </div>
 
                         <div style="clear: both"></div>
