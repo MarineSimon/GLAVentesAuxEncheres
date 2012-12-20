@@ -9,82 +9,12 @@
     
     
     <ui:composition template="template.xhtml">
-        <ui:define name="title">
+        <ui:define name="index">
             Accueil
         </ui:define>
         
         <ui:define name="content">
-            <div style="clear: both">
-            </div>
-                <div id="content_left">
-                    <h:form>
-                    <p:calendar mode="inline" id="inlineCal"/>
-                    <div id ="calendriers">
-                        <div class="title">Agendas : <a href="#"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
-                        <div class="inside_box">
-                            <input type="checkbox" name="calendrier1" value="Fac">Fac</input><br/>
-                            <input type="checkbox" name="calendrier2" value="Personnel">Personnel</input><br/>
-                            <input type="checkbox" name="calendrier3" value="Loisirs">Loisirs</input><br/>
-                        </div>
-
-                        <div style="clear: both"></div>
-                    </div>
-
-                    <div id ="groupes">
-                        <div class="title">Groupes : <a href="#"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
-                        <div class="inside_box">
-                            <input type="checkbox" name="groupe1" value="Groupe1">Groupe1</input><br/>
-                            <input type="checkbox" name="groupe2" value="Groupe2">Groupe2</input><br/>
-                            <input type="checkbox" name="groupe3" value="Groupe3">Groupe3</input><br/>
-                        </div>
-
-                        <div style="clear: both"></div>
-                    </div>
-                    </h:form>
-                </div>  
-
-                <div id="content_middle">
-                    <h:form>  
-
-                        <p:growl id="messages" showDetail="true" />  
-
-                        <p:schedule value="#{scheduleBean.eventModel}" widgetVar="myschedule" view="agendaDay" locale="fr" rightHeaderTemplate="agendaDay,agendaWeek,month">  
-
-                            <p:ajax event="dateSelect" listener="#{scheduleBean.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
-                            <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
-                            <p:ajax event="eventMove" listener="#{scheduleBean.onEventMove}" update="messages" />  
-                            <p:ajax event="eventResize" listener="#{scheduleBean.onEventResize}" update="messages" />  
-
-                        </p:schedule>  
-
-                        <p:dialog widgetVar="eventDialog" header="Add event" showEffect="clip" hideEffect="clip">  
-                            <h:panelGrid id="eventDetails" columns="2">  
-                                
-                            </h:panelGrid>  
-                        </p:dialog>  
-                        
-
-                    </h:form>
-                </div>
-
-                <div id="content_right">
-                    <h:form>
-                    <div id ="taches">
-                        <div class="title">Tâches : <a href="#"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
-                        <div class="inside_box">
-                            Tâche 1<br/>
-                            Tâche 2<br/>
-                            Tâche 3<br/>
-                        </div>
-
-
-                        <div style="clear: both"></div>
-                    </div>
-                    </h:form>
-                </div>
-            <div style="clear: both">
-                
-            </div>
+            <p>Accueil</p>
         </ui:define>
 
     </ui:composition>

@@ -169,7 +169,7 @@ public class UserBean{
             
             local.addAccount(user);
         }
-        return "index";
+        return "viewAgenda";
     }
     
 }
