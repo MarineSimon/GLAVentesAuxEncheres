@@ -2,52 +2,48 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
-    <h:head>
-        <title><ui:insert name="title">Page d'accueil</ui:insert></title>
-        <link rel="stylesheet" href="style/style.css"/>
-        <link rel=""/>
-        <script type="text/javascript" src="resources/js/config_schedule.js"></script>
-    </h:head>
-    <h:body>
-        <header>PIL Agenda - 2012/2013<img src="resources/pictures/glyphicons_137_cogwheels.png" width="30px" id="settings"/></header>
-        <div id ="content">
-            <ui:insert name="content">
-                
-                 <h:form>
-            <p:panelGrid columns="2">
-                <f:facet name="header">
-                    Nouvel Agenda
-                </f:facet>
-                
-                Nom
-                <h:inputText id="name" label="name" value="#{agendaMangedBean.nameAgenda}"/>
-                Description
-                <h:inputTextarea rows="5" value="#{agendaMangedBean.description}"/>
-                Accessibilité
-                <h:selectOneMenu id="privacy" label="privacy" value="#{agendaMangedBean.accessibility}">
-                    <f:selectItem itemValue="Prive" itemLabel="prive"/>
-                    <f:selectItem itemValue="Public" itemLabel="public"/>
-                    <f:selectItem itemValue="Partage" itemLabel="partage"/>
-                </h:selectOneMenu>
-                Inviter un groupe
-                <h:selectOneMenu value="#{agendaMangedBean.groups}">
-                    <f:selectItem itemLabel="group 1"/>
-                    <f:selectItem itemLabel="group 2"/>
-                </h:selectOneMenu>
-                Couleur
-                <p:colorPicker mode="inline" value="#{agendaMangedBean.color}"/>
-                
-                <f:facet name="footer">  
-                    <h:commandButton value="Valider" action="#{agendaMangedBean.createNewAgenda()}"/>
-                    <p:commandButton value="Annuler" icon="ui-icon-cancel"/>
-                </f:facet>  
-            </p:panelGrid>
-        </h:form>
-            </ui:insert>
-        </div>    
-    </h:body>
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"      
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="template.xhtml">
+        <ui:define name="title">
+            Création Agenda
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form>
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        Nouvel Agenda
+                    </f:facet>
+
+                    Nom
+                    <p:inputText id="name" label="Nom Agenda" value="#{agendaMangedBean.nameAgenda}" required="true"/>
+                    Description
+                    <h:inputTextarea rows="5" value="#{agendaMangedBean.description}"/>
+                    Accessibilité
+                    <p:selectOneMenu id="privacy" label="privacy" value="#{agendaMangedBean.accessibility}">
+                        <f:selectItem itemValue="Prive" itemLabel="Prive"/>
+                        <f:selectItem itemValue="Public" itemLabel="Public"/>
+                        <f:selectItem itemValue="Partage" itemLabel="Partage"/>
+                    </p:selectOneMenu>
+                    Inviter un groupe
+                    <p:selectOneMenu value="#{agendaMangedBean.groups}">
+                        <f:selectItem itemLabel="group 1"/>
+                        <f:selectItem itemLabel="group 2"/>
+                    </p:selectOneMenu>
+                    Couleur
+                    <p:colorPicker mode="inline" value="#{agendaMangedBean.color}"/>
+
+                    <h:commandButton id="saveButton" value="Confirmer" action="#{agendaMangedBean.createNewAgenda()}"/>
+                    <h:commandButton id="cancelButton" value="Anuller" action="viewAgenda"/>
+
+                </p:panelGrid>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
 </html>
+
+
 

@@ -22,15 +22,15 @@ import persistence.Agenda;
 @Named(value = "agendaMangedBean")
 @SessionScoped
 public class AgendaMangedBean implements Serializable {
-     @EJB 
-     private AgendaBeanLocal agendaLocal;
-     
-     private String nameAgenda;
-     private String description;
-     private Agenda agenda;
-     private String accessibility;
-     private String color;
-     private String groups;
+
+    @EJB
+    private AgendaBeanLocal agendaLocal;
+    private String nameAgenda;
+    private String description;
+    private Agenda agenda;
+    private String accessibility;
+    private String color;
+    private String groups;
 
     public String getGroups() {
         return groups;
@@ -39,7 +39,7 @@ public class AgendaMangedBean implements Serializable {
     public void setGroups(String groups) {
         this.groups = groups;
     }
-     private List<Agenda> listOfAgenda;
+    private List<Agenda> listOfAgenda;
 
     public List<Agenda> getListOfAgenda() {
         return listOfAgenda;
@@ -48,6 +48,7 @@ public class AgendaMangedBean implements Serializable {
     public void setListOfAgenda(List<Agenda> listOfAgenda) {
         this.listOfAgenda = listOfAgenda;
     }
+
     public String getAccessibility() {
         return accessibility;
     }
@@ -87,37 +88,38 @@ public class AgendaMangedBean implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-     
+
     /**
      * Creates a new instance of AgendaMangedBean
      */
     public AgendaMangedBean() {
     }
-    
-    public String createNewAgenda(){
+
+    public String createNewAgenda() {
         agenda = new Agenda();
         agenda.setName(nameAgenda);
-        if(accessibility.equalsIgnoreCase("PRIVE")){
+        if (accessibility.equalsIgnoreCase("PRIVE")) {
             agenda.setAccess(0);
         }
-        if(accessibility.equalsIgnoreCase("PUBLIC")){
+        if (accessibility.equalsIgnoreCase("PUBLIC")) {
             agenda.setAccess(1);
         }
-        if(accessibility.equalsIgnoreCase("PARTAGE")){
+        if (accessibility.equalsIgnoreCase("PARTAGE")) {
             agenda.setAccess(2);
         }
-         agenda.setDescription(description);
-      //   Color c = Color.decode(color);
+        agenda.setDescription(description);
+        //   Color c = Color.decode(color);
         // agenda.setColor(c);
-         agendaLocal.createAgenda(agenda);
-         return "viewAgenda";
+        agendaLocal.createAgenda(agenda);
+        return "viewAgenda";
     }
-    public List<String> listAllAgenda(){
-        setListOfAgenda( agendaLocal.findAllAgenda());
+
+    public List<String> listAllAgenda() {
+        setListOfAgenda(agendaLocal.findAllAgenda());
         List<String> l = new ArrayList<String>();
-        l.removeAll(l); 
-        for(int i=0;i<listOfAgenda.size();i++){
-            Agenda a = listOfAgenda.get(i); 
+        l.removeAll(l);
+        for (int i = 0; i < listOfAgenda.size(); i++) {
+            Agenda a = listOfAgenda.get(i);
             l.add(a.getName());
         }
         return l;
