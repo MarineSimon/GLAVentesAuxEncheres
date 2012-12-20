@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title><ui:insert name="title">Page d'accueil</ui:insert></title>
+        <link rel="stylesheet" href="style/style.css"/>
+        <link rel=""/>
+        <script type="text/javascript" src="resources/js/config_schedule.js"></script>
+    </h:head>
+    <h:body>
+        <header>PIL Agenda - 2012/2013<img src="resources/pictures/glyphicons_137_cogwheels.png" width="30px" id="settings"/></header>
+        <div id ="content">
+            <ui:insert name="content">
+                
+                <h:form>
+                <h:panelGrid id="eventDetails">  
+                                <h:outputLabel for="title" value="Name : *" />  
+                                <p:inputText id="title" value="#{eventBean.name}" required="true"/>
+                                
+                                <h:outputLabel for="location" value="Location :" />  
+                                <p:inputText id="location" value="#{eventBean.location}" ></p:inputText>
+
+                                <h:outputLabel for="from" value="From : *" />  
+                                <p:calendar value="#{eventBean.beginDate}" id="from" pattern="dd/MM/yyyy HH:mm" required="true"/>
+                                
+
+                                <h:outputLabel for="to" value="To : *" />  
+                                <p:calendar value="#{eventBean.endDate}" pattern="dd/MM/yyyy HH:mm" id="to" required="true"/> 
+                                
+                                <h:outputLabel for="agenda" value="Agenda :" />
+                                
+                                <p:selectOneMenu id="agenda">
+                                    <f:selectItem itemLabel="default" itemValue="default"/>
+                                    <f:selectItem itemLabel="liste des agenda" itemValue="other"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel></p:outputLabel>
+                                
+                                <h:outputLabel for="again" value="Peridocity"/>
+                                <p:panel>
+                                    <p:selectOneMenu id="again">
+                                        <f:selectItem itemLabel="None" itemValue="none"/>
+                                        <f:selectItem itemLabel="Each year" itemValue="year"/>
+                                        <f:selectItem itemLabel="Each month" itemValue="mounth"/>
+                                        <f:selectItem itemLabel="Each week" itemValue="week"/>
+                                        <f:selectItem itemLabel="Each day" itemValue="day"/>
+                                    </p:selectOneMenu><br/>
+                                    <p:outputPanel id="repeat">
+                                        <p:selectOneRadio id="rpt" layout="custom">
+                                            <f:selectItem itemLabel="repeat" itemValue="1"/>
+                                            <f:selectItem itemLabel="until" itemValue="2"/>
+                                        </p:selectOneRadio>
+                                        <h:panelGrid columns="4" cellspacing="0" onclick="">
+                                            <p:radioButton id="rpt1" for="rpt" itemIndex="0"/>
+                                            <h:outputLabel for="rpt1" value="Repeat"/>
+                                            <p:spinner id="times" min="0" size="6"/>
+                                            <h:outputLabel for="rpt1" value="time"/>
+
+                                            <p:radioButton id="rpt2" for="rpt" itemIndex="1"/>
+                                            <h:outputLabel for="rpt2" value="until"/>
+                                            <p:calendar pattern="dd/MM/yyyy" size="6"/>
+
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+                                </p:panel>
+
+                                    
+                                    <h:outputLabel for="description" value="Description"/>
+                                    <p:inputTextarea rows="3" cols="30" id="description" label="description" value="#{eventBean.description}"/>
+                                    <h:outputLabel for="comment" value="Comment"/>
+                                    <p:inputTextarea rows="3" cols="30" id="comment" label="comment"/>
+                                    
+                                    <p:commandButton type="reset" value="Reset" />  
+                                    <p:commandButton value="Save" action="#{eventBean.addEvent()}" type="submit"/>
+                              </h:panelGrid>
+                </h:form>
+            </ui:insert>
+        </div>    
+    </h:body>
+</html>
+
