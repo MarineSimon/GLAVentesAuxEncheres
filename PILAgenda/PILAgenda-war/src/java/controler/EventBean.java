@@ -29,11 +29,13 @@ public class EventBean {
      */
     private String title, location, name, beginDate, endDate, description; 
     private int visibility;
+    private boolean eventAdded;
     //Periodicity periodicity, UserAgenda eventOwner, Agenda agenda;
     @EJB 
     private EventBeanLocalInterface eventInterface;
     
     public EventBean() {
+        this.eventAdded = false;
     }
 
     public String getTitle() {
@@ -91,24 +93,38 @@ public class EventBean {
     public void setVisibility(int visibility) {
         this.visibility = visibility;
     }
+
+    public boolean isEventAdded() {
+        return eventAdded;
+    }
+
+    public void setEventAdded(boolean eventAdded) {
+        this.eventAdded = eventAdded;
+    }
     
+    public boolean getEventAdded() {
+        return this.eventAdded;
+    }
     
-    
-    public void addEvent() throws ParseException {
-        
+    public String addEvent() throws ParseException {
+        String res = "index";
+        this.eventAdded = true;
         DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US); //Wed Dec 19 21:45:00 CET 2012
         long debut = formatter.parse(this.beginDate).getTime();
         long fin = formatter.parse(this.endDate).getTime();
         if (debut > fin) {
-            System.out.println("Début plus tard que fin");
-            return;
+            res = "createEvent";
         }
         Date begin = new Date(debut);
         Date end = new Date(fin);
         Event e;
-        //Event(String name, String place, Date beginDate, Date endDate, int visibility, String description, Periodicity periodicity, UserAgenda eventOwner, Agenda agenda)
         e = new Event(this.name, this.location, begin, end, this.visibility, this.description, null, null, null);
         this.eventInterface.addEvent(e);
-                
+        return res;
     }
+    
+    public String goToAddEvent() {
+        return "createEvent";
+    }
+    
 }
