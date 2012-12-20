@@ -69,11 +69,6 @@ h1 {
     color : #5c93b2;
 }
 
-a{
-    color:#5c93b2;
-    text-decoration: none;
-}
-
 #content {
     background: rgba(255, 255, 255, 0.6);
     margin: 50px;
@@ -130,10 +125,6 @@ a{
     cursor: pointer;
     float: right;
     padding-right: 40px;
-}
-
-.center{
-    margin:auto;
 }
 
 .title {
@@ -198,12 +189,4 @@ a{
 
 .inside_box {
     padding : 10px 5px;
-}
-
-.ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all{
-    width:100%
-}
-
-.ui-inputfield.ui-widget.ui-state-default.ui-corner-all.hasDatepicker{
-    width: 100%;
 }
