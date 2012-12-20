@@ -5,8 +5,10 @@
 package controler;
 
 import business.UserBeanLocal;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import persistence.UserAgenda;
 
@@ -171,5 +173,8 @@ public class UserBean{
         }
         return "viewAgenda";
     }
-    
+    @PostConstruct
+    void initialiseSession() {
+         FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+    }
 }

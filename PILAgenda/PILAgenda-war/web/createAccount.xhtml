@@ -28,7 +28,7 @@
                             <p:inputMask value="#{userBean.phone}" mask="99.99.99.99.99" style="width:280px"/>
 
                             <h:outputLabel for="pwd" value="Mot de passe* :" />  
-                            <p:password id="pwd" value="#{userBean.password}" label="Password" required="true" style="width:280px"/>  
+                            <p:password id="pwd" value="#{userBean.password}" match="pwdc" label="Password" required="true" style="width:280px"/>  
                             
                             <h:outputLabel for="pwdc" value="Confimer mot de passe* :" />  
                             <p:password id="pwdc" value="#{userBean.confirmPassword}" label="Password" required="true" style="width:280px"/>  
