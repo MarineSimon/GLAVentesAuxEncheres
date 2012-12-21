@@ -21,17 +21,17 @@
                             <h:outputText value="Prénom : " />
                             <p:inputText value="#{userBean.firstname}" style="width:280px"/>
                             <h:outputText value="Adresse email* : " />
-                            <p:inputText value="#{userBean.mail}" required="true" style="width:280px" validatorMessage="Adresse email invalide">
+                            <p:inputText value="#{userBean.mail}" required="true" style="width:280px" requiredMessage="adresse email obligatoire" validatorMessage="Adresse email invalide">
                                 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
                             </p:inputText>
                             <h:outputText value="Numéro de téléphone : " />
                             <p:inputMask value="#{userBean.phone}" mask="99.99.99.99.99" style="width:280px"/>
 
                             <h:outputLabel for="pwd" value="Mot de passe* :" />  
-                            <p:password id="pwd" value="#{userBean.password}" match="pwdc" label="Password" required="true" style="width:280px"/>  
+                            <p:password id="pwd" value="#{userBean.password}" match="pwdc" label="Password" required="true" style="width:280px" requiredMessage="mot de passe obligatoire"/>  
                             
                             <h:outputLabel for="pwdc" value="Confimer mot de passe* :" />  
-                            <p:password id="pwdc" value="#{userBean.confirmPassword}" label="Password" required="true" style="width:280px"/>  
+                            <p:password id="pwdc" value="#{userBean.confirmPassword}" label="Password" required="true" style="width:280px" requiredMessage="confirmation mot de passe obligatoire"/>  
                             
                             <h:outputText value="Affichage du Weekend : " />  
                             <p:selectBooleanButton value="#{userBean.displayWeek}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close"/>  
