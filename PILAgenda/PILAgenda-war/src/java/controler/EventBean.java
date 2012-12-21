@@ -127,9 +127,11 @@ public class EventBean {
         }
         Date begin = new Date(debut);
         Date end = new Date(fin);
-        Event e;
-        e = new Event(this.name, this.location, begin, end, this.visibility, this.description, null, null, agenda);
-        this.eventInterface.addEvent(e);
+        if(debut <= fin){
+            Event e;
+            e = new Event(this.name, this.location, begin, end, this.visibility, this.description, null, null, agenda);
+            this.eventInterface.addEvent(e);
+        }
         return res;
     }
     

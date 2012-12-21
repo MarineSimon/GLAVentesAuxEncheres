@@ -24,15 +24,9 @@
     <navigation-rule>
         <from-view-id>/viewAgenda.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>createEvent</from-outcome>
+            <from-outcome>addEvent</from-outcome>
             <to-view-id>/createEvent.xhtml</to-view-id>
             <redirect>/createEvent.xhtml</redirect>
-        </navigation-case>
-        
-        <navigation-case>
-            <from-outcome>createAccount</from-outcome>
-            <to-view-id>/createAccount.xhtml</to-view-id>
-            <redirect>/createAccount.xhtml</redirect>
         </navigation-case>
         
         <navigation-case>

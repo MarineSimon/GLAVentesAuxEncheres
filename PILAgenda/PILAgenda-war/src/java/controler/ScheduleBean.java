@@ -102,10 +102,12 @@ public class ScheduleBean implements Serializable{
         } catch (ParseException ex) {
             Logger.getLogger(ScheduleBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-            if(event.getId() == null)  
-                eventModel.addEvent(event);  
-            else  
-                eventModel.updateEvent(event);  
+            if(event.getId() == null) {
+                eventModel.addEvent(event);
+            }  
+            else {
+                eventModel.updateEvent(event);
+            }  
             event = new DefaultScheduleEvent();  
         }
         
