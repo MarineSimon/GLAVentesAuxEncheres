@@ -35,17 +35,20 @@
             <redirect>/createAccount.xhtml</redirect>
         </navigation-case>
         
+        <navigation-case>
+            <from-outcome>createAccount</from-outcome>
+            <to-view-id>/createAccount.xhtml</to-view-id>
+            <redirect>/createAccount.xhtml</redirect>
+        </navigation-case>
+        
     </navigation-rule>
     
     <navigation-rule>
-        <from-view-id>/createAccount.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>viewAgenda</from-outcome>
+            <from-outcome>backToAgenda</from-outcome>
             <to-view-id>/viewAgenda.xhtml</to-view-id>
             <redirect>/viewAgenda.xhtml</redirect>
         </navigation-case>
-        
-        
     </navigation-rule>
     
     <navigation-rule>

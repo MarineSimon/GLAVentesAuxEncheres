@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title><ui:insert name="title">Page d'accueil</ui:insert></title>
         <link rel="stylesheet" href="style/style.css"/>
@@ -10,7 +11,7 @@
         <script type="text/javascript" src="resources/js/config_schedule.js" charset="utf-8"></script>
     </h:head>
     <h:body>
-        <header>PIL Agenda - 2012/2013<img src="resources/pictures/glyphicons_137_cogwheels.png" width="30px" id="settings"/></header>
+        <header><p:commandLink action="backToAgenda" style="float:left;" immediate="true"><img src="resources/pictures/glyphicons_020_home.png" width="30px" id="home"/></p:commandLink>PIL Agenda - 2012/2013<img src="resources/pictures/glyphicons_137_cogwheels.png" width="30px" id="settings"/></header>
         <div id ="content">
             <ui:insert name="content"></ui:insert>
         </div>    
