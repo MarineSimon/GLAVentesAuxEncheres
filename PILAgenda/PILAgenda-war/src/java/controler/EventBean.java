@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import library.EventBeanLocalInterface;
+import persistence.Agenda;
 import persistence.Event;
 
 /**
@@ -29,6 +30,7 @@ public class EventBean {
     private String title, location, name, beginDate, endDate, description; 
     private int visibility;
     private boolean eventAdded;
+    private Agenda agenda;
     //Periodicity periodicity, UserAgenda eventOwner, Agenda agenda;
     @EJB 
     private EventBeanLocalInterface eventInterface;

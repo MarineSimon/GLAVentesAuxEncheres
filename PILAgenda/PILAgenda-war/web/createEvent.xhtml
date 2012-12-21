@@ -29,12 +29,10 @@
                                   
                                 <h:outputLabel for="agenda" value="Agenda :" />
                                 
-                                <p:selectOneMenu id="agenda" style="width: 100%">
-                                    <f:selectItem itemLabel="défaut" itemValue="default"/>
-                                    <f:selectItem itemLabel="liste des agendas" itemValue="other"/>
-                                </p:selectOneMenu>  
-                                
-                                
+                                <p:selectOneMenu value="#{agendaMangedBean.groups}" style="width:100%">
+                                    <f:selectItems value="#{agendaMangedBean.listAllAgenda()}"/>
+                                </p:selectOneMenu>
+
                                 <h:outputLabel for="again" value="Peridocité"/>
                                 <p:panel  style="width: 100%">
                                     <p:selectOneMenu id="again" style="margin: 10px 0px;">
