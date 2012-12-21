@@ -17,3 +17,7 @@ Importation du projet dans Netbeans
 - Choisir le projet PILAgenda
 
 Pour un tutoriel illustré, aller sur http://www.soleneantoine.com/fac/Git-Assembla.php
+
+Notes :
+
+Pour créer un évènement, aller à l'URL http://localhost:8080/PILAgenda-war/faces/createEvent.xhtml (le bouton "créer un évènement" ne marche pas)
