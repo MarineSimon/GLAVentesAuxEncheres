@@ -47,10 +47,8 @@
                         </h:panelGrid>  
                     </p:dialog> 
 
-                    <h:commandButton id="cancelButton" value="Annuler" />
-                    <h:commandButton id="saveButton" value="Confirmer" action="#{agendaMangedBean.createNewAgenda()}"/>
-
-                
+                    <h:commandButton id="cancelButton" value="Annuler" action="cancelAdd" type="cancel" immediate="true"/>
+                    <h:commandButton id="saveButton" value="Confirmer" action="#{agendaMangedBean.createNewAgenda()}" type="submit"/>
 
                 </h:panelGrid>
             </h:form>

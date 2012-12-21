@@ -4,14 +4,12 @@
  */
 package controler;
 
-import java.awt.Color;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.swing.text.html.StyleSheet;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import library.AgendaBeanLocal;
 import persistence.Agenda;
 
@@ -20,7 +18,7 @@ import persistence.Agenda;
  * @author Mohamed
  */
 @Named(value = "agendaMangedBean")
-@SessionScoped
+@RequestScoped
 public class AgendaMangedBean implements Serializable {
 
     @EJB
