@@ -5,6 +5,8 @@
 package controler;
 
 import business.UserBeanLocal;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -38,7 +40,46 @@ public class UserBean{
     private String defaultDuration;
     private boolean displayWeek;
     private boolean keyboardShortcut;
+    
+    private String[] timezones = new String[]{"GMT","GMT+1:00","GMT+2:00","GMT+3:00","GMT+3:30",
+        "GMT+4:00","GMT+5:00","GMT+5:30","GMT+6:00","GMT+7:00","GMT+8:00","GMT+9:00","GMT+9:30",
+        "GMT+10:00","GMT+11:00","GMT+12:00","GMT-11:00","GMT-10:00","GMT-9:00","GMT-8:00","GMT-7:00",
+        "GMT-6:00","GMT-5:00","GMT-4:00","GMT-3:30","GMT-3:00","GMT-1:00"};
+    
+    private String[] languages = new String[]{"Français","Arabe","Chinois","Espagnol","Anglais",
+        "Russe","Japonais","Allemand","Italien","Irlandais"," Luxembourgeois","Norvégien","Polonais"};
+    
+    private String[] cities = new String[]{"France","Russie","Canada","Chine","États-Unis","Brésil","Australie",
+        "Inde","Argentine","Pologne","Algérie","République dominicaine","Suisse","Pays-Bas","Mexique","Italie",
+        "Tunisie","Iran","Mongolie","Pérou","Royaume-Uni","Norvège","Irlande","Danemark","Afrique du Sud","Colombie",
+        "Luxembourg","Autriche","Égypte","Roumanie","Grèce","Venezuela","Namibie","Mozambique","Pakistan","Turquie",
+        "Chili","Zambie","Birmanie","Afghanistan","Belgique","Ukraine","Madagascar","Islande","Thaïlande","Espagne",
+        "Suède","Maroc","Irak","Japon","Allemagne","Finlande"};
 
+    public String[] getTimezones() {
+        return timezones;
+    }
+
+    public void setTimezones(String[] timezones) {
+        this.timezones = timezones;
+    }
+
+    public String[] getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(String[] languages) {
+        this.languages = languages;
+    }
+
+    public String[] getCities() {
+        return cities;
+    }
+
+    public void setCities(String[] cities) {
+        this.cities = cities;
+    }
+    
     public String getLastname() {
         return lastname;
     }

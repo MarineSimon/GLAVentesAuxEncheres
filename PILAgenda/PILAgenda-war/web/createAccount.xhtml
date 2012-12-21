@@ -41,23 +41,17 @@
                     <h:panelGrid columns="2" cellpadding="5">  
                             <h:outputText value="Langues : " />  
                             <p:selectOneMenu value="#{userBean.language}" effect="fade" style="width:280px" >  
-                                <f:selectItem itemLabel="Espagnol"  itemValue="Espagnol"/> 
-                                <f:selectItem itemLabel="Francais" itemValue="Francais"/>
+                                <f:selectItems value="#{userBean.languages}" />  
                             </p:selectOneMenu>  
                             <h:outputText value="Pays : " />  
                             <p:selectOneMenu value="#{userBean.country}" effect="fade" style="width:280px">  
-                                <f:selectItem itemLabel="Espagne"  itemValue="Espagne"/> 
-                                <f:selectItem itemLabel="France" itemValue="France"/>
+                                <f:selectItems value="#{userBean.cities}" /> 
                             </p:selectOneMenu>
                             <h:outputText value="Localité : " />  
-                            <p:selectOneMenu value="#{userBean.locality}" effect="fade" style="width:280px">  
-                                <f:selectItem itemLabel="Metz"  itemValue="Metz"/> 
-                                <f:selectItem itemLabel="Nancy" itemValue="Nancy"/>
-                            </p:selectOneMenu>
+                            <p:inputText value="#{userBean.locality}" style="width:270px"/>
                             <h:outputText value="Fuseau horaire : " />  
                             <p:selectOneMenu value="#{userBean.timeZone}" effect="fade" style="width:280px">  
-                                <f:selectItem itemLabel="Fuseau 1" itemValue="Fuseau1"/> 
-                                <f:selectItem itemLabel="Fuseau 2" itemValue="Fuseau2"/>
+                                <f:selectItems value="#{userBean.timezones}" />
                             </p:selectOneMenu>
                             <h:outputText value="Format d'heure : " />  
                             <p:selectOneMenu value="#{userBean.hourFormat}" effect="fade" style="width:280px">  
