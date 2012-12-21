@@ -106,6 +106,14 @@ public class EventBean {
     public boolean getEventAdded() {
         return this.eventAdded;
     }
+
+    public Agenda getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
+    }
     
     public String addEvent() throws ParseException {
         System.out.println("test");
@@ -120,7 +128,7 @@ public class EventBean {
         Date begin = new Date(debut);
         Date end = new Date(fin);
         Event e;
-        e = new Event(this.name, this.location, begin, end, this.visibility, this.description, null, null, null);
+        e = new Event(this.name, this.location, begin, end, this.visibility, this.description, null, null, agenda);
         this.eventInterface.addEvent(e);
         return res;
     }
