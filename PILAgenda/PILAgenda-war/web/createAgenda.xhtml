@@ -18,22 +18,22 @@
                     </f:facet>
 
                     Nom
-                    <p:inputText id="name" label="Nom Agenda" value="#{agendaMangedBean.nameAgenda}" required="true" style="width:100%"/>
+                    <p:inputText id="name" label="Nom Agenda" value="#{agendaManagedBean.nameAgenda}" required="true" style="width:100%"/>
                     Description
-                    <h:inputTextarea rows="5" value="#{agendaMangedBean.description}" style="width:100%"/>
+                    <h:inputTextarea rows="5" value="#{agendaManagedBean.description}" style="width:100%"/>
                     Accessibilité
-                    <p:selectOneMenu id="privacy" label="privacy" value="#{agendaMangedBean.accessibility}" style="width:100%">
+                    <p:selectOneMenu id="privacy" label="privacy" value="#{agendaManagedBean.accessibility}" style="width:100%">
                         <f:selectItem itemValue="Prive" itemLabel="Prive"/>
                         <f:selectItem itemValue="Public" itemLabel="Public"/>
                         <f:selectItem itemValue="Partage" itemLabel="Partage"/>
                     </p:selectOneMenu>
                     Inviter un groupe
-                    <p:selectOneMenu value="#{agendaMangedBean.groups}" style="width:100%">
+                    <p:selectOneMenu value="#{agendaManagedBean.groups}" style="width:100%">
                         <f:selectItem itemLabel="group 1"/>
                         <f:selectItem itemLabel="group 2"/>
                     </p:selectOneMenu>
                     Couleur
-                    <p:colorPicker id="popupCP" value="#{agendaMangedBean.color}" widgetVar="picker"/>
+                    <p:colorPicker id="popupCP" value="#{agendaManagedBean.color}" widgetVar="picker"/>
                     
                     <!--<p:colorPicker mode="inline" value="#{agendaMangedBean.color}"/>-->
                     
@@ -48,7 +48,7 @@
                     </p:dialog> 
 
                     <h:commandButton id="cancelButton" value="Annuler" action="cancelAdd" type="cancel" immediate="true"/>
-                    <h:commandButton id="saveButton" value="Confirmer" action="#{agendaMangedBean.createNewAgenda()}" type="submit"/>
+                    <h:commandButton id="saveButton" value="Confirmer" action="#{agendaManagedBean.createNewAgenda()}" type="submit"/>
 
                 </h:panelGrid>
             </h:form>

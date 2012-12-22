@@ -17,9 +17,9 @@ import persistence.Agenda;
  *
  * @author Mohamed
  */
-@Named(value = "agendaMangedBean")
+@Named(value = "agendaManagedBean")
 @RequestScoped
-public class AgendaMangedBean implements Serializable {
+public class AgendaManagedBean implements Serializable {
 
     @EJB
     private AgendaBeanLocal agendaLocal;
@@ -88,9 +88,9 @@ public class AgendaMangedBean implements Serializable {
     }
 
     /**
-     * Creates a new instance of AgendaMangedBean
+     * Creates a new instance of AgendaManagedBean
      */
-    public AgendaMangedBean() {
+    public AgendaManagedBean() {
     }
 
     public String createNewAgenda() {
