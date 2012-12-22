@@ -27,10 +27,10 @@
                                 <p:calendar value="#{eventBean.endDate}" pattern="dd/MM/yyyy HH:mm" id="to" required="true"/> 
                                 
                                   
-                                <h:outputLabel for="agenda" value="Agenda :" />
+                                <h:outputLabel value="Agenda :" />
                                 
-                                <p:selectOneMenu value="#{agendaMangedBean.groups}" style="width:100%">
-                                    <f:selectItems value="#{agendaMangedBean.listAllAgenda()}"/>
+                                <p:selectOneMenu value="#{agendaManagedBean.groups}" style="width:100%">
+                                    <f:selectItems value="#{agendaManagedBean.listAllAgenda()}"/>
                                 </p:selectOneMenu>
 
                                 <h:outputLabel for="again" value="Peridocité"/>

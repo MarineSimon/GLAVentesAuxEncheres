@@ -237,7 +237,6 @@ public class UserBean{
             user.setPhone(phone);
             user.setHourFormat(hourFormat);
             user.setTimeZone(timeZone);
-            
             createDefaultAgenda();
             local.addAccount(user);
         return "viewAgenda";
