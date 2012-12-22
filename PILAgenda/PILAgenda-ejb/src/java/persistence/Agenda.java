@@ -103,9 +103,15 @@ public class Agenda implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
 
+    public UserAgenda getAgendaOwner() {
+        return agendaOwner;
+    }
+
+    public void setAgendaOwner(UserAgenda agendaOwner) {
+        this.agendaOwner = agendaOwner;
+    }
+    
     public void setId(Long id) {
         this.id = id;
     }
