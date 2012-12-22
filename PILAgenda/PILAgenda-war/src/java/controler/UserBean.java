@@ -12,6 +12,8 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import library.AgendaBeanLocal;
+import persistence.Agenda;
 import persistence.UserAgenda;
 
 /**
@@ -24,6 +26,9 @@ public class UserBean{
     
     @EJB
     private UserBeanLocal local;
+    
+    @EJB
+    private AgendaBeanLocal agendaLocal;
     
     private UserAgenda user;
     private String lastname;
@@ -40,6 +45,7 @@ public class UserBean{
     private String defaultDuration;
     private boolean displayWeek;
     private boolean keyboardShortcut;
+    private Agenda agenda;
     
     private String[] timezones = new String[]{"GMT","GMT+1:00","GMT+2:00","GMT+3:00","GMT+3:30",
         "GMT+4:00","GMT+5:00","GMT+5:30","GMT+6:00","GMT+7:00","GMT+8:00","GMT+9:00","GMT+9:30",
@@ -191,11 +197,33 @@ public class UserBean{
     public void setKeyboardShortcut(boolean keyboardShortcut) {
         this.keyboardShortcut = keyboardShortcut;
     }
+
+    public Agenda getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
+    }
+    
+    public void createDefaultAgenda() {
+        agenda = new Agenda();
+        //agenda.setAgendaOwner(user);
+        String n;
+        if (firstname.equals("")&&lastname.equals("")){
+            n = mail;
+        } else {
+            n = firstname+" "+lastname;
+        }
+        agenda.setName(n);
+        agenda.setAccess(0);
+        agenda.setDescription("Agenda personnel");
+        // agenda.setColor(c);
+        agendaLocal.createAgenda(agenda);
+    }
     
     public String addAccount(){
-        if (this.confirmPassword.equals(this.password)){
             user = new UserAgenda();
-            
             user.setEmail(mail);
             user.setFirstname(firstname);
             user.setLastname(lastname);
@@ -210,8 +238,8 @@ public class UserBean{
             user.setHourFormat(hourFormat);
             user.setTimeZone(timeZone);
             
+            createDefaultAgenda();
             local.addAccount(user);
-        }
         return "viewAgenda";
     }
     @PostConstruct

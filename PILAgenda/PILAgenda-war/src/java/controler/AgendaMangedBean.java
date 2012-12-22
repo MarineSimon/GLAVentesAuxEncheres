@@ -111,7 +111,7 @@ public class AgendaMangedBean implements Serializable {
         agendaLocal.createAgenda(agenda);
         return "viewAgenda";
     }
-
+    
     public List<String> listAllAgenda() {
         setListOfAgenda(agendaLocal.findAllAgenda());
         List<String> l = new ArrayList<String>();
