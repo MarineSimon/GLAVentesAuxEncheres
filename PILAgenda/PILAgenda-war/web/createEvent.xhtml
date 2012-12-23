@@ -20,27 +20,27 @@
                                 <p:inputText id="location" value="#{eventBean.location}"  style="width: 100%"></p:inputText>
 
                                 <h:outputLabel for="from" value="De : *" />  
-                                <p:calendar value="#{eventBean.beginDate}" id="from" pattern="dd/MM/yyyy HH:mm" required="true"/>
+                                <p:calendar effect="fadeIn" value="#{eventBean.eventBeginDate}" id="from" pattern="dd/MM/yyyy HH:mm" required="true" validatorMessage="La date est à un format incorrect"/>
                                 
 
                                 <h:outputLabel for="to" value="A : *" />  
-                                <p:calendar value="#{eventBean.endDate}" pattern="dd/MM/yyyy HH:mm" id="to" required="true"/> 
+                                <p:calendar effect="fadeIn" value="#{eventBean.eventEndDate}" pattern="dd/MM/yyyy HH:mm" id="to" required="true" validatorMessage="La date est à un format incorrect"/> 
                                 
                                   
                                 <h:outputLabel value="Agenda :" />
                                 
-                                <p:selectOneMenu value="#{agendaManagedBean.groups}" style="width:100%">
-                                    <f:selectItems value="#{agendaManagedBean.listAllAgenda()}"/>
+                                <p:selectOneMenu value="#{eventBean.idAgenda}" style="width:100%">
+                                    <f:selectItems value="#{eventBean.listAllAgendaInEvent()}"/>
                                 </p:selectOneMenu>
 
                                 <h:outputLabel for="again" value="Peridocité"/>
                                 <p:panel  style="width: 100%">
-                                    <p:selectOneMenu id="again" style="margin: 10px 0px;">
-                                        <f:selectItem itemLabel="Aucune" itemValue="none"/>
-                                        <f:selectItem itemLabel="Chaque année" itemValue="year"/>
-                                        <f:selectItem itemLabel="Chaque mois" itemValue="mounth"/>
-                                        <f:selectItem itemLabel="Chaque semaine" itemValue="week"/>
-                                        <f:selectItem itemLabel="Chaque jour" itemValue="day"/>
+                                    <p:selectOneMenu id="again" style="margin: 10px 0px;" value="#{eventBean.typePeriod}">
+                                        <f:selectItem itemLabel="Aucune" itemValue="0"/>
+                                        <f:selectItem itemLabel="Chaque jour" itemValue="1"/>
+                                        <f:selectItem itemLabel="Chaque semaine" itemValue="2"/>
+                                        <f:selectItem itemLabel="Chaque mois" itemValue="3"/>
+                                        <f:selectItem itemLabel="Chaque année" itemValue="4"/>
                                     </p:selectOneMenu><br/>
                                     <p:outputPanel id="repeat">
                                         <p:selectOneRadio id="rpt" layout="custom">
@@ -50,12 +50,12 @@
                                         <h:panelGrid columns="4" cellspacing="0" onclick="">
                                             <p:radioButton id="rpt1" for="rpt" itemIndex="0"/>
                                             <h:outputLabel for="rpt1" value="Répéter"/>
-                                            <p:spinner id="times" min="0" size="6"/>
-                                            <h:outputLabel for="rpt1" value="time"/>
+                                            <p:spinner id="times" min="0" size="6" value="#{eventBean.numberOfRepetition}"/>
+                                            <h:outputLabel for="rpt1" value="fois"/>
 
                                             <p:radioButton id="rpt2" for="rpt" itemIndex="1"/>
                                             <h:outputLabel for="rpt2" value="Jusqu'à"/>
-                                            <p:calendar pattern="dd/MM/yyyy" size="6"/>
+                                            <p:calendar effect="fadeIn" pattern="dd/MM/yyyy HH:mm" value="#{eventBean.dateLimite}" validatorMessage="La date est à un format incorrect"/>
 
                                         </h:panelGrid>
                                     </p:outputPanel>
@@ -66,10 +66,9 @@
    
                                 <h:outputLabel for="comment" value="Commentaire"/>
                                 <p:inputTextarea rows="3" cols="30" id="comment" label="comment"  style="width: 100%"/>
-                                
-                                
-                                <p:commandButton value="Annuler" immediate="true" action="viewAgenda"/>  
-                                <p:commandButton value="Sauvegarder" action="#{eventBean.addEvent()}" type="submit"/>
+                                               
+                                <p:commandButton value="Annuler" action="viewAgenda" ajax="false"/>  
+                                <p:commandButton value="Sauvegarder" action="#{eventBean.addEvent()}" type="submit" ajax="false"/>
                                     
                     </h:panelGrid>              
 

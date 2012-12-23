@@ -16,4 +16,5 @@ import persistence.Agenda;
 public interface AgendaBeanLocal {
    public Agenda createAgenda(Agenda newAgenda); 
    public List<Agenda> findAllAgenda();
+   public Agenda findAgenda(Long id);
 }

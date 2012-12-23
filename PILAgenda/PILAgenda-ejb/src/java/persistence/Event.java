@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,7 +46,7 @@ public class Event implements Serializable {
     @OneToMany(mappedBy="relatedEvent")
     private Set<CustomizeEvent> customizedEvents;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Periodicity periodicity;
     
     @ManyToOne
