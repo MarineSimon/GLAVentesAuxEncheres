@@ -24,7 +24,7 @@
     <navigation-rule>
         <from-view-id>/viewAgenda.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>addEvent</from-outcome>
+            <from-outcome>createEvent</from-outcome>
             <to-view-id>/createEvent.xhtml</to-view-id>
             <redirect>/createEvent.xhtml</redirect>
         </navigation-case>

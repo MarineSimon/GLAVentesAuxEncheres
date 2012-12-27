@@ -11,7 +11,7 @@
         </ui:define>
 
         <ui:define name="content">
-            <h:form>
+            <h:form id="createAgenda">
                 <h:panelGrid columns="2" style="margin:auto">
                     <f:facet name="header">
                         Nouvel Agenda
@@ -20,7 +20,7 @@
                     Nom
                     <p:inputText id="name" label="Nom Agenda" value="#{agendaManagedBean.nameAgenda}" required="true" style="width:100%"/>
                     Description
-                    <h:inputTextarea rows="5" value="#{agendaManagedBean.description}" style="width:100%"/>
+                    <h:inputTextarea rows="5" value="#{agendaManagedBean.description}" style="width:100%" id="desc"/>
                     Accessibilité
                     <p:selectOneMenu id="privacy" label="privacy" value="#{agendaManagedBean.accessibility}" style="width:100%">
                         <f:selectItem itemValue="Prive" itemLabel="Prive"/>
