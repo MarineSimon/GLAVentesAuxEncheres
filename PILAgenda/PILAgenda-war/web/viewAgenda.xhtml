@@ -1,22 +1,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-    
+
     <ui:composition template="template.xhtml">
         <ui:define name="title">
             Accueil
         </ui:define>
-        
         <ui:define name="content">
             <div style="clear: both">
-                
+
             </div>
-                <div id="content_left">
-                    <h:form>
+            <p:commandButton value="Deconexion" action="#{loginBean.logout()}" immediate="true" />
+            <div id="content_left">
+                <f:event listener="#{loginBean.verifyUseLogin(event)}" type="preRenderView"/> 
+                <h:form>
                     <p:calendar mode="inline" id="inlineCal"/>
                     <div id ="calendriers">
                         <div class="title">Agendas : <a href="createAgenda.xhtml"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
@@ -39,51 +40,51 @@
 
                         <div style="clear: both"></div>
                     </div>
-                    </h:form>
-                </div>  
+                </h:form>
+            </div>  
 
-                <div id="content_middle">
-                    <h:form>  
+            <div id="content_middle">
+                <h:form>  
 
-                        <p:growl id="messages" showDetail="true" />  
+                    <p:growl id="messages" showDetail="true" />  
 
-                        <p:schedule value="#{scheduleBean.eventModel}" widgetVar="myschedule" view="agendaDay" locale="fr" rightHeaderTemplate="agendaDay,agendaWeek,month">  
+                    <p:schedule value="#{scheduleBean.eventModel}" widgetVar="myschedule" view="agendaDay" locale="fr" rightHeaderTemplate="agendaDay,agendaWeek,month">  
 
-                            <p:ajax event="dateSelect" listener="#{scheduleBean.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
-                            <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
-                            <p:ajax event="eventMove" listener="#{scheduleBean.onEventMove}" update="messages" />  
-                            <p:ajax event="eventResize" listener="#{scheduleBean.onEventResize}" update="messages" />  
+                        <p:ajax event="dateSelect" listener="#{scheduleBean.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
+                        <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
+                        <p:ajax event="eventMove" listener="#{scheduleBean.onEventMove}" update="messages" />  
+                        <p:ajax event="eventResize" listener="#{scheduleBean.onEventResize}" update="messages" />  
 
-                        </p:schedule>  
+                    </p:schedule>  
 
-                        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">  
-                            <h:panelGrid id="eventDetails" columns="2">  
-                                <h:outputLabel for="title" value="Title:" />  
-                                <p:inputText id="title" value="#{scheduleBean.event.title}" required="true"/>  
+                    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">  
+                        <h:panelGrid id="eventDetails" columns="2">  
+                            <h:outputLabel for="title" value="Title:" />  
+                            <p:inputText id="title" value="#{scheduleBean.event.title}" required="true"/>  
 
-                                <h:outputLabel for="from" value="From:" />  
-                                <p:inputMask id="from" value="#{scheduleBean.event.startDate}" mask="99/99/9999">  
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />  
-                                </p:inputMask>  
+                            <h:outputLabel for="from" value="From:" />  
+                            <p:inputMask id="from" value="#{scheduleBean.event.startDate}" mask="99/99/9999">  
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                            </p:inputMask>  
 
-                                <h:outputLabel for="to" value="To:" />  
-                                <p:inputMask id="to" value="#{scheduleBean.event.endDate}" mask="99/99/9999">  
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />  
-                                </p:inputMask>  
+                            <h:outputLabel for="to" value="To:" />  
+                            <p:inputMask id="to" value="#{scheduleBean.event.endDate}" mask="99/99/9999">  
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                            </p:inputMask>  
 
-                                <h:outputLabel for="allDay" value="All Day:" />  
-                                <h:selectBooleanCheckbox id="allDay" value="#{scheduleBean.event.allDay}" />  
+                            <h:outputLabel for="allDay" value="All Day:" />  
+                            <h:selectBooleanCheckbox id="allDay" value="#{scheduleBean.event.allDay}" />  
 
-                                <p:commandButton type="reset" value="Reset" />  
-                                <p:commandButton value="Save" actionListener="#{scheduleBean.addEvent}" oncomplete="myschedule.update();eventDialog.hide();"/>  
-                            </h:panelGrid>  
-                        </p:dialog>  
+                            <p:commandButton type="reset" value="Reset" />  
+                            <p:commandButton value="Save" actionListener="#{scheduleBean.addEvent}" oncomplete="myschedule.update();eventDialog.hide();"/>  
+                        </h:panelGrid>  
+                    </p:dialog>  
 
-                    </h:form>
-                </div>
+                </h:form>
+            </div>
 
-                <div id="content_right">
-                    <h:form>
+            <div id="content_right">
+                <h:form>
                     <div id ="taches">
                         <div class="title">Tâches : <a href="#"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
                         <div class="inside_box">
@@ -94,12 +95,12 @@
 
                         <div style="clear: both"></div>
                     </div>
-                    </h:form>
-                </div>
-                <p:commandButton value="Créer un événement" action="createEvent" immediate="true"></p:commandButton>
+                </h:form>
+            </div>
+            <p:commandButton value="Créer un événement" action="createEvent" immediate="true"></p:commandButton>
 
             <div style="clear: both">
-                
+
             </div>
         </ui:define>
 

@@ -13,5 +13,8 @@ import persistence.UserAgenda;
  */
 @Local
 public interface UserBeanLocalInterface {
+
     public UserAgenda addAccount(UserAgenda ua);
+
+    public UserAgenda userConnected(String email, String passWord);
 }

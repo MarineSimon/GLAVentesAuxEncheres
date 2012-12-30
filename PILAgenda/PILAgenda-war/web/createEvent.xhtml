@@ -10,7 +10,9 @@
                    Création évènement
             </ui:define>
             <ui:define name="content">
+                <f:event listener="#{loginBean.verifyUseLogin(event)}" type="preRenderView"/>
                 <h:form>
+                     <p:commandButton value="Deconexion" action="#{loginBean.logout()}" immediate="true" />
                     <p:messages id="messages" showDetail="true" autoUpdate="true"/> 
                     <h:panelGrid columns="2" cellpadding="" class="center"> 
                                 <h:outputLabel for="title" value="Nom : *" />  
