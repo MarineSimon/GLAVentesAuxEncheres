@@ -208,7 +208,7 @@ public class UserBean{
     
     public void createDefaultAgenda() {
         agenda = new Agenda();
-        //agenda.setAgendaOwner(user);
+        agenda.setAgendaOwner(user);
         String n;
         if (firstname.equals("")&&lastname.equals("")){
             n = mail;
@@ -224,6 +224,7 @@ public class UserBean{
     
     public String addAccount(){
             user = new UserAgenda();
+            
             user.setEmail(mail);
             user.setFirstname(firstname);
             user.setLastname(lastname);
@@ -237,8 +238,9 @@ public class UserBean{
             user.setPhone(phone);
             user.setHourFormat(hourFormat);
             user.setTimeZone(timeZone);
-            createDefaultAgenda();
+            
             local.addAccount(user);
+            createDefaultAgenda();
         return "viewAgenda";
     }
     @PostConstruct
