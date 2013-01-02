@@ -84,7 +84,7 @@ public class UserAgenda implements Serializable {
     public UserAgenda() {
     }
 
-    public UserAgenda(String email, String password, String lastname, String firstname, String lang, String address, String pwd, String country, String city, String timeZone, String hourFormat, String defaultEventDuration) {
+    public UserAgenda(String email, String password, String lastname, String firstname, String lang, String address, String country, String city, String timeZone, String hourFormat, String defaultEventDuration) {
         this.email = email;
         this.password = password;
         this.lastname = lastname;
