@@ -22,6 +22,7 @@
                             <p:inputText value="#{userBean.firstname}" style="width:280px"/>
                             <h:outputText value="Adresse email* : " />
                             <p:inputText value="#{userBean.mail}" required="true" style="width:280px" requiredMessage="adresse email obligatoire" validatorMessage="Adresse email invalide">
+                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
                             </p:inputText>
                             <h:outputText value="Numéro de téléphone : " />
                             <p:inputMask value="#{userBean.phone}" mask="99.99.99.99.99" style="width:280px"/>
