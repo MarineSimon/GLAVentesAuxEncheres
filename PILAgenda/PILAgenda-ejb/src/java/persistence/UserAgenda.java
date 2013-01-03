@@ -5,7 +5,7 @@
 package persistence;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -55,31 +55,31 @@ public class UserAgenda implements Serializable {
     
 
     @OneToMany(mappedBy = "taskOwner")
-    private Set<Task> tasks;
+    private List<Task> tasks;
     
     @OneToMany(mappedBy = "customizedEventOwner")
-    private Set<CustomizeEvent> customizedEvents;
+    private List<CustomizeEvent> customizedEvents;
       
     @OneToMany(mappedBy = "eventOwner")
-    private Set<Event> events;
+    private List<Event> events;
     
     @OneToMany(mappedBy = "groupAdministrator")
-    private Set<GroupAgenda> administratedGroups;
+    private List<GroupAgenda> administratedGroups;
     
     @OneToMany(mappedBy = "agendaOwner")
-    private Set<Agenda> agendas;
+    private List<Agenda> agendas;
     
     @ManyToMany
-    private Set<GroupAgenda> belongToGroups;
+    private List<GroupAgenda> belongToGroups;
     
     @ManyToMany
-    private Set<GroupAgenda> guestToGroups;
+    private List<GroupAgenda> guestToGroups;
     
     @ManyToMany
-    private Set<Agenda> followedAgendas;
+    private List<Agenda> followedAgendas;
     
     @ManyToMany
-    private Set<Agenda> displayedAgendas;
+    private List<Agenda> displayedAgendas;
 
     public UserAgenda() {
     }
@@ -101,7 +101,7 @@ public class UserAgenda implements Serializable {
     
     
     
-    // Getters and Setters
+    // Getters and Listters
     public Long getId() {
         return id;
     }
@@ -154,75 +154,75 @@ public class UserAgenda implements Serializable {
         this.address = address;
     }
 
-    public Set<Task> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(Set<Task> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
 
-    public Set<CustomizeEvent> getCustomizedEvents() {
+    public List<CustomizeEvent> getCustomizedEvents() {
         return customizedEvents;
     }
 
-    public void setCustomizedEvents(Set<CustomizeEvent> customizedEvents) {
+    public void setCustomizedEvents(List<CustomizeEvent> customizedEvents) {
         this.customizedEvents = customizedEvents;
     }
 
-    public Set<Event> getEvents() {
+    public List<Event> getEvents() {
         return events;
     }
 
-    public void setEvents(Set<Event> events) {
+    public void setEvents(List<Event> events) {
         this.events = events;
     }
 
-    public Set<GroupAgenda> getAdministratedGroups() {
+    public List<GroupAgenda> getAdministratedGroups() {
         return administratedGroups;
     }
 
-    public void setAdministratedGroups(Set<GroupAgenda> administratedGroups) {
+    public void setAdministratedGroups(List<GroupAgenda> administratedGroups) {
         this.administratedGroups = administratedGroups;
     }
 
-    public Set<Agenda> getAgendas() {
+    public List<Agenda> getAgendas() {
         return agendas;
     }
 
-    public void setAgendas(Set<Agenda> agendas) {
+    public void setAgendas(List<Agenda> agendas) {
         this.agendas = agendas;
     }
 
-    public Set<GroupAgenda> getBelongToGroups() {
+    public List<GroupAgenda> getBelongToGroups() {
         return belongToGroups;
     }
 
-    public void setBelongToGroups(Set<GroupAgenda> belongToGroups) {
+    public void setBelongToGroups(List<GroupAgenda> belongToGroups) {
         this.belongToGroups = belongToGroups;
     }
 
-    public Set<GroupAgenda> getGuestToGroups() {
+    public List<GroupAgenda> getGuestToGroups() {
         return guestToGroups;
     }
 
-    public void setGuestToGroups(Set<GroupAgenda> guestToGroups) {
+    public void setGuestToGroups(List<GroupAgenda> guestToGroups) {
         this.guestToGroups = guestToGroups;
     }
 
-    public Set<Agenda> getFollowedAgendas() {
+    public List<Agenda> getFollowedAgendas() {
         return followedAgendas;
     }
 
-    public void setFollowedAgendas(Set<Agenda> followedAgendas) {
+    public void setFollowedAgendas(List<Agenda> followedAgendas) {
         this.followedAgendas = followedAgendas;
     }
 
-    public Set<Agenda> getDisplayedAgendas() {
+    public List<Agenda> getDisplayedAgendas() {
         return displayedAgendas;
     }
 
-    public void setDisplayedAgendas(Set<Agenda> displayedAgendas) {
+    public void setDisplayedAgendas(List<Agenda> displayedAgendas) {
         this.displayedAgendas = displayedAgendas;
     }
 

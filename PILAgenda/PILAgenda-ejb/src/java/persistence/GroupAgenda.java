@@ -5,7 +5,7 @@
 package persistence;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,13 +35,13 @@ public class GroupAgenda implements Serializable {
     private UserAgenda groupAdministrator;
     
     @OneToMany(mappedBy = "belongToGroup")
-    private Set<Agenda> groupAgendas;
+    private List<Agenda> groupAgendas;
     
     @ManyToMany(mappedBy = "belongToGroups")
-    private Set<UserAgenda> users;
+    private List<UserAgenda> users;
     
     @ManyToMany(mappedBy = "guestToGroups")
-    private Set<UserAgenda> guests;
+    private List<UserAgenda> guests;
 
     public GroupAgenda() {
     }

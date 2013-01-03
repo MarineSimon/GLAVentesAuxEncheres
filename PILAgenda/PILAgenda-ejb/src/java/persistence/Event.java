@@ -6,8 +6,7 @@ package persistence;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,7 +43,7 @@ public class Event implements Serializable {
     private String description;
     
     @OneToMany(mappedBy="relatedEvent")
-    private Set<CustomizeEvent> customizedEvents;
+    private List<CustomizeEvent> customizedEvents;
     
     @OneToOne(cascade = CascadeType.PERSIST)
     private Periodicity periodicity;
@@ -53,10 +52,10 @@ public class Event implements Serializable {
     private UserAgenda eventOwner;
     
     @ManyToMany
-    private Set<Agenda> belongToAgendas;
+    private List<Agenda> belongToAgendas;
     
     @ManyToMany
-    private Set<Agenda> guestToAgendas;
+    private List<Agenda> guestToAgendas;
 
     public Event() {
     }
