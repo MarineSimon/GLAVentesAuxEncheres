@@ -4,17 +4,21 @@
  */
 package controler;
 
+import business.UserBeanLocal;
 import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.view.facelets.FaceletContext;
 import javax.servlet.http.HttpSession;
+import library.AgendaBeanLocal;
 import library.UserBeanLocalInterface;
+import persistence.Agenda;
 import persistence.UserAgenda;
 
 /**
@@ -32,7 +36,7 @@ public class LoginBean implements Serializable {
     private String con;
     private boolean isLoggedIn;
     private UserAgenda userConnected;
-
+   
     /**
      * Creates a new instance of LoginBean
      */
