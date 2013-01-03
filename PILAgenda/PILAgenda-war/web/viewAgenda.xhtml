@@ -84,11 +84,11 @@
             <div id="content_right">
                 <h:form>
                     <div id ="taches">
-                        <div class="title">Tâches : <a href="#"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
+                        <div class="title">Tâches : <a href="createTask.xhtml"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
                         <div class="inside_box">
-                            Tâche 1<br/>
-                            Tâche 2<br/>
-                            Tâche 3<br/>
+                            <p:selectManyCheckbox value="#{taskBean.listAllTask()}" layout="pageDirection">
+                                <f:selectItems value="#{taskBean.listAllTask()}"/>
+                            </p:selectManyCheckbox>
                         </div>
 
                         <div style="clear: both"></div>
