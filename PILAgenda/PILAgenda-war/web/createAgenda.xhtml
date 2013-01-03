@@ -13,8 +13,8 @@
         <ui:define name="content">
             <f:event listener="#{loginBean.verifyUseLogin(event)}" type="preRenderView"/>
             <h:form id="createAgenda">
-                 <p:commandButton value="Deconexion" action="#{loginBean.logout()}" immediate="true" />
-                   <p:messages id="messages" autoUpdate="true"/>
+                <p:commandButton value="Déconnexion" action="#{loginBean.logout()}" immediate="true" />
+                <p:messages id="messages" autoUpdate="true"/>
                 <h:panelGrid columns="2" style="margin:auto">
                     <f:facet name="header">
                         Nouvel Agenda
@@ -37,25 +37,10 @@
                     </p:selectOneMenu>
                     Couleur
                     <p:colorPicker id="popupCP" value="#{agendaManagedBean.color}" widgetVar="picker"/>
-                    
-                    <!--<p:colorPicker mode="inline" value="#{agendaMangedBean.color}"/>-->
-                    
-                    <p:dialog modal="true" widgetVar="dlg" showEffect="fade" hideEffect="fade" header="Selected Colors" resizable="false">  
-                        <h:panelGrid columns="2" id="grid">  
-                            <h:outputText value="Color 1: " />  
-                            <h:outputText value="#{colorBean.color1}" style="background-color:\##{colorBean.color1}"/>  
-
-                            <h:outputText value="Color 2: " />  
-                            <h:outputText value="#{colorBean.color2}" style="background-color:\##{colorBean.color2}"/>  
-                        </h:panelGrid>  
-                    </p:dialog> 
-
                     <h:commandButton id="cancelButton" value="Annuler" action="cancelAdd" type="cancel" immediate="true"/>
                     <h:commandButton id="saveButton" value="Confirmer" action="#{agendaManagedBean.createNewAgenda()}" type="submit"/>
-
                 </h:panelGrid>
             </h:form>
-
         </ui:define>
     </ui:composition>
 </html>

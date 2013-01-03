@@ -33,7 +33,7 @@ public class Agenda implements Serializable {
     @Column(name = "ACCESS")
     private int access;
     @Column(name = "COLOR")
-    private Color color;
+    private String color;
     @Column(name = "NAME")
     private String name;
     @Column(name = "DESCRIPTION")
@@ -57,7 +57,7 @@ public class Agenda implements Serializable {
     @ManyToMany(mappedBy = "guestToAgendas")
     private Set<Event> guestEvents;
 
-    public Agenda(int access, Color color, String name, String description, UserAgenda agendaOwner) {
+    public Agenda(int access, String color, String name, String description, UserAgenda agendaOwner) {
         this.access = access;
         this.color = color;
         this.name = name;
@@ -80,11 +80,11 @@ public class Agenda implements Serializable {
         this.access = access;
     }
 
-    public Color getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
+    public void setColor(String color) {
         this.color = color;
     }
 

@@ -7,6 +7,7 @@ package library;
 import java.util.List;
 import javax.ejb.Local;
 import persistence.Agenda;
+import persistence.UserAgenda;
 
 /**
  *
@@ -15,6 +16,6 @@ import persistence.Agenda;
 @Local
 public interface AgendaBeanLocal {
    public Agenda createAgenda(Agenda newAgenda); 
-   public List<Agenda> findAllAgenda();
+   public List<Agenda> findAllAgenda(UserAgenda userConencted);
    public Agenda findAgenda(Long id);
 }

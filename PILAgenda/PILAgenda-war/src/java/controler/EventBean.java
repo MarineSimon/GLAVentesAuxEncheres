@@ -4,6 +4,7 @@
  */
 package controler;
 
+import business.AgendaBean;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class EventBean implements Serializable{
     @EJB 
     private EventBeanLocalInterface eventInterface;
     @EJB 
-    private AgendaBeanLocal agendaInterface;
+    private AgendaBean agendaInterface;
     private Date dateLimite;
     private int typePeriod;
     private int numberOfRepetition;
@@ -182,7 +183,7 @@ public class EventBean implements Serializable{
     
     public List<SelectItem> listAllAgendaInEvent() {
         List<SelectItem> l = new ArrayList<SelectItem>();
-        List<Agenda> listAgenda = this.agendaInterface.findAllAgenda();
+        List<Agenda> listAgenda = this.agendaInterface.findAllAgenda(agendaInterface.getUserConnected());
         for (Agenda a : listAgenda) {
             l.add(new SelectItem(a.getId(), a.getName()));
         }
