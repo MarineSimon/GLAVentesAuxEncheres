@@ -51,35 +51,68 @@
                     <p:schedule  value="#{scheduleBean.eventModel}" widgetVar="myschedule" view="agendaDay" locale="fr" rightHeaderTemplate="agendaDay,agendaWeek,month">  
 
                         <p:ajax event="dateSelect" listener="#{scheduleBean.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
-                        <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
+                        <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="dlg.show()" />  
                         <p:ajax event="eventMove" listener="#{scheduleBean.onEventMove}" update="messages" />  
                         <p:ajax event="eventResize" listener="#{scheduleBean.onEventResize}" update="messages" />  
                         
                     </p:schedule>  
-                    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">  
+                    <p:dialog widgetVar="dlg" header="Détails évènement" showEffect="clip" hideEffect="clip">  
                         <h:panelGrid id="eventDetails" columns="2">  
-                            <h:outputLabel for="title" value="Title:" />  
-                            <p:inputText id="title" value="#{scheduleBean.event.title}" required="true"/>  
-                            <h:outputLabel for="from" value="From:" />  
-                            <p:inputMask id="from" value="#{scheduleBean.event.startDate}" mask="99/99/9999">  
-                                <f:convertDateTime pattern="dd/MM/yyyy" />  
-                            </p:inputMask>  
-
-                            <h:outputLabel for="to" value="To:" />  
-                            <p:inputMask id="to" value="#{scheduleBean.event.endDate}" mask="99/99/9999">  
-                                <f:convertDateTime pattern="dd/MM/yyyy" />  
-                            </p:inputMask>  
-
-                            <h:outputLabel for="allDay" value="All Day:" />  
-                            <h:selectBooleanCheckbox id="allDay" value="#{scheduleBean.event.allDay}" /> 
                             
-                            <h:outputLabel for="place" value="Place : " />  
-                            <p:inputText id="place" value="#{scheduleBean.event.data.place}" required="true"/>
+                            <h:outputLabel for="title" value="Titre :" />  
+                            <h:outputLabel id="title" value="#{scheduleBean.event.title}"/>  
+                            
+                            <h:outputLabel for="from" value="De :" />  
+                            <p:inputMask id="from" value="#{scheduleBean.event.startDate}" mask="99/99/9999" disabled="true">  
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                            </p:inputMask>  
 
-                            <p:commandButton type="reset" value="Reset" />  
-                            <p:commandButton value="Save" actionListener="#{scheduleBean.addEvent}" oncomplete="myschedule.update();eventDialog.hide();"/>  
+                            <h:outputLabel for="to" value="A :" />  
+                            <p:inputMask id="to" value="#{scheduleBean.event.endDate}" mask="99/99/9999" disabled="true">  
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                            </p:inputMask>  
+
+                            <h:outputLabel for="lieu" value="Lieu : " />  
+                            <h:outputLabel id="lieu" value="#{scheduleBean.event.data.place}" required="true"/>
+                            
+                            <h:outputLabel for="description" value="Description : " />
+                            <h:outputLabel id="description" value="#{scheduleBean.event.data.description}"/>
+
+                            
+                            <p:commandButton type="reset" value="Annuler" />
+                            <p:commandButton value="Ok" actionListener="#{scheduleBean.addEvent}" oncomplete="myschedule.update();eventDialog.hide();"/>  
                         </h:panelGrid>  
                     </p:dialog>  
+                    
+                    <p:dialog widgetVar="eventDialog" header="Détails évènement" showEffect="clip" hideEffect="clip">  
+                        <h:panelGrid id="eventDetails2" columns="2">  
+                            
+                            <h:outputLabel for="title2" value="Titre :" />  
+                            <p:inputText id="title2" value="#{scheduleBean.event.title}"/>  
+                            
+                            <h:outputLabel for="from2" value="De :" />  
+                            <p:inputMask id="from2" value="#{scheduleBean.event.startDate}" mask="99/99/9999">  
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                            </p:inputMask>  
+
+                            <h:outputLabel for="to2" value="A :" />  
+                            <p:inputMask id="to2" value="#{scheduleBean.event.endDate}" mask="99/99/9999">  
+                                <f:convertDateTime pattern="dd/MM/yyyy" />  
+                            </p:inputMask>  
+
+                            <h:outputLabel for="lieu2" value="Lieu : " />  
+                            <p:inputText id="lieu2" value="#{scheduleBean.event.data.place}" required="true"/>
+                            
+                            <h:outputLabel for="description2" value="Description : " />
+                            <p:inputText id="description2" value="#{scheduleBean.event.data.description}"/>
+
+                            
+                            <p:commandButton type="reset" value="Annuler" />
+                            <p:commandButton value="Ok" actionListener="#{scheduleBean.addEvent}" oncomplete="myschedule.update();eventDialog.hide();"/>  
+                        </h:panelGrid>  
+                    </p:dialog>  
+                    
+                    
 
                 </h:form>
             </div>

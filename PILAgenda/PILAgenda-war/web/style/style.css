@@ -207,3 +207,10 @@ a{
 .ui-inputfield.ui-widget.ui-state-default.ui-corner-all.hasDatepicker{
     width: 100%;
 }
+
+.ui-state-disabled, .ui-widget-content .ui-state-disabled {
+    opacity: 1;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
