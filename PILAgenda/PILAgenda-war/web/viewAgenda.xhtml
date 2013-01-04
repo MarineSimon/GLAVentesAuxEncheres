@@ -71,7 +71,10 @@
                             </p:inputMask>  
 
                             <h:outputLabel for="allDay" value="All Day:" />  
-                            <h:selectBooleanCheckbox id="allDay" value="#{scheduleBean.event.allDay}" />  
+                            <h:selectBooleanCheckbox id="allDay" value="#{scheduleBean.event.allDay}" /> 
+                            
+                            <h:outputLabel for="place" value="Place : " />  
+                            <p:inputText id="place" value="#{scheduleBean.event.data.place}" required="true"/>
 
                             <p:commandButton type="reset" value="Reset" />  
                             <p:commandButton value="Save" actionListener="#{scheduleBean.addEvent}" oncomplete="myschedule.update();eventDialog.hide();"/>  
