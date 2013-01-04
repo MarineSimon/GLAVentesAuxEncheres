@@ -17,7 +17,9 @@
             <h:form>
                 <p:commandLink value="Accéder à l'agenda >" action="viewAgenda"></p:commandLink><br/>
                 <p:commandLink value="Créer un compte >" action="createAccount"></p:commandLink><br/>
-                <p:commandLink value="Remplir la base >" action="fillingBase"></p:commandLink>
+                <c:if test="${!baseManagedBean.checkBase}"> 
+                    <p:commandLink value="Remplir la base >" action="#{baseManagedBean.fillingBase()}"></p:commandLink>
+                </c:if>
                 
             </h:form>
         </ui:define>

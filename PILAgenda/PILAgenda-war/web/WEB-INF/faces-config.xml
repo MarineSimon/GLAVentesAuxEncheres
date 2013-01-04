@@ -20,9 +20,9 @@
             <redirect>/viewAgenda.xhtml</redirect>
         </navigation-case>
         <navigation-case>
-            <from-outcome>fillingBase</from-outcome>
-            <to-view-id>/fillingBase.xhtml</to-view-id>
-            <redirect>/fillingBase.xhtml</redirect>
+            <from-outcome>filling</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect>/index.xhtml</redirect>
         </navigation-case>
     </navigation-rule>
     
@@ -77,14 +77,4 @@
             <redirect>/createEvent.xhtml</redirect>
         </navigation-case>
     </navigation-rule>
-    
-    <navigation-rule>
-        <from-view-id>/fillingBase.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>index</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
-            <redirect>/index.xhtml</redirect>
-        </navigation-case>
-    </navigation-rule>
-
 </faces-config>
