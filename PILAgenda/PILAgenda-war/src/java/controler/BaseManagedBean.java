@@ -6,8 +6,6 @@ package controler;
 
 import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.ejb.SessionBean;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import library.BaseBeanLocal;

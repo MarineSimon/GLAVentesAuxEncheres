@@ -6,6 +6,7 @@ package persistence;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,10 +32,10 @@ public class GroupAgenda implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     
-    @ManyToOne
+    @ManyToOne(optional=false)
     private UserAgenda groupAdministrator;
     
-    @OneToMany(mappedBy = "belongToGroup")
+    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "belongToGroup")
     private List<Agenda> groupAgendas;
     
     @ManyToMany(mappedBy = "belongToGroups")

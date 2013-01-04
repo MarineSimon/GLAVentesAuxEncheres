@@ -31,7 +31,7 @@ public class Task implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     
-    @ManyToOne
+    @ManyToOne(optional=false)
     private UserAgenda taskOwner;
 
     public Task() {

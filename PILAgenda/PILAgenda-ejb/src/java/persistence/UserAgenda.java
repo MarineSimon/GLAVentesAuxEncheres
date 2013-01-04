@@ -6,11 +6,14 @@ package persistence;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -54,31 +57,35 @@ public class UserAgenda implements Serializable {
     private boolean keyboardShortcut;
     
 
-    @OneToMany(mappedBy = "taskOwner")
+    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "taskOwner")
     private List<Task> tasks;
     
-    @OneToMany(mappedBy = "customizedEventOwner")
+    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "customizedEventOwner")
     private List<CustomizeEvent> customizedEvents;
       
-    @OneToMany(mappedBy = "eventOwner")
+    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "eventOwner")
     private List<Event> events;
     
-    @OneToMany(mappedBy = "groupAdministrator")
+    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "groupAdministrator")
     private List<GroupAgenda> administratedGroups;
     
-    @OneToMany(mappedBy = "agendaOwner")
+    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "agendaOwner")
     private List<Agenda> agendas;
     
     @ManyToMany
+    @JoinTable(name="USERS_BELONG_GROUP",joinColumns= @JoinColumn(name="USER_ID",referencedColumnName="EMAIL"),inverseJoinColumns=@JoinColumn(name="GROUP_ID",referencedColumnName="ID"))
     private List<GroupAgenda> belongToGroups;
     
     @ManyToMany
+    @JoinTable(name="USERS_GUESTS_GROUP",joinColumns= @JoinColumn(name="USER_ID",referencedColumnName="EMAIL"),inverseJoinColumns=@JoinColumn(name="GROUP_ID",referencedColumnName="ID"))    
     private List<GroupAgenda> guestToGroups;
     
     @ManyToMany
+    @JoinTable(name="USERS_FOLLOWED_AGENDAS",joinColumns= @JoinColumn(name="USER_ID",referencedColumnName="EMAIL"),inverseJoinColumns=@JoinColumn(name="AGENDA_ID",referencedColumnName="ID"))
     private List<Agenda> followedAgendas;
     
     @ManyToMany
+    @JoinTable(name="USERS_DISPLAYED_AGENDAS",joinColumns= @JoinColumn(name="USER_ID",referencedColumnName="EMAIL"),inverseJoinColumns=@JoinColumn(name="AGENDA_ID",referencedColumnName="ID"))
     private List<Agenda> displayedAgendas;
 
     public UserAgenda() {

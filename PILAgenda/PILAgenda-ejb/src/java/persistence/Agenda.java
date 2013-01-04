@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -39,10 +41,10 @@ public class Agenda implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     
-    @ManyToOne
+    @ManyToOne(optional=false)
     private UserAgenda agendaOwner;
     
-    @ManyToOne
+    @ManyToOne(optional=true)
     private GroupAgenda belongToGroup;
     
     @ManyToMany(mappedBy = "followedAgendas")
