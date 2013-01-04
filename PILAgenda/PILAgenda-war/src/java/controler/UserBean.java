@@ -4,6 +4,7 @@
  */
 package controler;
 
+import business.AgendaBean;
 import business.UserBeanLocal;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +29,8 @@ public class UserBean{
     private UserBeanLocal local;
     
     @EJB
-    private AgendaBeanLocal agendaLocal;
-    
+    private AgendaBean agendaLocal;
+
     private UserAgenda user;
     private String lastname;
     private String firstname;
@@ -62,6 +63,10 @@ public class UserBean{
         "Chili","Zambie","Birmanie","Afghanistan","Belgique","Ukraine","Madagascar","Islande","Thaïlande","Espagne",
         "Suède","Maroc","Irak","Japon","Allemagne","Finlande"};
 
+      public AgendaBean getAgendaLocal() {
+        return agendaLocal;
+    }
+      
     public String[] getTimezones() {
         return timezones;
     }
@@ -208,7 +213,7 @@ public class UserBean{
     
     public void createDefaultAgenda() {
         agenda = new Agenda();
-        //agenda.setAgendaOwner(user);
+        agendaLocal.setUserConnected(user);
         String n;
         if (firstname.equals("")&&lastname.equals("")){
             n = mail;
@@ -224,6 +229,7 @@ public class UserBean{
     
     public String addAccount(){
             user = new UserAgenda();
+            
             user.setEmail(mail);
             user.setFirstname(firstname);
             user.setLastname(lastname);
@@ -237,8 +243,9 @@ public class UserBean{
             user.setPhone(phone);
             user.setHourFormat(hourFormat);
             user.setTimeZone(timeZone);
-            createDefaultAgenda();
+            
             local.addAccount(user);
+            createDefaultAgenda();
         return "viewAgenda";
     }
     @PostConstruct

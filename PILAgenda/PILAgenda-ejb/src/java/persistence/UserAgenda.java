@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -22,6 +24,9 @@ import javax.persistence.OneToMany;
  * @author gaelvarlet
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name="UserAgenda.findPassWordByEmail", query="SELECT u from UserAgenda u WHERE u.email = ?1")
+    })
 public class UserAgenda implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

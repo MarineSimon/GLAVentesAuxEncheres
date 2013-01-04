@@ -4,6 +4,7 @@
  */
 package controler;
 
+import business.AgendaBean;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -12,9 +13,11 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
-import library.AgendaBeanLocal;
 import library.EventBeanLocalInterface;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.ScheduleModel;
 import persistence.Agenda;
 import persistence.Event;
 import persistence.Periodicity;
@@ -37,7 +40,12 @@ public class EventBean implements Serializable{
     @EJB 
     private EventBeanLocalInterface eventInterface;
     @EJB 
-    private AgendaBeanLocal agendaInterface;
+    private AgendaBean agendaInterface;
+    
+    // Injection du ScheduleBean, nécessaire notamment dans l'ajout des évènements directement au Schedule "graphique"
+    @Inject
+    private ScheduleBean scheduleBean;
+    
     private Date dateLimite;
     private int typePeriod;
     private int numberOfRepetition;
@@ -175,14 +183,23 @@ public class EventBean implements Serializable{
             java.sql.Date begin = new java.sql.Date(this.eventBeginDate.getTime());
             java.sql.Date end = new java.sql.Date(this.eventEndDate.getTime());
             e = new Event(this.name, this.location, begin, end, this.visibility, this.description, period, null, a);
+            
+            // Ajout de l'évènement au modèle
             this.eventInterface.addEvent(e);
+            
+            // Ajout de l'évènement au Schedule
+            ScheduleModel scheduleModel = this.scheduleBean.getEventModel();
+            /* On ajoute également l'évènement lui-même (l'objet) pour récupérer par la suite ses informations.
+             * Ce procédé permettra d'afficher plus facilement les détails de l'event, sa couleur, etc.
+             * */
+            scheduleModel.addEvent(new DefaultScheduleEvent(this.name,this.eventBeginDate,this.eventEndDate,e));
         }
         return res;
     }
     
     public List<SelectItem> listAllAgendaInEvent() {
         List<SelectItem> l = new ArrayList<SelectItem>();
-        List<Agenda> listAgenda = this.agendaInterface.findAllAgenda();
+        List<Agenda> listAgenda = this.agendaInterface.findAllAgenda(agendaInterface.getUserConnected());
         for (Agenda a : listAgenda) {
             l.add(new SelectItem(a.getId(), a.getName()));
         }
