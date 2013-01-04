@@ -4,6 +4,7 @@
  */
 package controler;
 
+import business.AgendaBean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import library.AgendaBeanLocal;
 import persistence.Agenda;
+import persistence.UserAgenda;
 
 /**
  *
@@ -22,18 +24,18 @@ import persistence.Agenda;
 public class AgendaManagedBean implements Serializable {
 
     @EJB
-    private AgendaBeanLocal agendaLocal;
+    private AgendaBean agendaLocal;
     private String nameAgenda;
     private String description;
     private Agenda agenda;
     private String accessibility;
     private String color;
     private String groups;
-
+   
     public String getGroups() {
         return groups;
     }
-
+  
     public void setGroups(String groups) {
         this.groups = groups;
     }
@@ -96,6 +98,7 @@ public class AgendaManagedBean implements Serializable {
     public String createNewAgenda() {
         agenda = new Agenda();
         agenda.setName(nameAgenda);
+        agenda.setColor(color);
         if (accessibility.equalsIgnoreCase("PRIVE")) {
             agenda.setAccess(0);
         }
@@ -106,14 +109,12 @@ public class AgendaManagedBean implements Serializable {
             agenda.setAccess(2);
         }
         agenda.setDescription(description);
-        //   Color c = Color.decode(color);
-        // agenda.setColor(c);
         agendaLocal.createAgenda(agenda);
         return "viewAgenda";
     }
 
     public List<String> listAllAgenda() {
-        setListOfAgenda(agendaLocal.findAllAgenda());
+        setListOfAgenda(agendaLocal.findAllAgenda(agendaLocal.getUserConnected()));
         List<String> l = new ArrayList<String>();
         l.removeAll(l);
         for (int i = 0; i < listOfAgenda.size(); i++) {

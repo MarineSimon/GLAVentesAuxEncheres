@@ -4,17 +4,21 @@
  */
 package controler;
 
+import business.AgendaBean;
 import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.view.facelets.FaceletContext;
 import javax.servlet.http.HttpSession;
+import library.AgendaBeanLocal;
 import library.UserBeanLocalInterface;
+import persistence.Agenda;
 import persistence.UserAgenda;
 
 /**
@@ -27,11 +31,16 @@ public class LoginBean implements Serializable {
 
     @EJB
     private UserBeanLocalInterface userTryToConnect;
+    @EJB
+    private AgendaBean newAgenda;
     private String userEmail;
     private String userPassWord;
-    private String con;
     private boolean isLoggedIn;
     private UserAgenda userConnected;
+
+    public AgendaBeanLocal getNewAgenda() {
+        return newAgenda;
+    }
 
     /**
      * Creates a new instance of LoginBean
@@ -67,14 +76,6 @@ public class LoginBean implements Serializable {
         return userTryToConnect;
     }
 
-    public String getCon() {
-        return con;
-    }
-
-    public void setCon(String con) {
-        this.con = con;
-    }
-
     public UserAgenda getUserConnected() {
         return userConnected;
     }
@@ -87,8 +88,8 @@ public class LoginBean implements Serializable {
         setUserConnected(userTryToConnect.userConnected(getUserEmail(), getUserPassWord()));
         if(getUserConnected() != null){
         if (getUserConnected().getPassword().equals(userPassWord)) {
-            setCon("réussi");
             setIsLoggedIn(true);
+            newAgenda.setUserConnected(userConnected);
             return "viewAgenda";
 
         } else {
