@@ -12,7 +12,17 @@
     </h:head>
     <h:body>
         <h:form>
-        <header><p:commandLink action="backToAgenda" style="float:left;" immediate="true"><img src="resources/pictures/glyphicons_020_home.png" width="30px" id="home"/></p:commandLink>PIL Agenda - 2012/2013<img src="resources/pictures/glyphicons_137_cogwheels.png" width="30px" id="settings"/></header>
+        <header>
+            <p:commandLink action="backToAgenda" style="float:left;" immediate="true">
+                    <img src="resources/pictures/glyphicons_020_home.png" width="30px" id="home"/>
+            </p:commandLink>
+            PIL Agenda - 2012/2013
+            <p:commandLink action="#{loginBean.logout()}" immediate="true">
+                    <img src="resources/pictures/logout.png" width="30px" id="logout"/>
+            </p:commandLink>
+            <img src="resources/pictures/glyphicons_137_cogwheels.png" width="30px" id="settings"/>
+            
+        </header>
         <div id ="content">
             <ui:insert name="content"></ui:insert>
         </div>  

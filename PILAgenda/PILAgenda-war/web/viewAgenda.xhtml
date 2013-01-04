@@ -14,7 +14,6 @@
             <div style="clear: both">
 
             </div>
-            <p:commandButton value="Déconnexion" action="#{loginBean.logout()}" immediate="true" />
             <div id="content_left">
                 <f:event listener="#{loginBean.verifyUseLogin(event)}" type="preRenderView"/> 
                 <h:form>
@@ -63,14 +62,14 @@
                             <h:outputLabel id="title" value="#{scheduleBean.event.title}"/>  
                             
                             <h:outputLabel for="from" value="De :" />  
-                            <p:inputMask id="from" value="#{scheduleBean.event.startDate}" mask="99/99/9999" disabled="true">  
-                                <f:convertDateTime pattern="dd/MM/yyyy" />  
-                            </p:inputMask>  
+                            <p:inputText id="from" value="#{scheduleBean.event.startDate}" disabled="true">  
+                                <f:convertDateTime pattern="dd/MM/yyyy à HH:mm" />  
+                            </p:inputText>  
 
                             <h:outputLabel for="to" value="A :" />  
-                            <p:inputMask id="to" value="#{scheduleBean.event.endDate}" mask="99/99/9999" disabled="true">  
-                                <f:convertDateTime pattern="dd/MM/yyyy" />  
-                            </p:inputMask>  
+                            <p:inputText id="to" value="#{scheduleBean.event.endDate}" mask="99/99/9999" disabled="true">  
+                                <f:convertDateTime pattern="dd/MM/yyyy à HH:mm" />  
+                            </p:inputText>  
 
                             <h:outputLabel for="lieu" value="Lieu : " />  
                             <h:outputLabel id="lieu" value="#{scheduleBean.event.data.place}" required="true"/>
@@ -79,8 +78,7 @@
                             <h:outputLabel id="description" value="#{scheduleBean.event.data.description}"/>
 
                             
-                            <p:commandButton type="reset" value="Annuler" />
-                            <p:commandButton value="Ok" actionListener="#{scheduleBean.addEvent}" oncomplete="myschedule.update();eventDialog.hide();"/>  
+                            <p:commandButton value="Ok" oncomplete="dlg.hide();"/>  
                         </h:panelGrid>  
                     </p:dialog>  
                     

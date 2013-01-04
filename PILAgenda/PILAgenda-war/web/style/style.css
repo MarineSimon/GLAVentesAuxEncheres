@@ -126,10 +126,13 @@ a{
     float: right
 }
 
-#settings{
+#settings,#logout{
     cursor: pointer;
     float: right;
     padding-right: 40px;
+}
+#settings {
+    padding-right: 20px;
 }
 
 .center{
