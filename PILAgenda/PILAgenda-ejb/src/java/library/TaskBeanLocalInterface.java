@@ -7,6 +7,7 @@ package library;
 import java.util.List;
 import javax.ejb.Local;
 import persistence.Task;
+import persistence.UserAgenda;
 
 /**
  *
@@ -15,6 +16,8 @@ import persistence.Task;
 @Local
 public interface TaskBeanLocalInterface {
     Task addTask(Task task);
-    public List<Task> findAllTask();
-    
+    public List<Task> findAllTask(UserAgenda userCo);
+    void setUserConnected(UserAgenda userConnected);
+    UserAgenda getUserConnected();
+       
 }

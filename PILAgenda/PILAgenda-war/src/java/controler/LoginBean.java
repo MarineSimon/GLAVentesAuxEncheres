@@ -17,6 +17,7 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.view.facelets.FaceletContext;
 import javax.servlet.http.HttpSession;
 import library.AgendaBeanLocal;
+import library.TaskBeanLocalInterface;
 import library.UserBeanLocalInterface;
 import persistence.Agenda;
 import persistence.UserAgenda;
@@ -33,6 +34,8 @@ public class LoginBean implements Serializable {
     private UserBeanLocalInterface userTryToConnect;
     @EJB
     private AgendaBean newAgenda;
+    @EJB
+    private TaskBeanLocalInterface newTask;
     private String userEmail;
     private String userPassWord;
     private boolean isLoggedIn;
@@ -90,6 +93,7 @@ public class LoginBean implements Serializable {
         if (getUserConnected().getPassword().equals(userPassWord)) {
             setIsLoggedIn(true);
             newAgenda.setUserConnected(userConnected);
+            newTask.setUserConnected(userConnected);
             return "viewAgenda";
 
         } else {

@@ -78,6 +78,14 @@ public class Task implements Serializable {
         this.description = description;
     }
 
+    public UserAgenda getTaskOwner() {
+        return taskOwner;
+    }
+
+    public void setTaskOwner(UserAgenda taskOwner) {
+        this.taskOwner = taskOwner;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

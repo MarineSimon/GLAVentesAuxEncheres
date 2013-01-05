@@ -88,7 +88,7 @@ public class TaskBean {
     }  
         
     public List<String> listAllTask() {
-        setListOfTask(beanLocal.findAllTask());
+        setListOfTask(beanLocal.findAllTask(beanLocal.getUserConnected()));
         List<String> l = new ArrayList<String>();
         l.removeAll(l);
         for (int i = 0; i < listOfTask.size(); i++) {
