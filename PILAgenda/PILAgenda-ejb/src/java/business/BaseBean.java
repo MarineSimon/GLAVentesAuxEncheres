@@ -31,7 +31,7 @@ public class BaseBean implements BaseBeanLocal {
         UserAgenda user1 = new UserAgenda("admin", "admin", "Name1", "user1", "FR", "adresse user1", "France", "Nancy", "0", "24", "1");
         em.persist(user1);
         
-        Agenda agenda1 = new Agenda(1, Color.GREEN, "Personnel", "Agenda personnel de admin", user1);
+        Agenda agenda1 = new Agenda(1, "GREEN", "Personnel", "Agenda personnel de admin", user1);
         em.persist(agenda1);
         
         Periodicity periodicity1 = new Periodicity(2);

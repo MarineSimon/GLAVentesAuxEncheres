@@ -38,6 +38,11 @@
             <to-view-id>/viewAgenda.xhtml</to-view-id>
             <redirect>/viewAgenda.xhtml</redirect>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>filling</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect>/login.xhtml</redirect>
+        </navigation-case>
     </navigation-rule>
     
     <navigation-rule>

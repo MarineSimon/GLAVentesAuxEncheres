@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"      
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:composition template="template.xhtml">
         <ui:define name="title">
             Login
@@ -21,6 +22,9 @@
                     <p:password value="#{loginBean.userPassWord}"/><br/>
                     <p:commandButton id="btnLogin" type="submit" value="Connexion" action="#{loginBean.loginSuccessful()}"/><br/>
                     <p:commandButton value="Créer un compte" action="createAccount" immediate="true"/>
+                    <c:if test="${!baseManagedBean.checkBase}"> 
+                        <p:commandButton value="Remplir la base" action="#{baseManagedBean.fillingBase()}"></p:commandButton>
+                    </c:if>
                 </h:panelGrid>
             </h:form>
         </ui:define>
