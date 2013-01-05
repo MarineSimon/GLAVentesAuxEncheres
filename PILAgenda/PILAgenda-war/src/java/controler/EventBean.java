@@ -41,6 +41,8 @@ public class EventBean implements Serializable{
     private EventBeanLocalInterface eventInterface;
     @EJB 
     private AgendaBean agendaInterface;
+    @EJB
+    private AgendaBean agendaLocal;
     
     // Injection du ScheduleBean, nécessaire notamment dans l'ajout des évènements directement au Schedule "graphique"
     @Inject
@@ -182,7 +184,7 @@ public class EventBean implements Serializable{
             Event e;
             java.sql.Date begin = new java.sql.Date(this.eventBeginDate.getTime());
             java.sql.Date end = new java.sql.Date(this.eventEndDate.getTime());
-            e = new Event(this.name, this.location, begin, end, this.visibility, this.description, period, null, a);
+            e = new Event(this.name, this.location, begin, end, this.visibility, this.description, period, this.agendaLocal.getUserConnected(), a);
             
             // Ajout de l'évènement au modèle
             this.eventInterface.addEvent(e);
