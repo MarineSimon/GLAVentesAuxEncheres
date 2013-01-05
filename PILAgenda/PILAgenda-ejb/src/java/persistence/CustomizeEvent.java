@@ -34,10 +34,10 @@ public class CustomizeEvent implements Serializable {
     @Column(name = "COMMENT")
     private String comment;
     
-    @ManyToOne
+    @ManyToOne(optional=false)
     private UserAgenda customizedEventOwner;
     
-    @ManyToOne
+    @ManyToOne(optional=false)
     private Event relatedEvent;
 
     public CustomizeEvent() {

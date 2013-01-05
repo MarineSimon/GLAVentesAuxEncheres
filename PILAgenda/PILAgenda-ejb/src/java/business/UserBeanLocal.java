@@ -4,7 +4,6 @@
  */
 package business;
 
-import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;

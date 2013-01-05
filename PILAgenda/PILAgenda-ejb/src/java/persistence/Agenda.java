@@ -6,12 +6,14 @@ package persistence;
 
 import java.awt.Color;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -39,23 +41,23 @@ public class Agenda implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     
-    @ManyToOne
+    @ManyToOne(optional=false)
     private UserAgenda agendaOwner;
     
-    @ManyToOne
+    @ManyToOne(optional=true)
     private GroupAgenda belongToGroup;
     
     @ManyToMany(mappedBy = "followedAgendas")
-    private Set<UserAgenda> followers;
+    private List<UserAgenda> followers;
     
     @ManyToMany(mappedBy = "displayedAgendas")
-    private Set<UserAgenda> displayers;
+    private List<UserAgenda> displayers;
     
     @ManyToMany(mappedBy = "belongToAgendas")
-    private Set<Event> acceptedEvents;
+    private List<Event> acceptedEvents;
     
     @ManyToMany(mappedBy = "guestToAgendas")
-    private Set<Event> guestEvents;
+    private List<Event> guestEvents;
 
     public Agenda(int access, String color, String name, String description, UserAgenda agendaOwner) {
         this.access = access;

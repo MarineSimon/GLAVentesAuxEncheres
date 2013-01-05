@@ -6,14 +6,15 @@ package persistence;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -44,19 +45,21 @@ public class Event implements Serializable {
     private String description;
     
     @OneToMany(mappedBy="relatedEvent")
-    private Set<CustomizeEvent> customizedEvents;
+    private List<CustomizeEvent> customizedEvents;
     
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST,optional=false)
     private Periodicity periodicity;
     
-    @ManyToOne
+    @ManyToOne(optional=false)
     private UserAgenda eventOwner;
     
     @ManyToMany
-    private Set<Agenda> belongToAgendas;
+    @JoinTable(name="EVENTS_BELONG_AGENDAS",joinColumns= @JoinColumn(name="EVENT_ID",referencedColumnName="ID"),inverseJoinColumns=@JoinColumn(name="AGENDA_ID",referencedColumnName="ID"))
+    private List<Agenda> belongToAgendas;
     
     @ManyToMany
-    private Set<Agenda> guestToAgendas;
+    @JoinTable(name="EVENTS_GUESTS_AGENDAS",joinColumns= @JoinColumn(name="EVENT_ID",referencedColumnName="ID"),inverseJoinColumns=@JoinColumn(name="AGENDA_ID",referencedColumnName="ID"))    
+    private List<Agenda> guestToAgendas;
 
     public Event() {
     }
