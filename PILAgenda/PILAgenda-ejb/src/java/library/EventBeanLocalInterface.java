@@ -4,7 +4,10 @@
  */
 package library;
 
+import java.util.List;
 import javax.ejb.Local;
+import persistence.Event;
+import persistence.UserAgenda;
 
 /**
  *
@@ -13,5 +16,5 @@ import javax.ejb.Local;
 @Local
 public interface EventBeanLocalInterface {
     public persistence.Event addEvent(persistence.Event e);
-    
+    public List<Event> findAllEvent(UserAgenda userCo);
 }

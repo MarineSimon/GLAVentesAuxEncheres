@@ -1,8 +1,10 @@
 package controler;
 
+import business.AgendaBean;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -10,6 +12,7 @@ import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.DateSelectEvent;
 import org.primefaces.event.ScheduleEntryMoveEvent;
@@ -19,6 +22,8 @@ import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
+import persistence.Event;
+import persistence.UserAgenda;
 
 
 /**
@@ -30,6 +35,9 @@ import org.primefaces.model.ScheduleModel;
 @SessionScoped
 public class ScheduleBean implements Serializable{
     
+        @Inject
+        private AgendaBean agendaInterface;
+    
         private ScheduleModel eventModel;
         private ScheduleEvent event = new DefaultScheduleEvent();
         private EventBean eventBean;
@@ -37,15 +45,21 @@ public class ScheduleBean implements Serializable{
         public ScheduleBean() {
             eventBean = new EventBean();
             
-            eventModel = new DefaultScheduleModel();  
-            eventModel.addEvent(new DefaultScheduleEvent("Champions League Match",
-                                previousDay8Pm(), previousDay11Pm()));
+            eventModel = new DefaultScheduleModel();
             
         }
         
         public Date getInitialDate() {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(calendar.get(Calendar.YEAR), Calendar.FEBRUARY, calendar.get(Calendar.DATE), 0, 0, 0);
+                
+                //Récupération de l'utilisateur courant
+                UserAgenda user = agendaInterface.getUserConnected();
+                
+                //Liste des évènements de l'utilisateur courant
+                ArrayList<Event> events = new ArrayList<Event>();
+                
+                
                 
                 return calendar.getTime();
         }
@@ -82,24 +96,6 @@ public class ScheduleBean implements Serializable{
                 return calendar;
         }
         
-        private Date previousDay8Pm() {
-                Calendar t = (Calendar) today().clone();
-                t.set(Calendar.AM_PM, Calendar.PM);
-                t.set(Calendar.DATE, t.get(Calendar.DATE) - 1);
-                t.set(Calendar.HOUR, 8);
-
-                return t.getTime();
-        }
-        
-         private Date previousDay11Pm() {
-                Calendar t = (Calendar) today().clone();
-                t.set(Calendar.AM_PM, Calendar.PM);
-                t.set(Calendar.DATE, t.get(Calendar.DATE) - 1);
-                t.set(Calendar.HOUR, 11);
-
-                return t.getTime();
-        }
- 
         public void onEventSelect(ScheduleEntrySelectEvent e) {
                event = e.getScheduleEvent();
         }

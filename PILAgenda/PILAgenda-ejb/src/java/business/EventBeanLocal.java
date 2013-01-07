@@ -4,11 +4,14 @@
  */
 package business;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import library.EventBeanLocalInterface;
 import persistence.Event;
+import persistence.UserAgenda;
 
 /**
  *
@@ -28,4 +31,12 @@ public class EventBeanLocal implements EventBeanLocalInterface {
         em.persist(e);
         return e;
     }
+
+    @Override
+    public List<Event> findAllEvent(UserAgenda userConnected) {
+       TypedQuery<Event> query = em.createQuery("SELECT e FROM Event e WHERE e.eventOwner_Id = ?1", Event.class);
+       query.setParameter(1, userConnected);
+       return (List<Event>) query.getResultList();
+    }
+    
 }
