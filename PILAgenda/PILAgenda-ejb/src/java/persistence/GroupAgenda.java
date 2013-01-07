@@ -5,6 +5,7 @@
 package persistence;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,6 +52,9 @@ public class GroupAgenda implements Serializable {
         this.name = name;
         this.description = description;
         this.groupAdministrator = groupAdministrator;
+        this.groupAgendas = new ArrayList<Agenda>();
+        this.users = new ArrayList<UserAgenda>();
+        this.guests = new ArrayList<UserAgenda>();
     }
     
     

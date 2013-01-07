@@ -4,12 +4,14 @@
  */
 package business;
 
+import java.util.ArrayList;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import library.UserBeanLocalInterface;
 import persistence.UserAgenda;
 
@@ -25,7 +27,15 @@ public class UserBeanLocal implements UserBeanLocalInterface{
 
     @Override
     public UserAgenda addAccount(UserAgenda ua) {
-        em.persist(ua);
+        Query query = em.createNamedQuery("UserAgenda.findPassWordByEmail");
+        query.setParameter(1, ua.getEmail());
+
+        if (query.getResultList().size() == 0) {
+            em.persist(ua);
+        }
+        else {
+            ua = null;
+        }
         return ua;
     }
  @Override
@@ -33,8 +43,8 @@ public class UserBeanLocal implements UserBeanLocalInterface{
         UserAgenda userConnected = new UserAgenda();
         Query query = em.createNamedQuery("UserAgenda.findPassWordByEmail");
         try {
-        query.setParameter(1, email);
-        userConnected = (UserAgenda) query.getSingleResult();
+            query.setParameter(1, email);
+            userConnected = (UserAgenda) query.getSingleResult();
         } catch (NoResultException e) {
             return null;
         }

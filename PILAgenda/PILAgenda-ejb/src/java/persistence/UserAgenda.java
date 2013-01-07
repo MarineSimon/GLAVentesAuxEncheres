@@ -5,6 +5,7 @@
 package persistence;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -108,6 +109,15 @@ public class UserAgenda implements Serializable {
         this.timeZone = timeZone;
         this.hourFormat = hourFormat;
         this.defaultEventDuration = defaultEventDuration;
+        this.tasks = new ArrayList<Task>();
+        this.customizedEvents = new ArrayList<CustomizeEvent>();
+        this.events = new ArrayList<Event>();
+        this.administratedGroups = new ArrayList<GroupAgenda>();
+        this.agendas = new ArrayList<Agenda>();
+        this.belongToGroups = new ArrayList<GroupAgenda>();
+        this.guestToGroups = new ArrayList<GroupAgenda>();
+        this.followedAgendas = new ArrayList<Agenda>();
+        this.displayedAgendas = new ArrayList<Agenda>();
         //Ajouter agenda par défaut
     }
     

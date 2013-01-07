@@ -11,8 +11,8 @@
         </ui:define>
     
         <ui:define name="content">
-            <h:form>
-                <p:messages id="messages" showDetail="true" autoUpdate="true"/> 
+            <h:form id="account">
+                <p:messages id="messages" autoUpdate="true"/> 
                 
                 <h:panelGrid columns="2" cellpadding="">  
                     <h:panelGrid columns="2" cellpadding="5">  
@@ -69,8 +69,8 @@
                      </h:panelGrid>
                 </h:panelGrid>
                 
+                <p:commandButton id="saveButton" value="Confirmer" action="#{userBean.addAccount()}" />                
                 <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
-                <p:commandButton id="saveButton" value="Confirmer" action="#{userBean.addAccount()}" />
 
             </h:form>
         </ui:define>
