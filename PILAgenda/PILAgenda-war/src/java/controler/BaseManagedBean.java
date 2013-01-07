@@ -6,7 +6,7 @@ package controler;
 
 import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import library.BaseBeanLocal;
 
@@ -15,7 +15,7 @@ import library.BaseBeanLocal;
  * @author Maxime
  */
 @Named(value = "baseManagedBean")
-@SessionScoped
+@ApplicationScoped
 public class BaseManagedBean implements Serializable{
     @EJB
     private BaseBeanLocal baseLocal;

@@ -6,6 +6,7 @@ package persistence;
 
 import java.awt.Color;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -65,6 +66,10 @@ public class Agenda implements Serializable {
         this.name = name;
         this.description = description;
         this.agendaOwner = agendaOwner;
+        this.followers = new ArrayList<UserAgenda>();
+        this.displayers = new ArrayList<UserAgenda>();
+        this.acceptedEvents = new ArrayList<Event>();
+        this.guestEvents = new ArrayList<Event>();
     }
     
     public Agenda(){

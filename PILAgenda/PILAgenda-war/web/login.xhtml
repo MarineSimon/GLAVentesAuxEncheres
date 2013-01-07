@@ -15,16 +15,14 @@
            
             <h:form id="formLogin">
                 <p:messages id="messages" autoUpdate="true"/>
+                <center><p><i>Si base pré-remplie : admin/admin.</i></p></center>
                 <h:panelGrid columns="2" style="margin:auto">
                     Email:
                     <p:inputText value="#{loginBean.userEmail}" required="true"/><br/>
                     Mot de passe :
                     <p:password value="#{loginBean.userPassWord}"/><br/>
                     <p:commandButton id="btnLogin" type="submit" value="Connexion" action="#{loginBean.loginSuccessful()}"/><br/>
-                    <p:commandButton value="Créer un compte" action="createAccount" immediate="true"/>
-                    <c:if test="${!baseManagedBean.checkBase}"> 
-                        <p:commandButton value="Remplir la base" action="#{baseManagedBean.fillingBase()}"></p:commandButton>
-                    </c:if>
+                    <p:commandButton value="Créer un compte" action="createAccount" immediate="true"/>       
                 </h:panelGrid>
             </h:form>
         </ui:define>

@@ -13,7 +13,6 @@
         <ui:define name="content">
             <f:event listener="#{loginBean.verifyUseLogin(event)}" type="preRenderView"/>
             <h:form id="createAgenda">
-                <p:commandButton value="Déconnexion" action="#{loginBean.logout()}" immediate="true" />
                 <p:messages id="messages" autoUpdate="true"/>
                 <h:panelGrid columns="2" style="margin:auto">
                     <f:facet name="header">
@@ -37,8 +36,8 @@
                     </p:selectOneMenu>
                     Couleur
                     <p:colorPicker id="popupCP" value="#{agendaManagedBean.color}" widgetVar="picker"/>
-                    <h:commandButton id="cancelButton" value="Annuler" action="cancelAdd" type="cancel" immediate="true"/>
-                    <h:commandButton id="saveButton" value="Confirmer" action="#{agendaManagedBean.createNewAgenda()}" type="submit"/>
+                    <p:commandButton id="saveButton" value="Confirmer" action="#{agendaManagedBean.createNewAgenda()}" type="submit"/>
+                    <p:commandButton id="cancelButton" value="Annuler" action="cancelAdd" type="cancel" immediate="true"/>
                 </h:panelGrid>
             </h:form>
         </ui:define>
