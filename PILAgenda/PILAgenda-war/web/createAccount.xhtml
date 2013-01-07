@@ -69,8 +69,8 @@
                      </h:panelGrid>
                 </h:panelGrid>
                 
-                <p:commandButton id="cancelButton" value="Annuler" />
-                <p:commandButton id="saveButton" value="Confirmer" action="#{userBean.addAccount()}"/>
+                <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
+                <p:commandButton id="saveButton" value="Confirmer" action="#{userBean.addAccount()}" />
 
             </h:form>
         </ui:define>

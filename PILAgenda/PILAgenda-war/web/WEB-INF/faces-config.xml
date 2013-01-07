@@ -94,4 +94,13 @@
             <redirect>/createEvent.xhtml</redirect>
         </navigation-case>
     </navigation-rule>
+    
+     <navigation-rule>
+        <from-view-id>/createAccount.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect>/index.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
