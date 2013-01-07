@@ -21,3 +21,5 @@ Pour un tutoriel illustré, aller sur http://www.soleneantoine.com/fac/Git-Assem
 Notes :
 
 Pour créer un évènement, aller à l'URL http://localhost:8080/PILAgenda-war/faces/createEvent.xhtml (le bouton "créer un évènement" ne marche pas)
+
+Remarque : Si le projet comprend une erreur sur les bibliothèques javax (à cause des différentes versions de Java), faire clique-droit sur le projet ejb > Propriétés > Ok (cela met à jour les bibliothèques)
