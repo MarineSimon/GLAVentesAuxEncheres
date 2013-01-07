@@ -6,6 +6,7 @@ package persistence;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -73,6 +74,8 @@ public class Event implements Serializable {
         this.description = description;
         this.periodicity = periodicity;
         this.eventOwner = eventOwner;
+        this.belongToAgendas = new ArrayList<Agenda>();
+        this.belongToAgendas.add(agenda);
     }
     
     
