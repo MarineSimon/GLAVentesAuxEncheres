@@ -21,8 +21,8 @@
                     <p:inputText value="#{loginBean.userEmail}" required="true"/><br/>
                     Mot de passe :
                     <p:password value="#{loginBean.userPassWord}"/><br/>
-                    <h:commandButton id="btnLogin" type="submit" value="Connexion" action="#{loginBean.loginSuccessful()}"/><br/>
-                    <h:commandButton value="Créer un compte" action="createAccount" immediate="true"  /> 
+                    <p:commandButton id="btnLogin" type="submit" value="Connexion" action="#{loginBean.loginSuccessful()}"/><br/>
+                    <p:commandButton value="Créer un compte" action="createAccount" immediate="true"/>       
                 </h:panelGrid>
             </h:form>
         </ui:define>
