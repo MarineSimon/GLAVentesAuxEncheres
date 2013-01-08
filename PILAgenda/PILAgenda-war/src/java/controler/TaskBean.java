@@ -10,12 +10,12 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import library.TaskBeanLocalInterface;
-import persistence.Task;
-import javax.faces.application.FacesMessage;  
-import javax.faces.context.FacesContext;
 import org.primefaces.event.DateSelectEvent;
+import persistence.Task;
 
 /**
  *

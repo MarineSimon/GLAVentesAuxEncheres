@@ -13,7 +13,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import library.AgendaBeanLocal;
 import persistence.Agenda;
-import persistence.UserAgenda;
 
 /**
  *

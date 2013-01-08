@@ -1,19 +1,20 @@
 package controler;
 
-import business.AgendaBean;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
+import library.EventBeanLocalInterface;
+import library.TaskBeanLocalInterface;
 import org.primefaces.event.DateSelectEvent;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -35,8 +36,10 @@ import persistence.UserAgenda;
 @SessionScoped
 public class ScheduleBean implements Serializable{
     
-        @Inject
-        private AgendaBean agendaInterface;
+        @EJB
+        private TaskBeanLocalInterface bean;
+        @EJB
+        private EventBeanLocalInterface eventBeanLocal;
     
         private ScheduleModel eventModel;
         private ScheduleEvent event = new DefaultScheduleEvent();
@@ -46,20 +49,31 @@ public class ScheduleBean implements Serializable{
             eventBean = new EventBean();
             
             eventModel = new DefaultScheduleModel();
+        }
+        
+        public void findEvents(){
+            eventModel.clear();
             
+            //Récupération de l'utilisateur courant
+                UserAgenda user = bean.getUserConnected();
+                
+                //Liste des évènements de l'utilisateur courant
+                List<Event> events = (List<Event>) eventBeanLocal.findAllEvent(user);
+                for(Event event : events){
+                    Date begin = event.getBeginDate();
+                    Date end = event.getEndDate();
+                    String name = event.getName();
+                    
+                    DefaultScheduleEvent ev = new DefaultScheduleEvent(name, begin, end);
+                    ev.setData(event);
+                    
+                    eventModel.addEvent(ev);
+                }
         }
         
         public Date getInitialDate() {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(calendar.get(Calendar.YEAR), Calendar.FEBRUARY, calendar.get(Calendar.DATE), 0, 0, 0);
-                
-                //Récupération de l'utilisateur courant
-                UserAgenda user = agendaInterface.getUserConnected();
-                
-                //Liste des évènements de l'utilisateur courant
-                ArrayList<Event> events = new ArrayList<Event>();
-                
-                
                 
                 return calendar.getTime();
         }
@@ -72,8 +86,7 @@ public class ScheduleBean implements Serializable{
             return eventModel;
         }
         
-        public void addEvent(ActionEvent actionEvent) {  
-            System.out.println("AddEvent appelé");
+        public void addEvent(ActionEvent actionEvent) {
         try {
             eventBean.addEvent();
         } catch (ParseException ex) {
@@ -97,6 +110,8 @@ public class ScheduleBean implements Serializable{
         }
         
         public void onEventSelect(ScheduleEntrySelectEvent e) {
+            System.out.println("Title : " + e.getScheduleEvent().getTitle()); 
+            //System.out.println("" + ((Event)(e.getScheduleEvent().getData())).getName()); 
                event = e.getScheduleEvent();
         }
         

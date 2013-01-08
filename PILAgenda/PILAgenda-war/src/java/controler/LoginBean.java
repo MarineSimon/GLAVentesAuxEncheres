@@ -9,17 +9,14 @@ import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
-import javax.faces.view.facelets.FaceletContext;
 import javax.servlet.http.HttpSession;
 import library.AgendaBeanLocal;
 import library.TaskBeanLocalInterface;
 import library.UserBeanLocalInterface;
-import persistence.Agenda;
 import persistence.UserAgenda;
 
 /**
