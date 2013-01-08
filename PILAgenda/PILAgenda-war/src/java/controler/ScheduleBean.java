@@ -5,12 +5,16 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import library.EventBeanLocalInterface;
+import library.TaskBeanLocalInterface;
 import org.primefaces.event.DateSelectEvent;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -19,6 +23,8 @@ import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
+import persistence.Event;
+import persistence.UserAgenda;
 
 
 /**
@@ -30,6 +36,11 @@ import org.primefaces.model.ScheduleModel;
 @SessionScoped
 public class ScheduleBean implements Serializable{
     
+        @EJB
+        private TaskBeanLocalInterface bean;
+        @EJB
+        private EventBeanLocalInterface eventBeanLocal;
+    
         private ScheduleModel eventModel;
         private ScheduleEvent event = new DefaultScheduleEvent();
         private EventBean eventBean;
@@ -37,10 +48,27 @@ public class ScheduleBean implements Serializable{
         public ScheduleBean() {
             eventBean = new EventBean();
             
-            eventModel = new DefaultScheduleModel();  
-            eventModel.addEvent(new DefaultScheduleEvent("Champions League Match",
-                                previousDay8Pm(), previousDay11Pm()));
+            eventModel = new DefaultScheduleModel();
+        }
+        
+        public void findEvents(){
+            eventModel.clear();
             
+            //Récupération de l'utilisateur courant
+                UserAgenda user = bean.getUserConnected();
+                
+                //Liste des évènements de l'utilisateur courant
+                List<Event> events = (List<Event>) eventBeanLocal.findAllEvent(user);
+                for(Event event : events){
+                    Date begin = event.getBeginDate();
+                    Date end = event.getEndDate();
+                    String name = event.getName();
+                    
+                    DefaultScheduleEvent ev = new DefaultScheduleEvent(name, begin, end);
+                    ev.setData(event);
+                    
+                    eventModel.addEvent(ev);
+                }
         }
         
         public Date getInitialDate() {
@@ -58,8 +86,7 @@ public class ScheduleBean implements Serializable{
             return eventModel;
         }
         
-        public void addEvent(ActionEvent actionEvent) {  
-            System.out.println("AddEvent appelé");
+        public void addEvent(ActionEvent actionEvent) {
         try {
             eventBean.addEvent();
         } catch (ParseException ex) {
@@ -82,25 +109,9 @@ public class ScheduleBean implements Serializable{
                 return calendar;
         }
         
-        private Date previousDay8Pm() {
-                Calendar t = (Calendar) today().clone();
-                t.set(Calendar.AM_PM, Calendar.PM);
-                t.set(Calendar.DATE, t.get(Calendar.DATE) - 1);
-                t.set(Calendar.HOUR, 8);
-
-                return t.getTime();
-        }
-        
-         private Date previousDay11Pm() {
-                Calendar t = (Calendar) today().clone();
-                t.set(Calendar.AM_PM, Calendar.PM);
-                t.set(Calendar.DATE, t.get(Calendar.DATE) - 1);
-                t.set(Calendar.HOUR, 11);
-
-                return t.getTime();
-        }
- 
         public void onEventSelect(ScheduleEntrySelectEvent e) {
+            System.out.println("Title : " + e.getScheduleEvent().getTitle()); 
+            //System.out.println("" + ((Event)(e.getScheduleEvent().getData())).getName()); 
                event = e.getScheduleEvent();
         }
         

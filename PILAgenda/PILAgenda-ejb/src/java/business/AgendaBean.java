@@ -6,12 +6,11 @@ package business;
 
 import java.util.List;
 import javax.ejb.LocalBean;
-import library.AgendaBeanLocal;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import library.AgendaBeanLocal;
 import persistence.Agenda;
 import persistence.UserAgenda;
 
@@ -27,6 +26,10 @@ public class AgendaBean implements AgendaBeanLocal {
     private EntityManager em;
     private UserAgenda userConnected;
 
+    public AgendaBean(){
+        
+    }
+    
     public UserAgenda getUserConnected() {
         return userConnected;
     }

@@ -47,7 +47,8 @@
 
                     <p:growl id="messages" showDetail="true" />  
 
-                    <p:schedule  value="#{scheduleBean.eventModel}" widgetVar="myschedule" view="agendaDay" locale="fr" rightHeaderTemplate="agendaDay,agendaWeek,month">  
+                    <f:event listener="#{scheduleBean.findEvents()}" type="preRenderComponent"/>
+                    <p:schedule value="#{scheduleBean.eventModel}" widgetVar="myschedule" view="agendaDay" locale="fr" rightHeaderTemplate="agendaDay,agendaWeek,month">  
 
                         <p:ajax event="dateSelect" listener="#{scheduleBean.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
                         <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="dlg.show()" />  
