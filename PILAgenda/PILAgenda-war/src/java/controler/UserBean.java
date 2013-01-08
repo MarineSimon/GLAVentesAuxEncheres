@@ -6,14 +6,12 @@ package controler;
 
 import business.AgendaBean;
 import business.UserBeanLocal;
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import library.AgendaBeanLocal;
 import persistence.Agenda;
 import persistence.UserAgenda;
 
@@ -228,25 +226,31 @@ public class UserBean{
     }
     
     public String addAccount(){
-            user = new UserAgenda();
-            
-            user.setEmail(mail);
-            user.setFirstname(firstname);
-            user.setLastname(lastname);
-            user.setPassword(password);
-            user.setCity(locality);
-            user.setCountry(country);
-            user.setKeyboardShortcut(keyboardShortcut);
-            user.setDefaultEventDuration(defaultDuration);
-            user.setSeeWeekEnd(displayWeek);
-            user.setLang(language);
-            user.setPhone(phone);
-            user.setHourFormat(hourFormat);
-            user.setTimeZone(timeZone);
-            
-            local.addAccount(user);
-            createDefaultAgenda();
-        return "viewAgenda";
+        String result = "viewAgenda";
+        user = new UserAgenda();
+        user.setEmail(mail);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setPassword(password);
+        user.setCity(locality);
+        user.setCountry(country);
+        user.setKeyboardShortcut(keyboardShortcut);
+        user.setDefaultEventDuration(defaultDuration);
+        user.setSeeWeekEnd(displayWeek);
+        user.setLang(language);
+        user.setPhone(phone);
+        user.setHourFormat(hourFormat);
+        user.setTimeZone(timeZone);
+        UserAgenda ua = local.addAccount(user);
+
+        if (ua == null) {
+            FacesContext.getCurrentInstance().addMessage("account:message", new FacesMessage("email déjà existant."));
+            result = null;
+        }
+        else {
+            createDefaultAgenda();            
+        }
+        return result;
     }
     @PostConstruct
     void initialiseSession() {
