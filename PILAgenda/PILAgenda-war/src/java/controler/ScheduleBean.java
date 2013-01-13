@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import library.EventBeanLocalInterface;
 import library.TaskBeanLocalInterface;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.DateSelectEvent;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -44,12 +45,22 @@ public class ScheduleBean implements Serializable{
         private ScheduleModel eventModel;
         private ScheduleEvent event = new DefaultScheduleEvent();
         private EventBean eventBean;
+        private Date dateSelectedToDisplay;
         
         public ScheduleBean() {
             eventBean = new EventBean();
             
             eventModel = new DefaultScheduleModel();
         }
+
+    public Date getDateSelectedToDisplay() {
+        return dateSelectedToDisplay;
+    }
+
+    public void setDateSelectedToDisplay(Date dateSelectedToDisplay) {
+        this.dateSelectedToDisplay = dateSelectedToDisplay;
+    }
+        
         
         public void findEvents(){
             eventModel.clear();
@@ -70,6 +81,10 @@ public class ScheduleBean implements Serializable{
                     eventModel.addEvent(ev);
                 }
         }
+        
+    public void handleDateSelect(DateSelectEvent event) { 
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+    } 
         
         public Date getInitialDate() {
                 Calendar calendar = Calendar.getInstance();
