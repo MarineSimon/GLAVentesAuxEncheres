@@ -18,7 +18,6 @@ class EX1
 		sleep 2
 	end
 	def self.switch_to_month() 
-		
 		#puts $browser.html
 		swithToWeek = $browser.span(:class, "fc-button fc-button-agendaWeek ui-state-default")
 		swithToWeek.click

@@ -37,22 +37,47 @@ import persistence.UserAgenda;
 @SessionScoped
 public class ScheduleBean implements Serializable{
     
-        @EJB
-        private TaskBeanLocalInterface bean;
-        @EJB
-        private EventBeanLocalInterface eventBeanLocal;
-    
-        private ScheduleModel eventModel;
-        private ScheduleEvent event = new DefaultScheduleEvent();
-        private EventBean eventBean;
-        private Date dateSelectedToDisplay;
-        
-        public ScheduleBean() {
-            eventBean = new EventBean();
-            
-            eventModel = new DefaultScheduleModel();
-        }
+    @EJB
+    private TaskBeanLocalInterface bean;
+    @EJB
+    private EventBeanLocalInterface eventBeanLocal;
 
+    private ScheduleModel eventModel;
+    private ScheduleEvent event = new DefaultScheduleEvent();
+    private EventBean eventBean;
+    private Date dateSelectedToDisplay;
+    private String displayMode;
+
+    public ScheduleBean() {
+        eventBean = new EventBean();
+        this.dateSelectedToDisplay = new Date(System.currentTimeMillis());
+        eventModel = new DefaultScheduleModel();
+        this.displayMode = "agendaDay";
+    }
+
+    public String getDisplayMode() {
+        return displayMode;
+    }
+
+    public void setDisplayMode(String displayMode) {
+        this.displayMode = displayMode;
+    }
+    
+    public void switchToDay() {
+        this.displayMode = "agendaDay";
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+    }
+    
+    public void switchToWeek() {
+        this.displayMode = "agendaWeek";
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+    }
+
+    public void switchToMonth() {
+        this.displayMode = "month";
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+    }
+        
     public Date getDateSelectedToDisplay() {
         return dateSelectedToDisplay;
     }
@@ -85,6 +110,38 @@ public class ScheduleBean implements Serializable{
     public void handleDateSelect(DateSelectEvent event) { 
         RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
     } 
+    
+    public void goToPrevious() {
+        int coeff = 1;
+        if (this.displayMode.equals("agendaWeek")) {
+            coeff = 7;
+        }
+        if (this.displayMode.equals("month")) {
+            coeff = 7;
+        }
+        this.dateSelectedToDisplay.setTime(this.dateSelectedToDisplay.getTime()-coeff*24*3600*1000);
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+        RequestContext.getCurrentInstance().update("j_idt8:miniCal:inlineCal");
+    }
+    
+    public void goToNext() {
+        int coeff = 1;
+        if (this.displayMode.equals("agendaWeek")) {
+            coeff = 7;
+        }
+        if (this.displayMode.equals("month")) {
+            coeff = 7;
+        }
+        this.dateSelectedToDisplay.setTime(this.dateSelectedToDisplay.getTime()+coeff*24*3600*1000);
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+        RequestContext.getCurrentInstance().update("j_idt8:miniCal:inlineCal");
+    }
+    
+    public void goToToday() {
+        this.dateSelectedToDisplay.setTime(System.currentTimeMillis());
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+        RequestContext.getCurrentInstance().update("j_idt8:miniCal:inlineCal");
+    }
         
         public Date getInitialDate() {
                 Calendar calendar = Calendar.getInstance();
