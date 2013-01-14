@@ -23,6 +23,7 @@ import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
+import persistence.Agenda;
 import persistence.Event;
 import persistence.UserAgenda;
 
@@ -60,11 +61,15 @@ public class ScheduleBean implements Serializable{
                 //Liste des évènements de l'utilisateur courant
                 List<Event> events = (List<Event>) eventBeanLocal.findAllEvent(user);
                 for(Event event : events){
+                    
                     Date begin = event.getBeginDate();
                     Date end = event.getEndDate();
                     String name = event.getName();
                     
-                    DefaultScheduleEvent ev = new DefaultScheduleEvent(name, begin, end);
+                    Agenda agendaOfEventAndUser =  eventBeanLocal.getAgendaOfEventFromUser(event, user);
+                    String colorOfEvent = agendaOfEventAndUser.getColor();
+                    
+                    DefaultScheduleEvent ev = new DefaultScheduleEvent(name, begin, end, ("evt-" + colorOfEvent));
                     ev.setData(event);
                     
                     eventModel.addEvent(ev);
