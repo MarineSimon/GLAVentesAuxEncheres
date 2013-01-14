@@ -18,8 +18,9 @@ class EX1
 		sleep 2
 	end
 	def self.switch_to_month() 
+		
 		#puts $browser.html
-		swithToWeek = $browser.span(:class, "fc-button fc-button-agendaWeek ui-state-default")
+		swithToWeek = $browser.span(:class, "fc-button fc-button-month ui-state-default ui-corner-right")
 		swithToWeek.click
 	end
 	def self.switch_to_day() 
@@ -37,9 +38,9 @@ class EX1
 		descEvent = $browser.text_field(:id, "j_idt9:createEvent:description")
 		descEvent.set("mon event personnel")
 		beginEvent = $browser.text_field(:id, "j_idt9:createEvent:from_input")
-		beginEvent.set("11/01/2013 18:57")
+		beginEvent.set("29/01/2013 18:57")
 		endEvent = $browser.text_field(:id, "j_idt9:createEvent:to_input")
-		endEvent.set("11/01/2013 20:57")
+		endEvent.set("29/01/2013 20:57")
 		bouton = $browser.button(:id, "j_idt9:createEvent:save")
 		bouton.click
 		sleep 1
@@ -62,6 +63,7 @@ class TEST_EX1 < Test::Unit::TestCase
 		assert(!$browser.text.include?("Evenement 2"))
 		assert($browser.text.include?("Evenement 1"))
 		puts "switch to day ok"
+		EX1.switch_to_month() 
 		#$browser.close
 	end
 end
