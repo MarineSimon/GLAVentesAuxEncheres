@@ -117,27 +117,29 @@ public class ScheduleBean implements Serializable{
     } 
     
     public void goToPrevious() {
-        int coeff = 1;
         if (this.displayMode.equals("agendaWeek")) {
-            coeff = 7;
+            this.dateSelectedToDisplay.setHours(this.dateSelectedToDisplay.getDay()-6*24);
         }
         if (this.displayMode.equals("month")) {
-            coeff = 7;
+            this.dateSelectedToDisplay.setMonth(this.dateSelectedToDisplay.getMonth()-1);
         }
-        this.dateSelectedToDisplay.setTime(this.dateSelectedToDisplay.getTime()-coeff*24*3600*1000);
+        else {
+            this.dateSelectedToDisplay.setHours(this.dateSelectedToDisplay.getDay()-24);
+        }
         RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
         RequestContext.getCurrentInstance().update("j_idt8:miniCal:inlineCal");
     }
     
     public void goToNext() {
-        int coeff = 1;
         if (this.displayMode.equals("agendaWeek")) {
-            coeff = 7;
+            this.dateSelectedToDisplay.setHours(this.dateSelectedToDisplay.getDay()+6*24);
         }
         if (this.displayMode.equals("month")) {
-            coeff = 7;
+            this.dateSelectedToDisplay.setMonth(this.dateSelectedToDisplay.getMonth()+1);
         }
-        this.dateSelectedToDisplay.setTime(this.dateSelectedToDisplay.getTime()+coeff*24*3600*1000);
+        else {
+            this.dateSelectedToDisplay.setHours(this.dateSelectedToDisplay.getDay()+24);
+        }
         RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
         RequestContext.getCurrentInstance().update("j_idt8:miniCal:inlineCal");
     }
