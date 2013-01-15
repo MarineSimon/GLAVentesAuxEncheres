@@ -35,7 +35,20 @@
                         <f:selectItem itemLabel="group 2"/>
                     </p:selectOneMenu>
                     Couleur
-                    <p:colorPicker id="popupCP" value="#{agendaManagedBean.color}" widgetVar="picker"/>
+                    <p:selectOneMenu value="#{agendaManagedBean.color}" var="co" converter="#{linkType}">
+                        <f:selectItem itemLabel="Select One" itemValue="" />
+                        <f:selectItems value="#{agendaManagedBean.listAllColors()}" var="couleur"
+                                       itemLabel="#{couleur.name}" itemValue="#{couleur}"/>
+                        
+                        <p:column>
+                            <div style="background-color:#{co.typeStyle}; width:30px; height:20px"> </div>
+                        </p:column>
+                        <p:column>
+                           #{co.name}
+                        </p:column>
+                    </p:selectOneMenu>
+                    
+                    
                     <p:commandButton id="saveButton" value="Confirmer" action="#{agendaManagedBean.createNewAgenda()}" type="submit"/>
                     <p:commandButton id="cancelButton" value="Annuler" action="cancelAdd" type="cancel" immediate="true"/>
                 </h:panelGrid>

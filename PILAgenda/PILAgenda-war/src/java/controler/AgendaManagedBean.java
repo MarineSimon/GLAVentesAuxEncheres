@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.inject.Named;
 import library.AgendaBeanLocal;
 import persistence.Agenda;
@@ -20,7 +23,7 @@ import persistence.Agenda;
  */
 @Named(value = "agendaManagedBean")
 @RequestScoped
-public class AgendaManagedBean implements Serializable {
+public class AgendaManagedBean implements Serializable, Converter {
 
     @EJB
     private AgendaBean agendaLocal;
@@ -97,7 +100,7 @@ public class AgendaManagedBean implements Serializable {
     public String createNewAgenda() {
         agenda = new Agenda();
         agenda.setName(nameAgenda);
-        agenda.setColor(color);
+        agenda.setColor(this.extractColor(color));
         if (accessibility.equalsIgnoreCase("PRIVE")) {
             agenda.setAccess(0);
         }
@@ -122,4 +125,38 @@ public class AgendaManagedBean implements Serializable {
         }
         return l;
     }
+    
+    // Liste des couleurs proposées pour un nouvel agenda.
+    public List<ColorAgenda> listAllColors() {
+        List<ColorAgenda> colors = new ArrayList<ColorAgenda>();
+        
+        colors.add(new ColorAgenda("Bleu","blue"));
+        colors.add(new ColorAgenda("Vert","green"));
+        colors.add(new ColorAgenda("Rouge","red"));
+        
+        return colors;
+    }
+    
+    
+    // Converter pour liste des couleurs
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, Object value) {
+        return value.toString();
+    }
+
+    @Override
+    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+        return new ColorAgenda();
+    }
+
+    private String extractColor(String color) {
+        String result = null;
+        int indexLastEqual = color.lastIndexOf("=");
+        int indexLastAcollade = color.indexOf("}");
+        
+        result = color.substring(indexLastEqual+1, indexLastAcollade);
+        
+        return result;
+    }
+
 }

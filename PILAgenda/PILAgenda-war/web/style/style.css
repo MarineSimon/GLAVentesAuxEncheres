@@ -217,3 +217,17 @@ a{
     box-shadow: none;
     padding: 0;
 }
+
+/* Color of Event for Schedule */
+
+.evt-red .fc-event-skin { 
+    background: red; 
+} 
+
+.evt-green .fc-event-skin { 
+   background: green;
+ }
+ 
+ .evt-blue .fc-event-skin { 
+   background: blue;
+ }
