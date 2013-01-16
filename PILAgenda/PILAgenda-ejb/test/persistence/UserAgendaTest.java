@@ -177,29 +177,29 @@ public class UserAgendaTest {
     /**
      * Test of getAddress method, of class UserAgenda.
      */
-    @Test
-    public void testGetAddress() {
-        System.out.println("getAddress");
-        String address = "69 rue du diable, 66 666 Hell, Enfer";
-        UserAgenda instance = new UserAgenda(null, null, null, null, null, address, null, null, null, null, null);
-        String expResult = address;
-        String result = instance.getAddress();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of setAddress method, of class UserAgenda.
-     */
-    @Test
-    public void testSetAddress() {
-        System.out.println("setAddress");
-        String address = "69 rue du diable, 66 666 Hell, Enfer";
-        UserAgenda instance = new UserAgenda();
-        instance.setAddress(address);
-        String expResult = address;
-        String result = instance.getAddress();
-        assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testGetAddress() {
+//        System.out.println("getAddress");
+//        String address = "69 rue du diable, 66 666 Hell, Enfer";
+//        UserAgenda instance = new UserAgenda(null, null, null, null, null, address, null, null, null, null, null);
+//        String expResult = address;
+//        String result = instance.getAddress();
+//        assertEquals(expResult, result);
+//    }
+//
+//    /**
+//     * Test of setAddress method, of class UserAgenda.
+//     */
+//    @Test
+//    public void testSetAddress() {
+//        System.out.println("setAddress");
+//        String address = "69 rue du diable, 66 666 Hell, Enfer";
+//        UserAgenda instance = new UserAgenda();
+//        instance.setAddress(address);
+//        String expResult = address;
+//        String result = instance.getAddress();
+//        assertEquals(expResult, result);
+//    }
 
     /**
      * Test of setTasks method, of class UserAgenda.
