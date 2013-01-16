@@ -32,6 +32,7 @@ public class BaseBean implements BaseBeanLocal {
         em.persist(user1);
         
         Agenda agenda1 = new Agenda(1, "GREEN", "Personnel", "Agenda personnel de admin", user1);
+        user1.getDisplayedAgendas().add(agenda1);
         em.persist(agenda1);
         
         Periodicity periodicity1 = new Periodicity(2);
@@ -44,6 +45,7 @@ public class BaseBean implements BaseBeanLocal {
         t.setHours(12);
         Date today2 = new Date(t.getTime());
         Event event1 = new Event("Evenement 1", "Nancy", today, today2, 1, "Evenement 1", periodicity1, user1, agenda1);
+        agenda1.getAcceptedEvents().add(event1);
         em.persist(event1);
     }
 
