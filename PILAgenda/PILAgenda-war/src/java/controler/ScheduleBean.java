@@ -24,6 +24,7 @@ import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
+import persistence.Agenda;
 import persistence.Event;
 import persistence.UserAgenda;
 
@@ -37,22 +38,47 @@ import persistence.UserAgenda;
 @SessionScoped
 public class ScheduleBean implements Serializable{
     
-        @EJB
-        private TaskBeanLocalInterface bean;
-        @EJB
-        private EventBeanLocalInterface eventBeanLocal;
-    
-        private ScheduleModel eventModel;
-        private ScheduleEvent event = new DefaultScheduleEvent();
-        private EventBean eventBean;
-        private Date dateSelectedToDisplay;
-        
-        public ScheduleBean() {
-            eventBean = new EventBean();
-            
-            eventModel = new DefaultScheduleModel();
-        }
+    @EJB
+    private TaskBeanLocalInterface bean;
+    @EJB
+    private EventBeanLocalInterface eventBeanLocal;
 
+    private ScheduleModel eventModel;
+    private ScheduleEvent event = new DefaultScheduleEvent();
+    private EventBean eventBean;
+    private Date dateSelectedToDisplay;
+    private String displayMode;
+
+    public ScheduleBean() {
+        eventBean = new EventBean();
+        this.dateSelectedToDisplay = new Date(System.currentTimeMillis());
+        eventModel = new DefaultScheduleModel();
+        this.displayMode = "agendaDay";
+    }
+
+    public String getDisplayMode() {
+        return displayMode;
+    }
+
+    public void setDisplayMode(String displayMode) {
+        this.displayMode = displayMode;
+    }
+    
+    public void switchToDay() {
+        this.displayMode = "agendaDay";
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+    }
+    
+    public void switchToWeek() {
+        this.displayMode = "agendaWeek";
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+    }
+
+    public void switchToMonth() {
+        this.displayMode = "month";
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+    }
+        
     public Date getDateSelectedToDisplay() {
         return dateSelectedToDisplay;
     }
@@ -71,11 +97,15 @@ public class ScheduleBean implements Serializable{
                 //Liste des évènements de l'utilisateur courant
                 List<Event> events = (List<Event>) eventBeanLocal.findAllEvent(user);
                 for(Event event : events){
+                    
                     Date begin = event.getBeginDate();
                     Date end = event.getEndDate();
                     String name = event.getName();
                     
-                    DefaultScheduleEvent ev = new DefaultScheduleEvent(name, begin, end);
+                    Agenda agendaOfEventAndUser =  eventBeanLocal.getAgendaOfEventFromUser(event, user);
+                    String colorOfEvent = agendaOfEventAndUser.getColor();
+                    
+                    DefaultScheduleEvent ev = new DefaultScheduleEvent(name, begin, end, ("evt-" + colorOfEvent));
                     ev.setData(event);
                     
                     eventModel.addEvent(ev);
@@ -85,6 +115,40 @@ public class ScheduleBean implements Serializable{
     public void handleDateSelect(DateSelectEvent event) { 
         RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
     } 
+    
+    public void goToPrevious() {
+        if (this.displayMode.equals("agendaWeek")) {
+            this.dateSelectedToDisplay.setHours(this.dateSelectedToDisplay.getDay()-6*24);
+        }
+        if (this.displayMode.equals("month")) {
+            this.dateSelectedToDisplay.setMonth(this.dateSelectedToDisplay.getMonth()-1);
+        }
+        else {
+            this.dateSelectedToDisplay.setHours(this.dateSelectedToDisplay.getDay()-24);
+        }
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+        RequestContext.getCurrentInstance().update("j_idt8:miniCal:inlineCal");
+    }
+    
+    public void goToNext() {
+        if (this.displayMode.equals("agendaWeek")) {
+            this.dateSelectedToDisplay.setHours(this.dateSelectedToDisplay.getDay()+6*24); //6 au lieu de 7...
+        }
+        if (this.displayMode.equals("month")) {
+            this.dateSelectedToDisplay.setMonth(this.dateSelectedToDisplay.getMonth()+1);
+        }
+        else {
+            this.dateSelectedToDisplay.setHours(this.dateSelectedToDisplay.getDay()+24);
+        }
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+        RequestContext.getCurrentInstance().update("j_idt8:miniCal:inlineCal");
+    }
+    
+    public void goToToday() {
+        this.dateSelectedToDisplay.setTime(System.currentTimeMillis());
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+        RequestContext.getCurrentInstance().update("j_idt8:miniCal:inlineCal");
+    }
         
         public Date getInitialDate() {
                 Calendar calendar = Calendar.getInstance();

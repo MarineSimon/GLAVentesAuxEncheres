@@ -79,19 +79,19 @@ public class UserAgenda implements Serializable {
     private List<Agenda> agendas;
     
     @ManyToMany
-    @JoinTable(name="USERS_BELONG_GROUP",joinColumns= @JoinColumn(name="USER_ID",referencedColumnName="EMAIL"),inverseJoinColumns=@JoinColumn(name="GROUP_ID",referencedColumnName="ID"))
+    @JoinTable(name="USERS_BELONG_GROUP",joinColumns= @JoinColumn(name="USER_ID",referencedColumnName="ID"),inverseJoinColumns=@JoinColumn(name="GROUP_ID",referencedColumnName="ID"))
     private List<GroupAgenda> belongToGroups;
     
     @ManyToMany
-    @JoinTable(name="USERS_GUESTS_GROUP",joinColumns= @JoinColumn(name="USER_ID",referencedColumnName="EMAIL"),inverseJoinColumns=@JoinColumn(name="GROUP_ID",referencedColumnName="ID"))    
+    @JoinTable(name="USERS_GUESTS_GROUP",joinColumns= @JoinColumn(name="USER_ID",referencedColumnName="ID"),inverseJoinColumns=@JoinColumn(name="GROUP_ID",referencedColumnName="ID"))    
     private List<GroupAgenda> guestToGroups;
     
     @ManyToMany
-    @JoinTable(name="USERS_FOLLOWED_AGENDAS",joinColumns= @JoinColumn(name="USER_ID",referencedColumnName="EMAIL"),inverseJoinColumns=@JoinColumn(name="AGENDA_ID",referencedColumnName="ID"))
+    @JoinTable(name="USERS_FOLLOWED_AGENDAS",joinColumns= @JoinColumn(name="USER_ID",referencedColumnName="ID"),inverseJoinColumns=@JoinColumn(name="AGENDA_ID",referencedColumnName="ID"))
     private List<Agenda> followedAgendas;
     
     @ManyToMany
-    @JoinTable(name="USERS_DISPLAYED_AGENDAS",joinColumns= @JoinColumn(name="USER_ID",referencedColumnName="EMAIL"),inverseJoinColumns=@JoinColumn(name="AGENDA_ID",referencedColumnName="ID"))
+    @JoinTable(name="USERS_DISPLAYED_AGENDAS",joinColumns= @JoinColumn(name="USER_ID",referencedColumnName="ID"),inverseJoinColumns=@JoinColumn(name="AGENDA_ID",referencedColumnName="ID"))
     private List<Agenda> displayedAgendas;
 
     public UserAgenda() {
