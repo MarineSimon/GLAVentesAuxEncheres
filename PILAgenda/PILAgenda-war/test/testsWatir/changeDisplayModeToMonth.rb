@@ -20,15 +20,17 @@ class EX1
 	def self.switch_to_month() 
 		
 		#puts $browser.html
-		swithToWeek = $browser.span(:class, "fc-button fc-button-month ui-state-default ui-corner-right")
-		swithToWeek.click
+		switchToMonth = $browser.button(:id, "j_idt8:month")
+		switchToMonth.click
+		sleep 2
 	end
 	def self.switch_to_day() 
 		$browser.goto("http://localhost:8080/PILAgenda-war/faces/viewAgenda.xhtml") 
 		sleep 1
 		#puts $browser.html
-		swithToWeek = $browser.span(:class, "fc-button fc-button-agendaDay ui-state-default ui-corner-left")
-		swithToWeek.click
+		switchToDay = $browser.button(:id, "j_idt8:day")
+		switchToDay.click
+		sleep 2
 	end
 
 	def self.create_event()

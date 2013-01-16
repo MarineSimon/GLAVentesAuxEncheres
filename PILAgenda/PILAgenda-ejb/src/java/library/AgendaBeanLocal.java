@@ -25,4 +25,5 @@ public interface AgendaBeanLocal {
    public Agenda findDefaultAgenda(UserAgenda u);
    public List<Event> findAcceptedEvent(Agenda agenda);
    public void addDisplayedAgendaToUser(Agenda a, UserAgenda u);
+   public List<UserAgenda> findAllUsers(); 
 }
