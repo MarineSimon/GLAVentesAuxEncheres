@@ -18,4 +18,5 @@ public interface AgendaBeanLocal {
    public Agenda createAgenda(Agenda newAgenda); 
    public List<Agenda> findAllAgenda(UserAgenda userConencted);
    public Agenda findAgenda(Long id);
+   public List<UserAgenda> findAllUsers();
 }

@@ -4,8 +4,10 @@
  */
 package controler;
 
+import business.AgendaBean;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import persistence.UserAgenda;
 
@@ -18,17 +20,15 @@ import persistence.UserAgenda;
 @Named(value = "autoCompleteBean")
 public class AutoCompleteBean {
      private String userSelected;
-     List<UserAgenda> users;
-     
-     public AutoCompleteBean() {  
-         users = UserAgendaConverter.userDB;  
-    } 
+     @EJB
+    private AgendaBean agendaLocal;
      
      public List<String> complete(String query) {
         List<String> suggestions = new ArrayList<String>();  
-          
-        for(UserAgenda u : users) {
-            if(u.getEmail().startsWith(query)) {
+        List<UserAgenda> l = agendaLocal.findAllUsers();
+        
+        for(UserAgenda u : l) {
+            if((u.getEmail().startsWith(query))||(u.getFirstname().startsWith(query))||(u.getLastname().startsWith(query))) {
                 suggestions.add(u.getEmail());
             } 
         }
@@ -41,15 +41,7 @@ public class AutoCompleteBean {
 
     public void setUserSelected(String userSelected) {
         this.userSelected = userSelected;
-    }
-
-    public List<UserAgenda> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<UserAgenda> users) {
-        this.users = users;
-    }        
+    }  
         
     
 }

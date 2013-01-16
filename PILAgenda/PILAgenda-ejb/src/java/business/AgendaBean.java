@@ -60,4 +60,10 @@ public class AgendaBean implements AgendaBeanLocal {
     public Agenda findAgenda(Long id) {
         return em.find(Agenda.class, id);
     }
+    
+    @Override
+    public List<UserAgenda> findAllUsers() {
+        TypedQuery<UserAgenda> query = em.createQuery("SELECT a FROM UserAgenda a ", UserAgenda.class);
+        return (List<UserAgenda>) query.getResultList();
+    }
 }
