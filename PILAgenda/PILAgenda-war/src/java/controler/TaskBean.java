@@ -4,15 +4,20 @@
  */
 package controler;
 
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
+import javax.swing.text.View;
 import library.TaskBeanLocalInterface;
 import org.primefaces.event.DateSelectEvent;
 import persistence.Task;
@@ -22,8 +27,8 @@ import persistence.Task;
  * @author flav
  */
 @Named(value = "taskBean")
-@RequestScoped
-public class TaskBean {
+@SessionScoped
+public class TaskBean implements Serializable {
     @EJB
     private TaskBeanLocalInterface beanLocal;
     
@@ -31,12 +36,60 @@ public class TaskBean {
     private Date dateLimite;
     private String description;
     private List<Task> listOfTask;
+    private Task selectedTask;
+    private String nameSelectedTask;
+    private Date dateSelectedTask;
+    private String descriptionSelectedTask;
+    private DataModel dataList = new ListDataModel();
 
     /**
      * Creates a new instance of TaskBean
      */
     public TaskBean() {
         dateLimite=new Date(System.currentTimeMillis());
+    }
+
+    public DataModel getDataList() {
+        return dataList;
+    }
+    public void setDataList(DataModel dataList) {
+        this.dataList = dataList;
+    }
+
+    public Task getSelectedTask() {
+        return selectedTask;
+    }
+
+    public void setSelectedTask(Task selectedTask) {
+        this.selectedTask = selectedTask;
+        this.setNameSelectedTask(selectedTask.getName());
+        this.setDescriptionSelectedTask(selectedTask.getDescription());
+        this.setDateSelectedTask(selectedTask.getLimitDate());
+    }
+
+    public String getNameSelectedTask() {
+        return nameSelectedTask;
+    }
+
+    public void setNameSelectedTask(String nameSelectedTask) {
+        System.out.println("nom tazsk select : "+nameSelectedTask);
+        this.nameSelectedTask = nameSelectedTask;
+    }
+
+    public Date getDateSelectedTask() {
+        return dateSelectedTask;
+    }
+
+    public void setDateSelectedTask(Date dateSelectedTask) {
+        this.dateSelectedTask = dateSelectedTask;
+    }
+
+    public String getDescriptionSelectedTask() {
+        return descriptionSelectedTask;
+    }
+
+    public void setDescriptionSelectedTask(String descriptionSelectedTask) {
+        this.descriptionSelectedTask = descriptionSelectedTask;
     }
 
     public String getName() {
@@ -76,7 +129,24 @@ public class TaskBean {
         String retour="viewAgenda.xhtml";
         Task task = new Task(name,new java.sql.Date(this.dateLimite.getTime()),description,null);
         beanLocal.addTask(task);
+        this.name="";
+        this.dateLimite=new Date(System.currentTimeMillis());
+        this.description="";
+        this.dataList.setWrappedData(this.listAllTask());
         return retour;
+    }
+    public String modifyTask(){
+        this.selectedTask.setDescription(this.descriptionSelectedTask);
+        this.selectedTask.setLimitDate(new java.sql.Date(this.dateSelectedTask.getTime()));
+        this.selectedTask.setName(this.nameSelectedTask);
+        System.out.println("modify"+selectedTask.getName());
+        selectedTask=beanLocal.modifyTask(selectedTask);
+        this.getListOfTask();
+        this.removeSelectionedTask();
+        return "viewAgenda.xhtml";
+    }
+    public void removeSelectionedTask(){
+        this.selectedTask=null;       
     }
     public void handleDateSelect(DateSelectEvent event) {  
         Date curent = new Date(System.currentTimeMillis());
@@ -87,15 +157,9 @@ public class TaskBean {
         }
     }  
         
-    public List<String> listAllTask() {
+    public List<Task> listAllTask() {
         setListOfTask(beanLocal.findAllTask(beanLocal.getUserConnected()));
-        List<String> l = new ArrayList<String>();
-        l.removeAll(l);
-        for (int i = 0; i < listOfTask.size(); i++) {
-            Task a = listOfTask.get(i);
-            l.add(a.getName());
-        }
-        return l;
+        return listOfTask;
     }
-
+    
 }

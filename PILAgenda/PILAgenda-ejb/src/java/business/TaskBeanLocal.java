@@ -47,6 +47,13 @@ public class TaskBeanLocal implements TaskBeanLocalInterface {
        query.setParameter(1, userCo);
        return (List<Task>) query.getResultList();
     }
+
+    @Override
+    public Task modifyTask(Task task) {
+        em.merge(task);
+        em.flush();
+        return task;
+    }
     
 
 }
