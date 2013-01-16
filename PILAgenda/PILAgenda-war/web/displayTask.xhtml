@@ -16,9 +16,9 @@
                     <h:panelGrid columns="2" cellpadding="" class="center"> 
                                 <h:outputLabel for="title" value="Nom : *" />  
                                 <p:inputText id="title" value="#{taskBean.nameSelectedTask}" required="true" style="width: 100%"/>
-                                            <h:outputLabel for="rpt2" value="Date limite"/>
+                                            <h:outputLabel  value="Date limite"/>
                                             <p:calendar  pattern="dd/MM/yyyy " value="#{taskBean.dateSelectedTask}" validatorMessage="La date est à un format incorrect">
-                                                <p:ajax event="dateSelect" listener="#{taskBean.dateSelectedTask}" update="messages" />
+                                                <p:ajax event="dateSelect" listener="#{taskBean.handleDateSelect2}" update="messages" />
                                             </p:calendar> 
 
                         
@@ -27,7 +27,7 @@
    
                                 <p:commandButton value="Modifier" action="#{taskBean.modifyTask()}" type="submit"/>
                                 <p:commandButton value="Annuler" action="viewAgenda" process="@this"/>
-                                <p:commandButton value="Supprimer" action="#" process="@this"/>
+                                <p:commandButton value="Supprimer" action="#{taskBean.removeSelectionedTask()}"/>
                                     
                     </h:panelGrid>              
 

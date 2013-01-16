@@ -54,6 +54,11 @@ public class TaskBeanLocal implements TaskBeanLocalInterface {
         em.flush();
         return task;
     }
+
+    @Override
+    public void deleteTask(Task task) {
+        em.remove(em.merge(task));
+    }
     
 
 }

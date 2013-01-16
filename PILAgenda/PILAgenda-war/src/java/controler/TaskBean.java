@@ -72,7 +72,6 @@ public class TaskBean implements Serializable {
     }
 
     public void setNameSelectedTask(String nameSelectedTask) {
-        System.out.println("nom tazsk select : "+nameSelectedTask);
         this.nameSelectedTask = nameSelectedTask;
     }
 
@@ -127,30 +126,53 @@ public class TaskBean implements Serializable {
     
     public String addTask(){
         String retour="viewAgenda.xhtml";
+        String nameBefore=name;      
         Task task = new Task(name,new java.sql.Date(this.dateLimite.getTime()),description,null);
         beanLocal.addTask(task);
         this.name="";
         this.dateLimite=new Date(System.currentTimeMillis());
         this.description="";
         this.dataList.setWrappedData(this.listAllTask());
+        //si je fais le suivant if il faut tout englober
+        /*if(nameBefore.charAt(0)==' '){
+            FacesContext facesContext = FacesContext.getCurrentInstance();  
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Le nom de la tache doit commencer par une lettre", ""));
+            retour ="";
+        }*/
         return retour;
     }
     public String modifyTask(){
+        String retour="viewAgenda.xhtml";
         this.selectedTask.setDescription(this.descriptionSelectedTask);
         this.selectedTask.setLimitDate(new java.sql.Date(this.dateSelectedTask.getTime()));
         this.selectedTask.setName(this.nameSelectedTask);
         System.out.println("modify"+selectedTask.getName());
         selectedTask=beanLocal.modifyTask(selectedTask);
         this.getListOfTask();
-        this.removeSelectionedTask();
+        /*if(this.nameSelectedTask.charAt(0)==' '){
+            FacesContext facesContext = FacesContext.getCurrentInstance();  
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Le nom de la tache doit commencer par une lettre", ""));
+            retour ="";
+        */
+        return retour;
+    }
+    public String removeSelectionedTask(){
+        this.beanLocal.deleteTask(selectedTask);
+        this.dataList.setWrappedData(this.listAllTask());
         return "viewAgenda.xhtml";
     }
-    public void removeSelectionedTask(){
-        this.selectedTask=null;       
-    }
     public void handleDateSelect(DateSelectEvent event) {  
-        Date curent = new Date(System.currentTimeMillis());
+        //-86400000 mettre un jour en moins
+        Date curent = new Date(System.currentTimeMillis()-86400000);
         if(curent.after(dateLimite)){
+            FacesContext facesContext = FacesContext.getCurrentInstance();  
+            SimpleDateFormat format = new SimpleDateFormat("d/M/yyyy");  
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La date sélectionnée est passée :", format.format(event.getDate()))); 
+        }
+    }  
+    public void handleDateSelect2(DateSelectEvent event) {  
+        Date curent = new Date(System.currentTimeMillis()-86400000);
+        if(this.dateSelectedTask.compareTo(curent)<=0){
             FacesContext facesContext = FacesContext.getCurrentInstance();  
             SimpleDateFormat format = new SimpleDateFormat("d/M/yyyy");  
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La date sélectionnée est passée :", format.format(event.getDate()))); 
@@ -158,7 +180,9 @@ public class TaskBean implements Serializable {
     }  
         
     public List<Task> listAllTask() {
+        System.out.println(" gt".charAt(0)==' ');
         setListOfTask(beanLocal.findAllTask(beanLocal.getUserConnected()));
+        this.dataList.setWrappedData(this.getListOfTask());
         return listOfTask;
     }
     

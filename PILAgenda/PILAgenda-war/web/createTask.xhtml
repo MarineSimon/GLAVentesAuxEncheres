@@ -21,7 +21,7 @@
                                 
                                 
                                
-                                            <h:outputLabel for="rpt2" value="Date limite"/>
+                                            <h:outputLabel value="Date limite"/>
                                             <p:calendar  pattern="dd/MM/yyyy " value="#{taskBean.dateLimite}" validatorMessage="La date est à un format incorrect">
                                                 <p:ajax event="dateSelect" listener="#{taskBean.handleDateSelect}" update="messages" />
                                             </p:calendar> 
