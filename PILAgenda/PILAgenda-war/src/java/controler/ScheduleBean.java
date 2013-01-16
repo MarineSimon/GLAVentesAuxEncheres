@@ -132,7 +132,7 @@ public class ScheduleBean implements Serializable{
     
     public void goToNext() {
         if (this.displayMode.equals("agendaWeek")) {
-            this.dateSelectedToDisplay.setHours(this.dateSelectedToDisplay.getDay()+6*24);
+            this.dateSelectedToDisplay.setHours(this.dateSelectedToDisplay.getDay()+6*24); //6 au lieu de 7...
         }
         if (this.displayMode.equals("month")) {
             this.dateSelectedToDisplay.setMonth(this.dateSelectedToDisplay.getMonth()+1);
