@@ -17,7 +17,9 @@
             <div id="content_left">
                 <f:event listener="#{loginBean.verifyUseLogin(event)}" type="preRenderView"/> 
                 <h:form>
-                    <p:calendar mode="inline" id="inlineCal"/>
+                    <p:calendar mode="inline" id="inlineCal" value="#{scheduleBean.dateSelectedToDisplay}">
+                        <p:ajax event="dateSelect" listener="#{scheduleBean.handleDateSelect}"/>
+                    </p:calendar>
                     <div id ="calendriers">
                         <div class="title">Agendas : <a href="createAgenda.xhtml"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
                         <div class="inside_box">
@@ -43,12 +45,12 @@
             </div>  
 
             <div id="content_middle">
-                <h:form>  
+                <h:form id="vueAgenda">  
 
                     <p:growl id="messages" showDetail="true" />  
 
                     <f:event listener="#{scheduleBean.findEvents()}" type="preRenderComponent"/>
-                    <p:schedule value="#{scheduleBean.eventModel}" widgetVar="myschedule" view="agendaDay" locale="fr" rightHeaderTemplate="agendaDay,agendaWeek,month">  
+                    <p:schedule value="#{scheduleBean.eventModel}" widgetVar="myschedule" view="agendaDay" locale="fr" rightHeaderTemplate="agendaDay,agendaWeek,month" initialDate="#{scheduleBean.dateSelectedToDisplay}" id="agenda">  
 
                         <p:ajax event="dateSelect" listener="#{scheduleBean.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
                         <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="dlg.show()" />  
