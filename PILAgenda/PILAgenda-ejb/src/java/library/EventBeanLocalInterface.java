@@ -18,5 +18,7 @@ import persistence.UserAgenda;
 public interface EventBeanLocalInterface {
     public persistence.Event addEvent(persistence.Event e);
     public List<Event> findAllEvent(UserAgenda userCo);
+    public List<Event> findAllGuestEvent(UserAgenda userConnected);
     public Agenda getAgendaOfEventFromUser(Event event, UserAgenda user);
+    public void addAcceptedEventToAgenda(Event event, Agenda agenda);
 }
