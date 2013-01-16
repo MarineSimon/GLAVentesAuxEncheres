@@ -25,8 +25,24 @@ public class EventBeanLocal implements EventBeanLocalInterface {
 
     @Override
     public Event addEvent(Event e) {
-        em.persist(e);
+        persistEvent(e);
+        
+        for(Agenda agenda : e.getBelongToAgendas()){
+            this.addAcceptedEventToAgenda(e, agenda);
+        }
+        
+        if (e.getGuestToAgendas() != null){
+            for (int i = 0; i < e.getGuestToAgendas().size(); i++) {
+                e.getGuestToAgendas().get(i).getGuestEvents().add(e);
+                em.merge(e.getGuestToAgendas().get(i));
+            }
+        }
+        
         return e;
+    }
+    
+    private void persistEvent(Event e){
+        em.persist(e);
     }
 
     @Override
@@ -48,6 +64,25 @@ public class EventBeanLocal implements EventBeanLocalInterface {
             i++;
         }
         return agenda;
+    }
+
+    @Override
+    public List<Event> findAllGuestEvent(UserAgenda userConnected) {
+       Agenda defaultAgenda = this.findDefaultAgenda(userConnected);
+       
+       return defaultAgenda.getGuestEvents();
+    }
+    
+    public Agenda findDefaultAgenda(UserAgenda u) {
+        TypedQuery<Agenda> query = em.createQuery("SELECT a FROM Agenda a WHERE a.agendaOwner = ?1", Agenda.class);
+        query.setParameter(1, u);
+        return (Agenda) query.getResultList().get(0);
+    }
+
+    @Override
+    public void addAcceptedEventToAgenda(Event event, Agenda agenda) {
+        agenda.getAcceptedEvents().add(event);
+        em.merge(agenda);
     }
     
 }
