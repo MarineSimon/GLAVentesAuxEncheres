@@ -44,6 +44,7 @@ public class BaseBean implements BaseBeanLocal {
         t.setHours(12);
         Date today2 = new Date(t.getTime());
         Event event1 = new Event("Evenement 1", "Nancy", today, today2, 1, "Evenement 1", periodicity1, user1, agenda1);
+        agenda1.getAcceptedEvents().add(event1);
         em.persist(event1);
     }
 

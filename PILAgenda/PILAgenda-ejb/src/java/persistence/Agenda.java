@@ -123,6 +123,48 @@ public class Agenda implements Serializable {
         this.id = id;
     }
 
+    public GroupAgenda getBelongToGroup() {
+        return belongToGroup;
+    }
+
+    public void setBelongToGroup(GroupAgenda belongToGroup) {
+        this.belongToGroup = belongToGroup;
+    }
+
+    public List<UserAgenda> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<UserAgenda> followers) {
+        this.followers = followers;
+    }
+
+    public List<UserAgenda> getDisplayers() {
+        return displayers;
+    }
+
+    public void setDisplayers(List<UserAgenda> displayers) {
+        this.displayers = displayers;
+    }
+
+    public List<Event> getAcceptedEvents() {
+        return acceptedEvents;
+    }
+
+    public void setAcceptedEvents(List<Event> acceptedEvents) {
+        this.acceptedEvents = acceptedEvents;
+    }
+
+    public List<Event> getGuestEvents() {
+        return guestEvents;
+    }
+
+    public void setGuestEvents(List<Event> guestEvents) {
+        this.guestEvents = guestEvents;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
