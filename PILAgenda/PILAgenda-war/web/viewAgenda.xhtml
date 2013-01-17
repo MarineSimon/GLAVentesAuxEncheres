@@ -120,7 +120,7 @@
                     <div id ="taches">
                         <div class="title">Tâches : <a href="createTask.xhtml"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
                         <div class="inside_box">
-                            <p:dataList value="#{taskBean.listAllTask()}" var="task">  
+                         <p:dataList value="#{taskBean.listAllTask()}" var="task">  
                             <h:commandButton value="Details" action="displayTask" immediate="true">   
                             <f:setPropertyActionListener value="#{task}"
                                             target="#{taskBean.selectedTask}" />

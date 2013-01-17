@@ -40,7 +40,6 @@ public class TaskBean implements Serializable {
     private String nameSelectedTask;
     private Date dateSelectedTask;
     private String descriptionSelectedTask;
-    private DataModel dataList = new ListDataModel();
 
     /**
      * Creates a new instance of TaskBean
@@ -49,12 +48,6 @@ public class TaskBean implements Serializable {
         dateLimite=new Date(System.currentTimeMillis());
     }
 
-    public DataModel getDataList() {
-        return dataList;
-    }
-    public void setDataList(DataModel dataList) {
-        this.dataList = dataList;
-    }
 
     public Task getSelectedTask() {
         return selectedTask;
@@ -132,13 +125,6 @@ public class TaskBean implements Serializable {
         this.name="";
         this.dateLimite=new Date(System.currentTimeMillis());
         this.description="";
-        this.dataList.setWrappedData(this.listAllTask());
-        //si je fais le suivant if il faut tout englober
-        /*if(nameBefore.charAt(0)==' '){
-            FacesContext facesContext = FacesContext.getCurrentInstance();  
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Le nom de la tache doit commencer par une lettre", ""));
-            retour ="";
-        }*/
         return retour;
     }
     public String modifyTask(){
@@ -149,16 +135,10 @@ public class TaskBean implements Serializable {
         System.out.println("modify"+selectedTask.getName());
         selectedTask=beanLocal.modifyTask(selectedTask);
         this.getListOfTask();
-        /*if(this.nameSelectedTask.charAt(0)==' '){
-            FacesContext facesContext = FacesContext.getCurrentInstance();  
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Le nom de la tache doit commencer par une lettre", ""));
-            retour ="";
-        */
         return retour;
     }
     public String removeSelectionedTask(){
         this.beanLocal.deleteTask(selectedTask);
-        this.dataList.setWrappedData(this.listAllTask());
         return "viewAgenda.xhtml";
     }
     public void handleDateSelect(DateSelectEvent event) {  
@@ -180,9 +160,7 @@ public class TaskBean implements Serializable {
     }  
         
     public List<Task> listAllTask() {
-        System.out.println(" gt".charAt(0)==' ');
         setListOfTask(beanLocal.findAllTask(beanLocal.getUserConnected()));
-        this.dataList.setWrappedData(this.getListOfTask());
         return listOfTask;
     }
     
