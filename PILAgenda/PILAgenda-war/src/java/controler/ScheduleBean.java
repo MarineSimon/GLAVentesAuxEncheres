@@ -120,6 +120,22 @@ public class ScheduleBean implements Serializable{
                     
                     eventModel.addEvent(ev);
                 }
+                
+                List<Event> guestsEvents = (List<Event>) eventBeanLocal.findAllGuestEvent(user);
+                for(Event eventG : guestsEvents){
+                    
+                    Date begin = eventG.getBeginDate();
+                    Date end = eventG.getEndDate();
+                    String name = eventG.getName();
+                    
+                    Agenda agendaOfGuestEventAndUser =  eventBeanLocal.getAgendaOfGuestEventFromUser(eventG, user);
+                    String colorOfEvent = agendaOfGuestEventAndUser.getColor();
+
+                    DefaultScheduleEvent evG = new DefaultScheduleEvent(name, begin, end,("evtG-" + colorOfEvent));
+                    evG.setData(eventG);
+
+                    eventModel.addEvent(evG);
+                }
         }
         
     public void handleDateSelect(DateSelectEvent event) { 

@@ -85,7 +85,7 @@ public class LoginBean implements Serializable {
     }
 
     public String loginSuccessful() {
-        setUserConnected(userTryToConnect.userConnected(getUserEmail(), getUserPassWord()));
+        setUserConnected(userTryToConnect.userByMail(getUserEmail()));
         if(getUserConnected() != null){
         if (getUserConnected().getPassword().equals(userPassWord)) {
             setIsLoggedIn(true);

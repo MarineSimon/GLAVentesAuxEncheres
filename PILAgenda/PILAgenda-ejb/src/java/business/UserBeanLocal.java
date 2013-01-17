@@ -38,8 +38,9 @@ public class UserBeanLocal implements UserBeanLocalInterface{
         }
         return ua;
     }
- @Override
-    public UserAgenda userConnected(String email, String passWord) {
+ 
+    @Override
+    public UserAgenda userByMail(String email) {
         UserAgenda userConnected = new UserAgenda();
         Query query = em.createNamedQuery("UserAgenda.findPassWordByEmail");
         try {
@@ -49,5 +50,5 @@ public class UserBeanLocal implements UserBeanLocalInterface{
             return null;
         }
           return userConnected;
-    }
+ }
 }
