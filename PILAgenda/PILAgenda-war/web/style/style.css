@@ -237,7 +237,7 @@ a{
 
  .evtG-red .fc-event-bg {
     background-color: red;
-    background-image: url(../resources/pictures/guestEvent3.png);
+    background-image: url(../resources/pictures/guestEvent.png);
     opacity: 1;
     background-size: 27px 27px;
     background-repeat:no-repeat;
@@ -246,7 +246,7 @@ a{
 
 .evtG-green .fc-event-bg { 
    background-color: green;
-   background-image: url(../resources/pictures/guestEvent3.png);
+   background-image: url(../resources/pictures/guestEvent.png);
    opacity: 1;
    background-size: 27px 27px;
    background-repeat:no-repeat;
@@ -255,7 +255,7 @@ a{
  
  .evtG-blue .fc-event-bg {
    background-color: blue;
-   background-image: url(../resources/pictures/guestEvent3.png);
+   background-image: url(../resources/pictures/guestEvent.png);
    background-size: 27px 27px;
    opacity: 1;
    background-repeat:no-repeat;

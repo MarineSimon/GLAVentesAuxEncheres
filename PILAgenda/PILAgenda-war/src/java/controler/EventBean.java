@@ -171,6 +171,14 @@ public class EventBean implements Serializable{
     public void setEventEndDate(Date eventEndDate) {
         this.eventEndDate = eventEndDate;
     }
+
+    public String getGuests() {
+        return guests;
+    }
+
+    public void setGuests(String guests) {
+        this.guests = guests;
+    }
     
     public String addEvent() throws ParseException {
         String res = "viewAgenda";
