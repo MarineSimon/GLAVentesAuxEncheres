@@ -220,6 +220,7 @@ public class UserBean{
         }
         agenda.setName(n);
         agenda.setAccess(0);
+        agenda.setColor("blue");
         agenda.setDescription("Agenda personnel");
         // agenda.setColor(c);
         agendaLocal.createAgenda(agenda);

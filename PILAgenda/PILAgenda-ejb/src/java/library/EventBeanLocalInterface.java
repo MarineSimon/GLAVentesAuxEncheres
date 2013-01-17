@@ -21,4 +21,5 @@ public interface EventBeanLocalInterface {
     public List<Event> findAllGuestEvent(UserAgenda userConnected);
     public Agenda getAgendaOfEventFromUser(Event event, UserAgenda user);
     public void addAcceptedEventToAgenda(Event event, Agenda agenda);
+    public Agenda getAgendaOfGuestEventFromUser(Event event, UserAgenda user);
 }
