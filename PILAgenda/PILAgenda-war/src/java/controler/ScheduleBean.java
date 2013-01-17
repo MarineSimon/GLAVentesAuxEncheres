@@ -193,7 +193,7 @@ public class ScheduleBean implements Serializable{
         private Calendar today() {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                                calendar.get(Calendar.DATE), 0, 0, 0);
+                calendar.get(Calendar.DATE), 0, 0, 0);
 
                 return calendar;
         }
