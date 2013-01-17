@@ -21,11 +21,17 @@
                         <p:ajax event="dateSelect" listener="#{scheduleBean.handleDateSelect}"/>
                     </p:calendar>
                     <div id ="calendriers">
-                        <div class="title">Agendas : <a href="createAgenda.xhtml"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
+                        <div class="title">Agendas : 
+                            <p:autoComplete id="research" value="#{searchAgendaBean.selectedAgenda}" completeMethod="#{searchAgendaBean.complete}" size="10" onselect="#{searchAgendaBean.viewSelectedOwnAgenda()}"/>
+                            <a href="createAgenda.xhtml">
+                                <img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"/>
+                            </a>
+                        </div>
                         <div class="inside_box">
                             <p:selectManyCheckbox value="#{agendaManagedBean.listAllAgenda()}" layout="pageDirection">
                                 <f:selectItems value="#{agendaManagedBean.listAllAgenda()}"/>
                             </p:selectManyCheckbox>
+                            <a href="searchAgenda.xhtml">Autres...</a>
                         </div>
 
                         <div style="clear: both"></div>
