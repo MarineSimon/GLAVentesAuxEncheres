@@ -36,7 +36,6 @@
                     </p:selectOneMenu>
                     Couleur
                     <p:selectOneMenu value="#{agendaManagedBean.color}" var="co" converter="#{linkType}">
-                        <f:selectItem itemLabel="Select One" itemValue="" />
                         <f:selectItems value="#{agendaManagedBean.listAllColors()}" var="couleur"
                                        itemLabel="#{couleur.name}" itemValue="#{couleur}"/>
                         

@@ -33,6 +33,8 @@ public class AgendaManagedBean implements Serializable, Converter {
     private String accessibility;
     private String color;
     private String groups;
+    
+    private List<Long> selectedItems;
    
     public String getGroups() {
         return groups;
@@ -115,15 +117,15 @@ public class AgendaManagedBean implements Serializable, Converter {
         return "viewAgenda";
     }
 
-    public List<String> listAllAgenda() {
+    public List<Agenda> listAllAgenda() {
         setListOfAgenda(agendaLocal.findAllAgenda(agendaLocal.getUserConnected()));
-        List<String> l = new ArrayList<String>();
+        /*List<String> l = new ArrayList<String>();
         l.removeAll(l);
         for (int i = 0; i < listOfAgenda.size(); i++) {
             Agenda a = listOfAgenda.get(i);
             l.add(a.getName());
-        }
-        return l;
+        }*/
+        return this.getListOfAgenda();
     }
     
     // Liste des couleurs proposées pour un nouvel agenda.
@@ -158,5 +160,16 @@ public class AgendaManagedBean implements Serializable, Converter {
         
         return result;
     }
+    
+    public void printSmthg(){
+        System.out.println("[AgendaManagedBean] printSmthg");
+    }
 
+    public List<Long> getSelectedItems() {
+        return selectedItems;
+    }
+
+    public void setSelectedItems(List<Long> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
 }
