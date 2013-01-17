@@ -11,7 +11,7 @@
             </ui:define>
             <ui:define name="content">
                 <f:event listener="#{loginBean.verifyUseLogin(event)}" type="preRenderView"/>
-                <h:form>
+                <h:form id="createEvent">
                     <p:messages id="messages" autoUpdate="true"/> 
                     <h:panelGrid columns="2" cellpadding="" class="center"> 
                                 <h:outputLabel for="title" value="Nom : *" />  
@@ -68,7 +68,7 @@
                                 <h:outputLabel for="comment" value="Commentaire"/>
                                 <p:inputTextarea rows="3" cols="30" id="comment" label="comment"  style="width: 100%"/>
                                 
-                                <p:commandButton value="Sauvegarder" action="#{eventBean.addEvent()}" type="submit"/>                         
+                                <p:commandButton value="Sauvegarder" action="#{eventBean.addEvent()}" type="submit" id="save"/>                         
                                 <p:commandButton value="Annuler" action="viewAgenda" process="@this"/>
                                     
                     </h:panelGrid>              

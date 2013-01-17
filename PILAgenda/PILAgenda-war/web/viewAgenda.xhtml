@@ -16,14 +16,21 @@
             </div>
             <div id="content_left">
                 <f:event listener="#{loginBean.verifyUseLogin(event)}" type="preRenderView"/> 
-                <h:form>
-                    <p:calendar mode="inline" id="inlineCal"/>
+                <h:form id="miniCal">
+                    <p:calendar mode="inline" id="inlineCal" value="#{scheduleBean.dateSelectedToDisplay}">
+                        <p:ajax event="dateSelect" listener="#{scheduleBean.handleDateSelect}"/>
+                    </p:calendar>
+                    
+                    <h:outputLabel value="Recherche :" for="research" />  
+                    <p:autoComplete id="research" value="#{autoCompleteBean.userSelected}" completeMethod="#{autoCompleteBean.complete}"/>
+                    
                     <div id ="calendriers">
                         <div class="title">Agendas : <a href="createAgenda.xhtml"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
                         <div class="inside_box">
-                            <p:selectManyCheckbox value="#{agendaManagedBean.listAllAgenda()}" layout="pageDirection">
-                                <f:selectItems value="#{agendaManagedBean.listAllAgenda()}"/>
-                            </p:selectManyCheckbox>
+                            <h:selectManyCheckbox value="#{agendaManagedBean.selectedItems}" layout="pageDirection">
+                                <p:ajax update="" listener="#{agendaManagedBean.printSmthg()}" event="click" />
+                                <f:selectItems value="#{agendaManagedBean.listAllAgenda()}" var="calendarSelected" itemLabel="#{calendarSelected.name}" itemValue="#{calendarSelected.id}"/>
+                            </h:selectManyCheckbox>
                         </div>
 
                         <div style="clear: both"></div>
@@ -43,12 +50,26 @@
             </div>  
 
             <div id="content_middle">
-                <h:form>  
+                <span>
+                    <span style="text-align: left;margin: 10px">
+                        <p:commandButton id="prev" actionListener="#{scheduleBean.goToPrevious()}" value="Prec." process="@this"/>
+                        <p:commandButton id="next" actionListener="#{scheduleBean.goToNext()}" value="Suiv." process="@this"/>
+                        <p:commandButton id="today" actionListener="#{scheduleBean.goToToday()}" value="Auj." process="@this"/>
+                    </span>
+                    <span style="text-align: right;margin-left: 200px;" >
+                        <p:commandButton id="day" actionListener="#{scheduleBean.switchToDay()}" value="Jour" process="@this"/>
+                        <p:commandButton id="week" actionListener="#{scheduleBean.switchToWeek()}" value="Semaine" process="@this"/>
+                        <p:commandButton id="month" actionListener="#{scheduleBean.switchToMonth()}" value="Mois" process="@this"/>
+                    </span>
+                </span>
+                
+                
+                <h:form id="vueAgenda">  
 
                     <p:growl id="messages" showDetail="true" />  
-
+          
                     <f:event listener="#{scheduleBean.findEvents()}" type="preRenderComponent"/>
-                    <p:schedule value="#{scheduleBean.eventModel}" widgetVar="myschedule" view="agendaDay" locale="fr" rightHeaderTemplate="agendaDay,agendaWeek,month">  
+                    <p:schedule value="#{scheduleBean.eventModel}" widgetVar="myschedule" view="#{scheduleBean.displayMode}" locale="fr" initialDate="#{scheduleBean.dateSelectedToDisplay}" id="agenda" leftHeaderTemplate="" rightHeaderTemplate="">  
 
                         <p:ajax event="dateSelect" listener="#{scheduleBean.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
                         <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="dlg.show()" />  
@@ -114,6 +135,7 @@
                     
 
                 </h:form>
+                
             </div>
 
             <div id="content_right">

@@ -136,6 +136,48 @@ public class Event implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public List<CustomizeEvent> getCustomizedEvents() {
+        return customizedEvents;
+    }
+
+    public void setCustomizedEvents(List<CustomizeEvent> customizedEvents) {
+        this.customizedEvents = customizedEvents;
+    }
+
+    public Periodicity getPeriodicity() {
+        return periodicity;
+    }
+
+    public void setPeriodicity(Periodicity periodicity) {
+        this.periodicity = periodicity;
+    }
+
+    public UserAgenda getEventOwner() {
+        return eventOwner;
+    }
+
+    public void setEventOwner(UserAgenda eventOwner) {
+        this.eventOwner = eventOwner;
+    }
+
+    public List<Agenda> getBelongToAgendas() {
+        return belongToAgendas;
+    }
+
+    public void setBelongToAgendas(List<Agenda> belongToAgendas) {
+        this.belongToAgendas = belongToAgendas;
+    }
+
+    public List<Agenda> getGuestToAgendas() {
+        return guestToAgendas;
+    }
+
+    public void setGuestToAgendas(List<Agenda> guestToAgendas) {
+        this.guestToAgendas = guestToAgendas;
+    }
+    
+    
     
     
 
