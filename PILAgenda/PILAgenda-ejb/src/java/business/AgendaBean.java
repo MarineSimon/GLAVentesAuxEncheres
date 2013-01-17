@@ -76,8 +76,18 @@ public class AgendaBean implements AgendaBeanLocal {
 
     @Override
     public void addDisplayedAgendaToUser(Agenda a, UserAgenda u) {
-        u.getDisplayedAgendas().add(a);
-        em.merge(u);
+        UserAgenda us = em.find(UserAgenda.class, u.getId());
+        Agenda ag = em.find(Agenda.class, a.getId());
+        us.getDisplayedAgendas().add(ag);
+        em.merge(us);
+    }
+    
+    @Override
+    public void addDisplayedAgendaToUser(Long a, UserAgenda u) {
+        UserAgenda us = em.find(UserAgenda.class, u.getId());
+        Agenda ag = em.find(Agenda.class, a);
+        us.getDisplayedAgendas().add(ag);
+        em.merge(us);
     }
 
     @Override
@@ -100,4 +110,13 @@ public class AgendaBean implements AgendaBeanLocal {
         TypedQuery<UserAgenda> query = em.createQuery("SELECT a FROM UserAgenda a ", UserAgenda.class);
         return (List<UserAgenda>) query.getResultList();
     }
+
+    @Override
+    public void clearDisplayedAgendaToUser(UserAgenda u) {
+        em.find(UserAgenda.class, u.getId());
+        u.getDisplayedAgendas().clear();
+        em.merge(u);
+    }
+
+
 }

@@ -52,6 +52,8 @@ public class ScheduleBean implements Serializable{
     private EventBean eventBean;
     private Date dateSelectedToDisplay;
     private String displayMode;
+    
+    private List<Agenda> selectedItems;
 
     public ScheduleBean() {
         eventBean = new EventBean();
@@ -104,7 +106,6 @@ public class ScheduleBean implements Serializable{
                 for(Agenda agenda : agendas){
                     events.addAll(agendaBean.findAcceptedEvent(agenda));
                 }
-
                 
                 for(Event event : events){
                   
@@ -243,4 +244,33 @@ public class ScheduleBean implements Serializable{
          private void addMessage(FacesMessage message) {
                 FacesContext.getCurrentInstance().addMessage(null, message);
         }
+         
+         
+         
+         //////////////////////////////
+         public void printSmthg(){
+        System.out.println("[AgendaManagedBean] printSmthg");
+    }
+
+    public List<Agenda> getSelectedItems() {
+        //return this.selectedItems;
+        return agendaBean.findDisplayedAgenda(agendaBean.getUserConnected());
+    }
+
+    public void setSelectedItems(List<Agenda> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
+    
+    public void updateDisplayedAgendas(){
+        agendaBean.clearDisplayedAgendaToUser(agendaBean.getUserConnected());
+        for(Object ag : this.selectedItems){
+            int debut = ((String) ag).indexOf("=");
+            int fin = ((String) ag).lastIndexOf("]");
+            String res = ((String) ag).substring(debut+1, fin-1);
+            Long result = Long.parseLong(res);
+            agendaBean.addDisplayedAgendaToUser(result, agendaBean.getUserConnected());
+        }
+        findEvents();
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+    }
 }
