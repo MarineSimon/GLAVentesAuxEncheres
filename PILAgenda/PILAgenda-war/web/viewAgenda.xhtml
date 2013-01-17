@@ -27,9 +27,9 @@
                     <div id ="calendriers">
                         <div class="title">Agendas : <a href="createAgenda.xhtml"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
                         <div class="inside_box">
-                            <h:selectManyCheckbox value="#{agendaManagedBean.selectedItems}" layout="pageDirection">
-                                <p:ajax update="" listener="#{agendaManagedBean.printSmthg()}" event="click" />
-                                <f:selectItems value="#{agendaManagedBean.listAllAgenda()}" var="calendarSelected" itemLabel="#{calendarSelected.name}" itemValue="#{calendarSelected.id}"/>
+                            <h:selectManyCheckbox value="#{scheduleBean.selectedItems}" layout="pageDirection">
+                                <p:ajax update="" listener="#{scheduleBean.updateDisplayedAgendas()}" event="click"/>
+                                <f:selectItems value="#{agendaManagedBean.listAllAgenda()}" var="calendarSelected" itemLabel="#{calendarSelected.name}"/><!--agendaLocal.getUserConnected())-->
                             </h:selectManyCheckbox>
                         </div>
 
