@@ -10,17 +10,23 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import library.EventBeanLocalInterface;
+import library.UserBeanLocalInterface;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 import persistence.Agenda;
 import persistence.Event;
 import persistence.Periodicity;
+import persistence.UserAgenda;
 
 /**
  *
@@ -36,6 +42,7 @@ public class EventBean implements Serializable{
     private String title, location, name, beginDate, endDate, description; 
     private int visibility;
     private Long idAgenda;
+    private String guests;
     //Periodicity periodicity, UserAgenda eventOwner, Agenda agenda;
     @EJB 
     private EventBeanLocalInterface eventInterface;
@@ -43,6 +50,8 @@ public class EventBean implements Serializable{
     private AgendaBean agendaInterface;
     @EJB
     private AgendaBean agendaLocal;
+    @EJB 
+    private UserBeanLocalInterface userInterface;
     
     // Injection du ScheduleBean, nécessaire notamment dans l'ajout des évènements directement au Schedule "graphique"
     @Inject
@@ -168,6 +177,11 @@ public class EventBean implements Serializable{
         //DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US); //Wed Dec 19 21:45:00 CET 2012
         //long debut = formatter.parse(this.beginDate).getTime();
         //long fin = formatter.parse(this.endDate).getTime();
+        List<Agenda> guests = this.getListAgendaGuests();
+        if (guests == null){
+            FacesContext.getCurrentInstance().addMessage("formAddEvent:btnAddEvent", new FacesMessage("email érroné"));
+            res = "createEvent";
+        }
         if (this.eventBeginDate.after(eventEndDate)) {
             res = "createEvent";
         }
@@ -184,7 +198,7 @@ public class EventBean implements Serializable{
             Event e;
             java.sql.Date begin = new java.sql.Date(this.eventBeginDate.getTime());
             java.sql.Date end = new java.sql.Date(this.eventEndDate.getTime());
-            e = new Event(this.name, this.location, begin, end, this.visibility, this.description, period, this.agendaLocal.getUserConnected(), a);
+            e = new Event(this.name, this.location, begin, end, this.visibility, this.description, period, this.agendaLocal.getUserConnected(), a,guests);
             
             // Ajout de l'évènement au modèle
             this.eventInterface.addEvent(e);
@@ -204,6 +218,28 @@ public class EventBean implements Serializable{
         List<Agenda> listAgenda = this.agendaInterface.findAllAgenda(agendaInterface.getUserConnected());
         for (Agenda a : listAgenda) {
             l.add(new SelectItem(a.getId(), a.getName()));
+        }
+        return l;
+    }
+    
+    public List<Agenda> getListAgendaGuests(){
+        ArrayList<Agenda> l = new ArrayList<Agenda>();
+        
+        Pattern linkPattern = Pattern.compile("[\\w\\.-]*[a-zA-Z0-9_]@[\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z][;]");
+        Matcher m = linkPattern.matcher(this.guests);
+        String email;
+        UserAgenda userConnected = this.agendaLocal.getUserConnected();
+        while (m.find()) {
+             email = this.guests.substring(m.start(), m.end());
+             email = email.substring(0, email.length()-1);
+             UserAgenda user = userInterface.userByMail(email); 
+             
+             if(user != null && !userConnected.getEmail().equals(user.getEmail())){
+                l.add(agendaInterface.findDefaultAgenda(user));
+             }
+             else {
+                 return null;
+             }
         }
         return l;
     }

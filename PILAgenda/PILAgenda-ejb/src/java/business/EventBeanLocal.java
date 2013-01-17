@@ -85,4 +85,18 @@ public class EventBeanLocal implements EventBeanLocalInterface {
         em.merge(agenda);
     }
     
+    @Override
+    public Agenda getAgendaOfGuestEventFromUser(Event event, UserAgenda user) {
+        Agenda agenda = null;
+        List<Agenda> guestedAgendas = event.getGuestToAgendas();
+        int i = 0;
+        while(i < guestedAgendas.size()){
+            if(guestedAgendas.get(i).getAgendaOwner().equals(user)){
+                agenda = guestedAgendas.get(i);
+            }
+            i++;
+        }
+        return agenda;
+    }
+    
 }
