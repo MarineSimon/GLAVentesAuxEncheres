@@ -27,6 +27,8 @@ public class AgendaManagedBean implements Serializable, Converter {
 
     @EJB
     private AgendaBean agendaLocal;
+    //@EJB
+    //private ScheduleBean scheduleBean;
     private String nameAgenda;
     private String description;
     private Agenda agenda;
@@ -34,8 +36,6 @@ public class AgendaManagedBean implements Serializable, Converter {
     private String color;
     private String groups;
     
-    private List<Long> selectedItems;
-   
     public String getGroups() {
         return groups;
     }
@@ -114,6 +114,7 @@ public class AgendaManagedBean implements Serializable, Converter {
         }
         agenda.setDescription(description);
         agendaLocal.createAgenda(agenda);
+        
         return "viewAgenda";
     }
 
@@ -159,17 +160,5 @@ public class AgendaManagedBean implements Serializable, Converter {
         result = color.substring(indexLastEqual+1, indexLastAcollade);
         
         return result;
-    }
-    
-    public void printSmthg(){
-        System.out.println("[AgendaManagedBean] printSmthg");
-    }
-
-    public List<Long> getSelectedItems() {
-        return selectedItems;
-    }
-
-    public void setSelectedItems(List<Long> selectedItems) {
-        this.selectedItems = selectedItems;
     }
 }
