@@ -139,18 +139,21 @@
             </div>
 
             <div id="content_right">
-                <h:form>
                     <div id ="taches">
                         <div class="title">Tâches : <a href="createTask.xhtml"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
                         <div class="inside_box">
-                            <p:selectManyCheckbox value="#{taskBean.listAllTask()}" layout="pageDirection">
-                                <f:selectItems value="#{taskBean.listAllTask()}"/>
-                            </p:selectManyCheckbox>
+                         <p:dataList value="#{taskBean.listAllTask()}" var="task">  
+                            <h:commandButton value="Details" action="displayTask" immediate="true">   
+                            <f:setPropertyActionListener value="#{task}"
+                                            target="#{taskBean.selectedTask}" />
+                            </h:commandButton>  
+                            <h:outputText value="#{task.name}" style="margin-left:10px" />  
+                            <br />  
+                        </p:dataList>
                         </div>
 
                         <div style="clear: both"></div>
                     </div>
-                </h:form>
             </div>
             <p:commandButton value="Créer un événement" action="createEvent" immediate="true"></p:commandButton>
 
