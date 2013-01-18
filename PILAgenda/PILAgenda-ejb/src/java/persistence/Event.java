@@ -80,6 +80,21 @@ public class Event implements Serializable {
         this.guestToAgendas = new ArrayList<Agenda>();
     }
     
+    public Event(String name, String place, Date beginDate, Date endDate, int visibility, String description, Periodicity periodicity, UserAgenda eventOwner, Agenda agenda,List<Agenda> guests) {
+        this.name = name;
+        this.place = place;
+        this.beginDate = beginDate;
+        this.endDate = endDate;
+        this.visibility = visibility;
+        this.description = description;
+        this.periodicity = periodicity;
+        this.eventOwner = eventOwner;
+        this.belongToAgendas = new ArrayList<Agenda>();
+        this.belongToAgendas.add(agenda);
+        this.customizedEvents = new ArrayList<CustomizeEvent>();
+        this.guestToAgendas = guests;
+    }
+    
     
     public Long getId() {
         return id;

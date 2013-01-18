@@ -17,19 +17,11 @@ class EX1
 		bouton.click
 		sleep 2
 	end
-	def self.switch_to_week() 
+	def self.nextDay() 
 		
 		#puts $browser.html
-		swithToWeek = $browser.button(:id, "j_idt8:week")
-		swithToWeek.click
-		sleep 2
-	end
-	def self.switch_to_day() 
-		$browser.goto("http://localhost:8080/PILAgenda-war/faces/viewAgenda.xhtml") 
-		sleep 1
-		#puts $browser.html
-		swithToWeek = $browser.button(:id, "j_idt8:day")
-		swithToWeek.click
+		nextD = $browser.button(:id, "j_idt8:next")
+		nextD.click
 		sleep 2
 	end
 
@@ -40,9 +32,9 @@ class EX1
 		descEvent = $browser.text_field(:id, "j_idt9:createEvent:description")
 		descEvent.set("mon event personnel")
 		beginEvent = $browser.text_field(:id, "j_idt9:createEvent:from_input")
-		beginEvent.set("11/01/2013 18:57")
+		beginEvent.set("17/01/2013 18:57") #Mettre au lendemain pour tester
 		endEvent = $browser.text_field(:id, "j_idt9:createEvent:to_input")
-		endEvent.set("11/01/2013 20:57")
+		endEvent.set("17/01/2013 20:57")
 		bouton = $browser.button(:id, "j_idt9:createEvent:save")
 		bouton.click
 		sleep 1
@@ -53,18 +45,11 @@ class TEST_EX1 < Test::Unit::TestCase
 	def test_switch_to_month()
 		EX1.init()
 		EX1.connect()
-		EX1.switch_to_week() 
 		assert($browser.text.include?("Evenement 1"))
-		puts "switch to week ok"
 		EX1.create_event() 
-		EX1.switch_to_week() 
+		EX1.nextDay() 
 		assert($browser.text.include?("Evenement 2"))
-		assert($browser.text.include?("Evenement 1"))
-		puts "create event ok"
-		EX1.switch_to_day() 
-		assert(!$browser.text.include?("Evenement 2"))
-		assert($browser.text.include?("Evenement 1"))
-		puts "switch to day ok"
+		assert(!$browser.text.include?("Evenement 1"))
 		#$browser.close
 	end
 end

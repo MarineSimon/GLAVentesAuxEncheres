@@ -27,13 +27,15 @@ public class AgendaManagedBean implements Serializable, Converter {
 
     @EJB
     private AgendaBean agendaLocal;
+    //@EJB
+    //private ScheduleBean scheduleBean;
     private String nameAgenda;
     private String description;
     private Agenda agenda;
     private String accessibility;
     private String color;
     private String groups;
-   
+    
     public String getGroups() {
         return groups;
     }
@@ -112,18 +114,19 @@ public class AgendaManagedBean implements Serializable, Converter {
         }
         agenda.setDescription(description);
         agendaLocal.createAgenda(agenda);
+        
         return "viewAgenda";
     }
 
-    public List<String> listAllAgenda() {
+    public List<Agenda> listAllAgenda() {
         setListOfAgenda(agendaLocal.findAllAgenda(agendaLocal.getUserConnected()));
-        List<String> l = new ArrayList<String>();
+        /*List<String> l = new ArrayList<String>();
         l.removeAll(l);
         for (int i = 0; i < listOfAgenda.size(); i++) {
             Agenda a = listOfAgenda.get(i);
             l.add(a.getName());
-        }
-        return l;
+        }*/
+        return this.getListOfAgenda();
     }
     
     // Liste des couleurs proposées pour un nouvel agenda.
@@ -158,5 +161,4 @@ public class AgendaManagedBean implements Serializable, Converter {
         
         return result;
     }
-
 }

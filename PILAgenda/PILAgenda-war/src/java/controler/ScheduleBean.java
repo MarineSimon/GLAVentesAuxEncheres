@@ -3,6 +3,7 @@ package controler;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import library.AgendaBeanLocal;
 import library.EventBeanLocalInterface;
 import library.TaskBeanLocalInterface;
 import org.primefaces.context.RequestContext;
@@ -42,12 +44,16 @@ public class ScheduleBean implements Serializable{
     private TaskBeanLocalInterface bean;
     @EJB
     private EventBeanLocalInterface eventBeanLocal;
+    @EJB
+    private AgendaBeanLocal agendaBean;
 
     private ScheduleModel eventModel;
     private ScheduleEvent event = new DefaultScheduleEvent();
     private EventBean eventBean;
     private Date dateSelectedToDisplay;
     private String displayMode;
+    
+    private List<Agenda> selectedItems;
 
     public ScheduleBean() {
         eventBean = new EventBean();
@@ -94,10 +100,15 @@ public class ScheduleBean implements Serializable{
             //Récupération de l'utilisateur courant
                 UserAgenda user = bean.getUserConnected();
                 
-                //Liste des évènements de l'utilisateur courant
-                List<Event> events = (List<Event>) eventBeanLocal.findAllEvent(user);
+                // Récupérer les agendas à afficher par l'utilisateur
+                List<Agenda> agendas = agendaBean.findDisplayedAgenda(user);
+                List<Event> events = new ArrayList<Event>();
+                for(Agenda agenda : agendas){
+                    events.addAll(agendaBean.findAcceptedEvent(agenda));
+                }
+                
                 for(Event event : events){
-                    
+                  
                     Date begin = event.getBeginDate();
                     Date end = event.getEndDate();
                     String name = event.getName();
@@ -109,6 +120,22 @@ public class ScheduleBean implements Serializable{
                     ev.setData(event);
                     
                     eventModel.addEvent(ev);
+                }
+                
+                List<Event> guestsEvents = (List<Event>) eventBeanLocal.findAllGuestEvent(user);
+                for(Event eventG : guestsEvents){
+                    
+                    Date begin = eventG.getBeginDate();
+                    Date end = eventG.getEndDate();
+                    String name = eventG.getName();
+                    
+                    Agenda agendaOfGuestEventAndUser =  eventBeanLocal.getAgendaOfGuestEventFromUser(eventG, user);
+                    String colorOfEvent = agendaOfGuestEventAndUser.getColor();
+
+                    DefaultScheduleEvent evG = new DefaultScheduleEvent(name, begin, end,("evtG-" + colorOfEvent));
+                    evG.setData(eventG);
+
+                    eventModel.addEvent(evG);
                 }
         }
         
@@ -183,14 +210,12 @@ public class ScheduleBean implements Serializable{
         private Calendar today() {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                                calendar.get(Calendar.DATE), 0, 0, 0);
+                calendar.get(Calendar.DATE), 0, 0, 0);
 
                 return calendar;
         }
         
-        public void onEventSelect(ScheduleEntrySelectEvent e) {
-            System.out.println("Title : " + e.getScheduleEvent().getTitle()); 
-            //System.out.println("" + ((Event)(e.getScheduleEvent().getData())).getName()); 
+        public void onEventSelect(ScheduleEntrySelectEvent e) { 
                event = e.getScheduleEvent();
         }
         
@@ -219,4 +244,33 @@ public class ScheduleBean implements Serializable{
          private void addMessage(FacesMessage message) {
                 FacesContext.getCurrentInstance().addMessage(null, message);
         }
+         
+         
+         
+         //////////////////////////////
+         public void printSmthg(){
+        System.out.println("[AgendaManagedBean] printSmthg");
+    }
+
+    public List<Agenda> getSelectedItems() {
+        //return this.selectedItems;
+        return agendaBean.findDisplayedAgenda(agendaBean.getUserConnected());
+    }
+
+    public void setSelectedItems(List<Agenda> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
+    
+    public void updateDisplayedAgendas(){
+        agendaBean.clearDisplayedAgendaToUser(agendaBean.getUserConnected());
+        for(Object ag : this.selectedItems){
+            int debut = ((String) ag).indexOf("=");
+            int fin = ((String) ag).lastIndexOf("]");
+            String res = ((String) ag).substring(debut+1, fin-1);
+            Long result = Long.parseLong(res);
+            agendaBean.addDisplayedAgendaToUser(result, agendaBean.getUserConnected());
+        }
+        findEvents();
+        RequestContext.getCurrentInstance().update("j_idt8:vueAgenda:agenda");
+    }
 }

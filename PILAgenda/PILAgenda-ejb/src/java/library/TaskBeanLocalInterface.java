@@ -16,8 +16,10 @@ import persistence.UserAgenda;
 @Local
 public interface TaskBeanLocalInterface {
     Task addTask(Task task);
+    Task modifyTask(Task task);
     public List<Task> findAllTask(UserAgenda userCo);
     void setUserConnected(UserAgenda userConnected);
     UserAgenda getUserConnected();
+    void deleteTask(Task task);
        
 }
