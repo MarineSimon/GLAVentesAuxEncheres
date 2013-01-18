@@ -55,6 +55,7 @@ public class EventBean implements Serializable{
     private AgendaBean agendaLocal;
     @EJB 
     private UserBeanLocalInterface userInterface;
+    private int defaultDuration =  1; 
     
     // Injection du ScheduleBean, nécessaire notamment dans l'ajout des évènements directement au Schedule "graphique"
     @Inject
@@ -67,8 +68,14 @@ public class EventBean implements Serializable{
     private Date eventEndDate;
     
     public EventBean() {
+        /*if(this.agendaLocal.getUserConnected().getDefaultEventDuration() == null) {
+            this.defaultDuration = 1;
+        }
+        else {
+            this.defaultDuration = Integer.parseInt(this.agendaLocal.getUserConnected().getDefaultEventDuration());
+        }*/
         this.eventBeginDate = new Date(System.currentTimeMillis());
-        this.eventEndDate = new Date(this.eventBeginDate.getTime()+3600000);
+        this.eventEndDate = new Date(this.eventBeginDate.getTime()+this.defaultDuration*3600000);
     }
 
     public String getTitle() {
@@ -105,7 +112,7 @@ public class EventBean implements Serializable{
     
     public void updateEndDate(DateSelectEvent event) {
         this.eventBeginDate = event.getDate();
-        this.eventEndDate = new Date(this.eventBeginDate.getTime()+3600000);
+        this.eventEndDate = new Date(this.eventBeginDate.getTime()+defaultDuration*3600000);
         this.endDate = this.eventEndDate.toString();
         RequestContext.getCurrentInstance().update("j_idt9:formAddEvent:to");
     }
