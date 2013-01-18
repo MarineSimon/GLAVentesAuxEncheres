@@ -5,6 +5,7 @@
 package controler;
 
 import business.AgendaBean;
+import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import library.EventBeanLocalInterface;
 import library.UserBeanLocalInterface;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.DateSelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 import persistence.Agenda;
@@ -65,7 +68,7 @@ public class EventBean implements Serializable{
     
     public EventBean() {
         this.eventBeginDate = new Date(System.currentTimeMillis());
-        this.eventEndDate = new Date(System.currentTimeMillis()+3600000);
+        this.eventEndDate = new Date(this.eventBeginDate.getTime()+3600000);
     }
 
     public String getTitle() {
@@ -96,8 +99,15 @@ public class EventBean implements Serializable{
         return beginDate;
     }
 
-    public void setBeginDate(String beginDate) {
-        this.beginDate = beginDate;
+    public void setBeginDate(String beginDate) {    
+        this.beginDate = beginDate; 
+    }
+    
+    public void updateEndDate(DateSelectEvent event) {
+        this.eventBeginDate = event.getDate();
+        this.eventEndDate = new Date(this.eventBeginDate.getTime()+3600000);
+        this.endDate = this.eventEndDate.toString();
+        RequestContext.getCurrentInstance().update("j_idt9:formAddEvent:to");
     }
 
     public String getEndDate() {
@@ -182,9 +192,6 @@ public class EventBean implements Serializable{
     
     public String addEvent() throws ParseException {
         String res = "viewAgenda";
-        //DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US); //Wed Dec 19 21:45:00 CET 2012
-        //long debut = formatter.parse(this.beginDate).getTime();
-        //long fin = formatter.parse(this.endDate).getTime();
         List<Agenda> guests = this.getListAgendaGuests();
         if (guests == null){
             FacesContext.getCurrentInstance().addMessage("formAddEvent:btnAddEvent", new FacesMessage("email érroné"));

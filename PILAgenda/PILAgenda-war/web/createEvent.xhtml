@@ -22,7 +22,9 @@
                                     <p:inputText id="location" value="#{eventBean.location}"  style="width: 100%"></p:inputText>
 
                                     <h:outputLabel for="from" value="De : *" />  
-                                    <p:calendar effect="fadeIn" value="#{eventBean.eventBeginDate}" id="from" pattern="dd/MM/yyyy HH:mm" required="true" validatorMessage="La date est à un format incorrect"/>
+                                    <p:calendar effect="fadeIn" value="#{eventBean.eventBeginDate}" id="from" pattern="dd/MM/yyyy HH:mm" required="true" validatorMessage="La date est à un format incorrect">
+                                        <p:ajax event="dateSelect" listener="#{eventBean.updateEndDate}"/>  
+                                    </p:calendar>
 
 
                                     <h:outputLabel for="to" value="A : *" />  
