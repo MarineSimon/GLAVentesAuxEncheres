@@ -19,6 +19,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.swing.text.View;
 import library.TaskBeanLocalInterface;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.DateSelectEvent;
 import persistence.Task;
 
@@ -46,6 +47,7 @@ public class TaskBean implements Serializable {
      */
     public TaskBean() {
         dateLimite=new Date(System.currentTimeMillis());
+        listOfTask= new ArrayList<Task>();
     }
 
 
@@ -118,7 +120,7 @@ public class TaskBean implements Serializable {
     }
     
     public String addTask(){
-        String retour="viewAgenda.xhtml";
+        String retour="viewAgenda";
         String nameBefore=name;      
         Task task = new Task(name,new java.sql.Date(this.dateLimite.getTime()),description,null);
         beanLocal.addTask(task);
@@ -128,7 +130,7 @@ public class TaskBean implements Serializable {
         return retour;
     }
     public String modifyTask(){
-        String retour="viewAgenda.xhtml";
+        String retour="viewAgenda";
         this.selectedTask.setDescription(this.descriptionSelectedTask);
         this.selectedTask.setLimitDate(new java.sql.Date(this.dateSelectedTask.getTime()));
         this.selectedTask.setName(this.nameSelectedTask);
@@ -139,6 +141,8 @@ public class TaskBean implements Serializable {
     }
     public String removeSelectionedTask(){
         this.beanLocal.deleteTask(selectedTask);
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.notify();
         return "viewAgenda.xhtml";
     }
     public void handleDateSelect(DateSelectEvent event) {  

@@ -20,10 +20,10 @@
                     <p:calendar mode="inline" id="inlineCal" value="#{scheduleBean.dateSelectedToDisplay}">
                         <p:ajax event="dateSelect" listener="#{scheduleBean.handleDateSelect}"/>
                     </p:calendar>
-                    
+
                     <h:outputLabel value="Recherche :" for="research" />  
                     <p:autoComplete id="research" value="#{autoCompleteBean.userSelected}" completeMethod="#{autoCompleteBean.complete}"/>
-                    
+
                     <div id ="calendriers">
                         <div class="title">Agendas : 
                             <p:autoComplete id="researchagenda" value="#{searchAgendaBean.selectedAgenda}" completeMethod="#{searchAgendaBean.complete}" size="10" onselect="#{searchAgendaBean.viewSelectedOwnAgenda()}"/>
@@ -68,12 +68,12 @@
                         <p:commandButton id="month" actionListener="#{scheduleBean.switchToMonth()}" value="Mois" process="@this"/>
                     </span>
                 </span>
-                
-                
+
+
                 <h:form id="vueAgenda">  
 
                     <p:growl id="messages" showDetail="true" />  
-          
+
                     <f:event listener="#{scheduleBean.findEvents()}" type="preRenderComponent"/>
                     <p:schedule value="#{scheduleBean.eventModel}" widgetVar="myschedule" view="#{scheduleBean.displayMode}" locale="fr" initialDate="#{scheduleBean.dateSelectedToDisplay}" id="agenda" leftHeaderTemplate="" rightHeaderTemplate="">  
 
@@ -81,14 +81,14 @@
                         <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="dlg.show()" />  
                         <p:ajax event="eventMove" listener="#{scheduleBean.onEventMove}" update="messages" />  
                         <p:ajax event="eventResize" listener="#{scheduleBean.onEventResize}" update="messages" />  
-                        
+
                     </p:schedule>  
                     <p:dialog widgetVar="dlg" header="Détails évènement" showEffect="clip" hideEffect="clip">  
                         <h:panelGrid id="eventDetails" columns="2">  
-                            
+
                             <h:outputLabel for="title" value="Titre :" />  
                             <h:outputLabel id="title" value="#{scheduleBean.event.title}"/>  
-                            
+
                             <h:outputLabel for="from" value="De :" />  
                             <p:inputText id="from" value="#{scheduleBean.event.startDate}" disabled="true">  
                                 <f:convertDateTime pattern="dd/MM/yyyy à HH:mm" />  
@@ -101,21 +101,21 @@
 
                             <h:outputLabel for="lieu" value="Lieu : " />  
                             <h:outputLabel id="lieu" value="#{scheduleBean.event.data.place}" required="true"/>
-                            
+
                             <h:outputLabel for="description" value="Description : " />
                             <h:outputLabel id="description" value="#{scheduleBean.event.data.description}"/>
 
-                            
+
                             <p:commandButton value="Ok" oncomplete="dlg.hide();"/>  
                         </h:panelGrid>  
                     </p:dialog>  
-                    
+
                     <p:dialog widgetVar="eventDialog" header="Détails évènement" showEffect="clip" hideEffect="clip">  
                         <h:panelGrid id="eventDetails2" columns="2">  
-                            
+
                             <h:outputLabel for="title2" value="Titre :" />  
                             <p:inputText id="title2" value="#{scheduleBean.event.title}"/>  
-                            
+
                             <h:outputLabel for="from2" value="De :" />  
                             <p:inputMask id="from2" value="#{scheduleBean.event.startDate}" mask="99/99/9999">  
                                 <f:convertDateTime pattern="dd/MM/yyyy" />  
@@ -128,44 +128,73 @@
 
                             <h:outputLabel for="lieu2" value="Lieu : " />  
                             <p:inputText id="lieu2" value="#{scheduleBean.event.data.place}" required="true"/>
-                            
+
                             <h:outputLabel for="description2" value="Description : " />
                             <p:inputText id="description2" value="#{scheduleBean.event.data.description}"/>
 
-                            
+
                             <p:commandButton type="reset" value="Annuler" />
                             <p:commandButton value="Ok" actionListener="#{scheduleBean.addEvent}" oncomplete="myschedule.update();eventDialog.hide();"/>  
                         </h:panelGrid>  
                     </p:dialog>  
-                    
-                    
+
+
 
                 </h:form>
-                
+
             </div>
 
             <div id="content_right">
-                    <div id ="taches">
-                        <div class="title">Tâches : <a href="createTask.xhtml"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
-                        <div class="inside_box">
-                         <p:dataList value="#{taskBean.listAllTask()}" var="task">  
-                            <h:commandButton value="Details" action="displayTask" immediate="true">   
-                            <f:setPropertyActionListener value="#{task}"
-                                            target="#{taskBean.selectedTask}" />
-                            </h:commandButton>  
+                <div id ="taches">
+                    <div class="title">Tâches : <a href="createTask.xhtml"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
+                    <div class="inside_box">
+                        <p:dataList value="#{taskBean.listAllTask()}" var="task">
+                            <p:commandButton value="Details" update=":j_idt8:displayTask2" oncomplete="taskDialog.show()" immediate="true">   
+                                <f:setPropertyActionListener value="#{task}"
+                                                             target="#{taskBean.selectedTask}" />
+                            </p:commandButton>  
                             <h:outputText value="#{task.name}" style="margin-left:10px" />  
                             <br />  
-                        </p:dataList>
-                        </div>
-
-                        <div style="clear: both"></div>
-                    </div>
+                        </p:dataList> 
+                    </div>     
+                    <div style="clear: both"></div>
+                </div>
             </div>
             <p:commandButton value="Créer un événement" action="createEvent" immediate="true"></p:commandButton>
 
             <div style="clear: both">
 
-            </div>
+            </div>   
+            <p:dialog header="Task Detail" widgetVar="taskDialog" resizable="false"  
+                      width="300" showEffect="explode" hideEffect="explode">  
+                <p:outputPanel id="displayTask2" columns="2" cellpadding="4">  
+                    <h:panelGrid columns="2" cellpadding="4">
+                    <h:outputText value="Nom :" />  
+                    <h:outputText value="#{taskBean.selectedTask.name}" />  
+
+                    <h:outputText value="Date :" />  
+                    <h:outputText value="#{taskBean.selectedTask.limitDate}" />  
+
+                    <h:outputText value="Description :" />  
+                    <h:outputText value="#{taskBean.selectedTask.description}"/>
+                    </h:panelGrid>
+                <h:panelGrid columns="3" cellpadding="4">
+                        <p:commandButton value="Ok" oncomplete="taskDialog.hide();"/>
+                        <p:commandButton value="Supprimer" oncomplete="taskDelete.show();"/>
+                        <p:commandButton value="Modifier" action="displayTask"/>
+                 </h:panelGrid>
+           </p:outputPanel>
+            </p:dialog>
+            <p:dialog header="Task Detail" widgetVar="taskDelete" resizable="false" draggable="false" modal="true"  
+                      width="200" showEffect="explode" hideEffect="explode">  
+                <h:panelGrid id="confirmTask" columns="1" cellpadding="4">  
+                    <h:outputText value="Voulez vous supprimer cette tâche ?" />
+                </h:panelGrid> 
+                <h:panelGrid columns="2" cellpadding="4"> 
+                    <p:commandButton value="Oui" action="#{taskBean.removeSelectionedTask()}" oncomplete="javascript:location.reload(true)"/>
+                    <p:commandButton value="Non" oncomplete="taskDelete.hide();"/>
+                </h:panelGrid> 
+            </p:dialog>
         </ui:define>
     </ui:composition>
 </html>

@@ -62,6 +62,16 @@
             <to-view-id>/login.xhtml</to-view-id>
             <redirect>/login.xhtml</redirect>
         </navigation-case>
+               <navigation-case>
+            <from-outcome>displayTask</from-outcome>
+            <to-view-id>/displayTask.xhtml</to-view-id>
+            <redirect>/displayTask.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>createTask</from-outcome>
+            <to-view-id>/createTask.xhtml</to-view-id>
+            <redirect>/createTask.xhtml</redirect>
+        </navigation-case>
     </navigation-rule>
     
     <navigation-rule>
@@ -99,13 +109,39 @@
             <redirect>/createEvent.xhtml</redirect>
         </navigation-case>
     </navigation-rule>
-    
-     <navigation-rule>
+     
+    <navigation-rule>
         <from-view-id>/createAccount.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
             <redirect>/index.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/createTask.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewAgenda</from-outcome>
+            <to-view-id>/viewAgenda.xhtml</to-view-id>
+            <redirect>/viewAgenda.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>createTask</from-outcome>
+            <to-view-id>/createTask.xhtml</to-view-id>
+            <redirect>/createTask.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/displayTask.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewAgenda</from-outcome>
+            <to-view-id>/viewAgenda.xhtml</to-view-id>
+            <redirect>/viewAgenda.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>displayTask</from-outcome>
+            <to-view-id>/displayTask.xhtml</to-view-id>
+            <redirect>/displayTask.xhtml</redirect>
         </navigation-case>
     </navigation-rule>
 </faces-config>

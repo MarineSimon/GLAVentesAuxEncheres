@@ -38,6 +38,8 @@ public class TaskBeanLocal implements TaskBeanLocalInterface {
     public Task addTask(Task task) {
         task.setTaskOwner(userConnected);
         em.persist(task);
+        this.addDisplayedTaskToUser(task, userConnected);
+        em.merge(this.userConnected);
         return task;
     }
 
@@ -58,6 +60,22 @@ public class TaskBeanLocal implements TaskBeanLocalInterface {
     @Override
     public void deleteTask(Task task) {
         em.remove(em.merge(task));
+    }
+
+    @Override
+    public void addDisplayedTaskToUser(Task task, UserAgenda u) {
+        UserAgenda us = em.find(UserAgenda.class, u.getId());
+        Task ag = em.find(Task.class, task.getId());
+        us.getTasks().add(ag);
+        em.merge(us);
+    }
+
+    @Override
+    public void deleteDisplayedTaskToUser(Task task, UserAgenda u) {
+        UserAgenda us = em.find(UserAgenda.class, u.getId());
+        Task ag = em.find(Task.class, task.getId());
+        us.getTasks().remove(ag);
+        em.merge(us);
     }
     
 
