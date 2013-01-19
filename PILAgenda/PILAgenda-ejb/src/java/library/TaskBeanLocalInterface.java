@@ -21,5 +21,6 @@ public interface TaskBeanLocalInterface {
     void setUserConnected(UserAgenda userConnected);
     UserAgenda getUserConnected();
     void deleteTask(Task task);
-       
+    void addDisplayedTaskToUser(Task task, UserAgenda u);
+    void deleteDisplayedTaskToUser(Task task, UserAgenda u);
 }

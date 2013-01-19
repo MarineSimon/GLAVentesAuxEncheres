@@ -170,13 +170,13 @@
                 <p:outputPanel id="displayTask2" columns="2" cellpadding="4">  
                     <h:panelGrid columns="2" cellpadding="4">
                     <h:outputText value="Nom :" />  
-                    <h:outputText value="#{taskBean.selectedTask.name}" id="model"/>  
+                    <h:outputText value="#{taskBean.selectedTask.name}" />  
 
                     <h:outputText value="Date :" />  
-                    <h:outputText value="#{taskBean.selectedTask.limitDate}" id="year"/>  
+                    <h:outputText value="#{taskBean.selectedTask.limitDate}" />  
 
                     <h:outputText value="Description :" />  
-                    <h:outputText value="#{taskBean.selectedTask.description}" id="manufacturer"/> 
+                    <h:outputText value="#{taskBean.selectedTask.description}"/>
                     </h:panelGrid>
                 <h:panelGrid columns="3" cellpadding="4">
                         <p:commandButton value="Ok" oncomplete="taskDialog.hide();"/>
