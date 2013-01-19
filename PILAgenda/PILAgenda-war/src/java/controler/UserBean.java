@@ -245,7 +245,7 @@ public class UserBean{
         UserAgenda ua = local.addAccount(user);
 
         if (ua == null) {
-            FacesContext.getCurrentInstance().addMessage("account:message", new FacesMessage("email déjà existant."));
+            FacesContext.getCurrentInstance().addMessage("account:message", new FacesMessage(FacesMessage.SEVERITY_ERROR,"email déjà existant.",""));
             result = null;
         }
         else {

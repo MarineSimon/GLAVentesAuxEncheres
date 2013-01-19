@@ -18,7 +18,7 @@
                 <center><p><i>Si base pré-remplie : admin/admin.</i></p></center>
                 <h:panelGrid columns="2" style="margin:auto">
                     Email:
-                    <p:inputText value="#{loginBean.userEmail}" required="true"/><br/>
+                    <p:inputText value="#{loginBean.userEmail}" required="true" requiredMessage="Email obligatoire"/><br/>
                     Mot de passe :
                     <p:password value="#{loginBean.userPassWord}"/><br/>
                     <p:commandButton id="btnLogin" type="submit" value="Connexion" action="#{loginBean.loginSuccessful()}"/><br/>

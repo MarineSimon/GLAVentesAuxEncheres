@@ -201,8 +201,8 @@ public class EventBean implements Serializable{
         String res = "viewAgenda";
         List<Agenda> guests = this.getListAgendaGuests();
         if (guests == null){
-            FacesContext.getCurrentInstance().addMessage("formAddEvent:btnAddEvent", new FacesMessage("email érroné"));
-            res = "createEvent";
+            FacesContext.getCurrentInstance().addMessage("j_idt9:formAddEvent:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"email érroné",""));
+            return null;
         }
         if (this.eventBeginDate.after(eventEndDate)) {
             res = "createEvent";

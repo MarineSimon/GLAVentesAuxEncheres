@@ -94,13 +94,13 @@ public class LoginBean implements Serializable {
             return "viewAgenda";
 
         } else {
-            FacesContext.getCurrentInstance().addMessage("formLogin:btnLogin", new FacesMessage("email ou mot de passe érroné"));
-            FacesContext.getCurrentInstance().addMessage("formLogin:btnLogin", new FacesMessage("vous ête nouveau, cliquez sur créer compte"));
+            FacesContext.getCurrentInstance().addMessage("formLogin:btnLogin", new FacesMessage(FacesMessage.SEVERITY_ERROR,"email ou mot de passe érroné",""));
+            FacesContext.getCurrentInstance().addMessage("formLogin:btnLogin", new FacesMessage(FacesMessage.SEVERITY_ERROR,"vous ête nouveau, cliquez sur créer compte",""));
             setIsLoggedIn(false);
             return "login";
         }
         }else{
-            FacesContext.getCurrentInstance().addMessage("formLogin:btnLogin", new FacesMessage("email n'existe pas"));
+            FacesContext.getCurrentInstance().addMessage("formLogin:btnLogin", new FacesMessage(FacesMessage.SEVERITY_ERROR,"email n'existe pas",""));
             return "login";
         }
     }
