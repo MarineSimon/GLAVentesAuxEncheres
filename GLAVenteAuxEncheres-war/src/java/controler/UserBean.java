@@ -4,32 +4,39 @@
  */
 package controler;
 
-import javax.enterprise.context.Dependent;
+import java.io.Serializable;
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import library.UserBeanInterface;
+import persistence.InfosBuyer;
+import persistence.UserEnchere;
 
 /**
  *
- * @author soleneantoine
+ * @author Marine
  */
 @Named(value = "userBean")
-@Dependent
-public class UserBean {
-
-    private String lastname;
-    private String firstname;
-    private String mail;
-    private String phone;
-    private String password;
-    private String confirmPassword;
+@SessionScoped
+public class UserBean implements Serializable{
+    @EJB
+    private UserBeanInterface userBean;
     
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
+    private UserEnchere user;
+    private String firstname;
+    private String lastname;
+    private String login;
+    private String password;
+    private String typeAccount;
+    private String confirmPassword;
+    private String deliveryAddress;
+    private String deliveryZipCode;
+    private String deliveryCity;
+    private String numBankAccount;
+    
     public String getFirstname() {
         return firstname;
     }
@@ -38,20 +45,20 @@ public class UserBean {
         this.firstname = firstname;
     }
 
-    public String getMail() {
-        return mail;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getLogin() {
+        return login;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -69,6 +76,70 @@ public class UserBean {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
+
+    public String getTypeAccount() {
+        return typeAccount;
+    }
+
+    public void setTypeAccount(String typeAccount) {
+        this.typeAccount = typeAccount;
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public String getDeliberyZipCode() {
+        return deliveryZipCode;
+    }
+
+    public void setDeliberyZipCode(String deliberyZipCode) {
+        this.deliveryZipCode = deliberyZipCode;
+    }
+
+    public String getDeliveryCity() {
+        return deliveryCity;
+    }
+
+    public void setDeliveryCity(String deliveryCity) {
+        this.deliveryCity = deliveryCity;
+    }
     
+    public String getNumBankAccount() {
+        return numBankAccount;
+    }
+
+    public void setNumBankAccount(String numBankAccount) {
+        this.numBankAccount = numBankAccount;
+    }
+
+    public String addUser(){
+        user = new UserEnchere(lastname,firstname,login,password);
+        if (!userBean.loginAvailable(user)){
+            FacesContext.getCurrentInstance().addMessage("createAccount:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login déjà existant.",""));
+            return null;
+        }
+        if (this.typeAccount.equals("buyer")){
+            return "additionalCreateAccount";
+        } else {
+            UserEnchere u = userBean.addUser(user);
+        }
+        return "mainView";
+    }
+    
+    public String additionnalAddUser(){
+        user.setInfosBuyer(new InfosBuyer());
+        user.getInfosBuyer().setDeliveryAddress(deliveryAddress);
+        user.getInfosBuyer().setDeliveryCity(deliveryCity);
+        user.getInfosBuyer().setDeliveryZipCode(Integer.parseInt(deliveryZipCode));
+        user.getInfosBuyer().setNumBankAccount(Integer.parseInt(numBankAccount));
+        
+        userBean.addUser(user);
+        return "mainView";
+    }
     
 }

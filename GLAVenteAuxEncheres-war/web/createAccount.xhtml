@@ -3,47 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
-    
-    <ui:composition template="template.xhtml">
-        <ui:define name="title">
-            Créer compte
-        </ui:define>
-
-        <ui:define name="content">
-            <h:form id="formLogin">
-                <p:messages id="messages" autoUpdate="true"/>
-                <h:form id="account">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="createAccount">
                 <p:messages id="messages" autoUpdate="true"/> 
                 
-                <h:panelGrid columns="2" cellpadding="5" style="margin:auto">  
-                        <h:outputText value="Nom : " />
-                        <p:inputText value="#{userBean.lastname}" style="width:280px"/>
-                        <h:outputText value="Prénom : " />
-                        <p:inputText value="#{userBean.firstname}" style="width:280px"/>
-                        <h:outputText value="Adresse email* : " />
-                        <p:inputText value="#{userBean.mail}" required="true" style="width:280px" requiredMessage="adresse email obligatoire" validatorMessage="Adresse email invalide">
-                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                        </p:inputText>
-                        <h:outputText value="Numéro de téléphone : " />
-                        <p:inputMask value="#{userBean.phone}" mask="99.99.99.99.99" style="width:280px"/>
+                <h:panelGrid columns="2" cellpadding="">    
+                    <h:outputText value="Prénom : " />
+                    <p:inputText value="#{userBean.firstname}" style="width:280px"/>
+                    <h:outputText value="Nom : " />
+                    <p:inputText value="#{userBean.lastname}" style="width:280px"/>
+                    <h:outputText value="Login * : " />
+                    <p:inputText value="#{userBean.login}" style="width:280px" required="true" requiredMessage="Login obligatoire"/>
+                    
+                    <h:outputLabel for="pwd" value="Mot de passe * :" />  
+                    <p:password id="pwd" value="#{userBean.password}" match="pwdc" label="Password" required="true" style="width:280px" validatorMessage="Mot de passe invalide" requiredMessage="mot de passe obligatoire"/>  
+                    <h:outputLabel for="pwdc" value="Confimer mot de passe * :" />  
+                    <p:password id="pwdc" value="#{userBean.confirmPassword}" label="Password" required="true" style="width:280px" requiredMessage="confirmation mot de passe obligatoire"/>  
 
-                        <h:outputLabel for="pwd" value="Mot de passe* :" />  
-                        <p:password id="pwd" value="#{userBean.password}" match="pwdc" label="Password" required="true" style="width:280px" requiredMessage="mot de passe obligatoire"/>  
-
-                        <h:outputLabel for="pwdc" value="Confimer mot de passe* :" />  
-                        <p:password id="pwdc" value="#{userBean.confirmPassword}" label="Password" required="true" style="width:280px" requiredMessage="confirmation mot de passe obligatoire"/>  
-
-                 </h:panelGrid>
+                    <h:outputText value="Type de compte : " />  
+                    <p:selectOneRadio id="options" value="#{userBean.typeAccount}" required="true" requiredMessage="Type de compte obligatoire">  
+                        <f:selectItem itemLabel="Acheteur" itemValue="buyer"  />  
+                        <f:selectItem itemLabel="Vendeur" itemValue="seller" />  
+                    </p:selectOneRadio> 
+                    
+                </h:panelGrid>
                 
-                <center><p:commandButton id="saveButton" value="Confirmer" action="#{userBean.addAccount()}"/>         
-                        <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/></center>
+                <p:commandButton id="saveButton" value="Confirmer" action="#{userBean.addUser()}" />                
+                <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
 
             </h:form>
-            </h:form>
-        </ui:define>
-    </ui:composition>
-
+    </h:body>
 </html>
 

@@ -24,6 +24,9 @@
                     Mot de passe :
                     <p:password value="#{loginBean.password}"/>
                     
+                    <p:commandButton id="btnLogin" type="submit" value="Connexion" action="#{loginBean.loginSuccessful()}"/>
+                    <a href="faces/createAccount.xhtml">Se créer un compte</a>
+                    
                 </h:panelGrid>
                 
                 <center><p:commandButton id="btnLogin" type="submit" value="Connexion" action="#{loginBean.loginSuccessful()}"/></center>
