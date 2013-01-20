@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+    <ui:composition template="template.xhtml">
+        <ui:define name="title">
+            Créer compte
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="formLogin">
+                <p:messages id="messages" autoUpdate="true"/>
+                <h:form id="account">
+                <p:messages id="messages" autoUpdate="true"/> 
+                
+                <h:panelGrid columns="2" cellpadding="5" style="margin:auto">  
+                        <h:outputText value="Nom : " />
+                        <p:inputText value="#{userBean.lastname}" style="width:280px"/>
+                        <h:outputText value="Prénom : " />
+                        <p:inputText value="#{userBean.firstname}" style="width:280px"/>
+                        <h:outputText value="Adresse email* : " />
+                        <p:inputText value="#{userBean.mail}" required="true" style="width:280px" requiredMessage="adresse email obligatoire" validatorMessage="Adresse email invalide">
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                        </p:inputText>
+                        <h:outputText value="Numéro de téléphone : " />
+                        <p:inputMask value="#{userBean.phone}" mask="99.99.99.99.99" style="width:280px"/>
+
+                        <h:outputLabel for="pwd" value="Mot de passe* :" />  
+                        <p:password id="pwd" value="#{userBean.password}" match="pwdc" label="Password" required="true" style="width:280px" requiredMessage="mot de passe obligatoire"/>  
+
+                        <h:outputLabel for="pwdc" value="Confimer mot de passe* :" />  
+                        <p:password id="pwdc" value="#{userBean.confirmPassword}" label="Password" required="true" style="width:280px" requiredMessage="confirmation mot de passe obligatoire"/>  
+
+                 </h:panelGrid>
+                
+                <center><p:commandButton id="saveButton" value="Confirmer" action="#{userBean.addAccount()}"/>         
+                        <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/></center>
+
+            </h:form>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
+
