@@ -5,18 +5,25 @@
 package persistence;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author Marine
  */
 @Entity
-public class User implements Serializable {
+@NamedQueries({
+        @NamedQuery(name="UserEnchere.findUserByLogin", query="SELECT u from UserEnchere u WHERE u.login = ?1")
+    })
+public class UserEnchere implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,12 +39,14 @@ public class User implements Serializable {
     private String password;
     @Column(name = "ABANDONRECORDER")
     private int abandonsRecorder;
+    @OneToOne(cascade = CascadeType.PERSIST,optional=true)
+    private InfosBuyer infosBuyer;
     
-    public User(){
+    public UserEnchere(){
         
     }
     
-    public User(String lastname,String firstname,String login,String password){
+    public UserEnchere(String lastname,String firstname,String login,String password){
         this.abandonsRecorder = 0;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -92,6 +101,14 @@ public class User implements Serializable {
     public void setAbandonsRecorder(int abandonsRecorder) {
         this.abandonsRecorder = abandonsRecorder;
     }
+
+    public InfosBuyer getInfosBuyer() {
+        return infosBuyer;
+    }
+
+    public void setInfosBuyer(InfosBuyer infosBuyer) {
+        this.infosBuyer = infosBuyer;
+    }
     
     @Override
     public int hashCode() {
@@ -103,10 +120,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof UserEnchere)) {
             return false;
         }
-        User other = (User) object;
+        UserEnchere other = (UserEnchere) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

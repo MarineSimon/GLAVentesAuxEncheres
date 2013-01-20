@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="createAccount">
+                <p:messages id="messages" autoUpdate="true"/> 
+                
+                <h:panelGrid columns="2" cellpadding="">    
+                    <h:outputText value="Prénom : " />
+                    <p:inputText value="#{userBean.firstname}" style="width:280px"/>
+                    <h:outputText value="Nom : " />
+                    <p:inputText value="#{userBean.lastname}" style="width:280px"/>
+                    <h:outputText value="Login * : " />
+                    <p:inputText value="#{userBean.login}" style="width:280px" required="true" requiredMessage="Login obligatoire"/>
+                    
+                    <h:outputLabel for="pwd" value="Mot de passe * :" />  
+                    <p:password id="pwd" value="#{userBean.password}" match="pwdc" label="Password" required="true" style="width:280px" validatorMessage="Mot de passe invalide" requiredMessage="mot de passe obligatoire"/>  
+                    <h:outputLabel for="pwdc" value="Confimer mot de passe * :" />  
+                    <p:password id="pwdc" value="#{userBean.confirmPassword}" label="Password" required="true" style="width:280px" requiredMessage="confirmation mot de passe obligatoire"/>  
+
+                    <h:outputText value="Type de compte : " />  
+                    <p:selectOneRadio id="options" value="#{userBean.typeAccount}" required="true" requiredMessage="Type de compte obligatoire">  
+                        <f:selectItem itemLabel="Acheteur" itemValue="buyer"  />  
+                        <f:selectItem itemLabel="Vendeur" itemValue="seller" />  
+                    </p:selectOneRadio> 
+                    
+                </h:panelGrid>
+                
+                <p:commandButton id="saveButton" value="Confirmer" action="#{userBean.addUser()}" />                
+                <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
+
+            </h:form>
+    </h:body>
+</html>
+

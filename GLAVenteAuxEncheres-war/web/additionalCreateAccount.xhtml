@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="createAccount">
+                <p:messages id="messages" autoUpdate="true"/> 
+                
+                <h:panelGrid columns="2" cellpadding=""> 
+                    
+                <h:outputText value="Adresse de livraison * : " />
+                <p:inputText value="#{userBean.deliveryAddress}" style="width:280px" required="true" requiredMessage="Adresse de livraison obligatoire"/>
+                <h:outputText value="Code Postal de livraison * : " />
+                <p:inputText value="#{userBean.deliberyZipCode}" style="width:280px" required="true" requiredMessage="Code postal obligatoire" validatorMessage="Code postal invalide">
+                        <f:validateRegex pattern="[0-9][0-9][0-9][0-9][0-9]" />
+                </p:inputText>
+                <h:outputText value="Ville de livraison * : " />
+                <p:inputText value="#{userBean.deliveryCity}" style="width:280px" required="true" requiredMessage="Ville obligatoire"/>
+
+                <h:outputText value="Numéro compte bancaire * : " />
+                <p:inputText value="#{userBean.numBankAccount}" style="width:280px" required="true" requiredMessage="Numero compte bancaire obligatoire" validatorMessage="Numéro compte bancaire invalide">
+                    <f:validateRegex pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" />
+                </p:inputText>
+                
+                <p:commandButton id="saveButton" value="Confirmer" action="#{userBean.additionnalAddUser()}" />                
+                <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
+                
+                </h:panelGrid>
+            </h:form>
+    </h:body>
+</html>
+
