@@ -12,10 +12,10 @@
         </ui:define>
 
         <ui:define name="content">
- <h:form id="createAccount">
+            <h:form id="createAccount">
                 <p:messages id="messages" autoUpdate="true"/> 
                 
-                <h:panelGrid columns="2" cellpadding="">    
+                <h:panelGrid columns="2" cellpadding="" style="margin:auto;margin-top: 10px">    
                     <h:outputText value="Prénom : " />
                     <p:inputText value="#{userBean.firstname}" style="width:280px"/>
                     <h:outputText value="Nom : " />
@@ -33,11 +33,13 @@
                         <f:selectItem itemLabel="Acheteur" itemValue="buyer"  />  
                         <f:selectItem itemLabel="Vendeur" itemValue="seller" />  
                     </p:selectOneRadio> 
+                    <br/>
+                    <h:panelGrid columns="2" cellpadding="">
+                        <p:commandButton id="saveButton" value="Confirmer" action="#{userBean.addUser()}" />                
+                        <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
+                    </h:panelGrid>
                     
                 </h:panelGrid>
-                
-                <p:commandButton id="saveButton" value="Confirmer" action="#{userBean.addUser()}" />                
-                <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
 
             </h:form>
         </ui:define>

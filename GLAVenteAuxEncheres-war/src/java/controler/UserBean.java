@@ -118,17 +118,18 @@ public class UserBean implements Serializable{
     }
 
     public String addUser(){
+        String res = "welcome";
         user = new UserEnchere(lastname,firstname,login,password);
         if (!userBean.loginAvailable(user)){
             FacesContext.getCurrentInstance().addMessage("createAccount:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login déjà existant.",""));
             return null;
         }
         if (this.typeAccount.equals("buyer")){
-            return "additionalCreateAccount";
+            res = "additionalCreateAccount";
         } else {
             UserEnchere u = userBean.addUser(user);
         }
-        return "mainView";
+        return res;
     }
     
     public String additionnalAddUser(){
@@ -139,7 +140,7 @@ public class UserBean implements Serializable{
         user.getInfosBuyer().setNumBankAccount(Integer.parseInt(numBankAccount));
         
         userBean.addUser(user);
-        return "mainView";
+        return "welcome";
     }
     
 }

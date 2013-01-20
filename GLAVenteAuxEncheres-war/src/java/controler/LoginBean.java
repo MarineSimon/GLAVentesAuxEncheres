@@ -13,6 +13,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.servlet.http.HttpSession;
+import library.UserBeanInterface;
 
 /**
  *
@@ -21,8 +22,9 @@ import javax.servlet.http.HttpSession;
 @Named(value = "loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
-
-    private String email;
+    @EJB
+    private UserBeanInterface userBean;
+    private String login;
     private String password;
 
     /**
@@ -31,12 +33,12 @@ public class LoginBean implements Serializable {
     public LoginBean() {
     }
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -48,7 +50,11 @@ public class LoginBean implements Serializable {
     }
     
     public String loginSuccessful() {
-        return "mainView";
+        if (userBean.getUserByLogin(login) == null){
+            FacesContext.getCurrentInstance().addMessage("formLogin:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login/Mot de passe incorrect",""));
+            return null;
+        }
+        return "welcome";
     }
     
 }

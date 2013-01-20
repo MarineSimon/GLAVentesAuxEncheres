@@ -34,6 +34,15 @@ public class UserBeanLocal implements UserBeanInterface{
         
         return res;
     }
+    
+    @Override
+    public UserEnchere getUserByLogin(String login){
+        Query query = em.createNamedQuery("UserEnchere.findUserByLogin");
+        query.setParameter(1, login);
+        
+        return (UserEnchere) query.getSingleResult();
+            
+        }
 
     @Override
     public UserEnchere addUser(UserEnchere user) {

@@ -10,16 +10,55 @@
     <navigation-rule>
         <from-view-id>/createAccount.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>mainView</from-outcome>
-            <to-view-id>/mainView.xhtml</to-view-id>
-            <redirect>/mainView.xhtml</redirect>
+            <from-outcome>welcome</from-outcome>
+            <to-view-id>/welcome.xhtml</to-view-id>
+            <redirect>/welcome.xhtml</redirect>
         </navigation-case>
         <navigation-case>
             <from-outcome>additionalCreateAccount</from-outcome>
             <to-view-id>/additionalCreateAccount.xhtml</to-view-id>
             <redirect>/additionalCreateAccount.xhtml</redirect>
         </navigation-case>
+        <navigation-case>
+            <from-action>cancel</from-action>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect>/login.xhtml</redirect>
+        </navigation-case>
     </navigation-rule>
-    
-    
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>additionalCreateAccount</from-outcome>
+            <to-view-id>/additionalCreateAccount.xhtml</to-view-id>
+            <redirect>/additionalCreateAccount.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>createAccount</from-outcome>
+            <to-view-id>/createAccount.xhtml</to-view-id>
+            <redirect>/createAccount.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>welcome</from-outcome>
+            <to-view-id>/welcome.xhtml</to-view-id>
+            <redirect>/welcome.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/additionalCreateAccount.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>additionalCreateAccount</from-outcome>
+            <to-view-id>/additionalCreateAccount.xhtml</to-view-id>
+            <redirect>/additionalCreateAccount.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>createAccount</from-outcome>
+            <to-view-id>/createAccount.xhtml</to-view-id>
+            <redirect>/createAccount.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-action>cancel</from-action>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect>/login.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

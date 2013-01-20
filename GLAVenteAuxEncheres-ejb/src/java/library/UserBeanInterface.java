@@ -14,5 +14,6 @@ import persistence.UserEnchere;
 @Local
 public interface UserBeanInterface {
     public boolean loginAvailable(UserEnchere user);
+    public UserEnchere getUserByLogin(String login);
     public UserEnchere addUser(UserEnchere user);
 }
