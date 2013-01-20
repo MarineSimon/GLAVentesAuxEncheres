@@ -262,3 +262,16 @@ a{
    background-position: right bottom;
    
  }
+ 
+ .ui-datalist-content {
+     border: none;
+ }
+ 
+ ul {
+     list-style: none;
+     padding-left: 0;
+ }
+ 
+ .ui-widget-content a:hover {
+     text-decoration: underline;
+ }

@@ -58,14 +58,15 @@
             <div id="content_middle">
                 <span>
                     <span style="text-align: left;margin: 10px">
-                        <p:commandButton id="prev" actionListener="#{scheduleBean.goToPrevious()}" value="Prec." process="@this"/>
-                        <p:commandButton id="next" actionListener="#{scheduleBean.goToNext()}" value="Suiv." process="@this"/>
-                        <p:commandButton id="today" actionListener="#{scheduleBean.goToToday()}" value="Auj." process="@this"/>
+                        <p:commandButton id="prev" actionListener="#{scheduleBean.goToPrevious()}" value="" process="@this" style="background: url('resources/pictures/glyphicons_172_rewind.png') no-repeat center;height:26px;border:0;padding:2px"/>
+                        <p:commandButton id="today" actionListener="#{scheduleBean.goToToday()}" value="" process="@this" style="background: url('resources/pictures/auj_btn.png') no-repeat center;height:26px;border:0;padding:2px"/>
+                        <p:commandButton id="next" actionListener="#{scheduleBean.goToNext()}" value="" process="@this" style="background: url('resources/pictures/glyphicons_176_forward.png') no-repeat center;height:26px;border:0;padding:2px" />
                     </span>
                     <span style="text-align: right;margin-left: 200px;" >
-                        <p:commandButton id="day" actionListener="#{scheduleBean.switchToDay()}" value="Jour" process="@this"/>
-                        <p:commandButton id="week" actionListener="#{scheduleBean.switchToWeek()}" value="Semaine" process="@this"/>
-                        <p:commandButton id="month" actionListener="#{scheduleBean.switchToMonth()}" value="Mois" process="@this"/>
+
+                        <p:commandButton id="month" actionListener="#{scheduleBean.switchToMonth()}" value="" process="@this"  style="background: url('resources/pictures/mois_btn.png') no-repeat center;height:26px;width:40px;border:0;padding:2px;float:right"/>
+                        <p:commandButton id="week" actionListener="#{scheduleBean.switchToWeek()}" value="" process="@this"  style="background: url('resources/pictures/semaine_btn.png') no-repeat center;height:26px;width: 60px;border:0;padding:2px;float:right"/>
+                        <p:commandButton id="day" actionListener="#{scheduleBean.switchToDay()}" value="" process="@this"  style="background: url('resources/pictures/jour_btn.png') no-repeat center;height:26px;border:0;padding:2px;float:right"/>
                     </span>
                 </span>
 
@@ -149,11 +150,9 @@
                     <div class="title">Tâches : <a href="createTask.xhtml"><img class="add" src="resources/pictures/glyphicons_190_circle_plus.png" width="15px;"></img></a></div>
                     <div class="inside_box">
                         <p:dataList value="#{taskBean.listAllTask()}" var="task">
-                            <p:commandButton value="Details" update=":j_idt8:displayTask2" oncomplete="taskDialog.show()" immediate="true">   
-                                <f:setPropertyActionListener value="#{task}"
-                                                             target="#{taskBean.selectedTask}" />
-                            </p:commandButton>  
-                            <h:outputText value="#{task.name}" style="margin-left:10px" />  
+                            <p:commandLink value="#{task.name}" style="margin-left:10px" update=":j_idt8:displayTask2" oncomplete="taskDialog.show()" immediate="true" >
+                                <f:setPropertyActionListener value="#{task}" target="#{taskBean.selectedTask}" />
+                            </p:commandLink>
                             <br />  
                         </p:dataList> 
                     </div>     
