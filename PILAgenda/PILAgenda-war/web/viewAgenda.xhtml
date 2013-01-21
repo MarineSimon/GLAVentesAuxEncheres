@@ -57,16 +57,16 @@
 
             <div id="content_middle">
                 <span>
-                    <span style="text-align: left;margin: 10px">
-                        <p:commandButton id="prev" actionListener="#{scheduleBean.goToPrevious()}" value="" process="@this" style="background: url('resources/pictures/glyphicons_172_rewind.png') no-repeat center;height:26px;border:0;padding:2px"/>
-                        <p:commandButton id="today" actionListener="#{scheduleBean.goToToday()}" value="" process="@this" style="background: url('resources/pictures/auj_btn.png') no-repeat center;height:26px;border:0;padding:2px"/>
-                        <p:commandButton id="next" actionListener="#{scheduleBean.goToNext()}" value="" process="@this" style="background: url('resources/pictures/glyphicons_176_forward.png') no-repeat center;height:26px;border:0;padding:2px" />
+                    <span style="text-align: left;float:left">
+                        <p:commandButton id="prev" actionListener="#{scheduleBean.goToPrevious()}" value="Prec." process="@this"/>
+                        <p:commandButton id="today" actionListener="#{scheduleBean.goToToday()}" value="Auj." process="@this"/>
+                        <p:commandButton id="next" actionListener="#{scheduleBean.goToNext()}" value="Suiv." process="@this"/>
                     </span>
-                    <span style="text-align: right;margin-left: 200px;" >
+                    <span style="text-align: right;float:right" >
 
-                        <p:commandButton id="month" actionListener="#{scheduleBean.switchToMonth()}" value="" process="@this"  style="background: url('resources/pictures/mois_btn.png') no-repeat center;height:26px;width:40px;border:0;padding:2px;float:right"/>
-                        <p:commandButton id="week" actionListener="#{scheduleBean.switchToWeek()}" value="" process="@this"  style="background: url('resources/pictures/semaine_btn.png') no-repeat center;height:26px;width: 60px;border:0;padding:2px;float:right"/>
-                        <p:commandButton id="day" actionListener="#{scheduleBean.switchToDay()}" value="" process="@this"  style="background: url('resources/pictures/jour_btn.png') no-repeat center;height:26px;border:0;padding:2px;float:right"/>
+                        <p:commandButton id="month" actionListener="#{scheduleBean.switchToMonth()}" value="Mois" process="@this"/>
+                        <p:commandButton id="week" actionListener="#{scheduleBean.switchToWeek()}" value="Semaine" process="@this"/>
+                        <p:commandButton id="day" actionListener="#{scheduleBean.switchToDay()}" value="Jour" process="@this"/>
                     </span>
                 </span>
 
