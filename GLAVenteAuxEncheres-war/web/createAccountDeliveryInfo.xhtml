@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+    <ui:composition template="template.xhtml">
+        <ui:define name="title">
+            Création compte - additional
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="createAccount">
+                <p:messages id="messages" autoUpdate="true"/> 
+                
+                    <h:panelGrid columns="2" cellpadding="" style="margin:auto;"> 
+                        <h:outputText value="Numéro de rue de livraison : " />
+                        <p:inputText value="#{accountBean.deliveryNumber}" style="width:230px"/>
+                        <h:outputText value="Adresse de livraison : " />
+                        <p:inputText value="#{accountBean.deliveryStreet}" style="width:230px"/>
+                        <h:outputText value="Code Postal de livraison : " />
+                        <p:inputText value="#{accountBean.deliveryPostalCode}" style="width:230px" validatorMessage="Code postal invalide">
+                                <f:validateRegex pattern="|[0-9][0-9][0-9][0-9][0-9]" />
+                        </p:inputText>
+                        <h:outputText value="Ville de livraison : " />
+                        <p:inputText value="#{accountBean.deliveryCity}" style="width:230px"/>
+                        <h:outputText value="Pays de livraison : " />
+                        <p:inputText value="#{accountBean.deliveryCountry}" style="width:230px"/>
+                        
+                        <h:outputText value="Numéro compte bancaire : " />
+                        <p:inputText value="#{accountBean.numBankAccount}" style="width:230px" validatorMessage="Numéro compte bancaire invalide">
+                            <f:validateRegex pattern="|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" />
+                        </p:inputText>
+                        <h:outputText value="Code de sécurité : " />
+                        <p:inputText value="#{accountBean.securityCode}" style="width:230px" validatorMessage="Code de sécurité bancaire invalide">
+                            <f:validateRegex pattern="|[0-9][0-9][0-9]" />
+                        </p:inputText>
+                        <h:outputText value="Date d'expiration : " />
+                        <p:inputText value="#{accountBean.expiryDate}" style="width:230px" validatorMessage="Date d'expiration bancaire invalide">
+                            <f:validateRegex  pattern="|[0-3][0-9]/[0-1][0-9]/[1-2][0-9][0-9][0-9]"/>
+                        </p:inputText>
+                        <br/>
+                        <h:panelGrid columns="2" cellpadding="">
+                        <p:commandButton id="saveButton" value="Confirmer" action="#{accountBean.addUserDeliveryInfo()}"/>                
+                        <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
+                    </h:panelGrid>
+                    </h:panelGrid>
+                    
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

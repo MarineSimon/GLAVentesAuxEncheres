@@ -5,39 +5,34 @@
 package persistence;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
  * @author Marine
  */
 @Entity
-public class InfosBuyer implements Serializable {
+public class BankInformations implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(name = "NUMBANKACCOUNT")
-    private int numBankAccount;
-    
-    @OneToOne(cascade = CascadeType.PERSIST,optional=false)
-    private Address biling;
-    
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private List<Address> delivery;
-    
-    public InfosBuyer(){
-    }
+    @Column(name = "BANKACCOUNTNUMBER")
+    private int bankAccountNumber;
+    @Column(name = "SECURITYCODE")
+    private int securityCode;
+    @Column(name = "EXPIRYDATE")
+    private String expiryDate;
 
+    public BankInformations(){
+        
+    }
+    
     public Long getId() {
         return id;
     }
@@ -46,28 +41,28 @@ public class InfosBuyer implements Serializable {
         this.id = id;
     }
 
-    public int getNumBankAccount() {
-        return numBankAccount;
+    public int getBankAccountNumber() {
+        return bankAccountNumber;
     }
 
-    public void setNumBankAccount(int numBankAccount) {
-        this.numBankAccount = numBankAccount;
+    public void setBankAccountNumber(int bankAccountNumber) {
+        this.bankAccountNumber = bankAccountNumber;
     }
 
-    public Address getBiling() {
-        return biling;
+    public int getSecurityCode() {
+        return securityCode;
     }
 
-    public void setBiling(Address biling) {
-        this.biling = biling;
+    public void setSecurityCode(int securityCode) {
+        this.securityCode = securityCode;
     }
 
-    public List<Address> getDelivery() {
-        return delivery;
+    public String getExpiryDate() {
+        return expiryDate;
     }
 
-    public void setDelivery(List<Address> delivery) {
-        this.delivery = delivery;
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
     }
 
     @Override
@@ -80,10 +75,10 @@ public class InfosBuyer implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof InfosBuyer)) {
+        if (!(object instanceof BankInformations)) {
             return false;
         }
-        InfosBuyer other = (InfosBuyer) object;
+        BankInformations other = (BankInformations) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -92,7 +87,7 @@ public class InfosBuyer implements Serializable {
 
     @Override
     public String toString() {
-        return "persistence.InfosAcheteur[ id=" + id + " ]";
+        return "persistence.BankInformations[ id=" + id + " ]";
     }
     
 }

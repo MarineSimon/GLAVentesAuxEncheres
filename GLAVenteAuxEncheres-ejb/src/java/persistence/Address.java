@@ -5,39 +5,38 @@
 package persistence;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
  * @author Marine
  */
 @Entity
-public class InfosBuyer implements Serializable {
+public class Address implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(name = "NUMBANKACCOUNT")
-    private int numBankAccount;
-    
-    @OneToOne(cascade = CascadeType.PERSIST,optional=false)
-    private Address biling;
-    
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private List<Address> delivery;
-    
-    public InfosBuyer(){
-    }
+    @Column(name = "NUMBER")
+    private int number;
+    @Column(name = "STREET")
+    private String street;
+    @Column(name = "POSTALCODE")
+    private int postalCode;
+    @Column(name = "CITY")
+    private String city;
+    @Column(name = "COUNTRY")
+    private String country;
 
+    public Address(){
+        
+    }
+    
     public Long getId() {
         return id;
     }
@@ -46,28 +45,44 @@ public class InfosBuyer implements Serializable {
         this.id = id;
     }
 
-    public int getNumBankAccount() {
-        return numBankAccount;
+    public int getNumber() {
+        return number;
     }
 
-    public void setNumBankAccount(int numBankAccount) {
-        this.numBankAccount = numBankAccount;
+    public void setNumber(int number) {
+        this.number = number;
     }
 
-    public Address getBiling() {
-        return biling;
+    public String getStreet() {
+        return street;
     }
 
-    public void setBiling(Address biling) {
-        this.biling = biling;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
-    public List<Address> getDelivery() {
-        return delivery;
+    public int getPostalCode() {
+        return postalCode;
     }
 
-    public void setDelivery(List<Address> delivery) {
-        this.delivery = delivery;
+    public void setPostalCode(int postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @Override
@@ -80,10 +95,10 @@ public class InfosBuyer implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof InfosBuyer)) {
+        if (!(object instanceof Address)) {
             return false;
         }
-        InfosBuyer other = (InfosBuyer) object;
+        Address other = (Address) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -92,7 +107,7 @@ public class InfosBuyer implements Serializable {
 
     @Override
     public String toString() {
-        return "persistence.InfosAcheteur[ id=" + id + " ]";
+        return "persistence.Address[ id=" + id + " ]";
     }
     
 }

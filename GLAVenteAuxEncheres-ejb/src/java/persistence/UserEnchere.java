@@ -5,6 +5,7 @@
 package persistence;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -37,19 +39,25 @@ public class UserEnchere implements Serializable {
     private String login;
     @Column(name = "PASSWORD")
     private String password;
+    @Column(name = "EMAIL")
+    private String email;
+    @Column(name = "BIRTHDAY")
+    private String birthday;
     @Column(name = "ABANDONRECORDER")
     private int abandonsRecorder;
-    @OneToOne(cascade = CascadeType.PERSIST,optional=true)
-    private InfosBuyer infosBuyer;
+    @OneToOne(cascade = CascadeType.PERSIST,optional=false)
+    private Address biling;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Address> delivery;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<BankInformations> bankInformations;
     
     public UserEnchere(){
         
     }
     
-    public UserEnchere(String lastname,String firstname,String login,String password){
+    public UserEnchere(String login,String password){
         this.abandonsRecorder = 0;
-        this.firstname = firstname;
-        this.lastname = lastname;
         this.login = login;
         this.password = password;
     }
@@ -102,12 +110,44 @@ public class UserEnchere implements Serializable {
         this.abandonsRecorder = abandonsRecorder;
     }
 
-    public InfosBuyer getInfosBuyer() {
-        return infosBuyer;
+    public Address getBiling() {
+        return biling;
     }
 
-    public void setInfosBuyer(InfosBuyer infosBuyer) {
-        this.infosBuyer = infosBuyer;
+    public void setBiling(Address biling) {
+        this.biling = biling;
+    }
+
+    public List<Address> getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(List<Address> delivery) {
+        this.delivery = delivery;
+    }
+
+    public List<BankInformations> getBankInformations() {
+        return bankInformations;
+    }
+
+    public void setBankInformations(List<BankInformations> bankInformations) {
+        this.bankInformations = bankInformations;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
     
     @Override

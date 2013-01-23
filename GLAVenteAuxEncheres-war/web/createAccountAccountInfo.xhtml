@@ -16,26 +16,18 @@
                 <p:messages id="messages" autoUpdate="true"/> 
                 
                 <h:panelGrid columns="2" cellpadding="" style="margin:auto;margin-top: 10px">    
-                    <h:outputText value="Prénom : " />
-                    <p:inputText value="#{userBean.firstname}" style="width:280px"/>
-                    <h:outputText value="Nom : " />
-                    <p:inputText value="#{userBean.lastname}" style="width:280px"/>
+                
                     <h:outputText value="Login * : " />
-                    <p:inputText value="#{userBean.login}" style="width:280px" required="true" requiredMessage="Login obligatoire"/>
+                    <p:inputText value="#{accountBean.login}" style="width:280px" required="true" requiredMessage="Login obligatoire"/>
                     
                     <h:outputLabel for="pwd" value="Mot de passe * :" />  
-                    <p:password id="pwd" value="#{userBean.password}" match="pwdc" label="Password" required="true" style="width:280px" validatorMessage="Mot de passe invalide" requiredMessage="mot de passe obligatoire"/>  
+                    <p:password id="pwd" value="#{accountBean.password}" match="pwdc" label="Password" required="true" style="width:280px" validatorMessage="Mot de passe invalide" requiredMessage="mot de passe obligatoire"/>  
                     <h:outputLabel for="pwdc" value="Confimer mot de passe * :" />  
-                    <p:password id="pwdc" value="#{userBean.confirmPassword}" label="Password" required="true" style="width:280px" requiredMessage="confirmation mot de passe obligatoire"/>  
-
-                    <h:outputText value="Type de compte : " />  
-                    <p:selectOneRadio id="options" value="#{userBean.typeAccount}" required="true" requiredMessage="Type de compte obligatoire">  
-                        <f:selectItem itemLabel="Acheteur" itemValue="buyer"  />  
-                        <f:selectItem itemLabel="Vendeur" itemValue="seller" />  
-                    </p:selectOneRadio> 
+                    <p:password id="pwdc" value="#{accountBean.confirmPassword}" label="Password" required="true" style="width:280px" requiredMessage="confirmation mot de passe obligatoire"/>  
+ 
                     <br/>
                     <h:panelGrid columns="2" cellpadding="">
-                        <p:commandButton id="saveButton" value="Confirmer" action="#{userBean.addUser()}" />                
+                        <p:commandButton id="saveButton" value="Confirmer" action="#{accountBean.addUserAccountInfo()}" />                
                         <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
                     </h:panelGrid>
                     

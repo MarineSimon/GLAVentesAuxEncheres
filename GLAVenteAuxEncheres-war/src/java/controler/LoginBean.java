@@ -14,6 +14,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.servlet.http.HttpSession;
 import library.UserBeanInterface;
+import persistence.UserEnchere;
 
 /**
  *
@@ -50,9 +51,15 @@ public class LoginBean implements Serializable {
     }
     
     public String loginSuccessful() {
-        if (userBean.getUserByLogin(login) == null){
-            FacesContext.getCurrentInstance().addMessage("formLogin:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login/Mot de passe incorrect",""));
+        UserEnchere user = userBean.getUserByLogin(login);
+        if (user == null){
+            FacesContext.getCurrentInstance().addMessage("formLogin:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login incorrect",""));
             return null;
+        } else {
+            if (!user.getPassword().equals(password)){
+                FacesContext.getCurrentInstance().addMessage("formLogin:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Mot de passe incorrect",""));
+            return null;
+            }
         }
         return "welcome";
     }

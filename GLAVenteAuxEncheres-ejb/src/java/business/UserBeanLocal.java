@@ -7,6 +7,7 @@ package business;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import library.UserBeanInterface;
@@ -22,28 +23,37 @@ public class UserBeanLocal implements UserBeanInterface{
     @PersistenceContext(unitName="GLAVenteAuxEncheres-PU")
     private EntityManager em;
     
+    //TESTE SI UN LOGIN A DEJA ETE UTILISE
     @Override
     public boolean loginAvailable(UserEnchere user) {
         boolean res = false;
         Query query = em.createNamedQuery("UserEnchere.findUserByLogin");
         query.setParameter(1, user.getLogin());
 
-        if (query.getResultList().size() == 0) {
+        if (query.getResultList().isEmpty()) {
             res = true;
         }
         
         return res;
     }
     
+    //RETROUVE L'UTILISATEUR VIA SON LOGIN
     @Override
     public UserEnchere getUserByLogin(String login){
         Query query = em.createNamedQuery("UserEnchere.findUserByLogin");
         query.setParameter(1, login);
+        UserEnchere result = null;
         
-        return (UserEnchere) query.getSingleResult();
+        try {
+             result = (UserEnchere) query.getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
+        return result;
             
         }
 
+    //PERSISTE UN UTILISATEUR DANS LA BASE DE DONNEES
     @Override
     public UserEnchere addUser(UserEnchere user) {
         em.persist(user);

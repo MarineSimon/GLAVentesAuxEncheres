@@ -8,16 +8,49 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
 
     <navigation-rule>
-        <from-view-id>/createAccount.xhtml</from-view-id>
+        <from-view-id>/createAccountAccountInfo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>createAccountPersonnalInfo</from-outcome>
+            <to-view-id>/createAccountPersonnalInfo.xhtml</to-view-id>
+            <redirect>/createAccountPersonnalInfo.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-action>cancel</from-action>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect>/login.xhtml</redirect>
+        </navigation-case>
         <navigation-case>
             <from-outcome>welcome</from-outcome>
             <to-view-id>/welcome.xhtml</to-view-id>
             <redirect>/welcome.xhtml</redirect>
         </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/createAccountPersonnalInfo.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>additionalCreateAccount</from-outcome>
-            <to-view-id>/additionalCreateAccount.xhtml</to-view-id>
-            <redirect>/additionalCreateAccount.xhtml</redirect>
+            <from-outcome>createAccountDeliveryInfo</from-outcome>
+            <to-view-id>/createAccountDeliveryInfo.xhtml</to-view-id>
+            <redirect>/createAccountDeliveryInfo.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-action>cancel</from-action>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect>/login.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>welcome</from-outcome>
+            <to-view-id>/welcome.xhtml</to-view-id>
+            <redirect>/welcome.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/createAccountDeliveryInfo.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>welcome</from-outcome>
+            <to-view-id>/welcome.xhtml</to-view-id>
+            <redirect>/welcome.xhtml</redirect>
         </navigation-case>
         <navigation-case>
             <from-action>cancel</from-action>
@@ -25,17 +58,13 @@
             <redirect>/login.xhtml</redirect>
         </navigation-case>
     </navigation-rule>
+    
     <navigation-rule>
         <from-view-id>/login.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>additionalCreateAccount</from-outcome>
-            <to-view-id>/additionalCreateAccount.xhtml</to-view-id>
-            <redirect>/additionalCreateAccount.xhtml</redirect>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>createAccount</from-outcome>
-            <to-view-id>/createAccount.xhtml</to-view-id>
-            <redirect>/createAccount.xhtml</redirect>
+            <from-outcome>createAccountAccountInfo</from-outcome>
+            <to-view-id>/createAccountAccountInfo.xhtml</to-view-id>
+            <redirect>/createAccountAccountInfo.xhtml</redirect>
         </navigation-case>
         <navigation-case>
             <from-outcome>welcome</from-outcome>
@@ -43,22 +72,5 @@
             <redirect>/welcome.xhtml</redirect>
         </navigation-case>
     </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/additionalCreateAccount.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>additionalCreateAccount</from-outcome>
-            <to-view-id>/additionalCreateAccount.xhtml</to-view-id>
-            <redirect>/additionalCreateAccount.xhtml</redirect>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>createAccount</from-outcome>
-            <to-view-id>/createAccount.xhtml</to-view-id>
-            <redirect>/createAccount.xhtml</redirect>
-        </navigation-case>
-        <navigation-case>
-            <from-action>cancel</from-action>
-            <to-view-id>/login.xhtml</to-view-id>
-            <redirect>/login.xhtml</redirect>
-        </navigation-case>
-    </navigation-rule>
+    
 </faces-config>

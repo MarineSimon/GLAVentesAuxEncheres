@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+    <ui:composition template="template.xhtml">
+        <ui:define name="title">
+            Création compte
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="createAccount">
+                <p:messages id="messages" autoUpdate="true"/> 
+                
+                <h:panelGrid columns="2" cellpadding="" style="margin:auto;margin-top: 10px">    
+                    <h:outputText value="Prénom : " />
+                    <p:inputText value="#{accountBean.firstname}" style="width:280px"/>
+                    <h:outputText value="Nom : " />
+                    <p:inputText value="#{accountBean.lastname}" style="width:280px"/>
+                    <h:outputText value="Email : " />
+                    <p:inputText value="#{accountBean.email}" style="width:280px" validatorMessage="l'adresse email est invalide'">
+                        <f:validateRegex  pattern="|[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+                    </p:inputText>
+                    <h:outputText value="Date de naissance : " />
+                    <p:inputMask value="#{accountBean.birthday}" mask="99/99/9999" style="width:280px" validatorMessage="la date d'anniversaire est invalide">
+                        <f:validateRegex  pattern="|[0-3][0-9]/[0-1][0-9]/[1-2][0-9][0-9][0-9]"/>
+                    </p:inputMask>
+                    <br/>
+                    <h:panelGrid columns="2" cellpadding="">
+                        <p:commandButton id="saveButton" value="Confirmer" action="#{accountBean.addUserPersonalInfo()}" />                
+                        <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
+                    </h:panelGrid>
+                    
+                </h:panelGrid>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
