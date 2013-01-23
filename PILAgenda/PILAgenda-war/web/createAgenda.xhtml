@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"      
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="template.xhtml">
+        <ui:define name="title">
+            Création Agenda
+        </ui:define>
+
+        <ui:define name="content">
+            <f:event listener="#{loginBean.verifyUseLogin(event)}" type="preRenderView"/>
+            <h:form id="createAgenda">
+                <p:messages id="messages" autoUpdate="true"/>
+                <h:panelGrid columns="2" style="margin:auto">
+                    <f:facet name="header">
+                        Nouvel Agenda
+                    </f:facet>
+
+                    Nom
+                    <p:inputText id="name" label="Nom Agenda" value="#{agendaManagedBean.nameAgenda}" required="true" style="width:100%"/>
+                    Description
+                    <h:inputTextarea rows="5" value="#{agendaManagedBean.description}" style="width:100%" id="desc"/>
+                    Accessibilité
+                    <p:selectOneMenu id="privacy" label="privacy" value="#{agendaManagedBean.accessibility}" style="width:100%">
+                        <f:selectItem itemValue="Prive" itemLabel="Prive"/>
+                        <f:selectItem itemValue="Public" itemLabel="Public"/>
+                        <f:selectItem itemValue="Partage" itemLabel="Partage"/>
+                    </p:selectOneMenu>
+                    Inviter un groupe
+                    <p:selectOneMenu value="#{agendaManagedBean.groups}" style="width:100%">
+                        <f:selectItem itemLabel="group 1"/>
+                        <f:selectItem itemLabel="group 2"/>
+                    </p:selectOneMenu>
+                    Couleur
+                    <p:selectOneMenu value="#{agendaManagedBean.color}" var="co" converter="#{linkType}">
+                        <f:selectItems value="#{agendaManagedBean.listAllColors()}" var="couleur"
+                                       itemLabel="#{couleur.name}" itemValue="#{couleur}"/>
+                        
+                        <p:column>
+                            <div style="background-color:#{co.typeStyle}; width:30px; height:20px"> </div>
+                        </p:column>
+                        <p:column>
+                           #{co.name}
+                        </p:column>
+                    </p:selectOneMenu>
+                    
+                    
+                    <p:commandButton id="saveButton" value="Confirmer" action="#{agendaManagedBean.createNewAgenda()}" type="submit"/>
+                    <p:commandButton id="cancelButton" value="Annuler" action="cancelAdd" type="cancel" immediate="true"/>
+                </h:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+
+

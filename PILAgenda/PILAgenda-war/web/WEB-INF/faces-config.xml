@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.1"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>createAccount</from-outcome>
+            <to-view-id>/createAccount.xhtml</to-view-id>
+            <redirect>/createAccount.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>viewAgenda</from-outcome>
+            <to-view-id>/viewAgenda.xhtml</to-view-id>
+            <redirect>/viewAgenda.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect>/login.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>filling</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect>/index.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>createAccount</from-outcome>
+            <to-view-id>/createAccount.xhtml</to-view-id>
+            <redirect>/createAccount.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>viewAgenda</from-outcome>
+            <to-view-id>/viewAgenda.xhtml</to-view-id>
+            <redirect>/viewAgenda.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>filling</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect>/login.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/viewAgenda.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>createEvent</from-outcome>
+            <to-view-id>/createEvent.xhtml</to-view-id>
+            <redirect>/createEvent.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect>/login.xhtml</redirect>
+        </navigation-case>
+               <navigation-case>
+            <from-outcome>displayTask</from-outcome>
+            <to-view-id>/displayTask.xhtml</to-view-id>
+            <redirect>/displayTask.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>createTask</from-outcome>
+            <to-view-id>/createTask.xhtml</to-view-id>
+            <redirect>/createTask.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>backToAgenda</from-outcome>
+            <to-view-id>/viewAgenda.xhtml</to-view-id>
+            <redirect>/viewAgenda.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/createAgenda.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewAgenda</from-outcome>
+            <to-view-id>/viewAgenda.xhtml</to-view-id>
+            <redirect>/viewAgenda.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancelAdd</from-outcome>
+            <to-view-id>/viewAgenda.xhtml</to-view-id>
+            <redirect>/viewAgenda.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/createEvent.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewAgenda</from-outcome>
+            <to-view-id>/viewAgenda.xhtml</to-view-id>
+            <redirect>/viewAgenda.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>createEvent</from-outcome>
+            <to-view-id>/createEvent.xhtml</to-view-id>
+            <redirect>/createEvent.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+     
+    <navigation-rule>
+        <from-view-id>/createAccount.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect>/index.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/createTask.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewAgenda</from-outcome>
+            <to-view-id>/viewAgenda.xhtml</to-view-id>
+            <redirect>/viewAgenda.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>createTask</from-outcome>
+            <to-view-id>/createTask.xhtml</to-view-id>
+            <redirect>/createTask.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/displayTask.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewAgenda</from-outcome>
+            <to-view-id>/viewAgenda.xhtml</to-view-id>
+            <redirect>/viewAgenda.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>displayTask</from-outcome>
+            <to-view-id>/displayTask.xhtml</to-view-id>
+            <redirect>/displayTask.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

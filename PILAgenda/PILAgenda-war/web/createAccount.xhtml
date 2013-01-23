@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"      
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="template.xhtml">
+        <ui:define name="title">
+                   Création compte
+        </ui:define>
+    
+        <ui:define name="content">
+            <h:form id="account">
+                <p:messages id="messages" autoUpdate="true"/> 
+                
+                <h:panelGrid columns="2" cellpadding="">  
+                    <h:panelGrid columns="2" cellpadding="5">  
+                            <h:outputText value="Nom : " />
+                            <p:inputText value="#{userBean.lastname}" style="width:280px"/>
+                            <h:outputText value="Prénom : " />
+                            <p:inputText value="#{userBean.firstname}" style="width:280px"/>
+                            <h:outputText value="Adresse email* : " />
+                            <p:inputText value="#{userBean.mail}" required="true" style="width:280px" requiredMessage="adresse email obligatoire" validatorMessage="Adresse email invalide">
+                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                            </p:inputText>
+                            <h:outputText value="Numéro de téléphone : " />
+                            <p:inputMask value="#{userBean.phone}" mask="99.99.99.99.99" style="width:280px"/>
+
+                            <h:outputLabel for="pwd" value="Mot de passe* :" />  
+                            <p:password id="pwd" value="#{userBean.password}" match="pwdc" label="Password" required="true" style="width:280px" validatorMessage="Mot de passe invalide" requiredMessage="mot de passe obligatoire"/>  
+                            
+                            <h:outputLabel for="pwdc" value="Confimer mot de passe* :" />  
+                            <p:password id="pwdc" value="#{userBean.confirmPassword}" label="Password" required="true" style="width:280px" requiredMessage="confirmation mot de passe obligatoire"/>  
+                            
+                            <h:outputText value="Affichage du Weekend : " />  
+                            <p:selectBooleanButton value="#{userBean.displayWeek}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close"/>  
+
+                     </h:panelGrid>
+                    
+                    <h:panelGrid columns="2" cellpadding="5">  
+                            <h:outputText value="Langues : " />  
+                            <p:selectOneMenu value="#{userBean.language}" effect="fade" style="width:280px" >  
+                                <f:selectItems value="#{userBean.languages}" />  
+                            </p:selectOneMenu>  
+                            <h:outputText value="Pays : " />  
+                            <p:selectOneMenu value="#{userBean.country}" effect="fade" style="width:280px">  
+                                <f:selectItems value="#{userBean.cities}" /> 
+                            </p:selectOneMenu>
+                            <h:outputText value="Localité : " />  
+                            <p:inputText value="#{userBean.locality}" style="width:270px"/>
+                            <h:outputText value="Fuseau horaire : " />  
+                            <p:selectOneMenu value="#{userBean.timeZone}" effect="fade" style="width:280px">  
+                                <f:selectItems value="#{userBean.timezones}" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Format d'heure : " />  
+                            <p:selectOneMenu value="#{userBean.hourFormat}" effect="fade" style="width:280px">  
+                                <f:selectItem itemLabel="12h"  itemValue="12"/> 
+                                <f:selectItem itemLabel="24h" itemValue="24"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Durée par défaut : " />  
+                            <p:selectOneMenu value="#{userBean.defaultDuration}" effect="fold">  
+                                <f:selectItem itemLabel="1h" itemValue="1h" />  
+                                <f:selectItem itemLabel="2h" itemValue="2h" />
+                            </p:selectOneMenu> 
+                            <h:outputText value="Raccourci clavier : " />  
+                            <p:selectBooleanButton value="#{userBean.keyboardShortcut}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close"/>  
+
+                     </h:panelGrid>
+                </h:panelGrid>
+                
+                <p:commandButton id="saveButton" value="Confirmer" action="#{userBean.addAccount()}" />                
+                <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+
+

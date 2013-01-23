@@ -1,15 +1,10 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
-/build/
-/dist/
-/GLAVenteAuxEncheres-ejb/dist/
-/GLAVenteAuxEncheres-ejb/build/
-/GLAVenteAuxEncheres-war/dist/
-/GLAVenteAuxEncheres-war/build/
-/nbproject/private/
-/GLAVenteAuxEncheres-ejb/nbproject/private/
-/GLAVenteAuxEncheres-war/nbproject/private/
+/PILAgenda/nbproject/private/
+/PILAgenda/PILAgenda-war/nbproject/private/
+/PILAgenda/PILAgenda-ejb/nbproject/private/
+/PILAgenda/PILAgenda-ejb/dist/
+/PILAgenda/PILAgenda-ejb/build/
+/PILAgenda/dist/
+/PILAgenda/build/
+/PILAgenda/PILAgenda-war/dist/
+/PILAgenda/PILAgenda-war/build/
+/dropbox/nbproject/private/
