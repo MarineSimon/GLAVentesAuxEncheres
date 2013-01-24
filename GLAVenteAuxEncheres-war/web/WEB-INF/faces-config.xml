@@ -6,9 +6,7 @@
     xmlns="http://java.sun.com/xml/ns/javaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
-
     <navigation-rule>
-        <from-view-id>/createAccountAccountInfo.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>createAccountPersonnalInfo</from-outcome>
             <to-view-id>/createAccountPersonnalInfo.xhtml</to-view-id>
@@ -45,6 +43,8 @@
         </navigation-case>
     </navigation-rule>
     
+    
+    
     <navigation-rule>
         <from-view-id>/createAccountDeliveryInfo.xhtml</from-view-id>
         <navigation-case>
@@ -70,6 +70,22 @@
             <from-outcome>welcome</from-outcome>
             <to-view-id>/welcome.xhtml</to-view-id>
             <redirect>/welcome.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>accueil</from-outcome>
+            <to-view-id>/welcome.xhtml</to-view-id>
+            <redirect>/welcome.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>authen</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect>/login.xhtml</redirect>
         </navigation-case>
     </navigation-rule>
     

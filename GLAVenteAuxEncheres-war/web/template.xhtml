@@ -10,19 +10,22 @@
         <link rel=""/>
     </h:head>
     <h:body>
+        <h:form>
         <div id="structure">
             <div id="content">
                 <header class="background"><center><img src="resources/pictures/logo.png" width="90px"/></center></header>
                 <div id="menu">
-                    <a href="#">Accueil</a>
+                    <h:commandLink action="accueil">Accueil</h:commandLink>
                     <a href="#">Vendre</a>
                     <a href="#">Bonnes Affaires</a>
                     <a href="#">Mon Panier</a>
+                    <h:commandLink action="authen">Authentification</h:commandLink>
                 </div>
                 <div class="content_content">
                     <ui:insert name="content"></ui:insert>
                 </div>
             </div>
         </div>
+    </h:form>
     </h:body>
 </html>
