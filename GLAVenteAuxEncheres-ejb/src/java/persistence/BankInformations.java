@@ -23,7 +23,7 @@ public class BankInformations implements Serializable {
     private Long id;
     
     @Column(name = "BANKACCOUNTNUMBER")
-    private int bankAccountNumber;
+    private long bankAccountNumber;
     @Column(name = "SECURITYCODE")
     private int securityCode;
     @Column(name = "EXPIRYDATE")
@@ -41,11 +41,11 @@ public class BankInformations implements Serializable {
         this.id = id;
     }
 
-    public int getBankAccountNumber() {
+    public long getBankAccountNumber() {
         return bankAccountNumber;
     }
 
-    public void setBankAccountNumber(int bankAccountNumber) {
+    public void setBankAccountNumber(long bankAccountNumber) {
         this.bankAccountNumber = bankAccountNumber;
     }
 

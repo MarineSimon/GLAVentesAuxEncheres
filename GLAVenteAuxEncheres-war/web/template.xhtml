@@ -12,14 +12,16 @@
     <h:body>
         <div id="structure">
             <div id="content">
-                <header><center><img src="resources/pictures/logo.png" width="90px"/></center></header>
+                <header class="background"><center><img src="resources/pictures/logo.png" width="90px"/></center></header>
                 <div id="menu">
                     <a href="#">Accueil</a>
                     <a href="#">Vendre</a>
                     <a href="#">Bonnes Affaires</a>
                     <a href="#">Mon Panier</a>
                 </div>
-                <ui:insert name="content"></ui:insert>
+                <div class="content_content">
+                    <ui:insert name="content"></ui:insert>
+                </div>
             </div>
         </div>
     </h:body>

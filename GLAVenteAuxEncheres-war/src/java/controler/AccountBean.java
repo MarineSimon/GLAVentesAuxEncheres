@@ -185,7 +185,7 @@ public class AccountBean implements Serializable{
         return "createAccountDeliveryInfo";
     }
     
-    //REMPLI LES INFORMATION DE LIVRAISON DE L'UTILISATEUR ET PERSISTE CELUI-CI
+    //REMPLI LES INFORMATIONS DE LIVRAISON DE L'UTILISATEUR ET PERSISTE CELUI-CI
     public String addUserDeliveryInfo(){
         
         Address delivery = new Address();
@@ -201,13 +201,14 @@ public class AccountBean implements Serializable{
         List<Address> listAddress = new ArrayList<Address>();
         listAddress.add(delivery);
         user.setDelivery(listAddress);
-        /*pour le moment, l'adresse de livraison est la mêmem que l'adresse de facturation*/
+        /*pour le moment, l'adresse de livraison est la même que l'adresse de facturation*/
         user.setBiling(delivery); 
         
         BankInformations bankInfo = new BankInformations();
         bankInfo.setExpiryDate(expiryDate);
         if (!numBankAccount.equals("")){
-            bankInfo.setBankAccountNumber(Integer.parseInt(numBankAccount));
+            Long na = Long.parseLong(numBankAccount);
+            bankInfo.setBankAccountNumber(na);
         }
         if (!securityCode.equals("")){
             bankInfo.setSecurityCode(Integer.parseInt(securityCode));

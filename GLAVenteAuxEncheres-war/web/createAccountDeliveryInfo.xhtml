@@ -14,21 +14,27 @@
         <ui:define name="content">
             <h:form id="createAccount">
                 <p:messages id="messages" autoUpdate="true"/> 
-                
+                <fieldset>
+                    <legend>Données livraison</legend>
                     <h:panelGrid columns="2" cellpadding="" style="margin:auto;"> 
-                        <h:outputText value="Numéro de rue de livraison : " />
+                        <h:outputText value="Numéro de rue : " />
                         <p:inputText value="#{accountBean.deliveryNumber}" style="width:230px"/>
-                        <h:outputText value="Adresse de livraison : " />
+                        <h:outputText value="Adresse : " />
                         <p:inputText value="#{accountBean.deliveryStreet}" style="width:230px"/>
-                        <h:outputText value="Code Postal de livraison : " />
+                        <h:outputText value="Code Postal : " />
                         <p:inputText value="#{accountBean.deliveryPostalCode}" style="width:230px" validatorMessage="Code postal invalide">
                                 <f:validateRegex pattern="|[0-9][0-9][0-9][0-9][0-9]" />
                         </p:inputText>
-                        <h:outputText value="Ville de livraison : " />
+                        <h:outputText value="Ville : " />
                         <p:inputText value="#{accountBean.deliveryCity}" style="width:230px"/>
-                        <h:outputText value="Pays de livraison : " />
+                        <h:outputText value="Pays : " />
                         <p:inputText value="#{accountBean.deliveryCountry}" style="width:230px"/>
                         
+                    </h:panelGrid>
+                </fieldset>
+                <fieldset>
+                    <legend>Données bancaires</legend>
+                <h:panelGrid columns="2" cellpadding="" style="margin:auto;"> 
                         <h:outputText value="Numéro compte bancaire : " />
                         <p:inputText value="#{accountBean.numBankAccount}" style="width:230px" validatorMessage="Numéro compte bancaire invalide">
                             <f:validateRegex pattern="|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" />
@@ -39,15 +45,16 @@
                         </p:inputText>
                         <h:outputText value="Date d'expiration : " />
                         <p:inputText value="#{accountBean.expiryDate}" style="width:230px" validatorMessage="Date d'expiration bancaire invalide">
-                            <f:validateRegex  pattern="|[0-3][0-9]/[0-1][0-9]/[1-2][0-9][0-9][0-9]"/>
+                            <f:validateRegex  pattern="|[0-3][0-9]/[0-1][0-9]"/>
                         </p:inputText>
                         <br/>
-                        <h:panelGrid columns="2" cellpadding="">
+                        
+                    </h:panelGrid>
+                </fieldset>
+                <h:panelGrid columns="2" cellpadding="" style="margin:auto;">
                         <p:commandButton id="saveButton" value="Confirmer" action="#{accountBean.addUserDeliveryInfo()}"/>                
                         <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
-                    </h:panelGrid>
-                    </h:panelGrid>
-                    
+                </h:panelGrid>
             </h:form>
         </ui:define>
     </ui:composition>
