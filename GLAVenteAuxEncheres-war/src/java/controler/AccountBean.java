@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -199,9 +198,9 @@ public class AccountBean implements Serializable{
         }
         List<Address> listAddress = new ArrayList<Address>();
         listAddress.add(delivery);
-        user.setDelivery(listAddress);
+        user.setDeliveryAdresses(listAddress);
         /*pour le moment, l'adresse de livraison est la même que l'adresse de facturation*/
-        user.setBiling(delivery); 
+        user.setBilingAdress(delivery); 
         
         BankInformation bankInfo = new BankInformation();
         bankInfo.setExpiryDate(expiryDate);

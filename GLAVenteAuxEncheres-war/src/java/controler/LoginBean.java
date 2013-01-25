@@ -4,15 +4,12 @@
  */
 package controler;
 
-import java.io.IOException;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
-import javax.servlet.http.HttpSession;
+import javax.inject.Named;
 import library.UserBeanInterface;
 import persistence.UserEnchere;
 
@@ -21,10 +18,11 @@ import persistence.UserEnchere;
  * @author Mohamed
  */
 @Named(value = "loginBean")
-@SessionScoped
+@RequestScoped
 public class LoginBean implements Serializable {
     @EJB
     private UserBeanInterface userBean;
+    
     private String login;
     private String password;
 

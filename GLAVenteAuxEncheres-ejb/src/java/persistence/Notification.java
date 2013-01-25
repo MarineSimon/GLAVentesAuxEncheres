@@ -29,7 +29,7 @@ public class Notification implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
     @Column(name = "MESSAGE")
-    private int message;
+    private String message;
 
     public Long getId() {
         return id;
@@ -47,11 +47,11 @@ public class Notification implements Serializable {
         this.creationDate = creationDate;
     }
 
-    public int getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(int message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 

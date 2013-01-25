@@ -5,6 +5,7 @@
 package persistence;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,12 +33,12 @@ public class Article implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     @Column(name = "INITIALPRICE")
-    private String initialPrice;
+    private int initialPrice;
     @Column(name = "BUYSTATE")
     private String buyState;
     @Column(name = "ENDDATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private String endDate;
+    private Date endDate;
     
     @ManyToMany
     private List<Article> articles;
@@ -68,11 +69,11 @@ public class Article implements Serializable {
         this.description = description;
     }
 
-    public String getInitialPrice() {
+    public int getInitialPrice() {
         return initialPrice;
     }
 
-    public void setInitialPrice(String initialPrice) {
+    public void setInitialPrice(int initialPrice) {
         this.initialPrice = initialPrice;
     }
 
@@ -84,11 +85,11 @@ public class Article implements Serializable {
         this.buyState = buyState;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

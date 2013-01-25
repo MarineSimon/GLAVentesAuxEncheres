@@ -29,7 +29,7 @@ public class Promotion implements Serializable {
     @Column(name = "TYPE")
     private String type;
     @Column(name = "AMOUNT")
-    private String amount;
+    private int amount;
     
     @ManyToMany
     @JoinTable(name="PROMOTION_ARTICLE",joinColumns= @JoinColumn(name="PROMOTION_ID",referencedColumnName="ID"),inverseJoinColumns=@JoinColumn(name="ARTICLE_ID",referencedColumnName="ID"))
@@ -51,11 +51,11 @@ public class Promotion implements Serializable {
         this.type = type;
     }
 
-    public String getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
