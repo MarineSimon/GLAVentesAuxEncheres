@@ -15,8 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import library.UserBeanInterface;
 import persistence.Address;
-import persistence.BankInformations;
-import persistence.InfosBuyer;
+import persistence.BankInformation;
 import persistence.UserEnchere;
 
 /**
@@ -204,7 +203,7 @@ public class AccountBean implements Serializable{
         /*pour le moment, l'adresse de livraison est la même que l'adresse de facturation*/
         user.setBiling(delivery); 
         
-        BankInformations bankInfo = new BankInformations();
+        BankInformation bankInfo = new BankInformation();
         bankInfo.setExpiryDate(expiryDate);
         if (!numBankAccount.equals("")){
             Long na = Long.parseLong(numBankAccount);
@@ -213,7 +212,7 @@ public class AccountBean implements Serializable{
         if (!securityCode.equals("")){
             bankInfo.setSecurityCode(Integer.parseInt(securityCode));
         }
-        List<BankInformations> listBank = new ArrayList<BankInformations>();
+        List<BankInformation> listBank = new ArrayList<BankInformation>();
         listBank.add(bankInfo);
         //user.setBankInformations(listBank);
         

@@ -46,11 +46,15 @@ public class UserEnchere implements Serializable {
     @Column(name = "ABANDONRECORDER")
     private int abandonsRecorder;
     @OneToOne(cascade = CascadeType.PERSIST,optional=false)
-    private Address biling;
+    private Address bilingAdress;
     @OneToMany(cascade = CascadeType.PERSIST)
-    private List<Address> delivery;
+    private List<Address> deliveryAdresses;
     @OneToMany(cascade = CascadeType.PERSIST)
-    private List<BankInformations> bankInformations;
+    private List<BankInformation> bankInformation;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Notification> notifications;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Article> sellArticles;
     
     public UserEnchere(){
         
@@ -110,28 +114,28 @@ public class UserEnchere implements Serializable {
         this.abandonsRecorder = abandonsRecorder;
     }
 
-    public Address getBiling() {
-        return biling;
+    public Address getBilingAdress() {
+        return bilingAdress;
     }
 
-    public void setBiling(Address biling) {
-        this.biling = biling;
+    public void setBilingAdress(Address biling) {
+        this.bilingAdress = biling;
     }
 
-    public List<Address> getDelivery() {
-        return delivery;
+    public List<Address> getDeliveryAdresses() {
+        return deliveryAdresses;
     }
 
-    public void setDelivery(List<Address> delivery) {
-        this.delivery = delivery;
+    public void setDeliveryAdresses(List<Address> delivery) {
+        this.deliveryAdresses = delivery;
     }
 
-    public List<BankInformations> getBankInformations() {
-        return bankInformations;
+    public List<BankInformation> getBankInformation() {
+        return bankInformation;
     }
 
-    public void setBankInformations(List<BankInformations> bankInformations) {
-        this.bankInformations = bankInformations;
+    public void setBankInformations(List<BankInformation> bankInformation) {
+        this.bankInformation = bankInformation;
     }
 
     public String getEmail() {
@@ -148,6 +152,22 @@ public class UserEnchere implements Serializable {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public List<Article> getSellArticles() {
+        return sellArticles;
+    }
+
+    public void setSellArticles(List<Article> sellArticles) {
+        this.sellArticles = sellArticles;
     }
     
     @Override
