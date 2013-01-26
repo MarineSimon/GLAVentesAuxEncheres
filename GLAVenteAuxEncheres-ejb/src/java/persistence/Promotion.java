@@ -35,6 +35,14 @@ public class Promotion implements Serializable {
     @JoinTable(name="PROMOTION_ARTICLE",joinColumns= @JoinColumn(name="PROMOTION_ID",referencedColumnName="ID"),inverseJoinColumns=@JoinColumn(name="ARTICLE_ID",referencedColumnName="ID"))
     private List<Article> articles;
 
+    public Promotion(){
+    }
+    
+    public Promotion(String type, int amount, List<Article> articles){
+        this.type = type;
+        this.amount = amount;
+        this.articles = articles;
+    }
     public Long getId() {
         return id;
     }

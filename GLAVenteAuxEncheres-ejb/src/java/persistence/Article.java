@@ -5,6 +5,7 @@
 package persistence;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -23,6 +24,9 @@ import javax.persistence.TemporalType;
  */
 @Entity
 public class Article implements Serializable {
+    public static final int ARTICLE_BUY = 0;
+    public static final int ARTICLE_SALE = 1;
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,16 +39,29 @@ public class Article implements Serializable {
     @Column(name = "INITIALPRICE")
     private int initialPrice;
     @Column(name = "BUYSTATE")
-    private String buyState;
+    private int buyState;
+    @Column(name = "PICTURE")
+    private String picture;
     @Column(name = "ENDDATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date endDate;
+    private Calendar endDate;
     
     @ManyToMany
-    private List<Article> articles;
+    private List<Promotion> promotions;
     @ManyToOne(optional=false)
     private SubCategory subCategory;
 
+    public Article(){
+    }
+    
+    public Article(String name, String description, int price, Calendar date, String picture){
+        this.name = name;
+        this.buyState = Article.ARTICLE_BUY;
+        this.description = description;
+        this.initialPrice = price;
+        this.endDate = date;
+        this.picture = picture;
+    }
     public Long getId() {
         return id;
     }
@@ -77,28 +94,28 @@ public class Article implements Serializable {
         this.initialPrice = initialPrice;
     }
 
-    public String getBuyState() {
+    public int getBuyState() {
         return buyState;
     }
 
-    public void setBuyState(String buyState) {
+    public void setBuyState(int buyState) {
         this.buyState = buyState;
     }
 
-    public Date getEndDate() {
+    public Calendar getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(Calendar endDate) {
         this.endDate = endDate;
     }
 
-    public List<Article> getArticles() {
-        return articles;
+    public List<Promotion> getPromotions() {
+        return promotions;
     }
 
-    public void setArticles(List<Article> articles) {
-        this.articles = articles;
+    public void setPromotions(List<Promotion> promotions) {
+        this.promotions = promotions;
     }
 
     public SubCategory getSubCategory() {

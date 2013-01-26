@@ -28,6 +28,13 @@ public class SubCategory implements Serializable {
     
     @ManyToOne(optional=false)
     private Category category;
+    
+    public SubCategory(){
+    }
+    
+    public SubCategory(String name){
+        this.name = name;
+    }
 
     public Long getId() {
         return id;

@@ -5,6 +5,8 @@
 package persistence;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,6 +18,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -42,7 +46,8 @@ public class UserEnchere implements Serializable {
     @Column(name = "EMAIL")
     private String email;
     @Column(name = "BIRTHDAY")
-    private String birthday;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar birthday;
     @Column(name = "ABANDONRECORDER")
     private int abandonsRecorder;
     @OneToOne(cascade = CascadeType.PERSIST,optional=false)
@@ -64,6 +69,17 @@ public class UserEnchere implements Serializable {
         this.abandonsRecorder = 0;
         this.login = login;
         this.password = password;
+    }
+    
+    public UserEnchere(String login,String password, String lastname,String firstname, String email, Calendar birthday,int abandonsRecorder){
+        this.abandonsRecorder = 0;
+        this.login = login;
+        this.password = password;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.email = email;
+        this.birthday = birthday;
+        this.abandonsRecorder = abandonsRecorder;
     }
     
     public Long getId() {
@@ -146,11 +162,11 @@ public class UserEnchere implements Serializable {
         this.email = email;
     }
 
-    public String getBirthday() {
+    public Calendar getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Calendar birthday) {
         this.birthday = birthday;
     }
 

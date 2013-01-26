@@ -178,7 +178,7 @@ public class AccountBean implements Serializable{
     public String addUserPersonalInfo(){
         user.setFirstname(firstname);
         user.setLastname(lastname);
-        user.setBirthday(birthday);
+        //user.setBirthday(birthday);
         user.setEmail(email);
         return "createAccountDeliveryInfo";
     }

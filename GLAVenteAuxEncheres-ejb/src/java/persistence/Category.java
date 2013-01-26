@@ -25,6 +25,13 @@ public class Category implements Serializable {
     @Column(name = "NAME")
     private String name;
 
+    public Category(){
+    }
+    
+    public Category(String name){
+        this.name = name;
+    }
+    
     public Long getId() {
         return id;
     }

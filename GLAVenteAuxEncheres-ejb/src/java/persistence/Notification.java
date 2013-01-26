@@ -5,6 +5,7 @@
 package persistence;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +28,7 @@ public class Notification implements Serializable {
     
     @Column(name = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
+    private Calendar creationDate;
     @Column(name = "MESSAGE")
     private String message;
 
@@ -39,11 +40,11 @@ public class Notification implements Serializable {
         this.id = id;
     }
 
-    public Date getCreationDate() {
+    public Calendar getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(Calendar creationDate) {
         this.creationDate = creationDate;
     }
 

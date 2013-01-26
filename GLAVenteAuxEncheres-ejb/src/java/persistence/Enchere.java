@@ -5,6 +5,7 @@
 package persistence;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,12 +29,24 @@ public class Enchere implements Serializable {
 
     @Column(name = "DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
+    private Calendar creationDate;
     @Column(name = "AMOUNT")
     private int amount;
     
     @ManyToOne(optional=false)
     private Article article;
+    @ManyToOne(optional=false)
+    private UserEnchere userEnchere;
+    
+    public Enchere(){
+    }
+    
+    public Enchere(Calendar date, int amont, Article article, UserEnchere user){
+        this.creationDate = date;
+        this.amount = amount;
+        this.userEnchere = user;
+        this.article = article;
+    }
     
     public Long getId() {
         return id;
@@ -43,11 +56,11 @@ public class Enchere implements Serializable {
         this.id = id;
     }
 
-    public Date getCreationDate() {
+    public Calendar getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(Calendar creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -57,6 +70,22 @@ public class Enchere implements Serializable {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
+    }
+
+    public UserEnchere getUserEnchere() {
+        return userEnchere;
+    }
+
+    public void setUserEnchere(UserEnchere userEnchere) {
+        this.userEnchere = userEnchere;
     }
 
     @Override

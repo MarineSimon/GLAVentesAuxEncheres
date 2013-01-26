@@ -37,6 +37,15 @@ public class Address implements Serializable {
         
     }
     
+    public Address(int number, String street, int postalCode, String city, String country){
+        this.city = city;
+        this.country = country;
+        this.number = number;
+        this.postalCode = postalCode;
+        this.street = street;
+    }
+     
+    
     public Long getId() {
         return id;
     }

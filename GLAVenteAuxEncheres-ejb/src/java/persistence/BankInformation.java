@@ -33,6 +33,12 @@ public class BankInformation implements Serializable {
         
     }
     
+    public BankInformation(long account,int code, String date){
+        this.bankAccountNumber = account;
+        this.securityCode = code;
+        this.expiryDate = date;
+    }
+    
     public Long getId() {
         return id;
     }
