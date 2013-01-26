@@ -12,11 +12,12 @@
 
         <ui:define name="content">
             <h:form>
-            <center>
-                    <p:commandLink action="faces/createAccountAccountInfo">Se créer un compte</p:commandLink>
-            </center>
+                <p:messages id="messages" autoUpdate="true"/>
+                <center>
+                    <a href="createAccountAccountInfo.xhtml">Se créer un compte</a>
+                </center>
             </h:form>
-            <p:messages id="messages" autoUpdate="true"/>
+            
             <h:panelGrid columns="2" style="margin:auto;margin-top: 10px">
                 Nom utilisateur :
                 <p:inputText value="#{loginBean.login}" required="true" requiredMessage="Nom utilisateur obligatoire"/><br/>
@@ -25,7 +26,7 @@
                 <p:password value="#{loginBean.password}" required="true" requiredMessage="Mot de passe obligatoire"/>
                 <br/>
             </h:panelGrid>
-            <p:commandButton type="submit" value="Connexion" action="#{loginBean.loginSuccessful()}"/>
+            <p:commandButton style="margin: auto;" type="submit" value="Connexion" action="#{loginBean.loginSuccessful()}"/>
         </ui:define>
     </ui:composition>
 

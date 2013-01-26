@@ -25,9 +25,17 @@
                         <f:validateRegex  pattern="|[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
                     </p:inputText>
                     <h:outputText value="Date de naissance : " />
-                    <p:inputMask value="#{accountBean.birthday}" mask="99/99/9999" style="width:280px" validatorMessage="la date d'anniversaire est invalide">
-                        <f:validateRegex  pattern="|[0-3][0-9]/[0-1][0-9]/[1-2][0-9][0-9][0-9]"/>
-                    </p:inputMask>
+                    <h:panelGrid columns="3" cellpadding="">
+                        <p:selectOneMenu value="#{accountBean.dayBirthday}">  
+                            <f:selectItems value="#{accountBean.days}" /> 
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{accountBean.mounthBirthday}">  
+                            <f:selectItems value="#{accountBean.mounths}" /> 
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{accountBean.yearBirthday}">  
+                            <f:selectItems value="#{accountBean.years}" /> 
+                        </p:selectOneMenu>
+                    </h:panelGrid>
                     <br/>
                     <h:panelGrid columns="2" cellpadding="">
                         <p:commandButton id="saveButton" value="Confirmer" action="#{accountBean.addUserPersonalInfo()}" />                
@@ -37,6 +45,7 @@
                 </h:panelGrid>
 
             </h:form>
+            
         </ui:define>
     </ui:composition>
 
