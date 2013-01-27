@@ -26,8 +26,9 @@
                     <p:password id="pwdc" value="#{accountBean.confirmPassword}" label="Password" required="true" style="width:280px" requiredMessage="confirmation mot de passe obligatoire"/>  
  
                     <br/>
-                    <h:panelGrid columns="2" cellpadding="">
-                        <p:commandButton id="saveButton" value="Confirmer" action="#{accountBean.addUserAccountInfo()}" />                
+                    <h:panelGrid columns="3" cellpadding="">
+                        <p:commandButton id="continueButton" value="Suivant" action="#{accountBean.addUserAccountInfo()}" />                
+                        <p:commandButton id="saveButton" value="Terminer" action="#{accountBean.addUserAccountInfoFinal()}" />                
                         <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
                     </h:panelGrid>
                     

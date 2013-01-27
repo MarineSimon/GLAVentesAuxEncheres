@@ -50,16 +50,20 @@ public class AccountBean implements Serializable{
                                         "20","21","22","23","24","25","26","27","28","29","30","31"};
     private String[] mounths = new String[]{"--","1","2","3","4","5","6","7","8","9","10",
                                         "11","12"};
-    private String[] years = new String[]{"----","1930","1931","1932","1933","1934","1935","1936","1937","1938","1939",
-                                        "1940","1941","1942","1943","1944","1945","1946","1947","1948","1949",
-                                        "1950","1951","1952","1953","1954","1955","1956","1957","1958","1959",
-                                        "1960","1961","1962","1963","1964","1965","1966","1967","1968","1969",
-                                        "1970","1971","1972","1973","1974","1975","1976","1977","1978","1979",
-                                        "1980","1981","1982","1983","1984","1985","1986","1987","1988","1989",
-                                        "1990","1991","1992","1993","1994","1995","1996","1997","1998","1999"};
+    private String[] yearsBirthday = new String[]{"----","1995","1994","1993","1992","1991","1990",
+                                        "1989","1988","1987","1986","1985","1984","1983","1982","1981","1980",
+                                        "1979","1978","1977","1976","1975","1974","1973","1972","1971","1970",
+                                        "1969","1968","1967","1966","1965","1964","1963","1962","1961","1960",
+                                        "1959","1958","1957","1956","1955","1954","1953","1952","1951","1950",
+                                        "1949","1948","1947","1946","1945","1944","1943","1942","1941","1940",
+                                        "1939","1938","1937","1936","1935","1934","1933","1932","1931","1930"};
+    private String[] yearsExpiry = new String[]{"----","2016","2015","2014","2013"};
+        
     private String dayBirthday;
     private String mounthBirthday;
     private String yearBirthday;
+    private String mounthExpiry;
+    private String yearExpiry;
     
     
     public String getFirstname() {
@@ -198,12 +202,20 @@ public class AccountBean implements Serializable{
         this.mounths = mounths;
     }
 
-    public String[] getYears() {
-        return years;
+    public String[] getYearsBirthday() {
+        return yearsBirthday;
     }
 
-    public void setYears(String[] years) {
-        this.years = years;
+    public void setYearsBirthday(String[] years) {
+        this.yearsBirthday = years;
+    }
+    
+    public String[] getYearsExpiry() {
+        return yearsExpiry;
+    }
+
+    public void setYearsExpiry(String[] years) {
+        this.yearsExpiry = years;
     }
 
     public String getDayBirthday() {
@@ -224,6 +236,23 @@ public class AccountBean implements Serializable{
 
     public String getYearBirthday() {
         return yearBirthday;
+    }
+
+    public String getMounthExpiry() {
+        return mounthExpiry;
+    }
+
+    public void setMounthExpiry(String mounthExpiry) {
+        this.mounthExpiry = mounthExpiry;
+    }
+
+    public String getYearExpiry() {
+        return yearExpiry;
+    }
+
+    public void setYearExpiry(String yearExpiry) {
+        this.expiryDate = mounthExpiry+"/"+yearExpiry;
+        this.yearExpiry = yearExpiry;
     }
 
     public void setYearBirthday(String yearBirthday) {
@@ -247,6 +276,17 @@ public class AccountBean implements Serializable{
         return "createAccountPersonnalInfo";
     }
     
+    public String addUserAccountInfoFinal(){
+        user = new UserEnchere(login,password);
+        if (!userBean.loginAvailable(user)){
+            FacesContext.getCurrentInstance().addMessage("createAccount:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login déjà utilisé.",""));
+            return null;
+        }
+        
+        userBean.addUser(user);
+        return "welcome";
+    }
+    
     //REMPLI LES INFORMATIONS PERSONNELLES DE L'UTILISATEUR
     public String addUserPersonalInfo(){
         user.setFirstname(firstname);
@@ -254,6 +294,17 @@ public class AccountBean implements Serializable{
         user.setBirthday(birthday);
         user.setEmail(email);
         return "createAccountDeliveryInfo";
+    }
+    
+    //REMPLI LES INFORMATIONS PERSONNELLES DE L'UTILISATEUR
+    public String addUserPersonalInfoFinal(){
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setBirthday(birthday);
+        user.setEmail(email);
+        
+        userBean.addUser(user);
+        return "welcome";
     }
     
     //REMPLI LES INFORMATIONS DE LIVRAISON DE L'UTILISATEUR ET PERSISTE CELUI-CI
@@ -286,7 +337,7 @@ public class AccountBean implements Serializable{
         }
         List<BankInformation> listBank = new ArrayList<BankInformation>();
         listBank.add(bankInfo);
-        //user.setBankInformations(listBank);
+        user.setBankInformations(listBank);
         
         userBean.addUser(user);
         return "welcome";

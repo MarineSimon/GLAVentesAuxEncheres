@@ -18,7 +18,9 @@
                     <legend>Données livraison</legend>
                     <h:panelGrid columns="2" cellpadding="" style="margin:auto;"> 
                         <h:outputText value="Numéro de rue : " />
-                        <p:inputText value="#{accountBean.deliveryNumber}" style="width:230px"/>
+                        <p:inputText value="#{accountBean.deliveryNumber}" style="width:230px" validatorMessage="Numéro de rue invalide">
+                             <f:validateRegex pattern="|[0-9]*" />
+                        </p:inputText>
                         <h:outputText value="Adresse : " />
                         <p:inputText value="#{accountBean.deliveryStreet}" style="width:230px"/>
                         <h:outputText value="Code Postal : " />
@@ -44,9 +46,14 @@
                             <f:validateRegex pattern="|[0-9][0-9][0-9]" />
                         </p:inputText>
                         <h:outputText value="Date d'expiration : " />
-                        <p:inputText value="#{accountBean.expiryDate}" style="width:230px" validatorMessage="Date d'expiration bancaire invalide">
-                            <f:validateRegex  pattern="|[0-3][0-9]/[0-1][0-9]"/>
-                        </p:inputText>
+                       <h:panelGrid columns="2" cellpadding="">
+                           <p:selectOneMenu value="#{accountBean.mounthExpiry}">  
+                               <f:selectItems value="#{accountBean.mounths}" /> 
+                        </p:selectOneMenu>
+                           <p:selectOneMenu value="#{accountBean.yearExpiry}">  
+                               <f:selectItems value="#{accountBean.yearsExpiry}" /> 
+                        </p:selectOneMenu>
+                    </h:panelGrid>
                         <br/>
                         
                     </h:panelGrid>

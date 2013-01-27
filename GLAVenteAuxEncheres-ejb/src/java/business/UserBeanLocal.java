@@ -40,15 +40,12 @@ public class UserBeanLocal implements UserBeanInterface{
     //RETROUVE L'UTILISATEUR VIA SON LOGIN
     @Override
     public UserEnchere getUserByLogin(String login){
-        System.out.println("dedans");
         Query query = em.createNamedQuery("UserEnchere.findUserByLogin");
         query.setParameter(1, login);
         UserEnchere result;
         
         try {
-            System.out.println("avant "+login);
              result = (UserEnchere) query.getSingleResult();
-             System.out.println(""+result);
         } catch (NoResultException e){
             return null;
         }

@@ -15,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,6 +25,10 @@ import javax.persistence.TemporalType;
  * @author Marine
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name="Article.findCriticalsArticles", query="SELECT a from Article a ORDER BY a.endDate ASC"),
+        @NamedQuery(name="Article.findLastEnchereByArticles", query="SELECT e from Enchere e WHERE e.article.id = ?1 ORDER BY e.creationDate ASC")
+    })
 public class Article implements Serializable {
     public static final int ARTICLE_BUY = 0;
     public static final int ARTICLE_SALE = 1;
@@ -50,6 +56,8 @@ public class Article implements Serializable {
     private List<Promotion> promotions;
     @ManyToOne(optional=false)
     private SubCategory subCategory;
+    @ManyToOne(optional=false)
+    private UserEnchere owner;
 
     public Article(){
     }
@@ -124,6 +132,22 @@ public class Article implements Serializable {
 
     public void setSubCategory(SubCategory subCategory) {
         this.subCategory = subCategory;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public UserEnchere getOwner() {
+        return owner;
+    }
+
+    public void setOwner(UserEnchere owner) {
+        this.owner = owner;
     }
 
     @Override

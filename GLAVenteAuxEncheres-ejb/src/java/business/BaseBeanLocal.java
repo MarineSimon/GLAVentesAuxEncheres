@@ -61,9 +61,10 @@ public class BaseBeanLocal implements BaseBeanInterface{
         user1.setDeliveryAdresses(adresses1);
         /*Articles*/
         Calendar date12 = new GregorianCalendar();
-        date12.add(Calendar.DAY_OF_MONTH, 2);
-        Article article1 = new Article("iMac","Bon état",800,date12,"GLAVenteAuxEncheres/GLAVenteAuxEncheres-war/web/resources/pictures/articles/imac.jpg");
+        date12.add(Calendar.DAY_OF_MONTH, 1);
+        Article article1 = new Article("iMac","Bon état",800,date12,"resources/pictures/articles/imac.jpg");
         article1.setSubCategory(subCategory2);
+        article1.setOwner(user1);
         List<Article> articles1 = new ArrayList<Article>();
         articles1.add(article1);
         user1.setSellArticles(articles1);
@@ -81,8 +82,9 @@ public class BaseBeanLocal implements BaseBeanInterface{
         /*Articles*/
         Calendar date22 = new GregorianCalendar();
         date22.add(Calendar.DAY_OF_MONTH, 2);
-        Article article2 = new Article("iPhone","Etat neuf",800,date22,"GLAVenteAuxEncheres/GLAVenteAuxEncheres-war/web/resources/pictures/articles/iphone5.jpg");
+        Article article2 = new Article("iPhone","Etat neuf",800,date22,"resources/pictures/articles/iphone5.jpg");
         article2.setSubCategory(subCategory1);
+        article2.setOwner(user2);
         List<Article> articles2 = new ArrayList<Article>();
         articles2.add(article2);
         user2.setSellArticles(articles2);
@@ -99,9 +101,10 @@ public class BaseBeanLocal implements BaseBeanInterface{
         user3.setDeliveryAdresses(adresses3);
         /*Articles*/
         Calendar date32 = new GregorianCalendar();
-        date32.add(Calendar.DAY_OF_MONTH, 2);
-        Article article3 = new Article("iPod Nano","Comme neuf",800,date32,"GLAVenteAuxEncheres/GLAVenteAuxEncheres-war/web/resources/pictures/articles/ipodnano.jpg");
+        date32.add(Calendar.DAY_OF_MONTH, 3);
+        Article article3 = new Article("iPod Nano","Comme neuf",800,date32,"resources/pictures/articles/ipodnano.jpg");
         article3.setSubCategory(subCategory3);
+        article3.setOwner(user3);
         List<Article> articles3 = new ArrayList<Article>();
         articles3.add(article3);
         user3.setSellArticles(articles3);
@@ -119,9 +122,10 @@ public class BaseBeanLocal implements BaseBeanInterface{
         user4.setDeliveryAdresses(adresses4);
         /*Articles*/
         Calendar date42 = new GregorianCalendar();
-        date42.add(Calendar.DAY_OF_MONTH, 2);
-        Article article4 = new Article("MacBook Pro Retina","Impeccable",800,date42,"GLAVenteAuxEncheres/GLAVenteAuxEncheres-war/web/resources/pictures/articles/mcbookproretina.jpg");
+        date42.add(Calendar.DAY_OF_MONTH, 4);
+        Article article4 = new Article("MacBook Pro Retina","Impeccable",800,date42,"resources/pictures/articles/mcbookproretina.jpg");
         article4.setSubCategory(subCategory2);
+        article4.setOwner(user4);
         List<Article> articles4 = new ArrayList<Article>();
         articles4.add(article4);
         user4.setSellArticles(articles4);

@@ -41,7 +41,7 @@ public class Enchere implements Serializable {
     public Enchere(){
     }
     
-    public Enchere(Calendar date, int amont, Article article, UserEnchere user){
+    public Enchere(Calendar date, int amount, Article article, UserEnchere user){
         this.creationDate = date;
         this.amount = amount;
         this.userEnchere = user;

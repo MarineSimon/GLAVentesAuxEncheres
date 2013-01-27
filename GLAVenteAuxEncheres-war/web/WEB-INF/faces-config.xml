@@ -8,17 +8,12 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
     <navigation-rule>
         <navigation-case>
-            <from-outcome>createAccountPersonnalInfo</from-outcome>
-            <to-view-id>/createAccountPersonnalInfo.xhtml</to-view-id>
-            <redirect>/createAccountPersonnalInfo.xhtml</redirect>
-        </navigation-case>
-        <navigation-case>
-            <from-action>cancel</from-action>
+            <from-outcome>login</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
             <redirect>/login.xhtml</redirect>
         </navigation-case>
         <navigation-case>
-            <from-outcome>welcome</from-outcome>
+            <from-action>welcome</from-action>
             <to-view-id>/welcome.xhtml</to-view-id>
             <redirect>/welcome.xhtml</redirect>
         </navigation-case>

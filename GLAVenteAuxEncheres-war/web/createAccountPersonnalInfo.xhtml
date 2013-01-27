@@ -33,12 +33,13 @@
                             <f:selectItems value="#{accountBean.mounths}" /> 
                         </p:selectOneMenu>
                         <p:selectOneMenu value="#{accountBean.yearBirthday}">  
-                            <f:selectItems value="#{accountBean.years}" /> 
+                            <f:selectItems value="#{accountBean.yearsBirthday}" /> 
                         </p:selectOneMenu>
                     </h:panelGrid>
                     <br/>
-                    <h:panelGrid columns="2" cellpadding="">
-                        <p:commandButton id="saveButton" value="Confirmer" action="#{accountBean.addUserPersonalInfo()}" />                
+                    <h:panelGrid columns="3" cellpadding="">
+                        <p:commandButton id="continueButton" value="Suivant" action="#{accountBean.addUserPersonalInfo()}" />
+                        <p:commandButton id="saveButton" value="Terminer" action="#{accountBean.addUserPersonalInfoFinal()}" />
                         <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
                     </h:panelGrid>
                     

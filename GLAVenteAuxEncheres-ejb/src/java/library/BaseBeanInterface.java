@@ -4,10 +4,13 @@
  */
 package library;
 
+import javax.ejb.Local;
+
 /**
  *
  * @author Marine
  */
+@Local
 public interface BaseBeanInterface {
     public void initBase();
 }
