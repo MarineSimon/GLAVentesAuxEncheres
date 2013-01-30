@@ -135,16 +135,17 @@ public class BaseBeanLocal implements BaseBeanInterface{
         List<Article> articles5 = new ArrayList<Article>();
         articles5.add(article3);
         articles5.add(article2);
-        Promotion promo1 = new Promotion("Livraison gratuite",0,articles5);
+        Promotion promo1 = new Promotion(0,0,articles5);
         List<Promotion> promos11 = new ArrayList<Promotion>();
         promos11.add(promo1);
+        article3.setPromotions(promos11);
         List<Promotion> promos12 = new ArrayList<Promotion>();
         promos12.add(promo1);
         article2.setPromotions(promos12);
         
         List<Article> articles6 = new ArrayList<Article>();
         articles6.add(article4);
-        Promotion promo2 = new Promotion("Bon d'achat",50,articles6);
+        Promotion promo2 = new Promotion(1,50,articles6);
         List<Promotion> promos21 = new ArrayList<Promotion>();
         promos21.add(promo2);
         article4.setPromotions(promos21);
