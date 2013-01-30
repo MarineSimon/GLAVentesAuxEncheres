@@ -51,7 +51,6 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         Query query = em.createNamedQuery("Article.findLastEnchereByArticles");
         query.setParameter(1, a.getId());
         List<Enchere> encheres = (List<Enchere>) query.getResultList();
-        System.out.println(""+encheres.get(0).getAmount());
         result += encheres.get(0).getAmount();
         return result;
     }

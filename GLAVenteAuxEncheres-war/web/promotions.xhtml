@@ -14,9 +14,9 @@
     <ui:define name="content">
         
             
-        <p:dataGrid columns="2" rows="4" paginator="true"  
+        <p:dataGrid columns="1" rows="5" paginator="true"  
         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-        style="border: none;" var="article" value="#{articleBean.articlesInPromotion}" rowKey="#{article}" id="articles">
+        var="article" value="#{articleBean.articlesInPromotion}" rowKey="#{article}" id="articles">
                 
             <span>
                     <div class="article">
@@ -36,8 +36,10 @@
                                     <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
                                     <h:outputText class="title" value="Prix initial"></h:outputText>
                                     <h:outputText value="#{article.initialPrice} €"></h:outputText>
-
                                 </h:panelGrid>
+                                <br/>
+                                <a href="#" style="float: bottom;">plus de détails ...</a>
+                                
                              </div>
                             <div style="clear: both"></div>
                          </div>
