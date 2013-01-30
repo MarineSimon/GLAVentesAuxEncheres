@@ -8,14 +8,15 @@
     
 <ui:composition template="template.xhtml">
     <ui:define name="title">
-        Accueil
+        Bonnes Affaires
     </ui:define>
 
     <ui:define name="content">
         
             
-        <p:dataGrid columns="2" rows="4" paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-         style="border: none;" var="article" value="#{articleBean.criticalsArticles}" rowKey="#{article}" id="articles">
+        <p:dataGrid columns="2" rows="4" paginator="true"  
+        paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+        style="border: none;" var="article" value="#{articleBean.articlesInPromotion}" rowKey="#{article}" id="articles">
                 
             <span>
                     <div class="article">

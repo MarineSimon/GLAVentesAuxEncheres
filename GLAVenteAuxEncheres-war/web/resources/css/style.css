@@ -139,6 +139,7 @@ fieldset{
 .photo {
     float: left;
     width: 200px;
+    margin: auto;
 }
 .description {
     padding: 10px;

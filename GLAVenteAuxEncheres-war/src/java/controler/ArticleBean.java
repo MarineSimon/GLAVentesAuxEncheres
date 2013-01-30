@@ -27,20 +27,26 @@ public class ArticleBean {
     public List<Article> getCriticalsArticles() {
         return articleLocal.getCriticalsArticles();
     }
+    
+    public List<Article> getArticlesInPromotion() {
+        return articleLocal.getArticlesInPromotion();
+    }
 
     public String getActualPrice(Article a){
-        return articleLocal.getActualPrice(a)+"€";
+        return articleLocal.getActualPrice(a)+" €";
     }
     
-    //ATTENTION, A VERIFIE SI CORRECT
     public String getReminingTime(Article a){
         Calendar endTime = a.getEndDate();
         Calendar actualTime = new GregorianCalendar();
         
         long diff = Math.abs(endTime.getTimeInMillis() - actualTime.getTimeInMillis());
-        long numberOfDay = (long)diff/(86400000);
+        System.out.println(""+endTime.getTimeInMillis());
+        System.out.println(""+actualTime.getTimeInMillis());
+        System.out.println(""+diff);
+        long numberOfDay = (long)(diff/(86400000))+1;
         
-        return numberOfDay+" jours restants";
+        return numberOfDay+" jours";
     }
     
 }

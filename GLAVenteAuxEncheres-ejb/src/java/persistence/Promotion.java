@@ -14,12 +14,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Marine
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name="Promotion.findAllPromotions", query="SELECT p from Promotion p")
+})
 public class Promotion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

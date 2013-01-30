@@ -15,6 +15,7 @@ import javax.persistence.Query;
 import library.ArticleBeanInterface;
 import persistence.Article;
 import persistence.Enchere;
+import persistence.Promotion;
 import persistence.UserEnchere;
 
 /**
@@ -34,7 +35,7 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         
         try {
              List<Article> articles = (List<Article>) query.getResultList();
-             for (int i = 0; i < 4; i++) {
+             for (int i = 0; i < articles.size(); i++) {
                 result.add(articles.get(i));
             }
         } catch (NoResultException e){
@@ -52,6 +53,26 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         List<Enchere> encheres = (List<Enchere>) query.getResultList();
         System.out.println(""+encheres.get(0).getAmount());
         result += encheres.get(0).getAmount();
+        return result;
+    }
+
+    @Override
+    public List<Article> getArticlesInPromotion() {
+        List<Article> result = new ArrayList<Article>();
+        Query query = em.createNamedQuery("Promotion.findAllPromotions");
+        
+        try {
+             List<Promotion> promotions = (List<Promotion>) query.getResultList();
+             for (int i = 0; i < promotions.size(); i++) {
+                 for (int j = 0; j < promotions.get(i).getArticles().size(); j++) {
+                     result.add(promotions.get(i).getArticles().get(j));
+                 }
+                
+            }
+        } catch (NoResultException e){
+            return null;
+        }
+        
         return result;
     }
 

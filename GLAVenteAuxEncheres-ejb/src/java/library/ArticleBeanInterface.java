@@ -15,5 +15,6 @@ import persistence.Article;
 @Local
 public interface ArticleBeanInterface {
     public List<Article> getCriticalsArticles();
+    public List<Article> getArticlesInPromotion();
     public int getActualPrice(Article a);
 }
