@@ -67,7 +67,6 @@ public class LoginBean implements Serializable {
     }
     
     public String logout(){
-        System.out.println("dedans");
         userConnected = null;
         return null;
     }
