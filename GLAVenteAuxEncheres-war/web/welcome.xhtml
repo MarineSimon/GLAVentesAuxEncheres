@@ -14,14 +14,35 @@
     <ui:define name="content">
         
             
-        <p:dataGrid columns="2" rows="4" paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-         style="border: none;" var="article" value="#{articleBean.criticalsArticles}" rowKey="#{article}" id="articles">
+        <p:dataGrid columns="1" rows="5" paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+         var="article" value="#{articleBean.criticalsArticles}" rowKey="#{article}" id="articles">
                 
             <span>
-                <div class="article">
-                    <div class="entete">
-                        <span class="name_article">#{article.name}</span>
-                        <span class="price">#{articleBean.getActualPrice(article)}</span>
+                    <div class="article">
+                         <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;" rendered="#{article.haveDeliveryFreePromotion()}" url="resources/pictures/freeDelivery.png"/>
+                        <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;margin-top: 85px;" rendered="#{article.haveGiftCertificatePromotion()}" url="resources/pictures/giftCertificate.png"/>
+                        <div class="entete">
+                            <span class="name_article">#{article.name}</span>
+                            <span class="price">#{articleBean.getActualPrice(article)}</span>
+                        </div>
+                        <div class="desc_article">
+                            <div class="photo">
+                                <img src="#{article.picture}" style="max-height: 250px;max-width: 200px;padding-bottom: 1px;"/>
+                            </div>
+                            <div class="description">
+                                <h:panelGrid columns="2" cellpadding="">
+                                    <h:outputText class="title" value="Vendeur"></h:outputText>
+                                    <h:outputText value="#{article.owner.login}"></h:outputText>
+                                    <h:outputText class="title" value="Temps restant"></h:outputText>
+                                    <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
+                                    <h:outputText class="title" value="Prix initial"></h:outputText>
+                                    <h:outputText value="#{article.initialPrice} €"></h:outputText>
+                                </h:panelGrid>
+                                <br/>
+                                <a href="#" style="float: bottom;">plus de détails ...</a>
+                             </div>
+                            <div style="clear: both"></div>
+                         </div>
                     </div>
                     <div class="desc_article">
                         <div class="photo">

@@ -26,13 +26,16 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name="Promotion.findAllPromotions", query="SELECT p from Promotion p")
 })
 public class Promotion implements Serializable {
+    public static final int TYPE_DELIVERED_FREE = 0;
+    public static final int TYPE_GIFT_CERTIFICATE = 1;
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
     @Column(name = "TYPE")
-    private String type;
+    private int type;
     @Column(name = "AMOUNT")
     private int amount;
     
@@ -43,8 +46,9 @@ public class Promotion implements Serializable {
     public Promotion(){
     }
     
-    public Promotion(String type, int amount, List<Article> articles){
+    public Promotion(int type, int amount, List<Article> articles){
         this.type = type;
+        
         this.amount = amount;
         this.articles = articles;
     }
@@ -56,11 +60,11 @@ public class Promotion implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 

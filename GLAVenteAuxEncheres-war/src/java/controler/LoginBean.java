@@ -7,6 +7,7 @@ package controler;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -18,8 +19,9 @@ import persistence.UserEnchere;
  * @author Mohamed
  */
 @Named(value = "loginBean")
-@RequestScoped
+@SessionScoped
 public class LoginBean implements Serializable {
+    private UserEnchere userConnected;
     @EJB
     private UserBeanInterface userBean;
     
@@ -56,10 +58,41 @@ public class LoginBean implements Serializable {
         } else {
             if (!user.getPassword().equals(password)){
                 FacesContext.getCurrentInstance().addMessage("formLogin:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Mot de passe incorrect",""));
-            return null;
+                 return null;
+            } else {
+                userConnected = user;
             }
         }
         return "welcome";
+    }
+    
+    public String logout(){
+        userConnected = null;
+        return null;
+    }
+    
+    public boolean isConnected(){
+        return (userConnected != null);
+    }
+    
+    public String getUserConnectedToString(){
+        String result = "";
+        if (userConnected != null){
+            if (!userConnected.getFirstname().equals("") && !userConnected.getLastname().equals("")){
+                result = userConnected.getFirstname()+" "+userConnected.getLastname();
+            } else {
+                result = userConnected.getLogin();
+            }
+        }
+        return result;
+    }
+    
+    public UserEnchere getUserConnected() {
+        return userConnected;
+    }
+
+    public void setUserConnected(UserEnchere userConnected) {
+        this.userConnected = userConnected;
     }
     
 }

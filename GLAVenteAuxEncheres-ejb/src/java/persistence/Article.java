@@ -125,6 +125,22 @@ public class Article implements Serializable {
     public void setPromotions(List<Promotion> promotions) {
         this.promotions = promotions;
     }
+    
+    public boolean haveDeliveryFreePromotion(){
+        boolean result = false;
+        for (int i = 0; i < promotions.size(); i++) {
+            result = result || (promotions.get(i).getType() == Promotion.TYPE_DELIVERED_FREE);
+        }
+        return result;
+    }
+    
+    public boolean haveGiftCertificatePromotion(){
+        boolean result = false;
+        for (int i = 0; i < promotions.size(); i++) {
+            result = result || (promotions.get(i).getType() == Promotion.TYPE_GIFT_CERTIFICATE);
+        }
+        return result;
+    }
 
     public SubCategory getSubCategory() {
         return subCategory;

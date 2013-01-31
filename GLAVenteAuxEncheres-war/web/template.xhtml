@@ -13,11 +13,16 @@
         <h:form>
         <div id="structure">
             <div id="content">
-                <header class="background"><center><img src="resources/pictures/logo.png" width="90px"/></center></header>
+                
+                <header class="background">
+                    <center><img src="resources/pictures/logo.png" width="90px"/></center>
+                    <p:commandLink immediate="true" rendered="#{loginBean.connected}" style="float: right;padding-right: 10px;" value="(Deconnexion)" oncomplete="javascript:location.reload(true)" action="#{loginBean.logout()}"/>
+                    <p:outputLabel style="float: right;padding-right: 10px;" value="#{loginBean.userConnectedToString}" />
+                </header>
                 <div id="menu">
                     <a href="faces/welcome.xhtml">Accueil</a>
                     <a href="#">Vendre</a>
-                    <a href="faces/bargain.xhtml">Bonnes Affaires</a>
+                    <a href="faces/promotions.xhtml">Bonnes Affaires</a>
                     <a href="#">Mon Panier</a>
                     <a href="faces/login.xhtml">Authentification</a>
                 </div>

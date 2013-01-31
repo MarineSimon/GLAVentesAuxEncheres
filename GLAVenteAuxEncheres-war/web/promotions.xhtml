@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     
 <ui:composition template="template.xhtml">
     <ui:define name="title">
@@ -14,19 +15,23 @@
     <ui:define name="content">
         
             
-        <p:dataGrid columns="2" rows="4" paginator="true"  
+        <p:dataGrid columns="1" rows="5" paginator="true"  
         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-        style="border: none;" var="article" value="#{articleBean.articlesInPromotion}" rowKey="#{article}" id="articles">
+        var="article" value="#{articleBean.articlesInPromotion}" rowKey="#{article}" id="articles">
                 
             <span>
                     <div class="article">
+                        <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;" rendered="#{article.haveDeliveryFreePromotion()}" url="resources/pictures/freeDelivery.png"/>
+                        <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;margin-top: 85px;" rendered="#{article.haveGiftCertificatePromotion()}" url="resources/pictures/giftCertificate.png"/>
                         <div class="entete">
+                            
+                            
                             <span class="name_article">#{article.name}</span>
                             <span class="price">#{articleBean.getActualPrice(article)}</span>
                         </div>
                         <div class="desc_article">
                             <div class="photo">
-                                <img src="#{article.picture}" style="max-height: 250px;max-width: 200px"/>
+                                <img src="#{article.picture}" style="max-height: 250px;max-width: 200px;padding-bottom: 1px;"/>
                             </div>
                             <div class="description">
                                 <h:panelGrid columns="2" cellpadding="">
@@ -36,8 +41,10 @@
                                     <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
                                     <h:outputText class="title" value="Prix initial"></h:outputText>
                                     <h:outputText value="#{article.initialPrice} €"></h:outputText>
-
                                 </h:panelGrid>
+                                <br/>
+                                <a href="#" style="float: bottom;">plus de détails ...</a>
+                                
                              </div>
                             <div style="clear: both"></div>
                          </div>
@@ -45,6 +52,8 @@
                 </span>
             
             </p:dataGrid>
+        
+       
             
         
     

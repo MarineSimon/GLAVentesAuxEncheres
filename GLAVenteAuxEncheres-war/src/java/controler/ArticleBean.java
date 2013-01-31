@@ -59,9 +59,6 @@ public class ArticleBean {
         Calendar actualTime = new GregorianCalendar();
         
         long diff = Math.abs(endTime.getTimeInMillis() - actualTime.getTimeInMillis());
-        System.out.println(""+endTime.getTimeInMillis());
-        System.out.println(""+actualTime.getTimeInMillis());
-        System.out.println(""+diff);
         long numberOfDay = (long)(diff/(86400000))+1;
         
         return numberOfDay+" jours";
