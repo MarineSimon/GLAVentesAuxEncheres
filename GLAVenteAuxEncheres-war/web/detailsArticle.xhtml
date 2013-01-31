@@ -16,7 +16,7 @@
             <p:messages id="encherire" autoUpdate="true" closable="true"/>
             <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;" rendered="#{articleBean.selectedArticle.haveDeliveryFreePromotion()}" url="resources/pictures/freeDelivery.png"/>
             <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;margin-top: 85px;" rendered="#{article.haveGiftCertificatePromotion()}" url="resources/pictures/giftCertificate.png"/>
-            <div class="entete">
+            <div class="entete" id="entete">
                 <span class="name_article">#{articleBean.selectedArticle.name}</span>
                 <span class="price">#{articleBean.getActualPrice(articleBean.selectedArticle)}</span>
             </div>

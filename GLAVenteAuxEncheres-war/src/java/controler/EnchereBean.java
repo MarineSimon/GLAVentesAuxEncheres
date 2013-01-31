@@ -18,6 +18,7 @@ import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 import library.EnchereBeanInterface;
+import org.primefaces.context.RequestContext;
 import persistence.Article;
 import persistence.UserEnchere;
 
@@ -54,6 +55,7 @@ public class EnchereBean {
         else {
             Calendar date = new GregorianCalendar();
             this.enchereBeanLocal.addEnchere(date, amount, a, this.getUserConnected());
+            RequestContext.getCurrentInstance().update("entete");
             FacesContext.getCurrentInstance().addMessage("encherire:messages", new FacesMessage(FacesMessage.SEVERITY_INFO,"Enchère prise en compte !",""));
             return null;
         }
@@ -61,7 +63,6 @@ public class EnchereBean {
     
     public UserEnchere getUserConnected() {
         LoginBean log = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
-        System.out.println("Utilisateur connecté : "+log.getUserConnected().getFirstname());
         return log.getUserConnected();
     }
 }
