@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -57,12 +56,10 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
 
     @Override
     public int getActualPrice(Article a) {
-        int result = a.getInitialPrice();
         Query query = em.createNamedQuery("Article.findLastEnchereByArticles");
         query.setParameter(1, a.getId());
         List<Enchere> encheres = (List<Enchere>) query.getResultList();
-        result += encheres.get(0).getAmount();
-        return result;
+        return encheres.get(0).getAmount();
     }
 
     @Override
@@ -74,7 +71,10 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
              List<Promotion> promotions = (List<Promotion>) query.getResultList();
              for (int i = 0; i < promotions.size(); i++) {
                  for (int j = 0; j < promotions.get(i).getArticles().size(); j++) {
-                     result.add(promotions.get(i).getArticles().get(j));
+                     if (!result.contains(promotions.get(i).getArticles().get(j))){
+                         result.add(promotions.get(i).getArticles().get(j));
+                     }
+                     
                  }
                 
             }

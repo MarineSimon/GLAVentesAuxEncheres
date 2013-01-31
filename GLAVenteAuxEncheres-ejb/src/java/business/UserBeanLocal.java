@@ -5,6 +5,7 @@
 package business;
 
 import javax.ejb.LocalBean;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -17,11 +18,13 @@ import persistence.UserEnchere;
  *
  * @author Marine
  */
-@Stateless
+@Stateful(name="UserBeanLocal")
 @LocalBean
 public class UserBeanLocal implements UserBeanInterface{
     @PersistenceContext(unitName="GLAVenteAuxEncheres-PU")
     private EntityManager em;
+    
+    private UserEnchere user;
     
     //TESTE SI UN LOGIN A DEJA ETE UTILISE
     @Override
@@ -53,12 +56,20 @@ public class UserBeanLocal implements UserBeanInterface{
         return result;
             
         }
-
+    
     //PERSISTE UN UTILISATEUR DANS LA BASE DE DONNEES
     @Override
     public UserEnchere addUser(UserEnchere user) {
         em.persist(user);
         return user;
+    }
+
+    public UserEnchere getUser() {
+        return user;
+    }
+
+    public void setUser(UserEnchere user) {
+        this.user = user;
     }
     
 }

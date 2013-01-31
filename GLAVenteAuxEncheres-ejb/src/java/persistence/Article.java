@@ -5,6 +5,7 @@
 package persistence;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -69,6 +70,7 @@ public class Article implements Serializable {
         this.initialPrice = price;
         this.endDate = date;
         this.picture = picture;
+        this.promotions = new ArrayList<Promotion>();
     }
     public Long getId() {
         return id;
@@ -141,7 +143,31 @@ public class Article implements Serializable {
         }
         return result;
     }
-
+    
+    public boolean haveOneTypeOfPromotion(){
+        return promotions.size() == 1;
+    }
+    
+    public boolean haveTwoTypeOfPromotion(){
+        return promotions.size() == 2;
+    }
+    
+    public boolean haveOnlyDeliveryFreePromotion(){
+        return haveDeliveryFreePromotion() && haveOneTypeOfPromotion();
+    }
+    
+    public boolean haveOnlyGiftCertificatePromotion(){
+        return haveGiftCertificatePromotion() && haveOneTypeOfPromotion();
+    }
+    
+    public boolean haveAlsoDeliveryFreePromotion(){
+        return haveDeliveryFreePromotion() && haveTwoTypeOfPromotion();
+    }
+    
+    public boolean haveAlsoGiftCertificatePromotion(){
+        return haveGiftCertificatePromotion() && haveTwoTypeOfPromotion();
+    }
+    
     public SubCategory getSubCategory() {
         return subCategory;
     }
