@@ -22,12 +22,13 @@
         
             
         <p:dataGrid columns="1" rows="5" paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-         var="article" value="#{articleBean.criticalsArticles}" rowKey="#{article}" id="articles">
+                    var="article" value="#{articleBean.displayedArticles}" rowKey="#{article}" id="articles">
                 
             <span>
                     <div class="article">
-                         <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;" rendered="#{article.haveDeliveryFreePromotion()}" url="resources/pictures/freeDelivery.png"/>
-                        <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;margin-top: 85px;" rendered="#{article.haveGiftCertificatePromotion()}" url="resources/pictures/giftCertificate.png"/>
+                        <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;" rendered="#{article.haveDeliveryFreePromotion()}" url="resources/pictures/freeDelivery.png"/>
+                        <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;" rendered="#{article.haveOnlyGiftCertificatePromotion()}" url="resources/pictures/giftCertificate.png"/>
+                        <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;margin-top: 85px;" rendered="#{article.haveAlsoGiftCertificatePromotion()}" url="resources/pictures/giftCertificate.png"/>
                         <div class="entete">
                             <span class="name_article">#{article.name}</span>
                             <span class="price">#{articleBean.getActualPrice(article)}</span>
