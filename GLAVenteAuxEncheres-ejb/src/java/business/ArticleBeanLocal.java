@@ -55,11 +55,11 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     }
 
     @Override
-    public int getActualPrice(Article a) {
+    public double getActualPrice(Article a) {
         Query query = em.createNamedQuery("Article.findLastEnchereByArticles");
         query.setParameter(1, a.getId());
         List<Enchere> encheres = (List<Enchere>) query.getResultList();
-        return encheres.get(0).getAmount();
+        return encheres.get(encheres.size()-1).getAmount();
     }
 
     @Override
