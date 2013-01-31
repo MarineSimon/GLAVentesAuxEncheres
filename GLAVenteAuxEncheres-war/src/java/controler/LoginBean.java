@@ -32,6 +32,7 @@ public class LoginBean implements Serializable {
      * Creates a new instance of LoginBean
      */
     public LoginBean() {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("loginBean", this);
     }
 
     public String getLogin() {
