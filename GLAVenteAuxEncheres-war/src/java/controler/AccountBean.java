@@ -4,16 +4,24 @@
  */
 package controler;
 
+import business.ArticleBeanLocal;
+import business.UserBeanLocal;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession;
 import library.UserBeanInterface;
 import persistence.Address;
 import persistence.BankInformation;
@@ -24,7 +32,7 @@ import persistence.UserEnchere;
  * @author Marine
  */
 @Named(value = "accountBean")
-@SessionScoped
+@RequestScoped
 public class AccountBean implements Serializable{
     @EJB
     private UserBeanInterface userBean;
@@ -64,6 +72,8 @@ public class AccountBean implements Serializable{
     private String yearBirthday;
     private String mounthExpiry;
     private String yearExpiry;
+    
+    private static final String STATEFUL_USER_BEAN_KEY = "STATEFUL_USER_BEAN_KEY";
     
     
     public String getFirstname() {
@@ -265,10 +275,25 @@ public class AccountBean implements Serializable{
         
         this.yearBirthday = yearBirthday;
     }
+    
+    public UserEnchere getUserEnchere() throws ServletException{
+        UserBeanLocal userBean = getStatefulBean();
+        return userBean.getUser();
+    }
+    
+    public void setUserEnchere(UserEnchere user) throws ServletException {
+        UserBeanLocal userBean = getStatefulBean();
+        userBean.setUser(user);
+    }
 
     //REMPLI LES CHAMPS LOGIN ET MOT DE PASSE DE L'UTILISATEUR
     public String addUserAccountInfo(){
         user = new UserEnchere(login,password);
+        try {
+            setUserEnchere(user);
+        } catch (ServletException ex) {
+            Logger.getLogger(AccountBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if (!userBean.loginAvailable(user)){
             FacesContext.getCurrentInstance().addMessage("createAccount:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login déjà utilisé.",""));
             return null;
@@ -289,19 +314,31 @@ public class AccountBean implements Serializable{
     
     //REMPLI LES INFORMATIONS PERSONNELLES DE L'UTILISATEUR
     public String addUserPersonalInfo(){
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
-        user.setBirthday(birthday);
-        user.setEmail(email);
+        try{
+            UserEnchere user = getUserEnchere();
+            user.setFirstname(firstname);
+            user.setLastname(lastname);
+            user.setBirthday(birthday);
+            user.setEmail(email);
+            
+            setUserEnchere(user);
+        } catch(ServletException ex){
+            Logger.getLogger(AccountBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "createAccountDeliveryInfo";
     }
     
     //REMPLI LES INFORMATIONS PERSONNELLES DE L'UTILISATEUR
     public String addUserPersonalInfoFinal(){
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
-        user.setBirthday(birthday);
-        user.setEmail(email);
+        try{
+            UserEnchere user = getUserEnchere();
+            user.setFirstname(firstname);
+            user.setLastname(lastname);
+            user.setBirthday(birthday);
+            user.setEmail(email);
+        } catch(ServletException ex){
+            Logger.getLogger(AccountBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         userBean.addUser(user);
         return "welcome";
@@ -309,38 +346,51 @@ public class AccountBean implements Serializable{
     
     //REMPLI LES INFORMATIONS DE LIVRAISON DE L'UTILISATEUR ET PERSISTE CELUI-CI
     public String addUserDeliveryInfo(){
-        
-        Address delivery = new Address();
-        delivery.setCity(deliveryCity);
-        delivery.setCountry(deliveryCountry);
-        delivery.setStreet(deliveryStreet);
-        if (!deliveryNumber.equals("")){
-            delivery.setNumber(Integer.parseInt(deliveryNumber));
+        try {
+            UserEnchere user = getUserEnchere();
+            Address delivery = new Address();
+            delivery.setCity(deliveryCity);
+            delivery.setCountry(deliveryCountry);
+            delivery.setStreet(deliveryStreet);
+            if (!deliveryNumber.equals("")){
+                delivery.setNumber(Integer.parseInt(deliveryNumber));
+            }
+            delivery.setPostalCode(deliveryPostalCode);
+            List<Address> listAddress = new ArrayList<Address>();
+            listAddress.add(delivery);
+            user.setDeliveryAdresses(listAddress);
+            /*pour le moment, l'adresse de livraison est la même que l'adresse de facturation*/
+            user.setBilingAdress(delivery); 
+
+            BankInformation bankInfo = new BankInformation();
+            bankInfo.setExpiryDate(expiryDate);
+            bankInfo.setBankAccountNumber(numBankAccount);
+            bankInfo.setSecurityCode(securityCode);
+            List<BankInformation> listBank = new ArrayList<BankInformation>();
+            listBank.add(bankInfo);
+            user.setBankInformations(listBank);
+
+            userBean.addUser(user);
+        }catch(ServletException ex){
+            Logger.getLogger(AccountBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (!deliveryPostalCode.equals("")){
-            delivery.setPostalCode(Integer.parseInt(deliveryPostalCode));
-        }
-        List<Address> listAddress = new ArrayList<Address>();
-        listAddress.add(delivery);
-        user.setDeliveryAdresses(listAddress);
-        /*pour le moment, l'adresse de livraison est la même que l'adresse de facturation*/
-        user.setBilingAdress(delivery); 
-        
-        BankInformation bankInfo = new BankInformation();
-        bankInfo.setExpiryDate(expiryDate);
-        if (!numBankAccount.equals("")){
-            Long na = Long.parseLong(numBankAccount);
-            bankInfo.setBankAccountNumber(na);
-        }
-        if (!securityCode.equals("")){
-            bankInfo.setSecurityCode(Integer.parseInt(securityCode));
-        }
-        List<BankInformation> listBank = new ArrayList<BankInformation>();
-        listBank.add(bankInfo);
-        user.setBankInformations(listBank);
-        
-        userBean.addUser(user);
         return "welcome";
+    }
+    
+    private UserBeanLocal getStatefulBean() throws ServletException {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
+        UserBeanLocal userBean = (UserBeanLocal) httpSession.getAttribute(STATEFUL_USER_BEAN_KEY);
+        if (userBean == null) {
+            try {
+                InitialContext ic = new InitialContext();
+                userBean = (UserBeanLocal) ic.lookup("java:global/GLAVenteAuxEncheres/GLAVenteAuxEncheres-ejb/UserBeanLocal!business.UserBeanLocal");
+                httpSession.setAttribute(STATEFUL_USER_BEAN_KEY, userBean);
+            } catch (NamingException e) {
+                throw new ServletException(e);
+            }
+        }
+        return userBean;
     }
     
 }

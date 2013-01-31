@@ -23,9 +23,9 @@ public class BankInformation implements Serializable {
     private Long id;
     
     @Column(name = "BANKACCOUNTNUMBER")
-    private long bankAccountNumber;
+    private String bankAccountNumber;
     @Column(name = "SECURITYCODE")
-    private int securityCode;
+    private String securityCode;
     @Column(name = "EXPIRYDATE")
     private String expiryDate;
 
@@ -33,7 +33,7 @@ public class BankInformation implements Serializable {
         
     }
     
-    public BankInformation(long account,int code, String date){
+    public BankInformation(String account,String code, String date){
         this.bankAccountNumber = account;
         this.securityCode = code;
         this.expiryDate = date;
@@ -47,19 +47,19 @@ public class BankInformation implements Serializable {
         this.id = id;
     }
 
-    public long getBankAccountNumber() {
+    public String getBankAccountNumber() {
         return bankAccountNumber;
     }
 
-    public void setBankAccountNumber(long bankAccountNumber) {
+    public void setBankAccountNumber(String bankAccountNumber) {
         this.bankAccountNumber = bankAccountNumber;
     }
 
-    public int getSecurityCode() {
+    public String getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(int securityCode) {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
 

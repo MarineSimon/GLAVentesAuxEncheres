@@ -5,6 +5,7 @@
 package persistence;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,7 @@ import javax.persistence.TemporalType;
 @Entity
 @NamedQueries({
         @NamedQuery(name="Article.findCriticalsArticles", query="SELECT a from Article a ORDER BY a.endDate ASC"),
+        @NamedQuery(name="Article.searchArticles", query="SELECT a from Article a WHERE UPPER(a.name) LIKE UPPER(?1) OR UPPER(a.description) LIKE UPPER(?2) ORDER BY a.endDate ASC"),
         @NamedQuery(name="Article.findLastEnchereByArticles", query="SELECT e from Enchere e WHERE e.article.id = ?1 ORDER BY e.creationDate ASC")
     })
 public class Article implements Serializable {
@@ -69,6 +71,7 @@ public class Article implements Serializable {
         this.initialPrice = price;
         this.endDate = date;
         this.picture = picture;
+        this.promotions = new ArrayList<Promotion>();
     }
     public Long getId() {
         return id;
@@ -141,7 +144,31 @@ public class Article implements Serializable {
         }
         return result;
     }
-
+    
+    public boolean haveOneTypeOfPromotion(){
+        return promotions.size() == 1;
+    }
+    
+    public boolean haveTwoTypeOfPromotion(){
+        return promotions.size() == 2;
+    }
+    
+    public boolean haveOnlyDeliveryFreePromotion(){
+        return haveDeliveryFreePromotion() && haveOneTypeOfPromotion();
+    }
+    
+    public boolean haveOnlyGiftCertificatePromotion(){
+        return haveGiftCertificatePromotion() && haveOneTypeOfPromotion();
+    }
+    
+    public boolean haveAlsoDeliveryFreePromotion(){
+        return haveDeliveryFreePromotion() && haveTwoTypeOfPromotion();
+    }
+    
+    public boolean haveAlsoGiftCertificatePromotion(){
+        return haveGiftCertificatePromotion() && haveTwoTypeOfPromotion();
+    }
+    
     public SubCategory getSubCategory() {
         return subCategory;
     }

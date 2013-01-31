@@ -12,15 +12,26 @@
     </ui:define>
 
     <ui:define name="content">
+        <div id="recherche">
+            <h1>Recherche</h1>
+            <h:form>
+                <p:inputText id="searchValue" value="#{articleBean.keywords}" style="width: 90%"/>
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Rechercher" action="#{articleBean.searchArticle}"/>
+                    <p:commandButton value="Annuler" action="#{articleBean.resetDisplayArticles}"/>
+                </h:panelGrid>
+            </h:form>
+        </div>
         
-            
-        <p:dataGrid columns="1" rows="5" paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-         var="article" value="#{articleBean.criticalsArticles}" rowKey="#{article}" id="articles">
-                
-            <span>
+        <div id="articles">
+            <p:dataGrid id="articles_dg" columns="1" rows="5" paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                        var="article" value="#{articleBean.displayedArticles}" rowKey="#{article}">
+
+                <span>
                     <div class="article">
                         <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;" rendered="#{article.haveDeliveryFreePromotion()}" url="resources/pictures/freeDelivery.png"/>
-                        <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;margin-top: 85px;" rendered="#{article.haveGiftCertificatePromotion()}" url="resources/pictures/giftCertificate.png"/>
+                        <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;" rendered="#{article.haveOnlyGiftCertificatePromotion()}" url="resources/pictures/giftCertificate.png"/>
+                        <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;margin-top: 85px;" rendered="#{article.haveAlsoGiftCertificatePromotion()}" url="resources/pictures/giftCertificate.png"/>
                         <div class="entete">
                             <span class="name_article">#{article.name}</span>
                             <span class="price">#{articleBean.getActualPrice(article)}</span>
@@ -37,7 +48,7 @@
                                     <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
                                     <h:outputText class="title" value="Prix initial"></h:outputText>
                                     <h:outputText value="#{article.initialPrice} €"></h:outputText>
-                                    <p:commandButton value="details" action="detailsArticle">
+                                    <p:commandButton value="details" action="detailsArticle" process="@this">
                                         <f:setPropertyActionListener value="#{article}" target="#{articleBean.selectedArticle}" />
                                     </p:commandButton>
                                 </h:panelGrid>
@@ -45,8 +56,12 @@
                             <div style="clear: both"></div>
                          </div>
                     </div>
-            </span>  
-        </p:dataGrid>
+                </span>  
+            </p:dataGrid>
+        </div>
+        <div id="autrediv">
+        </div>
+        <div style="clear: both"></div>
     </ui:define>
 </ui:composition>
 </html>

@@ -220,4 +220,18 @@ fieldset{
     background: rgba(255, 255, 255, 0);
 }
 
+#recherche{
+    float: left;
+    width: 25%;
+}
+
+
+
+#autrediv{
+    float: left;
+    width: 25%;
+}
+
+
+
 

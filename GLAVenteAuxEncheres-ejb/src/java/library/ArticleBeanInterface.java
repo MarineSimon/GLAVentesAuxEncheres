@@ -17,4 +17,5 @@ public interface ArticleBeanInterface {
     public List<Article> getCriticalsArticles();
     public List<Article> getArticlesInPromotion();
     public int getActualPrice(Article a);
+    public List<Article> search(String keywords);
 }
