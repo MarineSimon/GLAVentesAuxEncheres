@@ -13,6 +13,13 @@
 
     <ui:define name="content">
         
+        <h1>Recherche</h1>
+        <h:form id="recherche">
+            <h:inputText id="searchValue" value="#{articleBean.keywords}"/>
+            <h:commandButton value="Rechercher" action="#{articleBean.searchArticle}"/>
+            <h:commandButton value="Annuler" action="#{articleBean.resetDisplayArticles}"/>
+        </h:form>
+        
             
         <p:dataGrid columns="1" rows="5" paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
          var="article" value="#{articleBean.criticalsArticles}" rowKey="#{article}" id="articles">

@@ -85,5 +85,21 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         return result;
     }
 
-    
+    @Override
+    public List<Article> search(String keywords) {
+        List<Article> result = new ArrayList<Article>();
+        Query query = em.createNamedQuery("Article.searchArticles");
+        query.setParameter(1, "%"+keywords+"%");
+        query.setParameter(2, "%"+keywords+"%");
+        try {
+             List<Article> articles = (List<Article>) query.getResultList();
+             for (int i = 0; i < articles.size(); i++) {
+                result.add(articles.get(i));
+            }
+        } catch (NoResultException e){
+            return null;
+        }
+        
+        return result;
+    }
 }

@@ -5,6 +5,7 @@
 package controler;
 
 import business.ArticleBeanLocal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -30,8 +31,30 @@ public class ArticleBean {
     @EJB
     private ArticleBeanInterface articleLocal; 
     
+    private String keywords = "";
+    private List<Article> displayedArticles = new ArrayList<Article>();
+    
     private static final String STATEFUL_ARTICLE_BEAN_KEY = "STATEFUL_ARTICLE_BEAN_KEY";
 
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
+    public List<Article> getDisplayedArticles() {
+        if (this.displayedArticles.isEmpty() && this.keywords.isEmpty())
+            return this.getCriticalsArticles();
+        else 
+            return displayedArticles;
+    }
+
+    public void setDisplayedArticles(List<Article> displayedArticles) {
+        this.displayedArticles = displayedArticles;
+    }
+    
     public List<Article> getCriticalsArticles() {
         return articleLocal.getCriticalsArticles();
     }
@@ -80,4 +103,13 @@ public class ArticleBean {
         return articleBean;
     }
     
+    public void searchArticle(){
+        List<Article> searchList = this.articleLocal.search(this.keywords);
+        this.displayedArticles = searchList;
+    }
+    
+    public void resetDisplayArticles(){
+        this.displayedArticles = this.getCriticalsArticles();
+        this.keywords = "";
+    }
 }
