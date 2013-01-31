@@ -24,7 +24,7 @@
         </div>
         
         <div id="articles">
-            <p:dataGrid columns="1" rows="5" paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            <p:dataGrid id="articles_dg" columns="1" rows="5" paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                         var="article" value="#{articleBean.displayedArticles}" rowKey="#{article}">
 
                 <span>

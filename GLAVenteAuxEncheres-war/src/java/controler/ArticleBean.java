@@ -18,6 +18,7 @@ import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 import library.ArticleBeanInterface;
+import org.primefaces.context.RequestContext;
 import persistence.Article;
 
 /**
@@ -106,10 +107,14 @@ public class ArticleBean {
     public void searchArticle(){
         List<Article> searchList = this.articleLocal.search(this.keywords);
         this.displayedArticles = searchList;
+        System.out.println("Taille de la liste : "+this.displayedArticles.size());
+        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
     }
     
     public void resetDisplayArticles(){
         this.displayedArticles = this.getCriticalsArticles();
         this.keywords = "";
+        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt18:searchValue");
     }
 }
