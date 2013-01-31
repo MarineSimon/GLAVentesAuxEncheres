@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+<ui:composition template="template.xhtml">
+    <ui:define name="title">
+        Details
+    </ui:define>
+
+    <ui:define name="content">
+        <h:panelGrid columns="2" cellpadding="">
+            <h:outputText class="title" value="Vendeur"></h:outputText>
+            <h:outputText value="#{articleBean.selectedArticle.owner.login}"></h:outputText>
+            <h:outputText class="title" value="Temps restant"></h:outputText>
+            <h:outputText value="#{articleBean.getReminingTime(articleBean.selectedArticle)}"></h:outputText>
+            <h:outputText class="title" value="Prix initial"></h:outputText>
+            <h:outputText value="#{articleBean.selectedArticle.initialPrice} €"></h:outputText>
+            <h:outputText value="Montant de mon enchère : "></h:outputText>
+            <h:inputText value="#{articleBean}"></h:inputText>
+            <p:commandButton value="enchérire" action="detailsArticle"></p:commandButton>
+
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>
+</html>
+
+
+

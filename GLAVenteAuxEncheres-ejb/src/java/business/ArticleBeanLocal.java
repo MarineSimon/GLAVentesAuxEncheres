@@ -7,7 +7,8 @@ package business;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -16,17 +17,26 @@ import library.ArticleBeanInterface;
 import persistence.Article;
 import persistence.Enchere;
 import persistence.Promotion;
-import persistence.UserEnchere;
 
 /**
  *
  * @author Marine
  */
-@Stateless
+@Stateful(name="ArticleBeanLocal")
 @LocalBean
 public class ArticleBeanLocal implements ArticleBeanInterface{
     @PersistenceContext(unitName="GLAVenteAuxEncheres-PU")
     private EntityManager em;
+    
+    private Article selectedArticle;
+
+    public Article getSelectedArticle() {
+        return selectedArticle;
+    }
+
+    public void setSelectedArticle(Article selectedArticle) {
+        this.selectedArticle = selectedArticle;
+    }
     
     @Override
     public List<Article> getCriticalsArticles() {
