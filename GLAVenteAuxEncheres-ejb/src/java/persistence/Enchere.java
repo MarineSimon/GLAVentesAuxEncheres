@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -20,6 +22,9 @@ import javax.persistence.TemporalType;
  * @author Marine
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name="Enchere.getRunningBill", query="SELECT e from Enchere e WHERE e.userEnchere.id = ?1 ORDER BY e.amount ASC"),
+})
 public class Enchere implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

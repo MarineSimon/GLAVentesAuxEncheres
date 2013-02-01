@@ -5,6 +5,7 @@
 package library;
 
 import java.util.Calendar;
+import java.util.List;
 import javax.ejb.Local;
 import persistence.Article;
 import persistence.UserEnchere;
@@ -16,4 +17,6 @@ import persistence.UserEnchere;
 @Local
 public interface EnchereBeanInterface {
     public void addEnchere(Calendar date, double amount, Article article, UserEnchere user);
+
+    public List<Article> getRunningBill(UserEnchere userConnected);
 }
