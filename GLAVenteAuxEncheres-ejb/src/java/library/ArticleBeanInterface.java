@@ -7,7 +7,8 @@ package library;
 import java.util.List;
 import javax.ejb.Local;
 import persistence.Article;
-import persistence.UserEnchere;
+import persistence.Category;
+import persistence.SubCategory;
 
 /**
  *
@@ -20,4 +21,8 @@ public interface ArticleBeanInterface {
     public List<Article> getArticlesInPromotion();
     public double getActualPrice(Article a);
     public List<Article> search(String keywords);
+    public List<Category> getAllCategory();
+    public List<Article> searchArticleByCategory(int category);
+    public List<SubCategory> getAllSubCategory(int idCategory);
+    public List<Article> searchArticleBySubCategory(int subCategory);
 }

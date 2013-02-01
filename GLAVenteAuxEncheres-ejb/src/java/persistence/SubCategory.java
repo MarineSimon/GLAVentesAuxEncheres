@@ -11,12 +11,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Marine
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name="SubCategory.findAll", query="SELECT sc from SubCategory sc ORDER BY sc.name ASC")
+})
 public class SubCategory implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

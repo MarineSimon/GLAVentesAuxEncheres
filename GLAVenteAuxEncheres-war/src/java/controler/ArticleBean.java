@@ -20,7 +20,8 @@ import javax.servlet.http.HttpSession;
 import library.ArticleBeanInterface;
 import org.primefaces.context.RequestContext;
 import persistence.Article;
-import persistence.UserEnchere;
+import persistence.Category;
+import persistence.SubCategory;
 
 /**
  *
@@ -34,6 +35,8 @@ public class ArticleBean {
     private ArticleBeanInterface articleLocal; 
     
     private String keywords = "";
+    private int category = 0;
+    private int subCategory = 0;
     private List<Article> displayedArticles = new ArrayList<Article>();
     
     private static final String STATEFUL_ARTICLE_BEAN_KEY = "STATEFUL_ARTICLE_BEAN_KEY";
@@ -46,6 +49,22 @@ public class ArticleBean {
         this.keywords = keywords;
     }
 
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public int getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(int subCategory) {
+        this.subCategory = subCategory;
+    }
+    
     public List<Article> getDisplayedArticles() {
         if (this.displayedArticles.isEmpty() && this.keywords.isEmpty())
             return this.getCriticalsArticles();
@@ -113,14 +132,38 @@ public class ArticleBean {
     public void searchArticle(){
         List<Article> searchList = this.articleLocal.search(this.keywords);
         this.displayedArticles = searchList;
-        System.out.println("Taille de la liste : "+this.displayedArticles.size());
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
     }
     
     public void resetDisplayArticles(){
         this.displayedArticles = this.getCriticalsArticles();
         this.keywords = "";
+        this.category = 0;
+        this.subCategory = 0;
+        RequestContext.getCurrentInstance().update("j_idt9:viewCategory");
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
         RequestContext.getCurrentInstance().update("j_idt9:j_idt18:searchValue");
+    }
+    
+    public List<Category> getAllCategory() {
+        List<Category> result = this.articleLocal.getAllCategory();
+        return result;
+    }
+    
+    public List<SubCategory> getAllSubCategory() {
+        List<SubCategory> result = this.articleLocal.getAllSubCategory(this.category);
+        return result;
+    }
+    
+    public void searchArticleByCategory() {
+        List<Article> searchList = this.articleLocal.searchArticleByCategory(this.category);
+        this.displayedArticles = searchList;  
+        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
+    }
+    
+    public void searchArticleBySubCategory() {
+        List<Article> searchList = this.articleLocal.searchArticleBySubCategory(this.subCategory);
+        this.displayedArticles = searchList;
+        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
     }
 }

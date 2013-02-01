@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import library.ArticleBeanInterface;
 import persistence.Article;
+import persistence.Category;
 import persistence.Enchere;
 import persistence.Promotion;
 import persistence.UserEnchere;
@@ -105,19 +106,79 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     }
 
     @Override
-    public List<Article> getCriticalsArticles(UserEnchere user) {
-        List<Article> result = new ArrayList<Article>();
-        Query query = em.createNamedQuery("Article.findCriticalsArticlesByUser");
-        query.setParameter(1, user.getId());
+    public List<Category> getAllCategory() {
+        List<Category> result = new ArrayList<Category>();
+        Query query = em.createNamedQuery("Category.findAll");
+        
         try {
-             List<Article> articles = (List<Article>) query.getResultList();
-             for (int i = 0; i < articles.size(); i++) {
-                result.add(articles.get(i));
+             List<Category> category = (List<Category>) query.getResultList();
+             for (int i = 0; i < category.size(); i++) {
+                result.add(category.get(i));
             }
         } catch (NoResultException e){
             return null;
         }
-        
         return result;
     }
+    
+    @Override
+    public List<SubCategory> getAllSubCategory(int idCategory) {
+        List<SubCategory> result = new ArrayList<SubCategory>();
+        Query query = em.createNamedQuery("SubCategory.findAll");
+        
+        try {
+             List<SubCategory> subCategory = (List<SubCategory>) query.getResultList();
+             for (int i = 0; i < subCategory.size(); i++) {
+                result.add(subCategory.get(i));
+            }
+        } catch (NoResultException e){
+            return null;
+        }
+        return result;
+    }
+
+    @Override
+    public List<Article> searchArticleByCategory(int category) {
+        List<Article> result = new ArrayList<Article>();
+        if (category == 0) {
+            result = this.getCriticalsArticles();
+        }
+        else {
+            Query query = em.createNamedQuery("Article.searchArticleByCategory");
+            query.setParameter(1, category);
+            try {
+                 List<Article> articles = (List<Article>) query.getResultList();
+                 for (int i = 0; i < articles.size(); i++) {
+                    result.add(articles.get(i));
+                }
+            } catch (NoResultException e){
+                return null;
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<Article> searchArticleBySubCategory(int subCategory) {
+        List<Article> result = new ArrayList<Article>();
+        if (subCategory == 0) {
+            result = this.getCriticalsArticles();
+        }
+        else {
+            Query query = em.createNamedQuery("Article.searchArticleBySubCategory");
+            query.setParameter(1, subCategory);
+            try {
+                 List<Article> articles = (List<Article>) query.getResultList();
+                 for (int i = 0; i < articles.size(); i++) {
+                    result.add(articles.get(i));
+                }
+            } catch (NoResultException e){
+                return null;
+            }
+        }
+        return result;
+    }
+    
+    
+    
 }
