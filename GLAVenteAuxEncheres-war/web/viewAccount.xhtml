@@ -13,10 +13,60 @@
 
     <ui:define name="content">
         <p:accordionPanel>
+            <p:tab title="Mon compte">
+                <div>
+                    <h:panelGrid columns="2" cellpadding="">
+                        <h:outputText class="title" value="Prenom"></h:outputText>
+                        <h:outputText value="#{loginBean.userConnected.firstname}"></h:outputText>
+                        <h:outputText class="title" value="Nom"></h:outputText>
+                        <h:outputText value="#{loginBean.userConnected.lastname}"></h:outputText>
+                        <h:outputText class="title" value="Login"></h:outputText>
+                        <h:outputText value="#{loginBean.userConnected.email}"></h:outputText>
+                        <h:outputText class="title" value="Anniversaire"></h:outputText>
+                        <h:outputText value="#{loginBean.userConnected.birthdayToString}"></h:outputText>
+                        <h:outputText class="title" value="Abandons"></h:outputText>
+                        <h:outputText value="#{loginBean.userConnected.abandonsRecorder}"></h:outputText>
+                    </h:panelGrid>
+                </div>
+                <h3>Livraison</h3>
+                <div style="border-top: black solid 1px;">
+                    
+                <p:dataGrid value="#{loginBean.userConnected.deliveryAdresses}" var="adresse" styleClass="articleMyAccount">
+                    <h:panelGrid columns="2" cellpadding="">
+                        <h:outputText class="title" value="Numéro de rue"></h:outputText>
+                        <h:outputText value="#{adresse.number}"></h:outputText>
+                        <h:outputText class="title" value="Nom de rue"></h:outputText>
+                        <h:outputText value="#{adresse.street}"></h:outputText>
+                        <h:outputText class="title" value="Code postal"></h:outputText>
+                        <h:outputText value="#{adresse.postalCode}"></h:outputText>
+                        <h:outputText class="title" value="Ville"></h:outputText>
+                        <h:outputText value="#{adresse.city}"></h:outputText>
+                        <h:outputText class="title" value="Pays"></h:outputText>
+                        <h:outputText value="#{adresse.country}"></h:outputText>
+                    </h:panelGrid>
+                </p:dataGrid>
+                    <div style="clear: both"></div>
+                </div>
+                <h3>Facturation</h3>
+                <div style="border-top: black solid 1px;">
+                    <h:panelGrid columns="2" cellpadding="" style="margin-left: 55px;margin-top: 10px;">
+                        <h:outputText class="title" value="Numéro de rue"></h:outputText>
+                        <h:outputText value="#{loginBean.userConnected.bilingAdress.number}"></h:outputText>
+                        <h:outputText class="title" value="Nom de rue"></h:outputText>
+                        <h:outputText value="#{loginBean.userConnected.bilingAdress.street}"></h:outputText>
+                        <h:outputText class="title" value="Code postal"></h:outputText>
+                        <h:outputText value="#{loginBean.userConnected.bilingAdress.postalCode}"></h:outputText>
+                        <h:outputText class="title" value="Ville"></h:outputText>
+                        <h:outputText value="#{loginBean.userConnected.bilingAdress.city}"></h:outputText>
+                        <h:outputText class="title" value="Pays"></h:outputText>
+                        <h:outputText value="#{loginBean.userConnected.bilingAdress.country}"></h:outputText>
+                    </h:panelGrid>
+                </div>
+            </p:tab>
             <p:tab title="Mes ventes">
                 <p:scrollPanel id="scroll" mode="native" styleClass="scroll">
                 <p:dataGrid id="vueArticlesCompte" value="#{articleBean.getDisplayedArticlesByUser(loginBean.userConnected)}" var="article" >  
-                    <div class="articleMyAccount">
+                    <div id="articleMyAccount">
                         <div class="entete">
                             <span class="name_article">#{article.name}</span>
                             <span class="price">#{articleBean.getActualPrice(article)}</span>

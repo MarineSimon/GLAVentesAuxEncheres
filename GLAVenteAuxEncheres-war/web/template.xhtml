@@ -16,7 +16,7 @@
                 
                 <header class="background">
                     <center><img src="resources/pictures/logo.png" width="90px"/></center>
-                    <p:commandLink immediate="true" rendered="#{loginBean.connected}" style="float: right;padding-right: 10px;" value="(Deconnexion)" oncomplete="javascript:location.reload(true)" action="#{loginBean.logout()}"/>
+                    <p:commandLink immediate="true" rendered="#{loginBean.connected}" style="float: right;padding-right: 10px;" value="(Deconnexion)" onsuccess="javascript:location.reload(true)" action="#{loginBean.logout()}"/>
                     <p:outputLabel style="float: right;padding-right: 10px;" value="#{loginBean.userConnectedToString}" />
                 </header>
                 <div id="menu">

@@ -25,6 +25,11 @@ body {
     font-family: 'new_cicleregular';
 }
 
+h3{
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
 a{
     color: black;
     text-decoration: none;
@@ -247,7 +252,6 @@ fieldset{
 
 .ui-datagrid-column {
     vertical-align: top;
-
 }
 
 .articleMyAccount {
@@ -255,4 +259,5 @@ fieldset{
     float: left;
     margin-left: 5%;
 }
+
 
