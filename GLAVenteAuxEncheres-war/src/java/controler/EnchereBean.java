@@ -91,4 +91,19 @@ public class EnchereBean {
         }
         return enchereBean;
     }
+    
+    public void removeEnchereArticle(Article a){
+        enchereBeanLocal.removeEnchereArticle(this.getUserConnected(), a);
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueEncheresCompte");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:notifications");
+        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
+        
+        
+    }
+    
+    public boolean haveUserEnchere(Article a){
+        return enchereBeanLocal.haveUserEnchere(this.getUserConnected(),a);
+        
+    }
+    
 }

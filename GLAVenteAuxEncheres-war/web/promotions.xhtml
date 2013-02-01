@@ -42,11 +42,14 @@
                                 <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
                                 <h:outputText class="title" value="Prix initial"></h:outputText>
                                 <h:outputText value="#{article.initialPrice} €"></h:outputText>
-                                <p:commandLink value="plus de details..." action="detailsArticle" process="@this">
-                                        <f:setPropertyActionListener value="#{article}" target="#{articleBean.selectedArticle}" />
-                                </p:commandLink>
                              </h:panelGrid>
-                             </div>
+                            <br/>
+                            <p:commandLink value="plus de details..." action="detailsArticle" process="@this">
+                                    <f:setPropertyActionListener value="#{article}" target="#{articleBean.selectedArticle}" />
+                            </p:commandLink>
+                            <br/><br/>
+                            <p:commandLink rendered="#{enchereBean.haveUserEnchere(article)}" value="Se retirer de cette vente" action="#{enchereBean.removeEnchereArticle(article)}"/>
+                            </div>
                             <div style="clear: both"></div>
                          </div>
                     </div>
