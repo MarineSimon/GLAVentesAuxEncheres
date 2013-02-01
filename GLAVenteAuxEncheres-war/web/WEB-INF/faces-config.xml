@@ -27,6 +27,11 @@
             <to-view-id>/viewAccount.xhtml</to-view-id>
             <redirect>/viewAccount.xhtml</redirect>
         </navigation-case>
+        <navigation-case>
+            <from-action>detailsArticle</from-action>
+            <to-view-id>/detailsArticle.xhtml</to-view-id>
+            <redirect>/detailsArticle.xhtml</redirect>
+        </navigation-case>
     </navigation-rule>
     
     <navigation-rule>

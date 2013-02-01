@@ -22,6 +22,7 @@ import org.primefaces.context.RequestContext;
 import persistence.Article;
 import persistence.Category;
 import persistence.SubCategory;
+import persistence.UserEnchere;
 
 /**
  *

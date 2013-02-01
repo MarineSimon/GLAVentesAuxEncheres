@@ -208,7 +208,7 @@ fieldset{
     
 }
 
-.ui-datagrid{
+#articles_dg{
     width: 460px;
     margin: auto;
 }
@@ -240,12 +240,19 @@ fieldset{
     width: 33%;
 }
 
-.ui-datalist-item{
-    list-style: none;
+.scroll{
+    width: 100%;
+    min-height: 350px;
 }
 
-.j_idt8:vueArticlesCompte{
-    border: none;
-    background: rgba(255, 255, 255, 0);
+.ui-datagrid-column {
+    vertical-align: top;
+
+}
+
+.articleMyAccount {
+    width: 402px;
+    float: left;
+    margin-left: 5%;
 }
 

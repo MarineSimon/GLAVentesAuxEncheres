@@ -12,38 +12,42 @@
     </ui:define>
 
     <ui:define name="content">
-        
-        <p:dataList rows="1" id="vueArticlesCompte" value="#{articleBean.getDisplayedArticlesByUser(loginBean.userConnected)}" var="article" >  
-            <span>
-                <div class="article">
-                    <div class="entete">
-                        <span class="name_article">#{article.name}</span>
-                        <span class="price">#{articleBean.getActualPrice(article)}</span>
-                    </div>
-                    <div class="desc_article">
-                        <div class="photo">
-                            <img src="#{article.picture}" style="max-height: 250px;max-width: 200px;padding-bottom: 1px;"/>
+        <p:accordionPanel>
+            <p:tab title="Mes ventes">
+                <p:scrollPanel id="scroll" mode="native" styleClass="scroll">
+                <p:dataGrid id="vueArticlesCompte" value="#{articleBean.getDisplayedArticlesByUser(loginBean.userConnected)}" var="article" >  
+                    <div class="articleMyAccount">
+                        <div class="entete">
+                            <span class="name_article">#{article.name}</span>
+                            <span class="price">#{articleBean.getActualPrice(article)}</span>
                         </div>
-                        <div class="description">
-                            <h:panelGrid columns="2" cellpadding="">
-                                <h:outputText class="title" value="Vendeur"></h:outputText>
-                                <h:outputText value="#{article.owner.login}"></h:outputText>
-                                <h:outputText class="title" value="Temps restant"></h:outputText>
-                                <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
-                                <h:outputText class="title" value="Prix initial"></h:outputText>
-                                <h:outputText value="#{article.initialPrice} €"></h:outputText>
-                                <p:commandLink value="plus de details..." action="detailsArticle" process="@this">
-                                    <f:setPropertyActionListener value="#{article}" target="#{articleBean.selectedArticle}" />
-                                </p:commandLink>
-                            </h:panelGrid>
-                            
+                        <div class="desc_article">
+                            <div class="photo">
+                                <img src="#{article.picture}" style="max-height: 250px;max-width: 200px;padding-bottom: 1px;"/>
+                            </div>
+                            <div class="description">
+                                <h:panelGrid columns="2" cellpadding="">
+                                    <h:outputText class="title" value="Vendeur"></h:outputText>
+                                    <h:outputText value="#{article.owner.login}"></h:outputText>
+                                    <h:outputText class="title" value="Temps restant"></h:outputText>
+                                    <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
+                                    <h:outputText class="title" value="Prix initial"></h:outputText>
+                                    <h:outputText value="#{article.initialPrice} €"></h:outputText>
+                                    <p:commandLink value="plus de details..." action="detailsArticle" process="@this">
+                                        <f:setPropertyActionListener value="#{article}" target="#{articleBean.selectedArticle}" />
+                                    </p:commandLink>
+                                </h:panelGrid>
+                                <div style="clear: both"></div>
+                             </div>
                          </div>
-                        <div style="clear: both"></div>
-                     </div>
-                </div>
-            </span>  
-            <div style="clear: both"></div>
-        </p:dataList>
+                    </div>
+            </p:dataGrid>
+        </p:scrollPanel>
+        </p:tab>
+            
+       
+        </p:accordionPanel>
+        
         <div id="autrediv">
         </div>
         <div style="clear: both"></div>

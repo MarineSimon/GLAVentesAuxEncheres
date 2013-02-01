@@ -9,6 +9,7 @@ import javax.ejb.Local;
 import persistence.Article;
 import persistence.Category;
 import persistence.SubCategory;
+import persistence.UserEnchere;
 
 /**
  *
