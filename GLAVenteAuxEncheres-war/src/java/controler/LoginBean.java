@@ -69,7 +69,7 @@ public class LoginBean implements Serializable {
     
     public String logout(){
         userConnected = null;
-        return null;
+        return "welcome";
     }
     
     public boolean isConnected(){

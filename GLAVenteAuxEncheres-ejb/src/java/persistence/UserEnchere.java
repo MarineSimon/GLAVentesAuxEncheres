@@ -165,6 +165,14 @@ public class UserEnchere implements Serializable {
     public Calendar getBirthday() {
         return birthday;
     }
+    
+    public void setBirthdayToString(String birthday) {
+        
+    }
+    
+    public String getBirthdayToString() {
+        return birthday.get(Calendar.DAY_OF_MONTH)+"/"+(birthday.get(Calendar.MONTH)+1)+"/"+birthday.get(Calendar.YEAR);
+    }
 
     public void setBirthday(Calendar birthday) {
         this.birthday = birthday;
