@@ -18,7 +18,7 @@ import persistence.SubCategory;
 public interface ArticleBeanInterface {
     public List<Article> getCriticalsArticles();
     public List<Article> getArticlesInPromotion();
-    public int getActualPrice(Article a);
+    public double getActualPrice(Article a);
     public List<Article> search(String keywords);
     public List<Category> getAllCategory();
     public List<Article> searchArticleByCategory(int category);

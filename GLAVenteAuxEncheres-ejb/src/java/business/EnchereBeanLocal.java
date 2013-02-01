@@ -23,7 +23,7 @@ public class EnchereBeanLocal implements EnchereBeanInterface {
     private EntityManager em;
     
     @Override
-    public void addEnchere(Calendar date, int amount, Article article, UserEnchere user) {
+    public void addEnchere(Calendar date, double amount, Article article, UserEnchere user) {
         Enchere e = new Enchere(date,amount,article,user);
         em.persist(e);
     }
