@@ -14,8 +14,9 @@
     <ui:define name="content">
         <p:accordionPanel>
             <p:tab title="Mon compte">
-                <div>
-                    <h:panelGrid columns="2" cellpadding="">
+                <h3>Informations personnelles</h3>
+                <div style="border-top: black solid 1px;">
+                    <h:panelGrid columns="2" cellpadding="" style="margin-left: 55px;margin-top: 10px;">
                         <h:outputText class="title" value="Prenom"></h:outputText>
                         <h:outputText value="#{loginBean.userConnected.firstname}"></h:outputText>
                         <h:outputText class="title" value="Nom"></h:outputText>
@@ -32,7 +33,7 @@
                 <div style="border-top: black solid 1px;">
                     
                 <p:dataGrid value="#{loginBean.userConnected.deliveryAdresses}" var="adresse" styleClass="articleMyAccount">
-                    <h:panelGrid columns="2" cellpadding="">
+                    <h:panelGrid columns="2">
                         <h:outputText class="title" value="Numéro de rue"></h:outputText>
                         <h:outputText value="#{adresse.number}"></h:outputText>
                         <h:outputText class="title" value="Nom de rue"></h:outputText>
