@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+    <ui:composition template="template.xhtml">
+        <ui:define name="title">
+            Déposer un article
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="deposerArticle">
+                <p:messages id="messages" autoUpdate="true"/>
+                    <h:panelGrid columns="2" cellpadding="" style="margin:auto;"> 
+                        <h:outputText value="Nom de l'article :" />
+                        <p:inputText value="#{articleBean.name}" style="width:230px"/>
+                        <h:outputText value="Description de l'article : " />
+                        <p:inputText value="#{articleBean.description}" style="width:230px"/>
+                        <h:outputText value="Prix initial : " />
+                        <p:inputText value="#{articleBean.prixInitial}" style="width:230px"/>
+                        <h:outputText value="Catégorie : " />
+                        <p:selectOneMenu value="#{articleBean.categorie}" effect="fade" style="width:238px" >  
+                            <f:selectItems value="#{articleBean.categories}" />  
+                        </p:selectOneMenu>
+                        <h:outputText value="Sous-catégorie : " />
+                        <p:selectOneMenu value="#{articleBean.sousCategorie}" effect="fade" style="width:238px" >  
+                            <f:selectItems value="#{articleBean.sousCategories}" />  
+                        </p:selectOneMenu>
+                        <h:outputText value="Durée de l'enchère : " />
+                        <p:inputText value="#{articleBean.finEnchere}" style="width:230px"/>
+                        <h:outputText value="Photo : " />
+                        <input type="file" value="photo"/>
+                    </h:panelGrid>
+                <center>
+                        <p:commandButton value="Ok" action="#{articleBean.ajouterArticle()}"/>
+                        <p:commandButton action="cancel" id="cancelButton" value="Annuler"  process="@this"/>
+                </center>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

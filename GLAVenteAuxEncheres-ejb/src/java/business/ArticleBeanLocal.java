@@ -13,10 +13,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import library.ArticleBeanInterface;
 import persistence.Article;
+import persistence.Category;
 import persistence.Enchere;
 import persistence.Promotion;
+import persistence.SubCategory;
 
 /**
  *
@@ -83,6 +86,18 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         }
         
         return result;
+    }
+
+    @Override
+    public List<Category> getCategories() {
+        TypedQuery<Category> query = em.createQuery("SELECT a FROM Category a", Category.class);
+        return (List<Category>)query.getResultList();
+    }
+    
+    @Override
+    public List<SubCategory> getSousCategories() {
+        TypedQuery<SubCategory> query = em.createQuery("SELECT a FROM SubCategory a", SubCategory.class);
+        return (List<SubCategory>)query.getResultList();
     }
 
     
