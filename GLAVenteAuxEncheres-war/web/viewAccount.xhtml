@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+<ui:composition template="template.xhtml">
+    <ui:define name="title">
+        Mon compte
+    </ui:define>
+
+    <ui:define name="content">
+        
+        <p:dataList rows="1" id="vueArticlesCompte" value="#{articleBean.getDisplayedArticlesByUser(loginBean.userConnected)}" var="article" >  
+            <span>
+                <div class="article">
+                    <div class="entete">
+                        <span class="name_article">#{article.name}</span>
+                        <span class="price">#{articleBean.getActualPrice(article)}</span>
+                    </div>
+                    <div class="desc_article">
+                        <div class="photo">
+                            <img src="#{article.picture}" style="max-height: 250px;max-width: 200px;padding-bottom: 1px;"/>
+                        </div>
+                        <div class="description">
+                            <h:panelGrid columns="2" cellpadding="">
+                                <h:outputText class="title" value="Vendeur"></h:outputText>
+                                <h:outputText value="#{article.owner.login}"></h:outputText>
+                                <h:outputText class="title" value="Temps restant"></h:outputText>
+                                <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
+                                <h:outputText class="title" value="Prix initial"></h:outputText>
+                                <h:outputText value="#{article.initialPrice} €"></h:outputText>
+                                <p:commandLink value="plus de details..." action="detailsArticle" process="@this">
+                                    <f:setPropertyActionListener value="#{article}" target="#{articleBean.selectedArticle}" />
+                                </p:commandLink>
+                            </h:panelGrid>
+                            
+                         </div>
+                        <div style="clear: both"></div>
+                     </div>
+                </div>
+            </span>  
+            <div style="clear: both"></div>
+        </p:dataList>
+        <div id="autrediv">
+        </div>
+        <div style="clear: both"></div>
+    </ui:define>
+</ui:composition>
+</html>
+
+
+

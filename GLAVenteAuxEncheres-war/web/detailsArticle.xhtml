@@ -12,18 +12,6 @@
     </ui:define>
 
     <ui:define name="content">
-        <div id="recherche">
-            <h1>Recherche</h1>
-            <h:form>
-                <p:inputText id="searchValue" value="#{articleBean.keywords}" style="width: 90%"/>
-                <h:panelGrid columns="2">
-                    <p:commandButton value="Rechercher" action="#{articleBean.searchArticle}"/>
-                    <p:commandButton value="Annuler" action="#{articleBean.resetDisplayArticles}"/>
-                </h:panelGrid>
-            </h:form>
-        </div>
-        <div style="clear: both"></div>
-
         <div class="article2">
             <p:messages id="encherire" autoUpdate="true" closable="true"/>
             <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;" rendered="#{articleBean.selectedArticle.haveDeliveryFreePromotion()}" url="resources/pictures/freeDelivery.png"/>

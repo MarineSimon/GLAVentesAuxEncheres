@@ -23,7 +23,7 @@
                     <a href="faces/welcome.xhtml">Accueil</a>
                     <a href="#">Vendre</a>
                     <a href="faces/promotions.xhtml">Bonnes Affaires</a>
-                    <a href="#">Mon Panier</a>
+                    <h:commandLink immediate="true" rendered="#{loginBean.connected}" action="faces/viewAccount.xhtml">Mon compte</h:commandLink>
                     <h:commandLink immediate="true" rendered="#{!loginBean.connected}" action="faces/login.xhtml">Authentification</h:commandLink>
                 </div>
                 <div class="content_content">

@@ -7,6 +7,7 @@ package library;
 import java.util.List;
 import javax.ejb.Local;
 import persistence.Article;
+import persistence.UserEnchere;
 
 /**
  *
@@ -15,6 +16,7 @@ import persistence.Article;
 @Local
 public interface ArticleBeanInterface {
     public List<Article> getCriticalsArticles();
+    public List<Article> getCriticalsArticles(UserEnchere user);
     public List<Article> getArticlesInPromotion();
     public double getActualPrice(Article a);
     public List<Article> search(String keywords);

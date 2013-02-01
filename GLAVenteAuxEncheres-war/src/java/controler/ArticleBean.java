@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import library.ArticleBeanInterface;
 import org.primefaces.context.RequestContext;
 import persistence.Article;
+import persistence.UserEnchere;
 
 /**
  *
@@ -50,6 +51,11 @@ public class ArticleBean {
             return this.getCriticalsArticles();
         else 
             return displayedArticles;
+    }
+    
+    public List<Article> getDisplayedArticlesByUser(UserEnchere userConnected) throws ServletException {
+        this.articleLocal = this.getStatefulBean();
+        return this.articleLocal.getCriticalsArticles(userConnected);
     }
 
     public void setDisplayedArticles(List<Article> displayedArticles) {

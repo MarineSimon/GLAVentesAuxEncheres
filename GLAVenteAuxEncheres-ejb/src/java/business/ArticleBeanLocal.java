@@ -16,6 +16,7 @@ import library.ArticleBeanInterface;
 import persistence.Article;
 import persistence.Enchere;
 import persistence.Promotion;
+import persistence.UserEnchere;
 
 /**
  *
@@ -91,6 +92,23 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         Query query = em.createNamedQuery("Article.searchArticles");
         query.setParameter(1, "%"+keywords+"%");
         query.setParameter(2, "%"+keywords+"%");
+        try {
+             List<Article> articles = (List<Article>) query.getResultList();
+             for (int i = 0; i < articles.size(); i++) {
+                result.add(articles.get(i));
+            }
+        } catch (NoResultException e){
+            return null;
+        }
+        
+        return result;
+    }
+
+    @Override
+    public List<Article> getCriticalsArticles(UserEnchere user) {
+        List<Article> result = new ArrayList<Article>();
+        Query query = em.createNamedQuery("Article.findCriticalsArticlesByUser");
+        query.setParameter(1, user.getId());
         try {
              List<Article> articles = (List<Article>) query.getResultList();
              for (int i = 0; i < articles.size(); i++) {

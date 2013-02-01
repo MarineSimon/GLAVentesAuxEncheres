@@ -48,9 +48,9 @@
                                     <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
                                     <h:outputText class="title" value="Prix initial"></h:outputText>
                                     <h:outputText value="#{article.initialPrice} €"></h:outputText>
-                                    <p:commandButton value="details" action="detailsArticle" process="@this">
+                                    <p:commandLink value="plus de details..." action="detailsArticle" process="@this">
                                         <f:setPropertyActionListener value="#{article}" target="#{articleBean.selectedArticle}" />
-                                    </p:commandButton>
+                                    </p:commandLink>
                                 </h:panelGrid>
                              </div>
                             <div style="clear: both"></div>

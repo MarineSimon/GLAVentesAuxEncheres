@@ -211,8 +211,11 @@ fieldset{
 .ui-datagrid{
     width: 460px;
     margin: auto;
-    border-left: black solid 2px;
-    border-right: black solid 2px;
+}
+
+.ui-panelgrid{
+    width: 460px;
+    margin: auto;
 }
 
 .ui-datagrid-content{
@@ -225,13 +228,24 @@ fieldset{
     width: 25%;
 }
 
-
+#articles{
+    float: left;
+    width: 50%;
+    border-left: black solid 2px;
+    border-right: black solid 2px;
+}
 
 #autrediv{
     float: left;
-    width: 25%;
+    width: 33%;
 }
 
+.ui-datalist-item{
+    list-style: none;
+}
 
-
+.j_idt8:vueArticlesCompte{
+    border: none;
+    background: rgba(255, 255, 255, 0);
+}
 
