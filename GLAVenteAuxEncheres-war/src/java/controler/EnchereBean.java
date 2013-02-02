@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import library.EnchereBeanInterface;
 import org.primefaces.context.RequestContext;
 import persistence.Article;
+import persistence.Enchere;
 import persistence.UserEnchere;
 
 /**
@@ -38,6 +39,7 @@ public class EnchereBean {
     private static final String STATEFUL_ENCHERE_BEAN_KEY = "STATEFUL_ENCHERE_BEAN_KEY";
 
     private double amount;
+    private Article selectedArticle;
 
     public double getAmount() {
         return amount;
@@ -45,6 +47,15 @@ public class EnchereBean {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public Article getSelectedArticle() {
+        return selectedArticle;
+    }
+
+    public void setSelectedArticle(Article selectedArticle) {
+        System.out.println("DEDANS");
+        this.selectedArticle = selectedArticle;
     }
 
     public EnchereBean() {
@@ -97,12 +108,15 @@ public class EnchereBean {
         RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueEncheresCompte");
         RequestContext.getCurrentInstance().update("j_idt9:j_idt23:notifications");
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
-        
-        
     }
     
     public boolean haveUserEnchere(Article a){
         return enchereBeanLocal.haveUserEnchere(this.getUserConnected(),a);
+        
+    }
+    
+    public Enchere userLastEnchere(Article a){
+        return enchereBeanLocal.getUserLastEnchere(this.getUserConnected(),a);
         
     }
     

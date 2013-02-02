@@ -22,4 +22,5 @@ public interface EnchereBeanInterface {
     public List<Article> getRunningBill(UserEnchere userConnected);
     public List<Enchere> removeEnchereArticle(UserEnchere u,Article a);
     public boolean haveUserEnchere(UserEnchere u,Article a);
+    public Enchere getUserLastEnchere(UserEnchere u,Article a);
 }

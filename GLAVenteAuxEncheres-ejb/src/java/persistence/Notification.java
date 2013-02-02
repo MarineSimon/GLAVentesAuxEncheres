@@ -27,7 +27,7 @@ public class Notification implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(name = "DATE")
+    @Column(name = "CREATIONDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar creationDate;
     @Column(name = "MESSAGE")

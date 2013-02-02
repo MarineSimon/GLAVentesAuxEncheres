@@ -95,4 +95,18 @@ public class EnchereBeanLocal implements EnchereBeanInterface {
         return !result.isEmpty();
     }
 
+    @Override
+    public Enchere getUserLastEnchere(UserEnchere u, Article a) {
+        Enchere result = null;
+        if (u != null){
+            Query query = em.createNamedQuery("Enchere.getRunningBillByArticle");
+            query.setParameter(1, u.getId());
+            query.setParameter(2, a.getId());
+
+            List<Enchere> encheres = (List<Enchere>) query.getResultList();
+            result = encheres.get(encheres.size());
+        }
+        return result;
+    }
+
 }

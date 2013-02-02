@@ -16,6 +16,7 @@ import library.ArticleBeanInterface;
 import persistence.Article;
 import persistence.Category;
 import persistence.Enchere;
+import persistence.Notification;
 import persistence.Promotion;
 import persistence.SubCategory;
 import persistence.UserEnchere;
@@ -200,6 +201,44 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
             }
         }
         return result;
+    }
+
+    @Override
+    public void removeArticle(Article a, UserEnchere user) {
+        List<Enchere> result = new ArrayList<Enchere>();
+        Query query = em.createNamedQuery("Enchere.getRunningBillArticle");
+        query.setParameter(1, a.getId());
+        List<Enchere> encheres = (List<Enchere>) query.getResultList();
+        result.addAll(encheres);
+        
+        Notification n = new Notification("L'article "+a.getName()+" a été retiré de la vente");
+        for (int i = 0; i < encheres.size(); i++) {
+            UserEnchere u = em.find(UserEnchere.class, encheres.get(i).getUserEnchere().getId());
+            u.getNotifications().add(n);
+            em.remove(em.merge(encheres.get(i)));
+        }
+        
+        if (a.getPromotions().size() == 2){
+            Promotion p1 = a.getPromotions().get(1);
+            p1.getArticles().remove(a);
+            a.getPromotions().remove(p1);
+            Promotion p2 = a.getPromotions().get(0);
+            p2.getArticles().remove(a);
+            a.getPromotions().remove(p2);
+            em.merge(p1);
+            em.merge(p2);
+            em.merge(a);
+        } else {
+            if (a.getPromotions().size() == 1){
+                Promotion p3 = a.getPromotions().get(1);
+                p3.getArticles().remove(a);
+                a.getPromotions().remove(p3);
+            }
+        }
+        em.merge(a);
+        user.getSellArticles().remove(a);
+        em.merge(user);
+        em.remove(em.merge(a));
     }
     
 }

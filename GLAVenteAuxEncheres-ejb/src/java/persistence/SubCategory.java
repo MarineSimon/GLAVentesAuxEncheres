@@ -30,8 +30,7 @@ public class SubCategory implements Serializable {
     
     @Column(name = "NAME")
     private String name;
-    
-    @ManyToOne(optional=false)
+    @ManyToOne
     private Category category;
     
     public SubCategory(){

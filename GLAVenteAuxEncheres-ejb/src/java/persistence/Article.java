@@ -58,11 +58,11 @@ public class Article implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar endDate;
     
-    @ManyToMany
+    @ManyToMany(mappedBy="articles")
     private List<Promotion> promotions;
-    @ManyToOne(optional=false)
+    @ManyToOne
     private SubCategory subCategory;
-    @ManyToOne(optional=false)
+    @ManyToOne
     private UserEnchere owner;
 
     public Article(){

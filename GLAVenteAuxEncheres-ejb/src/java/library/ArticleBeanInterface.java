@@ -26,4 +26,5 @@ public interface ArticleBeanInterface {
     public List<Article> searchArticleByCategory(int category);
     public List<SubCategory> getAllSubCategory(int idCategory);
     public List<Article> searchArticleBySubCategory(int subCategory);
+    public void removeArticle(Article a,UserEnchere u);
 }

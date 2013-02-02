@@ -167,4 +167,24 @@ public class ArticleBean {
         this.displayedArticles = searchList;
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
     }
+    
+    public UserEnchere getUserConnected() {
+        LoginBean log = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
+        return log.getUserConnected();
+    }
+    
+    public boolean isUserArticle(Article a){
+        boolean result = false;
+        if (this.getUserConnected() != null){
+            result = a.getOwner().getId() == this.getUserConnected().getId();
+        }
+        return result;
+    }
+    
+    public void removeArticle(Article a){
+        articleLocal.removeArticle(a, this.getUserConnected());
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueEncheresCompte");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:notifications");
+        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
+    }
 }
