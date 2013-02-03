@@ -24,7 +24,7 @@
                     <a href="faces/sell.xhtml">Vendre</a>
                     <a href="faces/promotions.xhtml">Bonnes Affaires</a>
                     <a href="#">Mon Panier</a>
-                    <a href="faces/login.xhtml">Authentification</a>
+                    <h:commandLink immediate="true" rendered="#{!loginBean.connected}" action="faces/login.xhtml">Authentification</h:commandLink>
                 </div>
                 <div class="content_content">
                     <ui:insert name="content"></ui:insert>

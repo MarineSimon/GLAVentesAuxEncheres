@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -59,13 +58,11 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     }
 
     @Override
-    public int getActualPrice(Article a) {
-        int result = a.getInitialPrice();
+    public double getActualPrice(Article a) {
         Query query = em.createNamedQuery("Article.findLastEnchereByArticles");
         query.setParameter(1, a.getId());
         List<Enchere> encheres = (List<Enchere>) query.getResultList();
-        result += encheres.get(0).getAmount();
-        return result;
+        return encheres.get(encheres.size()-1).getAmount();
     }
 
     @Override
@@ -77,7 +74,10 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
              List<Promotion> promotions = (List<Promotion>) query.getResultList();
              for (int i = 0; i < promotions.size(); i++) {
                  for (int j = 0; j < promotions.get(i).getArticles().size(); j++) {
-                     result.add(promotions.get(i).getArticles().get(j));
+                     if (!result.contains(promotions.get(i).getArticles().get(j))){
+                         result.add(promotions.get(i).getArticles().get(j));
+                     }
+                     
                  }
                 
             }
@@ -89,16 +89,75 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     }
 
     @Override
-    public List<Category> getCategories() {
-        TypedQuery<Category> query = em.createQuery("SELECT a FROM Category a", Category.class);
-        return (List<Category>)query.getResultList();
+    public List<Article> search(String keywords) {
+        List<Article> result = new ArrayList<Article>();
+        Query query = em.createNamedQuery("Article.searchArticles");
+        query.setParameter(1, "%"+keywords+"%");
+        query.setParameter(2, "%"+keywords+"%");
+        try {
+             List<Article> articles = (List<Article>) query.getResultList();
+             for (int i = 0; i < articles.size(); i++) {
+                result.add(articles.get(i));
+            }
+        } catch (NoResultException e){
+            return null;
+        }
+        
+        return result;
+    }
+      
+    @Override
+    public List<Category> getAllCategory() {
+        List<Category> result = new ArrayList<Category>();
+        Query query = em.createNamedQuery("Category.findAll");
+        
+        try {
+             List<Category> category = (List<Category>) query.getResultList();
+             for (int i = 0; i < category.size(); i++) {
+                result.add(category.get(i));
+            }
+        } catch (NoResultException e){
+            return null;
+        }
+        return result;
     }
     
     @Override
-    public List<SubCategory> getSousCategories() {
-        TypedQuery<SubCategory> query = em.createQuery("SELECT a FROM SubCategory a", SubCategory.class);
-        return (List<SubCategory>)query.getResultList();
+    public List<SubCategory> getAllSubCategory(int idCategory) {
+        List<SubCategory> result = new ArrayList<SubCategory>();
+        Query query;
+        if (idCategory == 0) {
+            query = em.createNamedQuery("SubCategory.findAll");
+        } else {
+            query = em.createNamedQuery("SubCategory.searchByCategory");
+            query.setParameter(1, idCategory);
+        }
+        
+        try {
+             List<SubCategory> subCategory = (List<SubCategory>) query.getResultList();
+             for (int i = 0; i < subCategory.size(); i++) {
+                result.add(subCategory.get(i));
+            }
+        } catch (NoResultException e){
+            return null;
+        }
+        return result;
     }
 
+    @Override
+    public void addArticle(Article a) {
+        this.em.persist(a);
+        a.getOwner().getSellArticles().add(a);
+        this.em.merge(a.getOwner());
+    }
     
+    public SubCategory getSubCategory(int i){
+        Query query;
+        query = em.createNamedQuery("SubCategory.searchById");
+        query.setParameter(1, i);
+        SubCategory s = (SubCategory) query.getResultList().get(0);
+        return s;
+        
+    }
+
 }

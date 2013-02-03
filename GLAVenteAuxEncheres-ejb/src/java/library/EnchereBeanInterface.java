@@ -15,5 +15,5 @@ import persistence.UserEnchere;
  */
 @Local
 public interface EnchereBeanInterface {
-    public void addEnchere(Calendar date, int amount, Article article, UserEnchere user);
+    public void addEnchere(Calendar date, double amount, Article article, UserEnchere user);
 }

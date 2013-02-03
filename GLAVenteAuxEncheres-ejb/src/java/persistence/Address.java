@@ -27,7 +27,7 @@ public class Address implements Serializable {
     @Column(name = "STREET")
     private String street;
     @Column(name = "POSTALCODE")
-    private int postalCode;
+    private String postalCode;
     @Column(name = "CITY")
     private String city;
     @Column(name = "COUNTRY")
@@ -37,7 +37,7 @@ public class Address implements Serializable {
         
     }
     
-    public Address(int number, String street, int postalCode, String city, String country){
+    public Address(int number, String street, String postalCode, String city, String country){
         this.city = city;
         this.country = country;
         this.number = number;
@@ -70,11 +70,11 @@ public class Address implements Serializable {
         this.street = street;
     }
 
-    public int getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(int postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 

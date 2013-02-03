@@ -13,19 +13,20 @@
     </ui:define>
 
     <ui:define name="content">
+        <div id="recherche">
+        </div>
         
-            
-        <p:dataGrid columns="1" rows="5" paginator="true"  
-        paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-        var="article" value="#{articleBean.articlesInPromotion}" rowKey="#{article}" id="articles">
-                
-            <span>
+        <div id="articles">
+            <p:dataGrid columns="1" rows="5" paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            var="article" value="#{articleBean.articlesInPromotion}" rowKey="#{article}" id="articles">
+
+                <span>
                     <div class="article">
-                        <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;" rendered="#{article.haveDeliveryFreePromotion()}" url="resources/pictures/freeDelivery.png"/>
-                        <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;margin-top: 85px;" rendered="#{article.haveGiftCertificatePromotion()}" url="resources/pictures/giftCertificate.png"/>
+                       <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;" rendered="#{article.haveDeliveryFreePromotion()}" url="resources/pictures/freeDelivery.png"/>
+                        <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;" rendered="#{article.haveOnlyGiftCertificatePromotion()}" url="resources/pictures/giftCertificate.png"/>
+                        <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;margin-top: 85px;" rendered="#{article.haveAlsoGiftCertificatePromotion()}" url="resources/pictures/giftCertificate.png"/>
+                        
                         <div class="entete">
-                            
-                            
                             <span class="name_article">#{article.name}</span>
                             <span class="price">#{articleBean.getActualPrice(article)}</span>
                         </div>
@@ -44,18 +45,18 @@
                                 </h:panelGrid>
                                 <br/>
                                 <a href="#" style="float: bottom;">plus de détails ...</a>
-                                
+
                              </div>
                             <div style="clear: both"></div>
                          </div>
-                    </div>
-                </span>
-            
-            </p:dataGrid>
+                        </div>
+                    </span>
+
+                </p:dataGrid>
+        </div>
         
-       
-            
-        
+        <div id="autrediv">
+        </div>
     
     </ui:define>
 </ui:composition>

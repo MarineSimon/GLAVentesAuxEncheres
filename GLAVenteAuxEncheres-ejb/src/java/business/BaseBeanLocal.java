@@ -6,7 +6,6 @@ package business;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.ejb.LocalBean;
@@ -16,7 +15,6 @@ import javax.persistence.PersistenceContext;
 import library.BaseBeanInterface;
 import persistence.Address;
 import persistence.Article;
-import persistence.BankInformation;
 import persistence.Category;
 import persistence.Enchere;
 import persistence.Promotion;
@@ -52,8 +50,8 @@ public class BaseBeanLocal implements BaseBeanInterface{
         Calendar date1 = createDate(27,8,1990);
         UserEnchere user1 = new UserEnchere("user1", "u1", "Simon", "Marine", "marine.simon@gmail.com",date1, 2);
         /*Adresses*/
-        Address biling1 = new Address(12,"rue des Baxarts",54630,"Flavigny","FRANCE");
-        Address delivery1 = new Address(26,"rue Hubert Sensiquet",54850,"Messein","FRANCE");
+        Address biling1 = new Address(12,"rue des Baxarts","54630","Flavigny","FRANCE");
+        Address delivery1 = new Address(26,"rue Hubert Sensiquet","54850","Messein","FRANCE");
         List<Address> adresses1 = new ArrayList<Address>();
         adresses1.add(biling1);
         adresses1.add(delivery1);
@@ -72,8 +70,8 @@ public class BaseBeanLocal implements BaseBeanInterface{
         Calendar date2 = createDate(5,6,1990);
         UserEnchere user2 = new UserEnchere("user2", "u2", "Antoine", "Solene", "solene.antoine@gmail.com",date2, 1);
         /*Adresses*/
-        Address biling2 = new Address(0,"Résidence Velodrome, rue Jacques Callot",54500,"Vandoeuvre-lès-Nancy","FRANCE");
-        Address delivery2 = new Address(26,"rue de Solène",54850,"Metz","FRANCE");
+        Address biling2 = new Address(0,"Résidence Velodrome, rue Jacques Callot","54500","Vandoeuvre-lès-Nancy","FRANCE");
+        Address delivery2 = new Address(26,"rue de Solène","54850","Metz","FRANCE");
         List<Address> adresses2 = new ArrayList<Address>();
         adresses2.add(biling2);
         adresses2.add(delivery2);
@@ -92,8 +90,8 @@ public class BaseBeanLocal implements BaseBeanInterface{
         Calendar date3 = createDate(4,10,1989);
         UserEnchere user3 = new UserEnchere("user3", "u3", "Guillaume", "Maxime", "maxime.guillaume@gmail.com",date3, 3);
         /*Adresses*/
-        Address biling3 = new Address(8,"rue Gambetta",54500,"Vandoeuvre","FRANCE");
-        Address delivery3 = new Address(26,"rue de la Justice",5950,"Marseille","FRANCE");
+        Address biling3 = new Address(8,"rue Gambetta","54500","Vandoeuvre","FRANCE");
+        Address delivery3 = new Address(26,"rue de la Justice","5950","Marseille","FRANCE");
         List<Address> adresses3 = new ArrayList<Address>();
         adresses3.add(biling3);
         adresses3.add(delivery3);
@@ -113,8 +111,8 @@ public class BaseBeanLocal implements BaseBeanInterface{
         Calendar date4 = createDate(28,7,1989);
         UserEnchere user4 = new UserEnchere("user4", "u4", "Cochard", "Swann", "swann.cochard@gmail.com",date4, 0);
         /*Adresses*/
-        Address biling4 = new Address(9,"rue Saint Jean",54630,"Nancy","FRANCE");
-        Address delivery4 = new Address(24,"rue du pont",54850,"Toulouse","FRANCE");
+        Address biling4 = new Address(9,"rue Saint Jean","54630","Nancy","FRANCE");
+        Address delivery4 = new Address(24,"rue du pont","54850","Toulouse","FRANCE");
         List<Address> adresses4 = new ArrayList<Address>();
         adresses4.add(biling4);
         adresses4.add(delivery4);
@@ -136,29 +134,25 @@ public class BaseBeanLocal implements BaseBeanInterface{
         articles5.add(article3);
         articles5.add(article2);
         Promotion promo1 = new Promotion(0,0,articles5);
-        List<Promotion> promos11 = new ArrayList<Promotion>();
-        promos11.add(promo1);
-        article3.setPromotions(promos11);
-        List<Promotion> promos12 = new ArrayList<Promotion>();
-        promos12.add(promo1);
-        article2.setPromotions(promos12);
+        article2.getPromotions().add(promo1);
+        article3.getPromotions().add(promo1);
         
         List<Article> articles6 = new ArrayList<Article>();
         articles6.add(article4);
+        articles6.add(article3);
         Promotion promo2 = new Promotion(1,50,articles6);
-        List<Promotion> promos21 = new ArrayList<Promotion>();
-        promos21.add(promo2);
-        article4.setPromotions(promos21);
+        article4.getPromotions().add(promo2);;
+        article3.getPromotions().add(promo2);
         
         /*Encheres*/
         Calendar date51 = createDate(7,9,2012);
-        Enchere enchere1 = new Enchere(date51,10,article2,user1);
+        Enchere enchere1 = new Enchere(date51,810,article2,user1);
         Calendar date52 = createDate(7,9,2012);
-        Enchere enchere2 = new Enchere(date52,15,article1,user1);
+        Enchere enchere2 = new Enchere(date52,815,article1,user1);
         Calendar date53 = createDate(7,9,2012);
-        Enchere enchere3 = new Enchere(date53,20,article4,user1);
+        Enchere enchere3 = new Enchere(date53,820,article4,user1);
         Calendar date54 = createDate(7,9,2012);
-        Enchere enchere4 = new Enchere(date54,14,article3,user1);
+        Enchere enchere4 = new Enchere(date54,814,article3,user1);
         
         
         em.persist(category1);

@@ -10,12 +10,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Marine
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name="Category.findAll", query="SELECT c from Category c ORDER BY c.name ASC")
+})
 public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -72,5 +77,6 @@ public class Category implements Serializable {
     public String toString() {
         return "persistence.Category[ id=" + id + " ]";
     }
+    
     
 }

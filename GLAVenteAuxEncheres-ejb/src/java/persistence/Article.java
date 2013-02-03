@@ -5,6 +5,7 @@
 package persistence;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,7 @@ import javax.persistence.TemporalType;
 @Entity
 @NamedQueries({
         @NamedQuery(name="Article.findCriticalsArticles", query="SELECT a from Article a ORDER BY a.endDate ASC"),
+        @NamedQuery(name="Article.searchArticles", query="SELECT a from Article a WHERE UPPER(a.name) LIKE UPPER(?1) OR UPPER(a.description) LIKE UPPER(?2) ORDER BY a.endDate ASC"),
         @NamedQuery(name="Article.findLastEnchereByArticles", query="SELECT e from Enchere e WHERE e.article.id = ?1 ORDER BY e.creationDate ASC")
     })
 public class Article implements Serializable {
@@ -43,7 +45,7 @@ public class Article implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     @Column(name = "INITIALPRICE")
-    private int initialPrice;
+    private double initialPrice;
     @Column(name = "BUYSTATE")
     private int buyState;
     @Column(name = "PICTURE")
@@ -62,13 +64,14 @@ public class Article implements Serializable {
     public Article(){
     }
     
-    public Article(String name, String description, int price, Calendar date, String picture){
+    public Article(String name, String description, double price, Calendar date, String picture){
         this.name = name;
         this.buyState = Article.ARTICLE_BUY;
         this.description = description;
         this.initialPrice = price;
         this.endDate = date;
         this.picture = picture;
+        this.promotions = new ArrayList<Promotion>();
     }
     public Long getId() {
         return id;
@@ -94,11 +97,11 @@ public class Article implements Serializable {
         this.description = description;
     }
 
-    public int getInitialPrice() {
+    public double getInitialPrice() {
         return initialPrice;
     }
 
-    public void setInitialPrice(int initialPrice) {
+    public void setInitialPrice(double initialPrice) {
         this.initialPrice = initialPrice;
     }
 
@@ -141,7 +144,31 @@ public class Article implements Serializable {
         }
         return result;
     }
-
+    
+    public boolean haveOneTypeOfPromotion(){
+        return promotions.size() == 1;
+    }
+    
+    public boolean haveTwoTypeOfPromotion(){
+        return promotions.size() == 2;
+    }
+    
+    public boolean haveOnlyDeliveryFreePromotion(){
+        return haveDeliveryFreePromotion() && haveOneTypeOfPromotion();
+    }
+    
+    public boolean haveOnlyGiftCertificatePromotion(){
+        return haveGiftCertificatePromotion() && haveOneTypeOfPromotion();
+    }
+    
+    public boolean haveAlsoDeliveryFreePromotion(){
+        return haveDeliveryFreePromotion() && haveTwoTypeOfPromotion();
+    }
+    
+    public boolean haveAlsoGiftCertificatePromotion(){
+        return haveGiftCertificatePromotion() && haveTwoTypeOfPromotion();
+    }
+    
     public SubCategory getSubCategory() {
         return subCategory;
     }
