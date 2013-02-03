@@ -46,11 +46,13 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     @Override
     public List<Article> getCriticalsArticles() {
         List<Article> result = new ArrayList<Article>();
-        Query query = em.createNamedQuery("Article.findCriticalsArticles");
+        Query query = em.createNamedQuery("Article.findArticles");
         try {
              List<Article> articles = (List<Article>) query.getResultList();
              for (int i = 0; i < articles.size(); i++) {
-                result.add(articles.get(i));
+                 if (articles.get(i).getEndDate().after(new GregorianCalendar())){
+                     result.add(articles.get(i));
+                 }
             }
         } catch (NoResultException e){
             return null;
@@ -62,12 +64,12 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     @Override
     public List<Article> getCriticalsArticles(UserEnchere user) {
         List<Article> result = new ArrayList<Article>();
-        Query query = em.createNamedQuery("Article.findCriticalsArticlesByUser");
+        Query query = em.createNamedQuery("Article.findArticlesByUser");
         query.setParameter(1, user.getId());
         try {
              List<Article> articles = (List<Article>) query.getResultList();
              for (int i = 0; i < articles.size(); i++) {
-                result.add(articles.get(i));
+                    result.add(articles.get(i));
             }
         } catch (NoResultException e){
             return null;
@@ -99,7 +101,10 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
              for (int i = 0; i < promotions.size(); i++) {
                  for (int j = 0; j < promotions.get(i).getArticles().size(); j++) {
                      if (!result.contains(promotions.get(i).getArticles().get(j))){
-                         result.add(promotions.get(i).getArticles().get(j));
+                         if (promotions.get(i).getArticles().get(j).getEndDate().after(new GregorianCalendar())){
+                             result.add(promotions.get(i).getArticles().get(j));
+                         }
+                         
                      }
                      
                  }
@@ -121,7 +126,9 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         try {
              List<Article> articles = (List<Article>) query.getResultList();
              for (int i = 0; i < articles.size(); i++) {
-                result.add(articles.get(i));
+                 if (articles.get(i).getEndDate().after(new GregorianCalendar())){
+                    result.add(articles.get(i));
+                 }
             }
         } catch (NoResultException e){
             return null;
@@ -174,7 +181,9 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
             try {
                  List<Article> articles = (List<Article>) query.getResultList();
                  for (int i = 0; i < articles.size(); i++) {
-                    result.add(articles.get(i));
+                     if (articles.get(i).getEndDate().after(new GregorianCalendar())){
+                        result.add(articles.get(i));
+                     }
                 }
             } catch (NoResultException e){
                 return null;
@@ -195,7 +204,9 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
             try {
                  List<Article> articles = (List<Article>) query.getResultList();
                  for (int i = 0; i < articles.size(); i++) {
-                    result.add(articles.get(i));
+                     if (articles.get(i).getEndDate().after(new GregorianCalendar())){
+                        result.add(articles.get(i));
+                     }
                 }
             } catch (NoResultException e){
                 return null;

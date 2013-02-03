@@ -205,7 +205,7 @@ public class InitBaseSingleton {
         articles4.add(article5);
         
         Calendar date44 = new GregorianCalendar();
-        date44.add(Calendar.DAY_OF_MONTH, 4);
+        date44.add(Calendar.DAY_OF_MONTH, -4);
         Article article6 = new Article("Iphone5","Impeccable",800,date44,"resources/pictures/articles/iphone5.jpg");
         article6.setSubCategory(subCategory2);
         article6.setOwner(user4);

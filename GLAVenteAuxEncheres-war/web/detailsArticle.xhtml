@@ -35,9 +35,11 @@
                         <h:outputText value="#{articleBean.getReminingTime(articleBean.selectedArticle)}"></h:outputText>
                         <h:outputText class="title" value="Prix initial"></h:outputText>
                         <h:outputText value="#{articleBean.selectedArticle.initialPrice} €"></h:outputText>
-                        <h:outputText value="Montant de mon enchère : "></h:outputText>
-                        <h:inputText value="#{enchereBean.amount}"></h:inputText>
-                        <p:commandButton value="encherir" action="#{enchereBean.addEnchere(articleBean.selectedArticle)}"></p:commandButton>
+                        <h:outputText class="title" value="Description"></h:outputText>
+                        <h:outputText value="#{articleBean.selectedArticle.description}"></h:outputText>
+                        <h:outputText rendered="#{enchereBean.userConnected != null}" value="Montant de mon enchère : "></h:outputText>
+                        <h:inputText rendered="#{enchereBean.userConnected != null}" value="#{enchereBean.amount}"></h:inputText>
+                        <p:commandButton rendered="#{enchereBean.userConnected != null}" value="encherir" action="#{enchereBean.addEnchere(articleBean.selectedArticle)}"></p:commandButton>
                     </h:panelGrid>
                  </div>
                 <div style="clear: both"></div>

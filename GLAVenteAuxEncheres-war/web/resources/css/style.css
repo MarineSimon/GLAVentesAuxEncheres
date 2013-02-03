@@ -135,7 +135,7 @@ fieldset{
 }
 
 .article{
-    width: 402px;
+    width: 450px;
     float: left;
     margin-left: 5%;
     margin-top: 30px;
@@ -149,7 +149,7 @@ fieldset{
 .description {
     padding: 10px;
     float: left;
-    width: 180px;
+    width: 190px;
 }
 
 .article2{
@@ -187,7 +187,6 @@ fieldset{
 
 .desc_article{  
     border: 1px solid #BBB;
-    width: 400px;
     background-color: white;
     font-family:  "new_cicleregular";
 }
@@ -255,7 +254,7 @@ fieldset{
 }
 
 .articleMyAccount {
-    width: 402px;
+    width: 450px;
     float: left;
     margin-left: 5%;
 }
@@ -270,4 +269,9 @@ fieldset{
     font-family:  "new_cicleregular";
     background-image: none;
     color: white;
+}
+
+.ui-scrollpanel {
+    border: none;
+    background: rgba(255, 255, 255, 0);
 }

@@ -59,7 +59,7 @@ public class EnchereBeanLocal implements EnchereBeanInterface {
     @Override
     public List<Enchere> removeEnchereArticle(UserEnchere u,Article a){
         List<Enchere> result = new ArrayList<Enchere>();
-        Query query = em.createNamedQuery("Enchere.getRunningBillByArticle");
+        Query query = em.createNamedQuery("Enchere.getUserRunningBillArticle");
         query.setParameter(1, u.getId());
         query.setParameter(2, a.getId());
         
@@ -85,7 +85,7 @@ public class EnchereBeanLocal implements EnchereBeanInterface {
     public boolean haveUserEnchere(UserEnchere u, Article a) {
         List<Enchere> result = new ArrayList<Enchere>();
         if (u != null){
-            Query query = em.createNamedQuery("Enchere.getRunningBillByArticle");
+            Query query = em.createNamedQuery("Enchere.getUserRunningBillArticle");
             query.setParameter(1, u.getId());
             query.setParameter(2, a.getId());
 
@@ -99,12 +99,12 @@ public class EnchereBeanLocal implements EnchereBeanInterface {
     public Enchere getUserLastEnchere(UserEnchere u, Article a) {
         Enchere result = null;
         if (u != null){
-            Query query = em.createNamedQuery("Enchere.getRunningBillByArticle");
+            Query query = em.createNamedQuery("Enchere.getUserRunningBillArticle");
             query.setParameter(1, u.getId());
             query.setParameter(2, a.getId());
 
             List<Enchere> encheres = (List<Enchere>) query.getResultList();
-            result = encheres.get(encheres.size());
+            result = encheres.get(encheres.size()-1);
         }
         return result;
     }

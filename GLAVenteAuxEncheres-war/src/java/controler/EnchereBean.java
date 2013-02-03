@@ -119,8 +119,11 @@ public class EnchereBean {
     }
     
     public Enchere userLastEnchere(Article a){
-        return enchereBeanLocal.getUserLastEnchere(this.getUserConnected(),a);
-        
+        Enchere result = null;
+        if(this.getUserConnected() != null && a != null){
+            result = enchereBeanLocal.getUserLastEnchere(this.getUserConnected(),a);
+        }
+         return result;
     }
     
 }

@@ -27,8 +27,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name="Article.findCriticalsArticles", query="SELECT a from Article a ORDER BY a.endDate ASC"),
-        @NamedQuery(name="Article.findCriticalsArticlesByUser", query="SELECT a from Article a WHERE a.owner.id = ?1 ORDER BY a.endDate ASC"),
+        @NamedQuery(name="Article.findArticles", query="SELECT a from Article a ORDER BY a.endDate ASC"),
+        @NamedQuery(name="Article.findArticlesByUser", query="SELECT a from Article a WHERE a.owner.id = ?1 ORDER BY a.endDate ASC"),
         @NamedQuery(name="Article.searchArticles", query="SELECT a from Article a WHERE UPPER(a.name) LIKE UPPER(?1) OR UPPER(a.description) LIKE UPPER(?2) ORDER BY a.endDate ASC"),
         @NamedQuery(name="Article.findLastEnchereByArticles", query="SELECT e from Enchere e WHERE e.article.id = ?1 ORDER BY e.creationDate ASC"),
         @NamedQuery(name="Article.searchArticleByCategory", query="SELECT a from Article a, Category c, SubCategory sc WHERE c.id = ?1 AND a.subCategory.id = sc.id AND sc.category.id = c.id ORDER BY a.endDate ASC"),   
