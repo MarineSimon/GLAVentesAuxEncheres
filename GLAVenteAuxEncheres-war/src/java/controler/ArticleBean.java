@@ -175,7 +175,7 @@ public class ArticleBean {
     
     public boolean isUserArticle(Article a){
         boolean result = false;
-        if (this.getUserConnected() != null){
+        if (this.getUserConnected() != null && a != null){
             result = a.getOwner().getId() == this.getUserConnected().getId();
         }
         return result;

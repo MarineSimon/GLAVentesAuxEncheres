@@ -260,4 +260,14 @@ fieldset{
     margin-left: 5%;
 }
 
+.ui-accordion-content{
+    background: rgba(255, 255, 255, 0);
+    border: black solid 1px;
+}
 
+.ui-accordion-header{
+    background-color: black;
+    font-family:  "new_cicleregular";
+    background-image: none;
+    color: white;
+}

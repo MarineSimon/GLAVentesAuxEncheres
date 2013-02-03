@@ -54,7 +54,6 @@ public class EnchereBean {
     }
 
     public void setSelectedArticle(Article selectedArticle) {
-        System.out.println("DEDANS");
         this.selectedArticle = selectedArticle;
     }
 
@@ -111,7 +110,11 @@ public class EnchereBean {
     }
     
     public boolean haveUserEnchere(Article a){
-        return enchereBeanLocal.haveUserEnchere(this.getUserConnected(),a);
+        boolean result = false;
+        if (a != null && this.getUserConnected() != null){
+            result =enchereBeanLocal.haveUserEnchere(this.getUserConnected(),a);
+        }
+        return result;
         
     }
     

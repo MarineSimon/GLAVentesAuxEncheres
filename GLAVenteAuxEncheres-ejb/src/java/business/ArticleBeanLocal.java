@@ -5,6 +5,8 @@
 package business;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
@@ -45,7 +47,6 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     public List<Article> getCriticalsArticles() {
         List<Article> result = new ArrayList<Article>();
         Query query = em.createNamedQuery("Article.findCriticalsArticles");
-        
         try {
              List<Article> articles = (List<Article>) query.getResultList();
              for (int i = 0; i < articles.size(); i++) {
