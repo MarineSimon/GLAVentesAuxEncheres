@@ -4,7 +4,7 @@
  */
 package controler;
 
-import business.InitPromotionsSingleton;
+import business.InitBaseSingleton;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
