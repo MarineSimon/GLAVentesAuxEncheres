@@ -78,4 +78,5 @@ public class Category implements Serializable {
         return "persistence.Category[ id=" + id + " ]";
     }
     
+    
 }

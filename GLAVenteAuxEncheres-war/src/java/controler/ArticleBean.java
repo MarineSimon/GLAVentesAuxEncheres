@@ -7,6 +7,7 @@ package controler;
 import business.ArticleBeanLocal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,6 +41,13 @@ public class ArticleBean {
     private String keywords = "";
     private int category = 0;
     private int subCategory = 0;
+    private String name;
+    private String description;
+    private double prixInitial;
+    private int sousCategorie;
+    private Date finEnchere;
+    private String photo ="";
+    private String destination="resources/pictures/articles";
     private List<Article> displayedArticles = new ArrayList<Article>();
     
     private static final String STATEFUL_ARTICLE_BEAN_KEY = "STATEFUL_ARTICLE_BEAN_KEY";
@@ -95,6 +103,71 @@ public class ArticleBean {
     public String getActualPrice(Article a){
         return articleLocal.getActualPrice(a)+" €";
     }
+
+    public ArticleBeanInterface getArticleLocal() {
+        return articleLocal;
+    }
+
+    public void setArticleLocal(ArticleBeanInterface articleLocal) {
+        this.articleLocal = articleLocal;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getPrixInitial() {
+        return prixInitial;
+    }
+
+    public void setPrixInitial(double prixInitial) {
+        this.prixInitial = prixInitial;
+    }
+
+    public int getSousCategorie() {
+        return sousCategorie;
+    }
+
+    public void setSousCategorie(int sousCategorie) {
+        this.sousCategorie = sousCategorie;
+    }
+
+    public Date getFinEnchere() {
+        return finEnchere;
+    }
+
+    public void setFinEnchere(Date finEnchere) {
+        this.finEnchere = finEnchere;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+    
 
     public Article getSelectedArticle() throws ServletException {
         ArticleBeanLocal articleBean = getStatefulBean();
@@ -189,5 +262,16 @@ public class ArticleBean {
         RequestContext.getCurrentInstance().update("j_idt9:j_idt23:notifications");
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
     }
-
+    
+    public String addArticle(){  
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.finEnchere);
+        Article a = new Article(this.name,this.description, this.prixInitial, cal , ""); // A CHANGER POUR LA PICTURE !!!
+        a.setOwner(this.getUserConnected());
+        SubCategory s;
+        s = articleLocal.getSubCategory(sousCategorie);
+        a.setSubCategory(s);
+        articleLocal.addArticle(a);
+        return "backToViewAccount";
+    }
 }

@@ -198,6 +198,13 @@ fieldset{
     font-family:  "new_cicleregular";
 }
 
+.desc_article2{  
+    border: 1px solid #BBB;
+    width: auto;
+    background-color: white;
+    font-family:  "new_cicleregular";
+}
+
 .title {
     color:#f4b130;
 }
@@ -231,6 +238,16 @@ fieldset{
     float: left;
     width: 25%;
 }
+
+
+
+#autrediv{
+    float: left;
+    width: 25%;
+}
+
+
+
 
 #articles{
     float: left;

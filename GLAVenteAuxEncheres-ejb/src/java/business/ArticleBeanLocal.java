@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package business;
 
 import java.util.ArrayList;
@@ -153,10 +149,16 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         return result;
     }
     
-    @Override
+   @Override
     public List<SubCategory> getAllSubCategory(int idCategory) {
         List<SubCategory> result = new ArrayList<SubCategory>();
-        Query query = em.createNamedQuery("SubCategory.findAll");
+        Query query;
+        if (idCategory == 0) {
+            query = em.createNamedQuery("SubCategory.findAll");
+        } else {
+            query = em.createNamedQuery("SubCategory.searchByCategory");
+            query.setParameter(1, idCategory);
+        }
         
         try {
              List<SubCategory> subCategory = (List<SubCategory>) query.getResultList();
@@ -251,6 +253,22 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         user.getSellArticles().remove(a);
         em.merge(user);
         em.remove(em.merge(a));
+    }
+
+    @Override
+    public SubCategory getSubCategory(int i) {
+        Query query;
+        query = em.createNamedQuery("SubCategory.searchById");
+        query.setParameter(1, i);
+        SubCategory s = (SubCategory) query.getResultList().get(0);
+        return s;
+    }
+
+    @Override
+    public void addArticle(Article a) {
+        this.em.persist(a);
+        a.getOwner().getSellArticles().add(a);
+        this.em.merge(a.getOwner());
     }
     
 }

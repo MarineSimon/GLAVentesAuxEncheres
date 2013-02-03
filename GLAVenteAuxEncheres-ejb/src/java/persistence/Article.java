@@ -49,7 +49,7 @@ public class Article implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     @Column(name = "INITIALPRICE")
-    private int initialPrice;
+    private double initialPrice;
     @Column(name = "BUYSTATE")
     private int buyState;
     @Column(name = "PICTURE")
@@ -68,7 +68,7 @@ public class Article implements Serializable {
     public Article(){
     }
     
-    public Article(String name, String description, int price, Calendar date, String picture){
+    public Article(String name, String description, double price, Calendar date, String picture){
         this.name = name;
         this.buyState = Article.ARTICLE_BUY;
         this.description = description;
@@ -101,11 +101,11 @@ public class Article implements Serializable {
         this.description = description;
     }
 
-    public int getInitialPrice() {
+    public double getInitialPrice() {
         return initialPrice;
     }
 
-    public void setInitialPrice(int initialPrice) {
+    public void setInitialPrice(double initialPrice) {
         this.initialPrice = initialPrice;
     }
 
