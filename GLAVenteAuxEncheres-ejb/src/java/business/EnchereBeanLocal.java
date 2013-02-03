@@ -34,6 +34,8 @@ public class EnchereBeanLocal implements EnchereBeanInterface {
     @Override
     public void addEnchere(Calendar date, double amount, Article article, UserEnchere user) {
         Enchere e = new Enchere(date,amount,article,user);
+        Notification n = new Notification("Vous avez encheri de "+amount+"€ sur l'article "+article.getName());
+        user.getNotifications().add(n);
         em.persist(e);
     }
 

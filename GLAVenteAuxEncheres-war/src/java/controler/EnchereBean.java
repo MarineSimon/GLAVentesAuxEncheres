@@ -73,7 +73,6 @@ public class EnchereBean {
         }
         else {
             Calendar date = new GregorianCalendar();
-            //System.out.println("Utilisateur : "+this.getUserConnected().);
             this.enchereBeanLocal.addEnchere(date, amount, a, this.getUserConnected());
             RequestContext.getCurrentInstance().update("j_idt9:entete");
             FacesContext.getCurrentInstance().addMessage("encherire:messages", new FacesMessage(FacesMessage.SEVERITY_INFO,"Enchère prise en compte !",""));

@@ -32,6 +32,8 @@
             <to-view-id>/detailsArticle.xhtml</to-view-id>
             <redirect>/detailsArticle.xhtml</redirect>
         </navigation-case>
+        
+        
     </navigation-rule>
     
     <navigation-rule>
@@ -50,6 +52,20 @@
             <from-outcome>welcome</from-outcome>
             <to-view-id>/welcome.xhtml</to-view-id>
             <redirect>/welcome.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/sell.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>cancel</from-action>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect>/login.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>backToViewAccount</from-outcome>
+            <to-view-id>/viewAccount.xhtml</to-view-id>
+            <redirect>/viewAccount.xhtml</redirect>
         </navigation-case>
     </navigation-rule>
     

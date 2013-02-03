@@ -244,13 +244,15 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
             em.merge(a);
         } else {
             if (a.getPromotions().size() == 1){
-                Promotion p3 = a.getPromotions().get(1);
+                Promotion p3 = a.getPromotions().get(0);
                 p3.getArticles().remove(a);
                 a.getPromotions().remove(p3);
             }
         }
         em.merge(a);
         user.getSellArticles().remove(a);
+        Notification n2 = new Notification("Vous avez supprimé l'article "+a.getName());
+        user.getNotifications().add(n2);
         em.merge(user);
         em.remove(em.merge(a));
     }
@@ -268,6 +270,8 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     public void addArticle(Article a) {
         this.em.persist(a);
         a.getOwner().getSellArticles().add(a);
+        Notification n = new Notification("Vous avez ajouté l'article "+a.getName());
+        a.getOwner().getNotifications().add(n);
         this.em.merge(a.getOwner());
     }
     

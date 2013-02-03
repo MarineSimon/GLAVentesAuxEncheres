@@ -239,15 +239,10 @@ fieldset{
     width: 25%;
 }
 
-
-
 #autrediv{
     float: left;
     width: 25%;
 }
-
-
-
 
 #articles{
     float: left;
@@ -262,7 +257,6 @@ fieldset{
 }
 
 .scroll{
-    width: 100%;
     min-height: 350px;
 }
 
