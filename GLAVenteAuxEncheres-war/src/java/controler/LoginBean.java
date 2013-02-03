@@ -7,7 +7,6 @@ package controler;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -15,6 +14,7 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import library.UserBeanInterface;
 import persistence.UserEnchere;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -71,7 +71,7 @@ public class LoginBean implements Serializable {
     
     public String logout(){
         userConnected = null;
-        return null;
+        return "welcome";
     }
     
     public boolean isConnected(){

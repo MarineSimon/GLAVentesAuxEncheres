@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -20,21 +22,26 @@ import javax.persistence.TemporalType;
  * @author Marine
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name="Enchere.getRunningBill", query="SELECT e from Enchere e WHERE e.userEnchere.id = ?1 ORDER BY e.amount ASC"),
+    @NamedQuery(name="Enchere.getRunningBillByArticle", query="SELECT e from Enchere e WHERE e.userEnchere.id = ?1 AND e.article.id = ?2 ORDER BY e.amount ASC"),
+    @NamedQuery(name="Enchere.getRunningBillArticle", query="SELECT e from Enchere e WHERE e.article.id = ?1 ORDER BY e.amount ASC"),
+})
 public class Enchere implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "DATE")
+    @Column(name = "CREATIONDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar creationDate;
     @Column(name = "AMOUNT")
     private double amount;
     
-    @ManyToOne(optional=false)
+    @ManyToOne
     private Article article;
-    @ManyToOne(optional=false)
+    @ManyToOne
     private UserEnchere userEnchere;
     
     public Enchere(){

@@ -17,6 +17,21 @@
             <to-view-id>/welcome.xhtml</to-view-id>
             <redirect>/welcome.xhtml</redirect>
         </navigation-case>
+        <navigation-case>
+            <from-action>promotions</from-action>
+            <to-view-id>/promotions.xhtml</to-view-id>
+            <redirect>/promotions.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-action>viewAccount</from-action>
+            <to-view-id>/viewAccount.xhtml</to-view-id>
+            <redirect>/viewAccount.xhtml</redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-action>detailsArticle</from-action>
+            <to-view-id>/detailsArticle.xhtml</to-view-id>
+            <redirect>/detailsArticle.xhtml</redirect>
+        </navigation-case>
     </navigation-rule>
     
     <navigation-rule>

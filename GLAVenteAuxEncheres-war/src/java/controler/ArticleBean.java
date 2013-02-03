@@ -5,12 +5,6 @@
 package controler;
 
 import business.ArticleBeanLocal;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,7 +12,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.naming.InitialContext;
@@ -27,8 +20,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 import library.ArticleBeanInterface;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 import persistence.Article;
 import persistence.Category;
 import persistence.SubCategory;
@@ -44,16 +35,17 @@ import persistence.UserEnchere;
 public class ArticleBean {
     @EJB
     private ArticleBeanInterface articleLocal; 
+    
+    private String keywords = "";
+    private int category = 0;
+    private int subCategory = 0;
     private String name;
     private String description;
     private double prixInitial;
     private int sousCategorie;
-    private int category;
     private Date finEnchere;
     private String photo ="";
     private String destination="resources/pictures/articles";
-    
-    private String keywords = "";
     private List<Article> displayedArticles = new ArrayList<Article>();
     
     private static final String STATEFUL_ARTICLE_BEAN_KEY = "STATEFUL_ARTICLE_BEAN_KEY";
@@ -66,11 +58,32 @@ public class ArticleBean {
         this.keywords = keywords;
     }
 
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public int getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(int subCategory) {
+        this.subCategory = subCategory;
+    }
+    
     public List<Article> getDisplayedArticles() {
         if (this.displayedArticles.isEmpty() && this.keywords.isEmpty())
             return this.getCriticalsArticles();
         else 
             return displayedArticles;
+    }
+    
+    public List<Article> getDisplayedArticlesByUser(UserEnchere userConnected) throws ServletException {
+        this.articleLocal = this.getStatefulBean();
+        return this.articleLocal.getCriticalsArticles(userConnected);
     }
 
     public void setDisplayedArticles(List<Article> displayedArticles) {
@@ -87,16 +100,6 @@ public class ArticleBean {
 
     public String getActualPrice(Article a){
         return articleLocal.getActualPrice(a)+" €";
-    }
-
-    public Article getSelectedArticle() throws ServletException {
-        ArticleBeanLocal articleBean = getStatefulBean();
-        return articleBean.getSelectedArticle();
-    }
-
-    public void setSelectedArticle(Article selectedArticle) throws ServletException {
-        ArticleBeanLocal articleBean = getStatefulBean();
-        articleBean.setSelectedArticle(selectedArticle);
     }
 
     public ArticleBeanInterface getArticleLocal() {
@@ -139,14 +142,6 @@ public class ArticleBean {
         this.sousCategorie = sousCategorie;
     }
 
-    public int getCategory() {
-        return category;
-    }
-
-    public void setCategory(int categorie) {
-        this.category = categorie;
-    }
-
     public Date getFinEnchere() {
         return finEnchere;
     }
@@ -161,6 +156,25 @@ public class ArticleBean {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+    
+
+    public Article getSelectedArticle() throws ServletException {
+        ArticleBeanLocal articleBean = getStatefulBean();
+        return articleBean.getSelectedArticle();
+    }
+
+    public void setSelectedArticle(Article selectedArticle) throws ServletException {
+        ArticleBeanLocal articleBean = getStatefulBean();
+        articleBean.setSelectedArticle(selectedArticle);
     }
     
     public String getReminingTime(Article a){
@@ -192,13 +206,15 @@ public class ArticleBean {
     public void searchArticle(){
         List<Article> searchList = this.articleLocal.search(this.keywords);
         this.displayedArticles = searchList;
-        System.out.println("Taille de la liste : "+this.displayedArticles.size());
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
     }
     
     public void resetDisplayArticles(){
         this.displayedArticles = this.getCriticalsArticles();
         this.keywords = "";
+        this.category = 0;
+        this.subCategory = 0;
+        RequestContext.getCurrentInstance().update("j_idt9:viewCategory");
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
         RequestContext.getCurrentInstance().update("j_idt9:j_idt18:searchValue");
     }
@@ -213,31 +229,16 @@ public class ArticleBean {
         return result;
     }
     
-    public void upload() {  
-        System.out.println(""+this.photo);
-
-    }  
-
-    public void copyFile(String fileName, InputStream in) {
-           try {
-                // write the inputStream to a FileOutputStream
-                OutputStream out = new FileOutputStream(new File(destination + fileName));
-             
-                int read = 0;
-                byte[] bytes = new byte[1024];
-             
-                while ((read = in.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
-                }
-             
-                in.close();
-                out.flush();
-                out.close();
-             
-                System.out.println("New file created!");
-                } catch (IOException e) {
-                System.out.println(e.getMessage());
-                }
+    public void searchArticleByCategory() {
+        List<Article> searchList = this.articleLocal.searchArticleByCategory(this.category);
+        this.displayedArticles = searchList;  
+        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
+    }
+    
+    public void searchArticleBySubCategory() {
+        List<Article> searchList = this.articleLocal.searchArticleBySubCategory(this.subCategory);
+        this.displayedArticles = searchList;
+        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
     }
     
     public UserEnchere getUserConnected() {
@@ -245,7 +246,22 @@ public class ArticleBean {
         return log.getUserConnected();
     }
     
-    public void addArticle(){  
+    public boolean isUserArticle(Article a){
+        boolean result = false;
+        if (this.getUserConnected() != null && a != null){
+            result = a.getOwner().getId() == this.getUserConnected().getId();
+        }
+        return result;
+    }
+    
+    public void removeArticle(Article a){
+        articleLocal.removeArticle(a, this.getUserConnected());
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueEncheresCompte");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:notifications");
+        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
+    }
+    
+    public String addArticle(){  
         Calendar cal = Calendar.getInstance();
         cal.setTime(this.finEnchere);
         Article a = new Article(this.name,this.description, this.prixInitial, cal , ""); // A CHANGER POUR LA PICTURE !!!
@@ -254,6 +270,6 @@ public class ArticleBean {
         s = articleLocal.getSubCategory(sousCategorie);
         a.setSubCategory(s);
         articleLocal.addArticle(a);
+        return "backToViewAccount";
     }
-    
 }

@@ -9,22 +9,21 @@
         <link rel="stylesheet" href="resources/css/style.css"/>
         <link rel=""/>
     </h:head>
-    <h:body onload="#{baseBean.initBase()}">
+    <h:body>
         <h:form>
         <div id="structure">
             <div id="content">
                 
                 <header class="background">
                     <center><img src="resources/pictures/logo.png" width="90px"/></center>
-                    <p:commandLink immediate="true" rendered="#{loginBean.connected}" style="float: right;padding-right: 10px;" value="(Deconnexion)" oncomplete="javascript:location.reload(true)" action="#{loginBean.logout()}"/>
+                    <p:commandLink immediate="true" rendered="#{loginBean.connected}" style="float: right;padding-right: 10px;" value="(Deconnexion)" onsuccess="javascript:location.reload(true)" action="#{loginBean.logout()}"/>
                     <p:outputLabel style="float: right;padding-right: 10px;" value="#{loginBean.userConnectedToString}" />
                 </header>
                 <div id="menu">
-                    <a href="faces/welcome.xhtml">Accueil</a>
-                    <a href="faces/sell.xhtml">Vendre</a>
-                    <a href="faces/promotions.xhtml">Bonnes Affaires</a>
-                    <a href="#">Mon Panier</a>
-                    <h:commandLink immediate="true" rendered="#{!loginBean.connected}" action="faces/login.xhtml">Authentification</h:commandLink>
+                    <h:commandLink immediate="true" action="welcome">Accueil</h:commandLink>
+                    <h:commandLink immediate="true" action="promotions">Bonnes Affaires</h:commandLink>
+                    <h:commandLink immediate="true" rendered="#{loginBean.connected}" action="viewAccount">Mon Compte</h:commandLink>
+                    <h:commandLink immediate="true" rendered="#{!loginBean.connected}" action="login">Authentification</h:commandLink>
                 </div>
                 <div class="content_content">
                     <ui:insert name="content"></ui:insert>

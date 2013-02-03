@@ -50,15 +50,15 @@ public class UserEnchere implements Serializable {
     private Calendar birthday;
     @Column(name = "ABANDONRECORDER")
     private int abandonsRecorder;
-    @OneToOne(cascade = CascadeType.PERSIST,optional=false)
+    @OneToOne(cascade = CascadeType.ALL)
     private Address bilingAdress;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Address> deliveryAdresses;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<BankInformation> bankInformation;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Notification> notifications;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Article> sellArticles;
     
     public UserEnchere(){
@@ -164,6 +164,14 @@ public class UserEnchere implements Serializable {
 
     public Calendar getBirthday() {
         return birthday;
+    }
+    
+    public void setBirthdayToString(String birthday) {
+        
+    }
+    
+    public String getBirthdayToString() {
+        return birthday.get(Calendar.DAY_OF_MONTH)+"/"+(birthday.get(Calendar.MONTH)+1)+"/"+birthday.get(Calendar.YEAR);
     }
 
     public void setBirthday(Calendar birthday) {
