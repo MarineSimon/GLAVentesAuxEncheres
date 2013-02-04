@@ -7,6 +7,7 @@ package persistence;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,11 +27,20 @@ public class Notification implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(name = "DATE")
+    @Column(name = "CREATIONDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar creationDate;
     @Column(name = "MESSAGE")
     private String message;
+    
+    public Notification(){
+    }
+    
+    public Notification(String message){
+        this.creationDate = new GregorianCalendar();
+        this.message = message;
+    }
+    
 
     public Long getId() {
         return id;
@@ -54,6 +64,10 @@ public class Notification implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+    
+    public String getCreationDateToString() {
+        return creationDate.get(Calendar.DAY_OF_MONTH)+"/"+(creationDate.get(Calendar.MONTH)+1)+"/"+creationDate.get(Calendar.YEAR);
     }
 
     @Override

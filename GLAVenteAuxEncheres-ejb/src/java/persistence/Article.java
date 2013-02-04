@@ -27,8 +27,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name="Article.findCriticalsArticles", query="SELECT a from Article a ORDER BY a.endDate ASC"),
-        @NamedQuery(name="Article.findCriticalsArticlesByUser", query="SELECT a from Article a WHERE a.owner.id = ?1 ORDER BY a.endDate ASC"),
+        @NamedQuery(name="Article.findArticles", query="SELECT a from Article a ORDER BY a.endDate ASC"),
+        @NamedQuery(name="Article.findArticlesByUser", query="SELECT a from Article a WHERE a.owner.id = ?1 ORDER BY a.endDate ASC"),
         @NamedQuery(name="Article.searchArticles", query="SELECT a from Article a WHERE UPPER(a.name) LIKE UPPER(?1) OR UPPER(a.description) LIKE UPPER(?2) ORDER BY a.endDate ASC"),
         @NamedQuery(name="Article.findLastEnchereByArticles", query="SELECT e from Enchere e WHERE e.article.id = ?1 ORDER BY e.creationDate ASC"),
         @NamedQuery(name="Article.searchArticleByCategory", query="SELECT a from Article a, Category c, SubCategory sc WHERE c.id = ?1 AND a.subCategory.id = sc.id AND sc.category.id = c.id ORDER BY a.endDate ASC"),   
@@ -49,7 +49,7 @@ public class Article implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     @Column(name = "INITIALPRICE")
-    private int initialPrice;
+    private double initialPrice;
     @Column(name = "BUYSTATE")
     private int buyState;
     @Column(name = "PICTURE")
@@ -58,17 +58,17 @@ public class Article implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar endDate;
     
-    @ManyToMany
+    @ManyToMany(mappedBy="articles")
     private List<Promotion> promotions;
-    @ManyToOne(optional=false)
+    @ManyToOne
     private SubCategory subCategory;
-    @ManyToOne(optional=false)
+    @ManyToOne
     private UserEnchere owner;
 
     public Article(){
     }
     
-    public Article(String name, String description, int price, Calendar date, String picture){
+    public Article(String name, String description, double price, Calendar date, String picture){
         this.name = name;
         this.buyState = Article.ARTICLE_BUY;
         this.description = description;
@@ -101,11 +101,11 @@ public class Article implements Serializable {
         this.description = description;
     }
 
-    public int getInitialPrice() {
+    public double getInitialPrice() {
         return initialPrice;
     }
 
-    public void setInitialPrice(int initialPrice) {
+    public void setInitialPrice(double initialPrice) {
         this.initialPrice = initialPrice;
     }
 

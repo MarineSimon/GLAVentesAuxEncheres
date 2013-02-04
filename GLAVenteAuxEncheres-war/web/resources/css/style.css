@@ -135,7 +135,7 @@ fieldset{
 }
 
 .article{
-    width: 402px;
+    width: 450px;
     float: left;
     margin-left: 5%;
     margin-top: 30px;
@@ -149,7 +149,7 @@ fieldset{
 .description {
     padding: 10px;
     float: left;
-    width: 180px;
+    width: 190px;
 }
 
 .article2{
@@ -187,7 +187,13 @@ fieldset{
 
 .desc_article{  
     border: 1px solid #BBB;
-    width: 400px;
+    background-color: white;
+    font-family:  "new_cicleregular";
+}
+
+.desc_article2{  
+    border: 1px solid #BBB;
+    width: auto;
     background-color: white;
     font-family:  "new_cicleregular";
 }
@@ -233,6 +239,11 @@ fieldset{
     width: 25%;
 }
 
+#autrediv{
+    float: left;
+    width: 25%;
+}
+
 #articles{
     float: left;
     width: 50%;
@@ -246,7 +257,6 @@ fieldset{
 }
 
 .scroll{
-    width: 100%;
     min-height: 350px;
 }
 
@@ -255,9 +265,24 @@ fieldset{
 }
 
 .articleMyAccount {
-    width: 402px;
+    width: 450px;
     float: left;
     margin-left: 5%;
 }
 
+.ui-accordion-content{
+    background: rgba(255, 255, 255, 0);
+    border: black solid 1px;
+}
 
+.ui-accordion-header{
+    background-color: black;
+    font-family:  "new_cicleregular";
+    background-image: none;
+    color: white;
+}
+
+.ui-scrollpanel {
+    border: none;
+    background: rgba(255, 255, 255, 0);
+}

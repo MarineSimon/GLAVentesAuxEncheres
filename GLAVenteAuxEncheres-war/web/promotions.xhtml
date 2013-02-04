@@ -41,12 +41,22 @@
                                 <h:outputText class="title" value="Temps restant"></h:outputText>
                                 <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
                                 <h:outputText class="title" value="Prix initial"></h:outputText>
-                                <h:outputText value="#{article.initialPrice} €"></h:outputText>
-                                <p:commandLink value="plus de details..." action="detailsArticle" process="@this">
-                                        <f:setPropertyActionListener value="#{article}" target="#{articleBean.selectedArticle}" />
-                                </p:commandLink>
+                                <h:outputText value="#{article.initialPrice}€"></h:outputText>
+                                <h:outputText rendered="#{enchereBean.haveUserEnchere(article)}" class="title" value="Votre dernière enchère"/>
+                                <h:outputText rendered="#{enchereBean.haveUserEnchere(article)}" value="#{enchereBean.userLastEnchere(article).amount}€"/>
+                           
                              </h:panelGrid>
-                             </div>
+                            <br/>
+                            <h:form>
+                                <p:commandLink value="plus de details..." action="detailsArticle" process="@this">
+                                    <f:setPropertyActionListener value="#{article}" target="#{articleBean.selectedArticle}" />
+                                </p:commandLink>
+                            </h:form>
+                            <br/>
+                            <p:commandLink rendered="#{enchereBean.haveUserEnchere(article)}" value="Se retirer de cette vente" action="#{enchereBean.removeEnchereArticle(article)}"/>
+                            <br/>
+                                <p:commandLink rendered="#{articleBean.isUserArticle(article)}" value="Retirer cet article de la vente" action="#{articleBean.removeArticle(article)}"/>    
+                        </div>
                             <div style="clear: both"></div>
                          </div>
                     </div>

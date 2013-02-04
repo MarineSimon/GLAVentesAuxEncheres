@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
+import javax.annotation.PostConstruct;
+import javax.ejb.Schedule;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import library.BaseBeanInterface;
+import javax.persistence.Query;
 import persistence.Address;
 import persistence.Article;
 import persistence.Category;
@@ -25,14 +27,16 @@ import persistence.UserEnchere;
  *
  * @author Marine
  */
-@Stateless
-@LocalBean
-public class BaseBeanLocal implements BaseBeanInterface{
+@Singleton
+@Startup
+public class InitBaseSingleton {
     @PersistenceContext(unitName="GLAVenteAuxEncheres-PU")
     private EntityManager em;
     
-    @Override
-    public void initBase() {
+    private List<Promotion> promotions;
+    
+    @PostConstruct
+    public void init(){
         /*Category*/
         Category category1 = new Category("Telephonie");
         Category category2 = new Category("Informatique");
@@ -200,31 +204,40 @@ public class BaseBeanLocal implements BaseBeanInterface{
         articles4.add(article5);
         
         Calendar date44 = new GregorianCalendar();
-        date44.add(Calendar.DAY_OF_MONTH, 4);
-        Article article6 = new Article("MacBook Pro Retina","Impeccable",800,date44,"resources/pictures/articles/iphone5.jpg");
+        date44.add(Calendar.DAY_OF_MONTH, -4);
+        Article article6 = new Article("Iphone5","Impeccable",800,date44,"resources/pictures/articles/iphone5.jpg");
         article6.setSubCategory(subCategory2);
         article6.setOwner(user4);
         articles4.add(article6);
-        
-        
         
         user4.setSellArticles(articles4);
        
         
         /*Promotions*/
+        ArrayList<Article> articles = new ArrayList<Article>();
+        articles.add(article1);
+        articles.add(article2);
+        articles.add(article3);
+        articles.add(article4);
+        articles.add(article5);
+        articles.add(article6);
+        
+        this.promotions = new ArrayList<Promotion>();
         List<Article> articles5 = new ArrayList<Article>();
         articles5.add(article3);
         articles5.add(article2);
         Promotion promo1 = new Promotion(0,0,articles5);
-        article2.getPromotions().add(promo1);
-        article3.getPromotions().add(promo1);
+        this.promotions.add(promo1);
+        article2.getPromotions().add(promotions.get(0));
+        article3.getPromotions().add(promotions.get(0));
         
         List<Article> articles6 = new ArrayList<Article>();
         articles6.add(article4);
         articles6.add(article3);
         Promotion promo2 = new Promotion(1,50,articles6);
-        article4.getPromotions().add(promo2);;
-        article3.getPromotions().add(promo2);
+        this.promotions.add(promo2);
+        article4.getPromotions().add(promotions.get(1));
+        article3.getPromotions().add(promotions.get(1));
         
         /*Encheres*/
         Calendar date51 = createDate(7,9,2012);
@@ -289,7 +302,40 @@ public class BaseBeanLocal implements BaseBeanInterface{
         em.persist(enchere2);
         em.persist(enchere3);
         em.persist(enchere4);
+    }
+
+    @Schedule(second="0", minute="0", hour="0", dayOfMonth="*", month="*", year="*")
+    private void loadPromotions() {
+        Query query = em.createNamedQuery("Article.findCriticalsArticles");
+        List<Article> articles = (List<Article>) query.getResultList();
         
+        int random;
+        Article article;
+        if (articles.size()>5){
+            for (int i = 0; i < articles.size(); i++) {
+                articles.get(i).getPromotions().remove(this.promotions.get(0));
+                articles.get(i).getPromotions().remove(this.promotions.get(1));
+                em.merge(articles.get(i));
+            }
+            for (int i = 0; i < 2; i++) {
+                random = (int)(Math.random()*articles.size());
+                article = articles.get(random);
+                article.getPromotions().add(this.promotions.get(0));
+                em.merge(article);
+                em.merge(this.promotions.get(0));
+            }
+            for (int i = 0; i < 2; i++) {
+                random = (int)(Math.random()*articles.size());
+                article = articles.get(random);
+                article.getPromotions().add(this.promotions.get(1));
+                em.merge(article);
+                em.merge(this.promotions.get(1));
+            }
+        }
+    }
+    
+    public List<Promotion> getPromotions(){
+        return this.promotions;
     }
     
     public Calendar createDate(int day,int mounth,int year){
@@ -297,7 +343,7 @@ public class BaseBeanLocal implements BaseBeanInterface{
         date.set(Calendar.DAY_OF_MONTH, day);
         date.set(Calendar.MONTH, mounth-1);
         date.set(Calendar.YEAR, year);
-        
+
         return date;
     }
     

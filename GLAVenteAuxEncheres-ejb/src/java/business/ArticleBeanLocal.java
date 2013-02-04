@@ -1,10 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package business;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
@@ -16,6 +14,7 @@ import library.ArticleBeanInterface;
 import persistence.Article;
 import persistence.Category;
 import persistence.Enchere;
+import persistence.Notification;
 import persistence.Promotion;
 import persistence.SubCategory;
 import persistence.UserEnchere;
@@ -43,12 +42,13 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     @Override
     public List<Article> getCriticalsArticles() {
         List<Article> result = new ArrayList<Article>();
-        Query query = em.createNamedQuery("Article.findCriticalsArticles");
-        
+        Query query = em.createNamedQuery("Article.findArticles");
         try {
              List<Article> articles = (List<Article>) query.getResultList();
              for (int i = 0; i < articles.size(); i++) {
-                result.add(articles.get(i));
+                 if (articles.get(i).getEndDate().after(new GregorianCalendar())){
+                     result.add(articles.get(i));
+                 }
             }
         } catch (NoResultException e){
             return null;
@@ -60,12 +60,12 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     @Override
     public List<Article> getCriticalsArticles(UserEnchere user) {
         List<Article> result = new ArrayList<Article>();
-        Query query = em.createNamedQuery("Article.findCriticalsArticlesByUser");
+        Query query = em.createNamedQuery("Article.findArticlesByUser");
         query.setParameter(1, user.getId());
         try {
              List<Article> articles = (List<Article>) query.getResultList();
              for (int i = 0; i < articles.size(); i++) {
-                result.add(articles.get(i));
+                    result.add(articles.get(i));
             }
         } catch (NoResultException e){
             return null;
@@ -97,7 +97,10 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
              for (int i = 0; i < promotions.size(); i++) {
                  for (int j = 0; j < promotions.get(i).getArticles().size(); j++) {
                      if (!result.contains(promotions.get(i).getArticles().get(j))){
-                         result.add(promotions.get(i).getArticles().get(j));
+                         if (promotions.get(i).getArticles().get(j).getEndDate().after(new GregorianCalendar())){
+                             result.add(promotions.get(i).getArticles().get(j));
+                         }
+                         
                      }
                      
                  }
@@ -119,7 +122,9 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         try {
              List<Article> articles = (List<Article>) query.getResultList();
              for (int i = 0; i < articles.size(); i++) {
-                result.add(articles.get(i));
+                 if (articles.get(i).getEndDate().after(new GregorianCalendar())){
+                    result.add(articles.get(i));
+                 }
             }
         } catch (NoResultException e){
             return null;
@@ -144,10 +149,16 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         return result;
     }
     
-    @Override
+   @Override
     public List<SubCategory> getAllSubCategory(int idCategory) {
         List<SubCategory> result = new ArrayList<SubCategory>();
-        Query query = em.createNamedQuery("SubCategory.findAll");
+        Query query;
+        if (idCategory == 0) {
+            query = em.createNamedQuery("SubCategory.findAll");
+        } else {
+            query = em.createNamedQuery("SubCategory.searchByCategory");
+            query.setParameter(1, idCategory);
+        }
         
         try {
              List<SubCategory> subCategory = (List<SubCategory>) query.getResultList();
@@ -172,7 +183,9 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
             try {
                  List<Article> articles = (List<Article>) query.getResultList();
                  for (int i = 0; i < articles.size(); i++) {
-                    result.add(articles.get(i));
+                     if (articles.get(i).getEndDate().after(new GregorianCalendar())){
+                        result.add(articles.get(i));
+                     }
                 }
             } catch (NoResultException e){
                 return null;
@@ -193,13 +206,73 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
             try {
                  List<Article> articles = (List<Article>) query.getResultList();
                  for (int i = 0; i < articles.size(); i++) {
-                    result.add(articles.get(i));
+                     if (articles.get(i).getEndDate().after(new GregorianCalendar())){
+                        result.add(articles.get(i));
+                     }
                 }
             } catch (NoResultException e){
                 return null;
             }
         }
         return result;
+    }
+
+    @Override
+    public void removeArticle(Article a, UserEnchere user) {
+        List<Enchere> result = new ArrayList<Enchere>();
+        Query query = em.createNamedQuery("Enchere.getRunningBillArticle");
+        query.setParameter(1, a.getId());
+        List<Enchere> encheres = (List<Enchere>) query.getResultList();
+        result.addAll(encheres);
+        
+        Notification n = new Notification("L'article "+a.getName()+" a été retiré de la vente");
+        for (int i = 0; i < encheres.size(); i++) {
+            UserEnchere u = em.find(UserEnchere.class, encheres.get(i).getUserEnchere().getId());
+            u.getNotifications().add(n);
+            em.remove(em.merge(encheres.get(i)));
+        }
+        
+        if (a.getPromotions().size() == 2){
+            Promotion p1 = a.getPromotions().get(1);
+            p1.getArticles().remove(a);
+            a.getPromotions().remove(p1);
+            Promotion p2 = a.getPromotions().get(0);
+            p2.getArticles().remove(a);
+            a.getPromotions().remove(p2);
+            em.merge(p1);
+            em.merge(p2);
+            em.merge(a);
+        } else {
+            if (a.getPromotions().size() == 1){
+                Promotion p3 = a.getPromotions().get(0);
+                p3.getArticles().remove(a);
+                a.getPromotions().remove(p3);
+            }
+        }
+        em.merge(a);
+        user.getSellArticles().remove(a);
+        Notification n2 = new Notification("Vous avez supprimé l'article "+a.getName());
+        user.getNotifications().add(n2);
+        em.merge(user);
+        em.remove(em.merge(a));
+    }
+
+    @Override
+    public SubCategory getSubCategory(int i) {
+        Query query;
+        query = em.createNamedQuery("SubCategory.searchById");
+        query.setParameter(1, i);
+        SubCategory s = (SubCategory) query.getResultList().get(0);
+        return s;
+    }
+
+    @Override
+    public void addArticle(Article a) {
+        this.em.persist(a);
+        a.getOwner().getSellArticles().add(a);
+        Notification n = new Notification("Vous avez ajouté l'article "+a.getName());
+        a.getOwner().getNotifications().add(n);
+        this.em.merge(a.getOwner());
     }
     
 }

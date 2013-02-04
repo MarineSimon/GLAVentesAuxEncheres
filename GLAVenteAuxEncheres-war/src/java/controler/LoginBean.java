@@ -4,15 +4,17 @@
  */
 package controler;
 
+import java.io.IOException;
 import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import library.UserBeanInterface;
 import persistence.UserEnchere;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -95,5 +97,20 @@ public class LoginBean implements Serializable {
     public void setUserConnected(UserEnchere userConnected) {
         this.userConnected = userConnected;
     }
+    
+    public void verifyUseLogin(ComponentSystemEvent event){  
+        if(!isConnected()){  
+            doRedirect("login.xhtml");  
+        }  
+    }
+    
+    public void doRedirect(String url){  
+    try {  
+        FacesContext context=FacesContext.getCurrentInstance();  
+        context.getExternalContext().redirect("login.xhtml");  
+    } catch (IOException e) {  
+          e.printStackTrace();  
+    }  
+   } 
     
 }

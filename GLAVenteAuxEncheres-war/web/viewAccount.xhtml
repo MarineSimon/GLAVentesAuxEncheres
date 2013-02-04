@@ -13,9 +13,16 @@
 
     <ui:define name="content">
         <p:accordionPanel>
+            <p:tab title="Notifications">
+                <p:dataGrid id="notifications" columns="1" value="#{loginBean.userConnected.notifications}" var="notification">
+                    <h:outputText value="[#{notification.creationDateToString}] "/>
+                    <h:outputText value="#{notification.message}"/>
+                </p:dataGrid>
+            </p:tab>
             <p:tab title="Mon compte">
-                <div>
-                    <h:panelGrid columns="2" cellpadding="">
+                <h3>Informations personnelles</h3>
+                <div style="border-top: black solid 1px;">
+                    <h:panelGrid columns="2" cellpadding="" style="margin-left: 55px;margin-top: 10px;">
                         <h:outputText class="title" value="Prenom"></h:outputText>
                         <h:outputText value="#{loginBean.userConnected.firstname}"></h:outputText>
                         <h:outputText class="title" value="Nom"></h:outputText>
@@ -32,7 +39,7 @@
                 <div style="border-top: black solid 1px;">
                     
                 <p:dataGrid value="#{loginBean.userConnected.deliveryAdresses}" var="adresse" styleClass="articleMyAccount">
-                    <h:panelGrid columns="2" cellpadding="">
+                    <h:panelGrid columns="2">
                         <h:outputText class="title" value="Numéro de rue"></h:outputText>
                         <h:outputText value="#{adresse.number}"></h:outputText>
                         <h:outputText class="title" value="Nom de rue"></h:outputText>
@@ -63,6 +70,7 @@
                     </h:panelGrid>
                 </div>
             </p:tab>
+            
             <p:tab title="Mes ventes">
                 <p:scrollPanel id="scroll" mode="native" styleClass="scroll">
                 <p:dataGrid id="vueArticlesCompte" value="#{articleBean.getDisplayedArticlesByUser(loginBean.userConnected)}" var="article" >  
@@ -82,13 +90,24 @@
                                     <h:outputText class="title" value="Temps restant"></h:outputText>
                                     <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
                                     <h:outputText class="title" value="Prix initial"></h:outputText>
-                                    <h:outputText value="#{article.initialPrice} €"></h:outputText>
+                                    <h:outputText value="#{article.initialPrice}€"></h:outputText>
+                                    <h:outputText rendered="#{enchereBean.haveUserEnchere(article)}" class="title" value="Votre dernière enchère"/>
+                                    <h:outputText rendered="#{enchereBean.haveUserEnchere(article)}" value="#{enchereBean.userLastEnchere(article).amount}€"/>
+                           
+                                </h:panelGrid>
+                                <br/>
+                                <h:form>
                                     <p:commandLink value="plus de details..." action="detailsArticle" process="@this">
                                         <f:setPropertyActionListener value="#{article}" target="#{articleBean.selectedArticle}" />
                                     </p:commandLink>
-                                </h:panelGrid>
+                                </h:form>
+                                <br/>
+                                <p:commandLink rendered="#{enchereBean.haveUserEnchere(article)}" value="Se retirer de cette vente" action="#{enchereBean.removeEnchereArticle(article)}"/>
+                                <br/>
+                                <p:commandLink rendered="#{articleBean.isUserArticle(article)}" value="Retirer cet article de la vente" action="#{articleBean.removeArticle(article)}"/>
                                 <div style="clear: both"></div>
                              </div>
+                            <div style="clear: both"></div>
                          </div>
                     </div>
             </p:dataGrid>
@@ -113,13 +132,24 @@
                                     <h:outputText class="title" value="Temps restant"></h:outputText>
                                     <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
                                     <h:outputText class="title" value="Prix initial"></h:outputText>
-                                    <h:outputText value="#{article.initialPrice} €"></h:outputText>
+                                    <h:outputText value="#{article.initialPrice}€"></h:outputText>
+                                    <h:outputText rendered="#{enchereBean.haveUserEnchere(article)}" class="title" value="Votre dernière enchère"/>
+                                    <h:outputText rendered="#{enchereBean.haveUserEnchere(article)}" value="#{enchereBean.userLastEnchere(article).amount}€"/>
+                           
+                                </h:panelGrid>
+                                <br/>
+                                <h:form>
                                     <p:commandLink value="plus de details..." action="detailsArticle" process="@this">
                                         <f:setPropertyActionListener value="#{article}" target="#{articleBean.selectedArticle}" />
                                     </p:commandLink>
-                                </h:panelGrid>
+                                </h:form>
+                                <br/>
+                                <p:commandLink rendered="#{enchereBean.haveUserEnchere(article)}" value="Se retirer de cette vente" action="#{enchereBean.removeEnchereArticle(article)}"/>
+                                <br/>
+                                <p:commandLink rendered="#{articleBean.isUserArticle(article)}" value="Retirer cet article de la vente" action="#{articleBean.removeArticle(article)}"/>
                                 <div style="clear: both"></div>
                              </div>
+                            <div style="clear: both"></div>
                          </div>
                     </div>
             </p:dataGrid>

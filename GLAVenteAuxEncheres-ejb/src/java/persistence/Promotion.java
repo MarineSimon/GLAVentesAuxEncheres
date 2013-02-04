@@ -23,7 +23,7 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name="Promotion.findAllPromotions", query="SELECT p from Promotion p")
+    @NamedQuery(name="Promotion.findAllPromotions", query="SELECT p from Promotion p"),
 })
 public class Promotion implements Serializable {
     public static final int TYPE_DELIVERED_FREE = 0;
