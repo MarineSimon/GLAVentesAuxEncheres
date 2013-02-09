@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -22,6 +23,7 @@ import persistence.Enchere;
 import persistence.Promotion;
 import persistence.SubCategory;
 import persistence.UserEnchere;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -304,14 +306,19 @@ public class InitBaseSingleton {
         em.persist(enchere4);
     }
 
-    @Schedule(second="0", minute="0", hour="0", dayOfMonth="*", month="*", year="*")
+    @Schedule(second="0", minute="0",hour="0",dayOfMonth="*", month="*", year="*", persistent=false)
     private void loadPromotions() {
-        Query query = em.createNamedQuery("Article.findCriticalsArticles");
-        List<Article> articles = (List<Article>) query.getResultList();
-        
+        Query query = em.createNamedQuery("Article.findArticles");
+        List<Article> everyArticles = (List<Article>) query.getResultList();
+        List<Article> articles = new ArrayList<Article>();
+        for (int i = 0; i < everyArticles.size(); i++) {
+            if (everyArticles.get(i).getEndDate().after(new GregorianCalendar())){
+                articles.add(everyArticles.get(i));
+            }
+        }
         int random;
         Article article;
-        if (articles.size()>5){
+        if (articles.size()>4){
             for (int i = 0; i < articles.size(); i++) {
                 articles.get(i).getPromotions().remove(this.promotions.get(0));
                 articles.get(i).getPromotions().remove(this.promotions.get(1));
@@ -320,6 +327,10 @@ public class InitBaseSingleton {
             for (int i = 0; i < 2; i++) {
                 random = (int)(Math.random()*articles.size());
                 article = articles.get(random);
+                while (article.getPromotions().contains(this.promotions.get(0))){
+                    random = (int)(Math.random()*articles.size());
+                    article = articles.get(random);
+                }
                 article.getPromotions().add(this.promotions.get(0));
                 em.merge(article);
                 em.merge(this.promotions.get(0));
@@ -327,11 +338,16 @@ public class InitBaseSingleton {
             for (int i = 0; i < 2; i++) {
                 random = (int)(Math.random()*articles.size());
                 article = articles.get(random);
+                while (article.getPromotions().contains(this.promotions.get(1))){
+                    random = (int)(Math.random()*articles.size());
+                    article = articles.get(random);
+                }
                 article.getPromotions().add(this.promotions.get(1));
                 em.merge(article);
                 em.merge(this.promotions.get(1));
             }
         }
+        
     }
     
     public List<Promotion> getPromotions(){
