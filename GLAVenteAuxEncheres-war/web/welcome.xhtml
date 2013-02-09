@@ -69,7 +69,9 @@
                                     <h:outputText class="title" value="Temps restant"></h:outputText>
                                     <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
                                     <h:outputText class="title" value="Prix initial"></h:outputText>
-                                    <h:outputText value="#{article.initialPrice} €"></h:outputText>
+                                    <h:outputText value="#{article.initialPrice}€"></h:outputText>
+                                    <h:outputText rendered="#{enchereBean.haveUserEnchere(article)}" class="title" value="Votre dernière enchere"/>
+                                    <h:outputText rendered="#{enchereBean.haveUserEnchere(article)}" value="#{enchereBean.userLastEnchere(article).getAmount()}€"/>
                                 </h:panelGrid>
                                 <br/>
                                 <h:form>

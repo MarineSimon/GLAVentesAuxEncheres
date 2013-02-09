@@ -106,6 +106,8 @@ public class EnchereBean {
         RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueEncheresCompte");
         RequestContext.getCurrentInstance().update("j_idt9:j_idt23:notifications");
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueArticlesCompte");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueEncheresCompte");
     }
     
     public boolean haveUserEnchere(Article a){
@@ -121,6 +123,7 @@ public class EnchereBean {
         Enchere result = null;
         if(this.getUserConnected() != null && a != null){
             result = enchereBeanLocal.getUserLastEnchere(this.getUserConnected(),a);
+           // result.getAmount();
         }
          return result;
     }
