@@ -67,7 +67,7 @@ public class EnchereBean {
 
     
     public String addEnchere(Article a) {
-        if (this.getUserConnected().getAbandonsRecorder() <= 4){
+        if (this.getUserConnected().getAbandonsRecorder() <= 4 ){
             if (this.amount <= this.articleBeanLocal.getActualPrice(a)){
                 FacesContext.getCurrentInstance().addMessage("encherire:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Montant d'enchère insuffisant.",""));
                 return null;
@@ -134,4 +134,14 @@ public class EnchereBean {
          return result;
     }
     
+    public boolean isCanBuy(Article a){
+        boolean result = false;
+        if (this.getUserConnected() != null){
+            if (!a.getOwner().getLogin().equals(this.getUserConnected().getLogin())){
+                result = true;
+            }
+        }
+        
+        return result;
+    }
 }

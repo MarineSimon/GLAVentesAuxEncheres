@@ -245,7 +245,7 @@ public class InitBaseSingleton {
         Calendar date51 = createDate(7,9,2012);
         Enchere enchere1 = new Enchere(date51,810,article2,user1);
         Calendar date52 = createDate(7,9,2012);
-        Enchere enchere2 = new Enchere(date52,815,article1,user1);
+        Enchere enchere2 = new Enchere(date52,815,article1,user2);
         Calendar date53 = createDate(7,9,2012);
         Enchere enchere3 = new Enchere(date53,820,article4,user1);
         Calendar date54 = createDate(7,9,2012);
