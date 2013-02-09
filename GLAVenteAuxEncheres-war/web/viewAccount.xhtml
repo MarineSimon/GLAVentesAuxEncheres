@@ -14,7 +14,7 @@
     <ui:define name="content">
         <p:accordionPanel>
             <p:tab title="Notifications">
-                <p:dataGrid id="notifications" columns="1" value="#{loginBean.userConnected.notifications}" var="notification">
+                <p:dataGrid id="notifications" columns="1" value="#{loginBean.userConnected.notifications}" var="notification" emptyMessage="Aucune notification">
                     <h:outputText value="[#{notification.creationDateToString}] "/>
                     <h:outputText value="#{notification.message}"/>
                 </p:dataGrid>
@@ -73,7 +73,7 @@
             
             <p:tab title="Mes ventes">
                 <p:scrollPanel id="scroll" mode="native" styleClass="scroll">
-                <p:dataGrid id="vueArticlesCompte" value="#{articleBean.getDisplayedArticlesByUser(loginBean.userConnected)}" var="article" >  
+                <p:dataGrid id="vueArticlesCompte" value="#{articleBean.getDisplayedArticlesByUser(loginBean.userConnected)}" var="article" emptyMessage="Aucune vente en cours">  
                     <div id="articleMyAccount">
                         <div class="entete">
                             <span class="name_article">#{article.name}</span>
@@ -115,7 +115,7 @@
         </p:tab>
         <p:tab title="Mes enchères en cours">
                 <p:scrollPanel id="scroll2" mode="native" styleClass="scroll">
-                <p:dataGrid id="vueEncheresCompte" value="#{enchereBean.getRunningBill(loginBean.userConnected)}" var="article" >  
+                <p:dataGrid id="vueEncheresCompte" value="#{enchereBean.getRunningBill(loginBean.userConnected)}" var="article" emptyMessage="Aucune enchère en cours">  
                     <div class="articleMyAccount">
                         <div class="entete">
                             <span class="name_article">#{article.name}</span>
