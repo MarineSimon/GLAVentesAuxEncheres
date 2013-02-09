@@ -119,7 +119,7 @@ public class InitBaseSingleton {
         
         /*Utilisateurs*/
         Calendar date1 = createDate(27,8,1990);
-        UserEnchere user1 = new UserEnchere("user1", "u1", "Simon", "Marine", "marine.simon@gmail.com",date1, 2);
+        UserEnchere user1 = new UserEnchere("user1", "u1", "Simon", "Marine", "marine.simon@gmail.com",date1, 5);
         /*Adresses*/
         Address biling1 = new Address(12,"rue des Baxarts","54630","Flavigny","FRANCE");
         Address delivery1 = new Address(26,"rue Hubert Sensiquet","54850","Messein","FRANCE");
