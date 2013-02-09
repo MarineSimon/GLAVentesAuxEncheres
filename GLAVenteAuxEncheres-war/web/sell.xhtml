@@ -35,8 +35,8 @@
                         </p:selectOneMenu>
                         <h:outputText value="Durée de l'enchère : "/>
                         <p:calendar effect="fadeIn" value="#{articleBean.finEnchere}" pattern="dd/MM/yyyy HH:mm" id="to" required="true" validatorMessage="La date est à un format incorrect"/> 
-<!--                    <h:outputText value="Photo : " />
-                        <p:fileUpload value="#{articleBean.photo}" mode="simple"/>-->
+                        <p:fileUpload fileUploadListener="#{articleBean.upload}" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="100000" mode="simple"/>
+                        <!--<p:fileUpload value="#{articleBean.photo}" mode="simple"/>-->
                         <!--<input type="file" value="photo"/>-->
                     </h:panelGrid>
                 <center>
