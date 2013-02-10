@@ -144,4 +144,17 @@ public class EnchereBean {
         
         return result;
     }
+    
+    public boolean isWinner(Article a){
+        boolean result = false;
+        if (a != null && this.getUserConnected() != null){
+            if (a.getEndDate().before(new GregorianCalendar())){
+                Enchere e = this.enchereBeanLocal.getLastEnchereByArticle(a);
+                if (e.getUserEnchere().getLogin().equals(this.getUserConnected().getLogin())){
+                    result = true;
+                }
+            }
+        }
+        return result;
+    }
 }

@@ -148,6 +148,7 @@
                                     </p:commandLink>
                                 </h:form>
                                 <p:commandLink rendered="#{enchereBean.haveUserEnchere(article)}" value="Se retirer de cette vente" action="#{enchereBean.removeEnchereArticle(article)}"/>
+                                <p:commandButton rendered="#{enchereBean.isWinner(article)}" value="Commander"/>
                                 <div style="clear: both"></div>
                              </div>
                             <div style="clear: both"></div>

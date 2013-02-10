@@ -110,5 +110,16 @@ public class EnchereBeanLocal implements EnchereBeanInterface {
         }
         return result;
     }
+    
+    @Override
+    public Enchere getLastEnchereByArticle(Article a){
+        Enchere result = null;
+        Query query = em.createNamedQuery("Enchere.getRunningBillByArticle");
+        query.setParameter(1, a.getId());
+
+        List<Enchere> encheres = (List<Enchere>) query.getResultList();
+        result = encheres.get(encheres.size()-1);
+        return result;
+    }
 
 }
