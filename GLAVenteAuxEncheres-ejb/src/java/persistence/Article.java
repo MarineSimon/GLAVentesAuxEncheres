@@ -29,11 +29,12 @@ import javax.persistence.TemporalType;
 @NamedQueries({
         @NamedQuery(name="Article.findArticles", query="SELECT a from Article a ORDER BY a.endDate ASC"),
         @NamedQuery(name="Article.findArticlesByUser", query="SELECT a from Article a WHERE a.owner.id = ?1 ORDER BY a.endDate ASC"),
-        @NamedQuery(name="Article.searchArticles", query="SELECT a from Article a WHERE UPPER(a.name) LIKE UPPER(?1) OR UPPER(a.description) LIKE UPPER(?2) ORDER BY a.endDate ASC"),
+        @NamedQuery(name="Article.searchArticles", query="SELECT a from Article a WHERE (UPPER(a.name) LIKE UPPER(?1) OR UPPER(a.description) LIKE UPPER(?2)) ORDER BY a.endDate ASC"),
         @NamedQuery(name="Article.findLastEnchereByArticles", query="SELECT e from Enchere e WHERE e.article.id = ?1 ORDER BY e.creationDate ASC"),
-        @NamedQuery(name="Article.searchArticleByCategory", query="SELECT a from Article a, Category c, SubCategory sc WHERE c.id = ?1 AND a.subCategory.id = sc.id AND sc.category.id = c.id ORDER BY a.endDate ASC"),   
-        @NamedQuery(name="Article.searchArticleBySubCategory", query="SELECT a from Article a, SubCategory sc WHERE sc.id = ?1 AND a.subCategory.id = sc.id ORDER BY a.endDate ASC"),
-        @NamedQuery(name="Article.searchArticleByCategoryAndSubCategory", query="SELECT a from Article a, Category c, SubCategory sc WHERE c.id = ?1 AND sc.id = ?2 AND a.subCategory.id = sc.id AND sc.category.id = c.id ORDER BY a.endDate ASC")
+        @NamedQuery(name="Article.searchArticleByCategory", query="SELECT a from Article a  WHERE a.subCategory.category.id = ?1 ORDER BY a.endDate ASC"),  
+        @NamedQuery(name="Article.searchArticleByCategoryWithKeywords", query="SELECT a from Article a, Category c, SubCategory sc WHERE (UPPER(a.name) LIKE UPPER(?1) OR UPPER(a.description) LIKE UPPER(?2)) AND c.id = ?3 AND a.subCategory.id = sc.id AND sc.category.id = c.id ORDER BY a.endDate ASC"),           
+        @NamedQuery(name="Article.searchArticleBySubCategory", query="SELECT a from Article a WHERE a.subCategory.id = ?1 ORDER BY a.endDate ASC"),
+        @NamedQuery(name="Article.searchArticleBySubCategoryWithKeywords", query="SELECT a from Article a, SubCategory sc WHERE (UPPER(a.name) LIKE UPPER(?1) OR UPPER(a.description) LIKE UPPER(?2)) AND sc.id = ?3 AND a.subCategory.id = sc.id ORDER BY a.endDate ASC")
     })
 public class Article implements Serializable {
     public static final int ARTICLE_BUY = 0;

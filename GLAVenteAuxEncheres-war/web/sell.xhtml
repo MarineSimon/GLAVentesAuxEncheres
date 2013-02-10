@@ -23,11 +23,9 @@
                         <h:outputText value="Description de l'article : " />
                         <p:inputText value="#{articleBean.description}" style="width:230px"/>
                         <h:outputText value="Prix initial : *" />
-                        <p:inputText value="#{articleBean.prixInitial}" style="width:230px" required="true" validatorMessage="Le prix doit être un entier ou un double">
-                            <f:validateRegex pattern="([0-9])*" /> 
-                        </p:inputText>
-                        <h:outputText value="Catégorie : *" />
-                        <p:selectOneMenu value="#{articleBean.category}" effect="fade" style="width:238px" required="true">  
+                        <p:inputText value="#{articleBean.prixInitial}" required="true" requiredMessage="Prix initial obligatoire" style="width:230px"/>
+                        <h:outputText value="Catégorie : " />
+                        <p:selectOneMenu value="#{articleBean.category}" effect="fade" style="width:238px">  
                             <f:selectItems value="#{articleBean.allCategory}" var="categ" itemValue="#{categ.id}" itemLabel="#{categ.name}"/>
                             <p:ajax event="change" process="@this" update="sousCateg" />
                         </p:selectOneMenu>

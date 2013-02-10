@@ -13,7 +13,11 @@
 
     <ui:define name="content">
         <div class="article2">
-            <p:messages id="encherire" autoUpdate="true" closable="true"/>
+            <p:messages id="encherire" autoUpdate="true" closable="true">
+                <p:effect type="pulsate" event="load" delay="500" speed="500">  
+                    <f:param name="mode" value="'show'" />  
+        </p:effect>  
+            </p:messages>
             <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;" rendered="#{articleBean.selectedArticle.haveDeliveryFreePromotion()}" url="resources/pictures/freeDelivery.png"/>
             <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;margin-top: 85px;" rendered="#{article.haveGiftCertificatePromotion()}" url="resources/pictures/giftCertificate.png"/>
             <div class="entete">
@@ -32,15 +36,20 @@
                         <h:outputText class="title" value="Vendeur"></h:outputText>
                         <h:outputText value="#{articleBean.selectedArticle.owner.login}"></h:outputText>
                         <h:outputText class="title" value="Temps restant"></h:outputText>
-                        <h:outputText value="#{articleBean.getReminingTime(articleBean.selectedArticle)}"></h:outputText>
+                        <h:form>
+                            <h:outputText value="#{articleBean.getReminingTime(articleBean.selectedArticle)}" id="timeRemining"></h:outputText>
+                            <p:poll interval="1" listener="#{articleBean.getReminingTime(articleBean.selectedArticle)}" partialSubmit="true" update="timeRemining"/>  
+                        </h:form>
+                        
                         <h:outputText class="title" value="Prix initial"></h:outputText>
                         <h:outputText value="#{articleBean.selectedArticle.initialPrice} €"></h:outputText>
                         <h:outputText class="title" value="Description"></h:outputText>
                         <h:outputText value="#{articleBean.selectedArticle.description}"></h:outputText>
-                        <h:outputText rendered="#{enchereBean.userConnected != null}" value="Montant de mon enchère : "></h:outputText>
-                        <h:inputText rendered="#{enchereBean.userConnected != null}" value="#{enchereBean.amount}"></h:inputText>
-                        <p:commandButton rendered="#{enchereBean.userConnected != null}" value="encherir" action="#{enchereBean.addEnchere(articleBean.selectedArticle)}"></p:commandButton>
+                        <h:outputText rendered="#{enchereBean.isCanBuy(articleBean.selectedArticle)}" value="Montant de mon enchère : "></h:outputText>
+                        <h:inputText rendered="#{enchereBean.isCanBuy(articleBean.selectedArticle)}" value="#{enchereBean.amount}"></h:inputText>
+                        <p:commandButton rendered="#{enchereBean.isCanBuy(articleBean.selectedArticle)}" value="encherir" action="#{enchereBean.addEnchere(articleBean.selectedArticle)}"></p:commandButton>
                     </h:panelGrid>
+
                  </div>
                 <div style="clear: both"></div>
              </div>

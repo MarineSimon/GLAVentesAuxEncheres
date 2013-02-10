@@ -1,6 +1,6 @@
 /*
  * To change this template, choose Tools | Templates
- * and open the template in the editor.
+w * and open the template in the editor.
  */
 package controler;
 
@@ -58,7 +58,6 @@ public class ArticleBean implements Serializable {
     private String name;
     private String description;
     private double prixInitial;
-    private int sousCategorie;
     private Date finEnchere;
     private String photo ="";
     private String destination="/Users/soleneantoine/NetBeansProjects/GLAVentesAuxEncheres/GLAVenteAuxEncheres-war/web/resources/pictures/articles/";
@@ -159,14 +158,6 @@ public class ArticleBean implements Serializable {
         this.prixInitial = prixInitial;
     }
 
-    public int getSousCategorie() {
-        return sousCategorie;
-    }
-
-    public void setSousCategorie(int sousCategorie) {
-        this.sousCategorie = sousCategorie;
-    }
-
     public Date getFinEnchere() {
         return finEnchere;
     }
@@ -206,10 +197,13 @@ public class ArticleBean implements Serializable {
         Calendar endTime = a.getEndDate();
         Calendar actualTime = new GregorianCalendar();
         
-        long diff = Math.abs(endTime.getTimeInMillis() - actualTime.getTimeInMillis());
-        long numberOfDay = (long)(diff/(86400000))+1;
-        
-        return numberOfDay+" jours";
+        long diff = endTime.getTimeInMillis() - actualTime.getTimeInMillis();
+        diff = diff-1000;
+        if (diff < 0) {
+            diff=0;
+        }
+        Date d = new Date(diff);
+        return d.getDay()+"j "+d.getHours()+"h "+d.getMinutes()+"m "+d.getSeconds()+"s ";
     }
     
     private ArticleBeanLocal getStatefulBean() throws ServletException {
@@ -229,7 +223,7 @@ public class ArticleBean implements Serializable {
     }
     
     public void searchArticle(){
-        List<Article> searchList = this.articleLocal.search(this.keywords);
+        List<Article> searchList = this.articleLocal.search(this.keywords, this.category, this.subCategory);
         this.displayedArticles = searchList;
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
     }
@@ -241,29 +235,17 @@ public class ArticleBean implements Serializable {
         this.subCategory = 0;
         RequestContext.getCurrentInstance().update("j_idt9:viewCategory");
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
-        RequestContext.getCurrentInstance().update("j_idt9:j_idt18:searchValue");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt24:searchValue");
     }
     
     public List<Category> getAllCategory() {
-        List<Category> result = this.articleLocal.getAllCategory();
+        List<Category> result = this.articleLocal.getAllCategory(this.category,this.subCategory);
         return result;
     }
     
     public List<SubCategory> getAllSubCategory() {
-        List<SubCategory> result = this.articleLocal.getAllSubCategory(this.category);
+        List<SubCategory> result = this.articleLocal.getAllSubCategory(this.category,this.subCategory);
         return result;
-    }
-    
-    public void searchArticleByCategory() {
-        List<Article> searchList = this.articleLocal.searchArticleByCategory(this.category);
-        this.displayedArticles = searchList;  
-        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
-    }
-    
-    public void searchArticleBySubCategory() {
-        List<Article> searchList = this.articleLocal.searchArticleBySubCategory(this.subCategory);
-        this.displayedArticles = searchList;
-        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
     }
     
     public UserEnchere getUserConnected() {
