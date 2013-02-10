@@ -46,7 +46,7 @@ import persistence.UserEnchere;
  */
 
 @Named(value = "articleBean")
-@SessionScoped
+@RequestScoped
 @ManagedBean
 public class ArticleBean implements Serializable {
     @EJB
@@ -99,7 +99,7 @@ public class ArticleBean implements Serializable {
     }
     
     public List<Article> getDisplayedArticles() {
-            return displayedArticles;
+        return displayedArticles;
     }
     
     public List<Article> getDisplayedArticlesByUser(UserEnchere userConnected) throws ServletException {
@@ -219,12 +219,13 @@ public class ArticleBean implements Serializable {
         return articleBean;
     }
     
-    public void searchArticle(){
+    public String searchArticle(){
         System.out.println("k : "+this.keywords+" //c :"+this.category+" // sc :"+this.subCategory);
         List<Article> searchList = this.articleLocal.search(this.keywords, this.category, this.subCategory);
         System.out.println("taille :"+searchList.size());
         this.displayedArticles = searchList;
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
+        return null;
     }
     
     public void resetDisplayArticles(){
@@ -326,7 +327,7 @@ public class ArticleBean implements Serializable {
                 }
     }
     
-    public boolean diplaySubCategory(){
+    public boolean displaySubCategory(){
         return (this.category == 0);
     }
     
