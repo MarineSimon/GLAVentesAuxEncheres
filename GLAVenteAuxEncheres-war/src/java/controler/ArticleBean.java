@@ -99,9 +99,6 @@ public class ArticleBean implements Serializable {
     }
     
     public List<Article> getDisplayedArticles() {
-        if (this.displayedArticles.isEmpty() && this.keywords.isEmpty())
-            return this.getCriticalsArticles();
-        else 
             return displayedArticles;
     }
     
@@ -223,7 +220,9 @@ public class ArticleBean implements Serializable {
     }
     
     public void searchArticle(){
+        System.out.println("k : "+this.keywords+" //c :"+this.category+" // sc :"+this.subCategory);
         List<Article> searchList = this.articleLocal.search(this.keywords, this.category, this.subCategory);
+        System.out.println("taille :"+searchList.size());
         this.displayedArticles = searchList;
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
     }
@@ -283,7 +282,7 @@ public class ArticleBean implements Serializable {
             Article a = new Article(this.name,this.description, this.prixInitial, cal , this.photo);
             a.setOwner(this.getUserConnected());
             SubCategory s;
-            s = articleLocal.getSubCategory(sousCategorie);
+            s = articleLocal.getSubCategory(subCategory);
             a.setSubCategory(s);
             articleLocal.addArticle(a);
             return "backToViewAccount";
@@ -325,6 +324,10 @@ public class ArticleBean implements Serializable {
                 } catch (IOException e) {
                 System.out.println(e.getMessage());
                 }
+    }
+    
+    public boolean diplaySubCategory(){
+        return (this.category == 0);
     }
     
 
