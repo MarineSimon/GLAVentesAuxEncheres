@@ -68,7 +68,7 @@ public class EnchereBeanLocal implements EnchereBeanInterface {
         List<Enchere> encheres = (List<Enchere>) query.getResultList();
         result.addAll(encheres);
         
-        if ((new GregorianCalendar()).before(a.getEndDate())){
+        if ((new GregorianCalendar()).after(a.getEndDate())){
             u.setAbandonsRecorder(u.getAbandonsRecorder()+1);
         }
         

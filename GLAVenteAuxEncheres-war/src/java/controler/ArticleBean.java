@@ -176,10 +176,13 @@ public class ArticleBean implements Serializable{
         Calendar endTime = a.getEndDate();
         Calendar actualTime = new GregorianCalendar();
         
-        long diff = Math.abs(endTime.getTimeInMillis() - actualTime.getTimeInMillis());
-        long numberOfDay = (long)(diff/(86400000))+1;
-        
-        return numberOfDay+" jours";
+        long diff = endTime.getTimeInMillis() - actualTime.getTimeInMillis();
+        diff = diff-1000;
+        if (diff < 0) {
+            diff=0;
+        }
+        Date d = new Date(diff);
+        return d.getDay()+"j "+d.getHours()+"h "+d.getMinutes()+"m "+d.getSeconds()+"s ";
     }
     
     private ArticleBeanLocal getStatefulBean() throws ServletException {

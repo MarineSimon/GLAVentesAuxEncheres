@@ -67,17 +67,23 @@ public class EnchereBean {
 
     
     public String addEnchere(Article a) {
-        if (this.amount <= this.articleBeanLocal.getActualPrice(a)){
-            FacesContext.getCurrentInstance().addMessage("encherire:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Montant d'enchère insuffisant.",""));
+        if (this.getUserConnected().getAbandonsRecorder() <= 4 ){
+            if (this.amount <= this.articleBeanLocal.getActualPrice(a)){
+                FacesContext.getCurrentInstance().addMessage("encherire:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Montant d'enchère insuffisant.",""));
+                return null;
+            }
+            else {
+                Calendar date = new GregorianCalendar();
+                this.enchereBeanLocal.addEnchere(date, amount, a, this.getUserConnected());
+                RequestContext.getCurrentInstance().update("j_idt9:entete");
+                FacesContext.getCurrentInstance().addMessage("encherire:messages", new FacesMessage(FacesMessage.SEVERITY_INFO,"Enchère prise en compte !",""));
+                return null;
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage("encherire:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Vous n'avez plus le droit d'enchérir",""));
             return null;
         }
-        else {
-            Calendar date = new GregorianCalendar();
-            this.enchereBeanLocal.addEnchere(date, amount, a, this.getUserConnected());
-            RequestContext.getCurrentInstance().update("j_idt9:entete");
-            FacesContext.getCurrentInstance().addMessage("encherire:messages", new FacesMessage(FacesMessage.SEVERITY_INFO,"Enchère prise en compte !",""));
-            return null;
-        }
+        
     }
     
     public UserEnchere getUserConnected() {
@@ -106,6 +112,8 @@ public class EnchereBean {
         RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueEncheresCompte");
         RequestContext.getCurrentInstance().update("j_idt9:j_idt23:notifications");
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueArticlesCompte");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueEncheresCompte");
     }
     
     public boolean haveUserEnchere(Article a){
@@ -121,8 +129,19 @@ public class EnchereBean {
         Enchere result = null;
         if(this.getUserConnected() != null && a != null){
             result = enchereBeanLocal.getUserLastEnchere(this.getUserConnected(),a);
+           // result.getAmount();
         }
          return result;
     }
     
+    public boolean isCanBuy(Article a){
+        boolean result = false;
+        if (this.getUserConnected() != null){
+            if (!a.getOwner().getLogin().equals(this.getUserConnected().getLogin())){
+                result = true;
+            }
+        }
+        
+        return result;
+    }
 }

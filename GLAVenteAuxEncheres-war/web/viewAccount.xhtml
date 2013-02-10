@@ -14,7 +14,7 @@
     <ui:define name="content">
         <p:accordionPanel>
             <p:tab title="Notifications">
-                <p:dataGrid id="notifications" columns="1" value="#{loginBean.userConnected.notifications}" var="notification">
+                <p:dataGrid id="notifications" columns="1" value="#{loginBean.userConnected.notifications}" var="notification" emptyMessage="Aucune notification">
                     <h:outputText value="[#{notification.creationDateToString}] "/>
                     <h:outputText value="#{notification.message}"/>
                 </p:dataGrid>
@@ -73,7 +73,7 @@
             
             <p:tab title="Mes ventes">
                 <p:scrollPanel id="scroll" mode="native" styleClass="scroll">
-                <p:dataGrid id="vueArticlesCompte" value="#{articleBean.getDisplayedArticlesByUser(loginBean.userConnected)}" var="article" >  
+                <p:dataGrid id="vueArticlesCompte" value="#{articleBean.getDisplayedArticlesByUser(loginBean.userConnected)}" var="article" emptyMessage="Aucune vente en cours">  
                     <div id="articleMyAccount">
                         <div class="entete">
                             <span class="name_article">#{article.name}</span>
@@ -88,21 +88,22 @@
                                     <h:outputText class="title" value="Vendeur"></h:outputText>
                                     <h:outputText value="#{article.owner.login}"></h:outputText>
                                     <h:outputText class="title" value="Temps restant"></h:outputText>
-                                    <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
+                                    <h:form>
+                                        <h:outputText value="#{articleBean.getReminingTime(article)}" id="timeRemining"></h:outputText>
+                                        <p:poll interval="1" listener="#{articleBean.getReminingTime(article)}" partialSubmit="true" update="timeRemining"/>  
+                                    </h:form>
                                     <h:outputText class="title" value="Prix initial"></h:outputText>
                                     <h:outputText value="#{article.initialPrice}€"></h:outputText>
                                     <h:outputText rendered="#{enchereBean.haveUserEnchere(article)}" class="title" value="Votre dernière enchère"/>
                                     <h:outputText rendered="#{enchereBean.haveUserEnchere(article)}" value="#{enchereBean.userLastEnchere(article).amount}€"/>
-                           
                                 </h:panelGrid>
+
                                 <br/>
                                 <h:form>
                                     <p:commandLink value="plus de details..." action="detailsArticle" process="@this">
                                         <f:setPropertyActionListener value="#{article}" target="#{articleBean.selectedArticle}" />
                                     </p:commandLink>
                                 </h:form>
-                                <br/>
-                                <p:commandLink rendered="#{enchereBean.haveUserEnchere(article)}" value="Se retirer de cette vente" action="#{enchereBean.removeEnchereArticle(article)}"/>
                                 <br/>
                                 <p:commandLink rendered="#{articleBean.isUserArticle(article)}" value="Retirer cet article de la vente" action="#{articleBean.removeArticle(article)}"/>
                                 <div style="clear: both"></div>
@@ -115,7 +116,7 @@
         </p:tab>
         <p:tab title="Mes enchères en cours">
                 <p:scrollPanel id="scroll2" mode="native" styleClass="scroll">
-                <p:dataGrid id="vueEncheresCompte" value="#{enchereBean.getRunningBill(loginBean.userConnected)}" var="article" >  
+                <p:dataGrid id="vueEncheresCompte" value="#{enchereBean.getRunningBill(loginBean.userConnected)}" var="article" emptyMessage="Aucune enchère en cours">  
                     <div class="articleMyAccount">
                         <div class="entete">
                             <span class="name_article">#{article.name}</span>
@@ -130,7 +131,10 @@
                                     <h:outputText class="title" value="Vendeur"></h:outputText>
                                     <h:outputText value="#{article.owner.login}"></h:outputText>
                                     <h:outputText class="title" value="Temps restant"></h:outputText>
-                                    <h:outputText value="#{articleBean.getReminingTime(article)}"></h:outputText>
+                                    <h:form>
+                                        <h:outputText value="#{articleBean.getReminingTime(article)}" id="timeRemining"></h:outputText>
+                                        <p:poll interval="1" listener="#{articleBean.getReminingTime(article)}" partialSubmit="true" update="timeRemining"/>  
+                                    </h:form>
                                     <h:outputText class="title" value="Prix initial"></h:outputText>
                                     <h:outputText value="#{article.initialPrice}€"></h:outputText>
                                     <h:outputText rendered="#{enchereBean.haveUserEnchere(article)}" class="title" value="Votre dernière enchère"/>
@@ -143,10 +147,7 @@
                                         <f:setPropertyActionListener value="#{article}" target="#{articleBean.selectedArticle}" />
                                     </p:commandLink>
                                 </h:form>
-                                <br/>
                                 <p:commandLink rendered="#{enchereBean.haveUserEnchere(article)}" value="Se retirer de cette vente" action="#{enchereBean.removeEnchereArticle(article)}"/>
-                                <br/>
-                                <p:commandLink rendered="#{articleBean.isUserArticle(article)}" value="Retirer cet article de la vente" action="#{articleBean.removeArticle(article)}"/>
                                 <div style="clear: both"></div>
                              </div>
                             <div style="clear: both"></div>
