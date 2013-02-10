@@ -45,9 +45,9 @@
                         <h:outputText value="#{articleBean.selectedArticle.initialPrice} €"></h:outputText>
                         <h:outputText class="title" value="Description"></h:outputText>
                         <h:outputText value="#{articleBean.selectedArticle.description}"></h:outputText>
-                        <h:outputText rendered="#{enchereBean.userConnected != null}" value="Montant de mon enchère : "></h:outputText>
-                        <h:inputText rendered="#{enchereBean.userConnected != null}" value="#{enchereBean.amount}"></h:inputText>
-                        <p:commandButton rendered="#{enchereBean.userConnected != null}" value="encherir" action="#{enchereBean.addEnchere(articleBean.selectedArticle)}"></p:commandButton>
+                        <h:outputText rendered="#{enchereBean.isCanBuy(articleBean.selectedArticle)}" value="Montant de mon enchère : "></h:outputText>
+                        <h:inputText rendered="#{enchereBean.isCanBuy(articleBean.selectedArticle)}" value="#{enchereBean.amount}"></h:inputText>
+                        <p:commandButton rendered="#{enchereBean.isCanBuy(articleBean.selectedArticle)}" value="encherir" action="#{enchereBean.addEnchere(articleBean.selectedArticle)}"></p:commandButton>
                     </h:panelGrid>
 
                  </div>

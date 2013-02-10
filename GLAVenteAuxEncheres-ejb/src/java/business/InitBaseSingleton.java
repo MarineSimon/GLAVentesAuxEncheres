@@ -119,7 +119,7 @@ public class InitBaseSingleton {
         
         /*Utilisateurs*/
         Calendar date1 = createDate(27,8,1990);
-        UserEnchere user1 = new UserEnchere("user1", "u1", "Simon", "Marine", "marine.simon@gmail.com",date1, 2);
+        UserEnchere user1 = new UserEnchere("user1", "u1", "Simon", "Marine", "marine.simon@gmail.com",date1, 5);
         /*Adresses*/
         Address biling1 = new Address(12,"rue des Baxarts","54630","Flavigny","FRANCE");
         Address delivery1 = new Address(26,"rue Hubert Sensiquet","54850","Messein","FRANCE");
@@ -245,7 +245,7 @@ public class InitBaseSingleton {
         Calendar date51 = createDate(7,9,2012);
         Enchere enchere1 = new Enchere(date51,810,article2,user1);
         Calendar date52 = createDate(7,9,2012);
-        Enchere enchere2 = new Enchere(date52,815,article1,user1);
+        Enchere enchere2 = new Enchere(date52,815,article1,user2);
         Calendar date53 = createDate(7,9,2012);
         Enchere enchere3 = new Enchere(date53,820,article4,user1);
         Calendar date54 = createDate(7,9,2012);
