@@ -35,7 +35,7 @@ import persistence.UserEnchere;
  */
 
 @Named(value = "articleBean")
-@SessionScoped
+@RequestScoped
 public class ArticleBean implements Serializable{
     @EJB
     private ArticleBeanInterface articleLocal; 
@@ -199,9 +199,13 @@ public class ArticleBean implements Serializable{
     }
     
     public void searchArticle(){
+        System.out.println("Search 1");
         List<Article> searchList = this.articleLocal.search(this.keywords, this.category, this.subCategory);
+        System.out.println("Search 2");
         this.displayedArticles = searchList;
+        System.out.println("Search 3");
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
+        System.out.println("Search 4");
     }
     
     public void resetDisplayArticles(){
