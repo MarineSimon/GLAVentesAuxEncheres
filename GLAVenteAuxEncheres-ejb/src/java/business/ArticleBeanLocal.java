@@ -115,13 +115,13 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
 
     @Override
     public List<Article> search(String keywords, int category, int subCategory) {
-        List<Article> articles = new ArrayList<Article>();
+        List<Article> articles;
         Query query;
         if (category == 0 && subCategory == 0) {
             query = em.createNamedQuery("Article.searchArticles");
             query.setParameter(1, "%"+keywords+"%");
             query.setParameter(2, "%"+keywords+"%");
-            System.out.println("Cas 1");
+            //System.out.println("Cas 1");
         } else {
             if (subCategory == 0) {
                 /* cas ou on a seulement une categorie */
@@ -156,7 +156,7 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         } catch (NoResultException e){
             return null;
         }
-        System.out.println("Taille de la liste de resultats : "+articles.size());
+        //System.out.println("Taille de la liste de resultats : "+articles.size());
         return articles;
     }
 
