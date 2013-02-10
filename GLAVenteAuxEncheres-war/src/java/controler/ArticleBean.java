@@ -78,10 +78,7 @@ public class ArticleBean implements Serializable{
     }
     
     public List<Article> getDisplayedArticles() {
-        if (this.displayedArticles.isEmpty() && this.keywords.isEmpty())
-            return this.getCriticalsArticles();
-        else 
-            return displayedArticles;
+        return displayedArticles;
     }
     
     public List<Article> getDisplayedArticlesByUser(UserEnchere userConnected) throws ServletException {
@@ -262,7 +259,7 @@ public class ArticleBean implements Serializable{
         return "backToViewAccount";
     }
     
-    public boolean diplaySubCategory(){
+    public boolean displaySubCategory(){
         return (this.category == 0);
     }
 }
