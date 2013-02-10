@@ -24,24 +24,16 @@
             <h2>Catégorie</h2>
             <h:form id="viewCategory">
                 
-                <h:selectOneMenu value="#{articleBean.category}" effect="fade" style="width:238px">  
-                            <f:selectItems value="#{articleBean.allCategory}" var="categ" itemValue="#{categ.id}" itemLabel="#{categ.name}"/>
-                            <p:ajax event="change" process="@this" update="sousCateg" />
-                </h:selectOneMenu>
-                <h:selectOneMenu id ="sousCateg" value="#{articleBean.sousCategorie}" effect="fade" style="width:238px" >  
-                    <f:selectItems value="#{articleBean.allSubCategory}" var="subCateg" itemValue="#{subCateg.id}" itemLabel="#{subCateg.name}"  />  
-                </h:selectOneMenu>     
-                
-<!--                <h:selectOneMenu id="category" value="#{articleBean.category}">
+                <h:selectOneMenu id="categ" value="#{articleBean.category}" effect="fade" style="width:238px">
                     <f:selectItem itemLabel="Toutes les catégories" itemValue="0"/>
-                    <f:selectItems value="#{articleBean.allCategory}" var="_category" itemValue="#{_category.id}" itemLabel="#{_category.name}"/>
-                    <p:ajax event="click" listener="#{articleBean.searchArticleByCategory()}"/>
+                    <f:selectItems value="#{articleBean.allCategory}" var="categ" itemValue="#{categ.id}" itemLabel="#{categ.name}"/>
+                    <p:ajax event="change" process="@this" update="sousCateg" />
                 </h:selectOneMenu>
-                <h:selectOneMenu id="subCategory" value="#{articleBean.subCategory}">
+                <h:selectOneMenu id ="sousCateg" value="#{articleBean.subCategory}" effect="fade" style="width:238px" disabled="#{articleBean.diplaySubCategory()}" >
                     <f:selectItem itemLabel="Toutes les sous-catégories" itemValue="0"/>
-                    <f:selectItems value="#{articleBean.allSubCategory}" var="_subCategory" itemValue="#{_subCategory.id}" itemLabel="#{_subCategory.name}"/>
-                    <p:ajax event="click" listener="#{articleBean.searchArticleBySubCategory()}"/>
-                </h:selectOneMenu>-->
+                    <f:selectItems value="#{articleBean.allSubCategory}" var="subCateg" itemValue="#{subCateg.id}" itemLabel="#{subCateg.name}"  />
+                    <p:ajax event="change" process="@this" update="categ" />
+                </h:selectOneMenu>     
             </h:form>
         </div>
         

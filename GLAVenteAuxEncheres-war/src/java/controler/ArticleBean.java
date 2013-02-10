@@ -1,10 +1,11 @@
 /*
  * To change this template, choose Tools | Templates
- * and open the template in the editor.
+w * and open the template in the editor.
  */
 package controler;
 
 import business.ArticleBeanLocal;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.naming.InitialContext;
@@ -33,8 +35,8 @@ import persistence.UserEnchere;
  */
 
 @Named(value = "articleBean")
-@RequestScoped
-public class ArticleBean {
+@SessionScoped
+public class ArticleBean implements Serializable{
     @EJB
     private ArticleBeanInterface articleLocal; 
     
@@ -44,7 +46,6 @@ public class ArticleBean {
     private String name;
     private String description;
     private double prixInitial;
-    private int sousCategorie;
     private Date finEnchere;
     private String photo ="";
     private String destination="resources/pictures/articles";
@@ -136,14 +137,6 @@ public class ArticleBean {
         this.prixInitial = prixInitial;
     }
 
-    public int getSousCategorie() {
-        return sousCategorie;
-    }
-
-    public void setSousCategorie(int sousCategorie) {
-        this.sousCategorie = sousCategorie;
-    }
-
     public Date getFinEnchere() {
         return finEnchere;
     }
@@ -206,7 +199,7 @@ public class ArticleBean {
     }
     
     public void searchArticle(){
-        List<Article> searchList = this.articleLocal.search(this.keywords);
+        List<Article> searchList = this.articleLocal.search(this.keywords, this.category, this.subCategory);
         this.displayedArticles = searchList;
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
     }
@@ -218,29 +211,17 @@ public class ArticleBean {
         this.subCategory = 0;
         RequestContext.getCurrentInstance().update("j_idt9:viewCategory");
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
-        RequestContext.getCurrentInstance().update("j_idt9:j_idt18:searchValue");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt24:searchValue");
     }
     
     public List<Category> getAllCategory() {
-        List<Category> result = this.articleLocal.getAllCategory();
+        List<Category> result = this.articleLocal.getAllCategory(this.category,this.subCategory);
         return result;
     }
     
     public List<SubCategory> getAllSubCategory() {
-        List<SubCategory> result = this.articleLocal.getAllSubCategory(this.category);
+        List<SubCategory> result = this.articleLocal.getAllSubCategory(this.category,this.subCategory);
         return result;
-    }
-    
-    public void searchArticleByCategory() {
-        List<Article> searchList = this.articleLocal.searchArticleByCategory(this.category);
-        this.displayedArticles = searchList;  
-        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
-    }
-    
-    public void searchArticleBySubCategory() {
-        List<Article> searchList = this.articleLocal.searchArticleBySubCategory(this.subCategory);
-        this.displayedArticles = searchList;
-        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
     }
     
     public UserEnchere getUserConnected() {
@@ -272,9 +253,13 @@ public class ArticleBean {
         Article a = new Article(this.name,this.description, this.prixInitial, cal , ""); // A CHANGER POUR LA PICTURE !!!
         a.setOwner(this.getUserConnected());
         SubCategory s;
-        s = articleLocal.getSubCategory(sousCategorie);
+        s = articleLocal.getSubCategory(subCategory);
         a.setSubCategory(s);
         articleLocal.addArticle(a);
         return "backToViewAccount";
+    }
+    
+    public boolean diplaySubCategory(){
+        return (this.category == 0);
     }
 }

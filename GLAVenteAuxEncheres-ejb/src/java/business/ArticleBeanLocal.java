@@ -114,107 +114,83 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     }
 
     @Override
-    public List<Article> search(String keywords) {
-        List<Article> result = new ArrayList<Article>();
-        Query query = em.createNamedQuery("Article.searchArticles");
-        query.setParameter(1, "%"+keywords+"%");
-        query.setParameter(2, "%"+keywords+"%");
-        try {
-             List<Article> articles = (List<Article>) query.getResultList();
-             for (int i = 0; i < articles.size(); i++) {
-                 if (articles.get(i).getEndDate().after(new GregorianCalendar())){
-                    result.add(articles.get(i));
-                 }
+    public List<Article> search(String keywords, int category, int subCategory) {
+        List<Article> articles = new ArrayList<Article>();
+        Query query;
+        if (category == 0 && subCategory == 0) {
+            query = em.createNamedQuery("Article.searchArticles");
+            query.setParameter(1, "%"+keywords+"%");
+            query.setParameter(2, "%"+keywords+"%");
+            System.out.println("Cas 1");
+        } else {
+            if (subCategory == 0) {
+                /* cas ou on a seulement une categorie */
+                if (keywords.isEmpty()) {
+                    query = em.createNamedQuery("Article.searchArticleByCategory");
+                    query.setParameter(1, category);
+                    System.out.println("Cas 2");
+                } else {
+                    query = em.createNamedQuery("Article.searchArticleByCategoryWithKeywords");
+                    query.setParameter(1, "%"+keywords+"%");
+                    query.setParameter(2, "%"+keywords+"%");
+                    query.setParameter(3, category);
+                    System.out.println("Cas 3");
+                }  
             }
+            else {
+                if (keywords.isEmpty()) {
+                    query = em.createNamedQuery("Article.searchArticleBySubCategory");
+                    query.setParameter(1, subCategory);
+                    System.out.println("Cas 4");
+                } else {
+                    query = em.createNamedQuery("Article.searchArticleBySubCategoryWithKeywords");
+                    query.setParameter(1, "%"+keywords+"%");
+                    query.setParameter(2, "%"+keywords+"%");
+                    query.setParameter(3, subCategory);
+                    System.out.println("Cas 5");
+                }           
+            }
+        }
+        try {
+            articles = (List<Article>) query.getResultList();
         } catch (NoResultException e){
             return null;
         }
-        
-        return result;
+        System.out.println("Taille de la liste de resultats : "+articles.size());
+        return articles;
     }
 
     @Override
-    public List<Category> getAllCategory() {
-        List<Category> result = new ArrayList<Category>();
-        Query query = em.createNamedQuery("Category.findAll");
-        
+    public List<Category> getAllCategory(int category,int subCategory) {
+        List<Category> listCategory = new ArrayList<Category>();
+        Query query;
+        query = em.createNamedQuery("Category.findAll");
+
         try {
-             List<Category> category = (List<Category>) query.getResultList();
-             for (int i = 0; i < category.size(); i++) {
-                result.add(category.get(i));
-            }
+             listCategory = (List<Category>) query.getResultList();
         } catch (NoResultException e){
             return null;
         }
-        return result;
+        return listCategory;
     }
     
    @Override
-    public List<SubCategory> getAllSubCategory(int idCategory) {
-        List<SubCategory> result = new ArrayList<SubCategory>();
+    public List<SubCategory> getAllSubCategory(int category,int subCategory) {
+        List<SubCategory> listSubCategory = new ArrayList<SubCategory>();
         Query query;
-        if (idCategory == 0) {
+        if (category == 0) {
             query = em.createNamedQuery("SubCategory.findAll");
         } else {
             query = em.createNamedQuery("SubCategory.searchByCategory");
-            query.setParameter(1, idCategory);
+            query.setParameter(1, category);
         }
         
         try {
-             List<SubCategory> subCategory = (List<SubCategory>) query.getResultList();
-             for (int i = 0; i < subCategory.size(); i++) {
-                result.add(subCategory.get(i));
-            }
+             listSubCategory = (List<SubCategory>) query.getResultList();
         } catch (NoResultException e){
             return null;
         }
-        return result;
-    }
-
-    @Override
-    public List<Article> searchArticleByCategory(int category) {
-        List<Article> result = new ArrayList<Article>();
-        if (category == 0) {
-            result = this.getCriticalsArticles();
-        }
-        else {
-            Query query = em.createNamedQuery("Article.searchArticleByCategory");
-            query.setParameter(1, category);
-            try {
-                 List<Article> articles = (List<Article>) query.getResultList();
-                 for (int i = 0; i < articles.size(); i++) {
-                     if (articles.get(i).getEndDate().after(new GregorianCalendar())){
-                        result.add(articles.get(i));
-                     }
-                }
-            } catch (NoResultException e){
-                return null;
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public List<Article> searchArticleBySubCategory(int subCategory) {
-        List<Article> result = new ArrayList<Article>();
-        if (subCategory == 0) {
-            result = this.getCriticalsArticles();
-        }
-        else {
-            Query query = em.createNamedQuery("Article.searchArticleBySubCategory");
-            query.setParameter(1, subCategory);
-            try {
-                 List<Article> articles = (List<Article>) query.getResultList();
-                 for (int i = 0; i < articles.size(); i++) {
-                     if (articles.get(i).getEndDate().after(new GregorianCalendar())){
-                        result.add(articles.get(i));
-                     }
-                }
-            } catch (NoResultException e){
-                return null;
-            }
-        }
-        return result;
+        return listSubCategory;
     }
 
     @Override
@@ -274,5 +250,5 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         a.getOwner().getNotifications().add(n);
         this.em.merge(a.getOwner());
     }
-    
+
 }
