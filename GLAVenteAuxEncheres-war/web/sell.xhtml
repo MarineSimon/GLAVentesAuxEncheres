@@ -18,26 +18,27 @@
             <h:form id="deposerArticle">
                 <p:messages id="messages" autoUpdate="true"/>
                     <h:panelGrid columns="2" cellpadding="" style="margin:auto;"> 
-                        <h:outputText value="Nom de l'article :" />
-                        <p:inputText value="#{articleBean.name}" style="width:230px"/>
+                        <h:outputText value="Nom de l'article :*" />
+                        <p:inputText value="#{articleBean.name}" style="width:230px" required="true"/>
                         <h:outputText value="Description de l'article : " />
                         <p:inputText value="#{articleBean.description}" style="width:230px"/>
-                        <h:outputText value="Prix initial : " />
-                        <p:inputText value="#{articleBean.prixInitial}" style="width:230px"/>
-                        <h:outputText value="Catégorie : " />
-                        <p:selectOneMenu value="#{articleBean.category}" effect="fade" style="width:238px">  
+                        <h:outputText value="Prix initial : *" />
+                        <p:inputText value="#{articleBean.prixInitial}" style="width:230px" required="true" validatorMessage="Le prix doit être un entier ou un double">
+                            <f:validateRegex pattern="([0-9])*" /> 
+                        </p:inputText>
+                        <h:outputText value="Catégorie : *" />
+                        <p:selectOneMenu value="#{articleBean.category}" effect="fade" style="width:238px" required="true">  
                             <f:selectItems value="#{articleBean.allCategory}" var="categ" itemValue="#{categ.id}" itemLabel="#{categ.name}"/>
                             <p:ajax event="change" process="@this" update="sousCateg" />
                         </p:selectOneMenu>
-                        <h:outputText value="Sous-catégorie : " />
-                        <p:selectOneMenu id ="sousCateg" value="#{articleBean.sousCategorie}" effect="fade" style="width:238px" >  
+                        <h:outputText value="Sous-catégorie : *" />
+                        <p:selectOneMenu id ="sousCateg" value="#{articleBean.sousCategorie}" effect="fade" style="width:238px"  required="true">  
                             <f:selectItems value="#{articleBean.allSubCategory}" var="subCateg" itemValue="#{subCateg.id}" itemLabel="#{subCateg.name}"  />  
                         </p:selectOneMenu>
-                        <h:outputText value="Durée de l'enchère : "/>
-                        <p:calendar effect="fadeIn" value="#{articleBean.finEnchere}" pattern="dd/MM/yyyy HH:mm" id="to" required="true" validatorMessage="La date est à un format incorrect"/> 
-                        <p:fileUpload fileUploadListener="#{articleBean.upload}" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="100000" mode="simple"/>
-                        <!--<p:fileUpload value="#{articleBean.photo}" mode="simple"/>-->
-                        <!--<input type="file" value="photo"/>-->
+                        <h:outputText value="Durée de l'enchère : *"/>
+                        <p:calendar effect="fadeIn" value="#{articleBean.finEnchere}" pattern="dd/MM/yyyy HH:mm" id="to" required="true" validatorMessage="La date est à un format incorrect" style="width:238px" />                       
+                        <h:outputText value="Image : " />
+                        <p:fileUpload fileUploadListener="#{articleBean.upload}" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="100000" description="Select Images"/>
                     </h:panelGrid>
                 <center>
                     <p:commandButton value="Ok" action="#{articleBean.addArticle()}" />
