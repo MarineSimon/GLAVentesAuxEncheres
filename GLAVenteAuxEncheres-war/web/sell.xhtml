@@ -30,7 +30,7 @@
                             <p:ajax event="change" process="@this" update="sousCateg" />
                         </p:selectOneMenu>
                         <h:outputText value="Sous-catégorie : *" />
-                        <p:selectOneMenu id ="sousCateg" value="#{articleBean.sousCategorie}" effect="fade" style="width:238px"  required="true">  
+                        <p:selectOneMenu id ="sousCateg" value="#{articleBean.subCategory}" effect="fade" style="width:238px"  required="true">  
                             <f:selectItems value="#{articleBean.allSubCategory}" var="subCateg" itemValue="#{subCateg.id}" itemLabel="#{subCateg.name}"  />  
                         </p:selectOneMenu>
                         <h:outputText value="Durée de l'enchère : *"/>

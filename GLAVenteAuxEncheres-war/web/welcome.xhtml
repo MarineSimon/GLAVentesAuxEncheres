@@ -17,7 +17,9 @@
             <h:form>
                 <p:inputText id="searchValue" value="#{articleBean.keywords}" style="width: 90%"/>
                 <h:panelGrid columns="2">
-                    <p:commandButton value="Rechercher" action="#{articleBean.searchArticle}"/>
+                    <h:commandButton value="Rechercher" action="#{articleBean.searchArticle}">
+                        <p:ajax event="change" process="@this" update="j_idt9:articles_dg" />
+                    </h:commandButton>
                     <p:commandButton value="Annuler" action="#{articleBean.resetDisplayArticles}"/>
                 </h:panelGrid>
             </h:form>

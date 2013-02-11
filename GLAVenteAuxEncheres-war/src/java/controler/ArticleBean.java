@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
+import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -48,6 +49,7 @@ import persistence.UserEnchere;
 @Named(value = "articleBean")
 @RequestScoped
 @ManagedBean
+
 public class ArticleBean implements Serializable {
     @EJB
     private ArticleBeanInterface articleLocal; 
@@ -225,7 +227,7 @@ public class ArticleBean implements Serializable {
         System.out.println("Search 2");
         this.displayedArticles = searchList;
         System.out.println("Search 3");
-        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
+//        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
         System.out.println("Search 4");
     }
     
@@ -272,7 +274,7 @@ public class ArticleBean implements Serializable {
         
     }
     
-    public String addArticle(){  
+    public String addArticle() throws ServletException{  
         Calendar today = Calendar.getInstance();
         Calendar cal = Calendar.getInstance();
         cal.setTime(this.finEnchere);
@@ -281,7 +283,7 @@ public class ArticleBean implements Serializable {
             return null;
         }
         else {
-            Article a = new Article(this.name,this.description, this.prixInitial, cal , this.photo);
+            Article a = new Article(this.name,this.description, this.prixInitial, cal , this.getStatefulBean().getPicture());
             a.setOwner(this.getUserConnected());
             SubCategory s;
             s = articleLocal.getSubCategory(subCategory);
@@ -291,7 +293,7 @@ public class ArticleBean implements Serializable {
         }  
     }
     
-    public void upload(FileUploadEvent event) throws ClassNotFoundException { 
+    public void upload(FileUploadEvent event) throws ClassNotFoundException, ServletException { 
         FacesMessage msg = new FacesMessage("Success! ", event.getFile().getFileName() + " is uploaded.");  
         FacesContext.getCurrentInstance().addMessage(null, msg);
         // Do what you want with the file        
@@ -303,14 +305,14 @@ public class ArticleBean implements Serializable {
 
     }
     
-    public void copyFile(String fileName, InputStream in) throws ClassNotFoundException {
+    public void copyFile(String fileName, InputStream in) throws ClassNotFoundException, ServletException {
            try {
                Class class1 = Class.forName("controler.ArticleBean");
                URL url = class1.getResource("");
                String str[]=url.getPath().split("GLAVentesAuxEncheres");
                String path = str[0]+"GLAVentesAuxEncheres/GLAVenteAuxEncheres-war/web/resources/pictures/articles/"+fileName;
                String pathPhoto[]=path.split("web/");
-               this.photo = pathPhoto[1];
+               this.getStatefulBean().setPicture(pathPhoto[1]);
                 // write the inputStream to a FileOutputStream
                 OutputStream out = new FileOutputStream(new File(path));
              
