@@ -18,15 +18,24 @@
                 <p:inputText id="searchValue" value="#{articleBean.keywords}" style="width: 90%"/>
                 <h:panelGrid columns="2">
                     <p:commandButton value="Rechercher" actionListener="#{articleBean.searchArticle}" ajax="false"/>
-                    <p:commandButton value="Annuler" action="#{articleBean.resetDisplayArticles}"/>
+                    <p:commandButton value="Annuler" action="resetResearch" process="@this"/>
                 </h:panelGrid>
+                
+                <p:selectOneMenu value="#{articleBean.category}" effect="fade" style="width:238px">  
+                    <f:selectItem itemLabel="Toutes les catégories" itemValue="0"/>
+                    <f:selectItems value="#{articleBean.allCategory}" var="categ" itemValue="#{categ.id}" itemLabel="#{categ.name}"/>
+                    <p:ajax event="change" process="@this" update="sousCateg" />
+                </p:selectOneMenu>
+                <p:selectOneMenu id ="sousCateg" value="#{articleBean.subCategory}" effect="fade" style="width:238px"  required="true">  
+                    <f:selectItem itemLabel="Toutes les sous-catégories" itemValue="0"/>
+                    <f:selectItems value="#{articleBean.allSubCategory}" var="subCateg" itemValue="#{subCateg.id}" itemLabel="#{subCateg.name}"  />  
+                </p:selectOneMenu> 
             </h:form>
-            <p:commandLink value="Recherche avancée ..." action="advancedSearch"></p:commandLink>
         </div>
         
         <div id="articles">
             <p:dataGrid id="articles_dg" columns="1" rows="5" paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                        var="article" value="#{articleBean.displayedArticles}" rowKey="#{article}">
+                        var="article" value="#{articleBean.displayedArticles}" rowKey="#{article}" rendered="#{!articleBean.noResult()}">
 
                 <span>
                     <div class="article">
@@ -71,6 +80,7 @@
                     </div>
                 </span>  
             </p:dataGrid>
+            <p:outputLabel id="no_articles" rendered="#{articleBean.noResult()}">Aucun résultat ...</p:outputLabel>
         </div>
         <div id="autrediv">
         </div>

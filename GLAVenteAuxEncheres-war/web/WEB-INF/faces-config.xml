@@ -33,9 +33,9 @@
             <redirect>/detailsArticle.xhtml</redirect>
         </navigation-case>
         <navigation-case>
-            <from-action>advancedSearch</from-action>
-            <to-view-id>/advancedSearch.xhtml</to-view-id>
-            <redirect>/advancedSearch.xhtml</redirect>
+            <from-action>resetResearch</from-action>
+            <to-view-id>/welcome.xhtml</to-view-id>
+            <redirect>/welcome.xhtml</redirect>
         </navigation-case>
         
         
