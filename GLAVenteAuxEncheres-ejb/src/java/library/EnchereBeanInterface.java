@@ -23,4 +23,5 @@ public interface EnchereBeanInterface {
     public List<Enchere> removeEnchereArticle(UserEnchere u,Article a);
     public boolean haveUserEnchere(UserEnchere u,Article a);
     public Enchere getUserLastEnchere(UserEnchere u,Article a);
+    public Enchere getLastEnchereByArticle(Article a);
 }

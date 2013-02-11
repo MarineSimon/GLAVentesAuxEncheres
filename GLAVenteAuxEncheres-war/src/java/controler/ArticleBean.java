@@ -197,12 +197,15 @@ public class ArticleBean implements Serializable {
         Calendar actualTime = new GregorianCalendar();
         
         long diff = endTime.getTimeInMillis() - actualTime.getTimeInMillis();
-        diff = diff-1000;
         if (diff < 0) {
             diff=0;
         }
-        Date d = new Date(diff);
-        return d.getDay()+"j "+d.getHours()+"h "+d.getMinutes()+"m "+d.getSeconds()+"s ";
+        
+        Calendar remaining = new GregorianCalendar();
+        remaining.setTimeInMillis(diff);
+        remaining.add(Calendar.HOUR_OF_DAY, -1);
+        return (remaining.get(Calendar.DAY_OF_MONTH)-1)+"j "+remaining.get(Calendar.HOUR_OF_DAY)+"h "+remaining.get(Calendar.MINUTE)+"m "+remaining.get(Calendar.SECOND)+"s ";
+        
     }
     
     private ArticleBeanLocal getStatefulBean() throws ServletException {
@@ -333,8 +336,5 @@ public class ArticleBean implements Serializable {
     public boolean displaySubCategory(){
         return (this.category == 0);
     }
-    
-
-
     
 }

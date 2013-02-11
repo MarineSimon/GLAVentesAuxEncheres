@@ -250,6 +250,8 @@ public class InitBaseSingleton {
         Enchere enchere3 = new Enchere(date53,820,article4,user1);
         Calendar date54 = createDate(7,9,2012);
         Enchere enchere4 = new Enchere(date54,814,article3,user1);
+        Calendar date55 = createDate(7,9,2012);
+        Enchere enchere5 = new Enchere(date55,814,article6,user3);
         
         
         em.persist(category1);
@@ -304,6 +306,7 @@ public class InitBaseSingleton {
         em.persist(enchere2);
         em.persist(enchere3);
         em.persist(enchere4);
+        em.persist(enchere5);
     }
 
     @Schedule(second="0", minute="0",hour="0",dayOfMonth="*", month="*", year="*", persistent=false)
