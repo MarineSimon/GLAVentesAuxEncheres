@@ -5,6 +5,7 @@ w * and open the template in the editor.
 package controler;
 
 import business.ArticleBeanLocal;
+import business.InitBaseSingleton;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -53,6 +54,10 @@ import persistence.UserEnchere;
 public class ArticleBean implements Serializable {
     @EJB
     private ArticleBeanInterface articleLocal; 
+    
+    @EJB
+    private InitBaseSingleton singleton;
+    
     
     private String keywords = "";
     private int category = 0;
@@ -330,6 +335,8 @@ public class ArticleBean implements Serializable {
             s = articleLocal.getSubCategory(subCategory);
             a.setSubCategory(s);
             articleLocal.addArticle(a);
+            
+            singleton.addTimerToArticle(a);
             return "backToViewAccount";
         }  
     }
@@ -355,7 +362,7 @@ public class ArticleBean implements Serializable {
                String pathPhoto[]=path.split("web/");
                this.getStatefulBean().setPicture(pathPhoto[1]);
                 // write the inputStream to a FileOutputStream
-                OutputStream out = new FileOutputStream(new File(path));
+               OutputStream out = new FileOutputStream(new File(path));
              
                 int read = 0;
                 byte[] bytes = new byte[1024];
