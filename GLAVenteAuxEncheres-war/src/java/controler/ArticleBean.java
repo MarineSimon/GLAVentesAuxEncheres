@@ -230,17 +230,18 @@ public class ArticleBean implements Serializable {
     public void searchArticle(){
         List<Article> searchList = this.articleLocal.search(this.keywords, this.category, this.subCategory);
         this.displayedArticles = searchList;
-        //RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
     }
     
-    public void resetDisplayArticles(){
+    public String resetDisplayArticles(){
         this.displayedArticles = this.getCriticalsArticles();
         this.keywords = "";
         this.category = 0;
         this.subCategory = 0;
-        RequestContext.getCurrentInstance().update("j_idt9:viewCategory");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt24:j_idt28");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt24:sousCateg");
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
         RequestContext.getCurrentInstance().update("j_idt9:j_idt24:searchValue");
+        return null;
     }
     
     public List<Category> getAllCategory() {
@@ -334,6 +335,10 @@ public class ArticleBean implements Serializable {
     
     public boolean displaySubCategory(){
         return (this.category == 0);
+    }
+    
+    public boolean noResult() {
+        return (this.displayedArticles.isEmpty() && !this.keywords.isEmpty());
     }
     
 }
