@@ -5,12 +5,13 @@
     Description:
         Purpose of the stylesheet follows.
 */
+
 @font-face {
-    font-family: 'new_cicleregular';
-    src: url('../font/new_cicle/new_cicle_fina-webfont.eot');
-    src: url('../font/new_cicle/new_cicle_fina-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../font/new_cicle/new_cicle_fina-webfont.woff') format('woff'),
-         url('../font/new_cicle/new_cicle_fina-webfont.ttf') format('truetype');
+    font-family: 'helveticaneuelight';
+    src: url('../font/helveticaneue/helveticaneue_light-webfont.eot');
+    src: url('../font/helveticaneue/helveticaneue_light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/helveticaneue/helveticaneue_light-webfont.woff') format('woff'),
+         url('../font/helveticaneue/helveticaneue_light-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 
@@ -22,12 +23,17 @@ root {
 
 body {
     background: url('../pictures/wood_1.png');
-    font-family: 'new_cicleregular';
+    font-family: 'helveticaneuelight';
+    font-size: 13px;
 }
 
+h1{
+    font-family:  "helveticaneuelight";
+}
 h3{
     padding-bottom: 0;
     margin-bottom: 0;
+    font-family:  "helveticaneuelight";
 }
 
 a{
@@ -70,6 +76,7 @@ a:hover {
     -moz-border-radius-bottomright: 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    font-family: "helveticaneuelight";
 }
 
 .ui-button,.ui-button-text{
@@ -84,17 +91,18 @@ a:hover {
     color : white;
     text-align: center;
     padding: 20px;
-    font-size: 20px;
+    font-size: 15px;
     margin-top: 20px;
     margin-bottom: 20px;
     text-shadow : none;
+    margin-left: 0;
 }
 
 .ui-button-text{
     margin : 0;
     font-weight : lighter;
     text-shadow: none;
-    font-family: "new_cicleregular";
+    font-family: "helveticaneuelight";
 }
 
 
@@ -114,7 +122,7 @@ a:hover {
 #menu a {
     color: white;
     text-decoration: none;
-    font-family: "new_cicleregular";
+    font-family: "helveticaneuelight";
     margin-right: 7px;
 }
 
@@ -129,7 +137,7 @@ a:hover {
     -webkit-box-shadow: none;
     box-shadow: none;
     padding: 2px;
-    font-family: "new_cicleregular";
+    font-family: "helveticaneuelight";
     font-size: 15px;
 }
 
@@ -197,25 +205,26 @@ fieldset{
 .desc_article{  
     border: 1px solid #BBB;
     background-color: white;
-    font-family:  "new_cicleregular";
+    font-family:  "helveticaneuelight";
 }
 
 .desc_article2{  
     border: 1px solid #BBB;
     width: auto;
     background-color: white;
-    font-family:  "new_cicleregular";
+    font-family:  "helveticaneuelight";
 }
 
 .desc_article2{  
     border: 1px solid #BBB;
     width: auto;
     background-color: white;
-    font-family:  "new_cicleregular";
+    font-family:  "helveticaneuelight";
 }
 
 .title {
     color:#f4b130;
+    font-family:  "helveticaneuelight";
 }
 
 .price{
@@ -286,7 +295,7 @@ fieldset{
 
 .ui-accordion-header{
     background-color: black;
-    font-family:  "new_cicleregular";
+    font-family:  "helveticaneuelight";
     background-image: none;
     color: white;
 }
@@ -298,4 +307,33 @@ fieldset{
 
 .ui-button-text:hover{
     color:#f4b130;
+}
+
+.ui-inputfield, .ui-selectonemenu{
+    margin-bottom: 10px;
+    font-family:  "helveticaneuelight";
+}
+
+.ui-selectonemenu-label{
+    margin-bottom: 0;
+    font-family:  "helveticaneuelight";
+}
+
+#articles{
+    text-align: center;
+    padding-top: 20px;
+    min-height: 500px;
+}
+
+.ui-selectonemenu-item,.name_article,.ui-commandlink,.ui-outputlabel{
+    font-family:  "helveticaneuelight";
+}
+
+.price,.ui-widget input{
+    font-family:  "helveticaneuelight";
+}
+
+.ui-accordion-header a,.ui-state-default a,.ui-state-default a:link{
+    color : white;
+    text-shadow: none;
 }

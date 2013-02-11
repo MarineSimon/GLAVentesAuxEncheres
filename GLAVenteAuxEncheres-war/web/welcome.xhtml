@@ -25,12 +25,23 @@
                     <f:selectItem itemLabel="Toutes les sous-catégories" itemValue="0"/>
                     <f:selectItems value="#{articleBean.allSubCategory}" var="subCateg" itemValue="#{subCateg.id}" itemLabel="#{subCateg.name}"  />  
                 </p:selectOneMenu> 
-                                <h:panelGrid columns="2">
+                
+                <p:selectOneMenu id ="minPrice" value="#{articleBean.minPrice}" effect="fade" style="width:238px" >  
+                    <f:selectItem itemLabel="Prix minimum" itemValue="0"/>
+                    <f:selectItems value="#{articleBean.minList()}" var="minPrice" itemValue="#{minPrice}" itemLabel="#{minPrice}"  />  
+                </p:selectOneMenu>
+                <p:selectOneMenu id ="maxPrice" value="#{articleBean.maxPrice}" effect="fade" style="width:238px" >  
+                    <f:selectItem itemLabel="Prix maximum" itemValue="0"/>
+                    <f:selectItems value="#{articleBean.maxList()}" var="minPrice" itemValue="#{maxPrice}" itemLabel="#{maxPrice}"  />  
+                </p:selectOneMenu>
+                
+                <h:panelGrid columns="2">
                     <p:commandButton value="Rechercher" actionListener="#{articleBean.searchArticle}" ajax="false"/>
                     <p:commandButton value="Annuler" action="resetResearch" process="@this"/>
                 </h:panelGrid>
                 
             </h:form>
+            <p:messages id="error" autoUpdate="false" closable="true"/>
         </div>
         
         <div id="articles">
