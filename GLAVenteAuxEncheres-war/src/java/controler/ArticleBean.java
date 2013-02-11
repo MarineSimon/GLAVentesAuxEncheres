@@ -78,7 +78,10 @@ public class ArticleBean implements Serializable{
     }
     
     public List<Article> getDisplayedArticles() {
-        return displayedArticles;
+        if (this.displayedArticles.size() == 0 && this.keywords.isEmpty())
+            return this.getCriticalsArticles();
+        else 
+            return displayedArticles;
     }
     
     public List<Article> getDisplayedArticlesByUser(UserEnchere userConnected) throws ServletException {
@@ -202,13 +205,9 @@ public class ArticleBean implements Serializable{
     }
     
     public void searchArticle(){
-        System.out.println("Search 1");
         List<Article> searchList = this.articleLocal.search(this.keywords, this.category, this.subCategory);
-        System.out.println("Search 2");
         this.displayedArticles = searchList;
-        System.out.println("Search 3");
-        RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
-        System.out.println("Search 4");
+        //RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
     }
     
     public void resetDisplayArticles(){
