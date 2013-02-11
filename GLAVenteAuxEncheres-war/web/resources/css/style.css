@@ -6,11 +6,22 @@
         Purpose of the stylesheet follows.
 */
 @font-face {
-    font-family: 'new_cicleregular';
+    font-family: 'eurofurence_lightregular';
     src: url('../font/new_cicle/new_cicle_fina-webfont.eot');
     src: url('../font/new_cicle/new_cicle_fina-webfont.eot?#iefix') format('embedded-opentype'),
          url('../font/new_cicle/new_cicle_fina-webfont.woff') format('woff'),
          url('../font/new_cicle/new_cicle_fina-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'eurofurence_lightregular';
+    src: url('../font/euro35/eurof35-webfont.eot');
+    src: url('../font/euro35/eurof35-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/euro35/eurof35-webfont.woff') format('woff'),
+         url('../font/euro35/eurof35-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 
@@ -22,7 +33,8 @@ root {
 
 body {
     background: url('../pictures/wood_1.png');
-    font-family: 'new_cicleregular';
+    font-family: 'eurofurence_lightregular';
+    font-size: 19px;
 }
 
 h3{
@@ -70,6 +82,7 @@ a:hover {
     -moz-border-radius-bottomright: 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    font-family: "eurofurence_lightregular";
 }
 
 .ui-button,.ui-button-text{
@@ -88,13 +101,14 @@ a:hover {
     margin-top: 20px;
     margin-bottom: 20px;
     text-shadow : none;
+    margin-left: 0;
 }
 
 .ui-button-text{
     margin : 0;
     font-weight : lighter;
     text-shadow: none;
-    font-family: "new_cicleregular";
+    font-family: "eurofurence_lightregular";
 }
 
 
@@ -114,7 +128,7 @@ a:hover {
 #menu a {
     color: white;
     text-decoration: none;
-    font-family: "new_cicleregular";
+    font-family: "eurofurence_lightregular";
     margin-right: 7px;
 }
 
@@ -129,7 +143,7 @@ a:hover {
     -webkit-box-shadow: none;
     box-shadow: none;
     padding: 2px;
-    font-family: "new_cicleregular";
+    font-family: "eurofurence_lightregular";
     font-size: 15px;
 }
 
@@ -197,21 +211,21 @@ fieldset{
 .desc_article{  
     border: 1px solid #BBB;
     background-color: white;
-    font-family:  "new_cicleregular";
+    font-family:  "eurofurence_lightregular";
 }
 
 .desc_article2{  
     border: 1px solid #BBB;
     width: auto;
     background-color: white;
-    font-family:  "new_cicleregular";
+    font-family:  "eurofurence_lightregular";
 }
 
 .desc_article2{  
     border: 1px solid #BBB;
     width: auto;
     background-color: white;
-    font-family:  "new_cicleregular";
+    font-family:  "eurofurence_lightregular";
 }
 
 .title {
@@ -286,7 +300,7 @@ fieldset{
 
 .ui-accordion-header{
     background-color: black;
-    font-family:  "new_cicleregular";
+    font-family:  "eurofurence_lightregular";
     background-image: none;
     color: white;
 }
@@ -298,4 +312,33 @@ fieldset{
 
 .ui-button-text:hover{
     color:#f4b130;
+}
+
+.ui-inputfield, .ui-selectonemenu{
+    margin-bottom: 10px;
+    font-family:  "eurofurence_lightregular";
+}
+
+.ui-selectonemenu-label{
+    margin-bottom: 0;
+    font-family:  "eurofurence_lightregular";
+}
+
+#articles{
+    text-align: center;
+    padding-top: 20px;
+    min-height: 500px;
+}
+
+.ui-selectonemenu-item,.name_article,.ui-commandlink,.ui-outputlabel{
+    font-family:  "eurofurence_lightregular";
+}
+
+.price,.ui-widget input{
+    font-family:  "new_circle";
+}
+
+.ui-accordion-header a,.ui-state-default a,.ui-state-default a:link{
+    color : white;
+    text-shadow: none;
 }

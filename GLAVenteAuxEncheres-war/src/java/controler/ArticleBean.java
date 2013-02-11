@@ -317,7 +317,7 @@ public class ArticleBean implements Serializable {
                String pathPhoto[]=path.split("web/");
                this.getStatefulBean().setPicture(pathPhoto[1]);
                 // write the inputStream to a FileOutputStream
-                OutputStream out = new FileOutputStream(new File(path));
+               OutputStream out = new FileOutputStream(new File(path));
              
                 int read = 0;
                 byte[] bytes = new byte[1024];
