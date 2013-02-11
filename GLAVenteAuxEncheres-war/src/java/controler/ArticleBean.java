@@ -219,13 +219,14 @@ public class ArticleBean implements Serializable {
         return articleBean;
     }
     
-    public String searchArticle(){
-        System.out.println("k : "+this.keywords+" //c :"+this.category+" // sc :"+this.subCategory);
+    public void searchArticle(){
+        System.out.println("Search 1");
         List<Article> searchList = this.articleLocal.search(this.keywords, this.category, this.subCategory);
-        System.out.println("taille :"+searchList.size());
+        System.out.println("Search 2");
         this.displayedArticles = searchList;
+        System.out.println("Search 3");
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
-        return null;
+        System.out.println("Search 4");
     }
     
     public void resetDisplayArticles(){
