@@ -269,4 +269,15 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         this.em.merge(a.getOwner());
     }
 
+    @Override
+    public double getMaxPrice() {
+        Query query;
+        query = em.createNamedQuery("Enchere.maxPrice");
+        double result = (Double)query.getSingleResult();
+        return result;
+        
+    }
+    
+    
+
 }
