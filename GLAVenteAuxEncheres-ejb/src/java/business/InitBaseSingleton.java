@@ -9,10 +9,14 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Stateless;
+import javax.ejb.Timeout;
+import javax.ejb.Timer;
+import javax.ejb.TimerService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -34,6 +38,9 @@ import org.primefaces.context.RequestContext;
 public class InitBaseSingleton {
     @PersistenceContext(unitName="GLAVenteAuxEncheres-PU")
     private EntityManager em;
+    
+    @Resource
+    TimerService timerService;
     
     private List<Promotion> promotions;
     
@@ -364,6 +371,15 @@ public class InitBaseSingleton {
         date.set(Calendar.YEAR, year);
 
         return date;
+    }
+    
+    public void addTimerToArticle(Article a){
+        timerService.createTimer(a.getEndDate().getTime(), "La vente de l'article "+a.getName()+" est terminée");
+    }
+    
+    @Timeout
+    public void endArticle(Timer t){
+        System.out.println(""+t.getInfo());
     }
     
 }
