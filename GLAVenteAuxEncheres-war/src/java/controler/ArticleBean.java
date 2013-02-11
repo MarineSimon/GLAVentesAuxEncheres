@@ -5,7 +5,13 @@ w * and open the template in the editor.
 package controler;
 
 import business.ArticleBeanLocal;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,9 +19,12 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
+import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.naming.InitialContext;
@@ -24,10 +33,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 import library.ArticleBeanInterface;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 import persistence.Article;
 import persistence.Category;
 import persistence.SubCategory;
 import persistence.UserEnchere;
+
 
 /**
  *
@@ -36,7 +48,9 @@ import persistence.UserEnchere;
 
 @Named(value = "articleBean")
 @RequestScoped
-public class ArticleBean implements Serializable{
+@ManagedBean
+
+public class ArticleBean implements Serializable {
     @EJB
     private ArticleBeanInterface articleLocal; 
     
@@ -48,11 +62,20 @@ public class ArticleBean implements Serializable{
     private double prixInitial;
     private Date finEnchere;
     private String photo ="";
-    private String destination="resources/pictures/articles";
+    private String destination="/Users/soleneantoine/NetBeansProjects/GLAVentesAuxEncheres/GLAVenteAuxEncheres-war/web/resources/pictures/articles/";
     private List<Article> displayedArticles = new ArrayList<Article>();
+    private UploadedFile file;  
     
     private static final String STATEFUL_ARTICLE_BEAN_KEY = "STATEFUL_ARTICLE_BEAN_KEY";
 
+    public UploadedFile getFile() {  
+        return file;  
+    }  
+  
+    public void setFile(UploadedFile file) {  
+        this.file = file;  
+    } 
+    
     public String getKeywords() {
         return keywords;
     }
@@ -253,21 +276,64 @@ public class ArticleBean implements Serializable{
         
     }
     
-    public String addArticle(){  
+    public String addArticle() throws ServletException{  
+        Calendar today = Calendar.getInstance();
         Calendar cal = Calendar.getInstance();
         cal.setTime(this.finEnchere);
-        Article a = new Article(this.name,this.description, this.prixInitial, cal , ""); // A CHANGER POUR LA PICTURE !!!
-        a.setOwner(this.getUserConnected());
-        SubCategory s;
-        s = articleLocal.getSubCategory(subCategory);
-        a.setSubCategory(s);
-        articleLocal.addArticle(a);
-        return "backToViewAccount";
+        if (cal.before(today)) {
+            FacesContext.getCurrentInstance().addMessage("j_idt9:formAddEvent:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"date de fin avant la date de début.",""));
+            return null;
+        }
+        else {
+            Article a = new Article(this.name,this.description, this.prixInitial, cal , this.getStatefulBean().getPicture());
+            a.setOwner(this.getUserConnected());
+            SubCategory s;
+            s = articleLocal.getSubCategory(subCategory);
+            a.setSubCategory(s);
+            articleLocal.addArticle(a);
+            return "backToViewAccount";
+        }  
+    }
+    
+    public void upload(FileUploadEvent event) throws ClassNotFoundException, ServletException { 
+        FacesMessage msg = new FacesMessage("Success! ", event.getFile().getFileName() + " is uploaded.");  
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        // Do what you want with the file        
+        try {
+            copyFile(event.getFile().getFileName(), event.getFile().getInputstream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    
+    public void copyFile(String fileName, InputStream in) throws ClassNotFoundException, ServletException {
+           try {
+               Class class1 = Class.forName("controler.ArticleBean");
+               URL url = class1.getResource("");
+               String str[]=url.getPath().split("GLAVentesAuxEncheres");
+               String path = str[0]+"GLAVentesAuxEncheres/GLAVenteAuxEncheres-war/web/resources/pictures/articles/"+fileName;
+               String pathPhoto[]=path.split("web/");
+               this.getStatefulBean().setPicture(pathPhoto[1]);
+                // write the inputStream to a FileOutputStream
+                OutputStream out = new FileOutputStream(new File(path));
+             
+                int read = 0;
+                byte[] bytes = new byte[1024];
+             
+                while ((read = in.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+                in.close();
+                out.flush();
+                out.close();
+                } catch (IOException e) {
+                System.out.println(e.getMessage());
+                }
     }
     
     public boolean displaySubCategory(){
         return (this.category == 0);
     }
-    
     
 }

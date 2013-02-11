@@ -21,13 +21,21 @@
     <welcome-file-list>
         <welcome-file>faces/welcome.xhtml</welcome-file>
     </welcome-file-list>
-    
-<!--    <filter>
+
+    <filter>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
-        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+        <filter-class>
+            org.primefaces.webapp.filter.FileUploadFilter
+        </filter-class>
+         <!-- Optional 
+        <init-param>
+            <param-name>uploadDirectory</param-name>
+            <param-value>/var/bcom/temp</param-value>
+        </init-param>
+         -->
     </filter>
     <filter-mapping>
-      <filter-name>PrimeFaces FileUpload Filter</filter-name>
-      <servlet-name>Faces Servlet</servlet-name>
-    </filter-mapping>-->
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>
 </web-app>

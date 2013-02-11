@@ -64,13 +64,22 @@
         <from-view-id>/sell.xhtml</from-view-id>
         <navigation-case>
             <from-action>cancel</from-action>
-            <to-view-id>/login.xhtml</to-view-id>
-            <redirect>/login.xhtml</redirect>
+            <to-view-id>/viewAccount.xhtml</to-view-id>
+            <redirect>/viewAccount.xhtml</redirect>
         </navigation-case>
         <navigation-case>
             <from-outcome>backToViewAccount</from-outcome>
             <to-view-id>/viewAccount.xhtml</to-view-id>
             <redirect>/viewAccount.xhtml</redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/viewAccount.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>vendre</from-action>
+            <to-view-id>/sell.xhtml</to-view-id>
+            <redirect>/sell.xhtml</redirect>
         </navigation-case>
     </navigation-rule>
     

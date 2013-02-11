@@ -12,4 +12,5 @@
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="GLAVenteAuxEncheresPU" object-type="user" pool-name="derby_net_GLAVenteAuxEncheres_GLAVenteAuxEncheresPool"/>
     <jdbc-resource enabled="true" jndi-name="GLAVenteAuxEncheresDS" object-type="user" pool-name="derby_net_GLAVenteAuxEncheres_GLAVenteAuxEncheresPool"/>
+    <jdbc-resource enabled="true" jndi-name="GLAVenteAuxEncheres" object-type="user" pool-name="derby_net_GLAVenteAuxEncheres_GLAVenteAuxEncheresPool"/>
 </resources>

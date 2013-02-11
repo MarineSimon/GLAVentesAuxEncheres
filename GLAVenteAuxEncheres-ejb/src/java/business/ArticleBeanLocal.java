@@ -30,6 +30,7 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     private EntityManager em;
     
     private Article selectedArticle;
+    private String picture;
 
     public Article getSelectedArticle() {
         return selectedArticle;
@@ -38,6 +39,16 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     public void setSelectedArticle(Article selectedArticle) {
         this.selectedArticle = selectedArticle;
     }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+    
+    
     
     @Override
     public List<Article> getCriticalsArticles() {

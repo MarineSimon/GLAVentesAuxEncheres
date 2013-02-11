@@ -72,6 +72,7 @@
             </p:tab>
             
             <p:tab title="Mes ventes">
+                <p:commandButton value="Vendre" action="vendre" style="padding : 0"></p:commandButton>
                 <p:scrollPanel id="scroll" mode="native" styleClass="scroll">
                 <p:dataGrid id="vueArticlesCompte" value="#{articleBean.getDisplayedArticlesByUser(loginBean.userConnected)}" var="article" emptyMessage="Aucune vente en cours">  
                     <div id="articleMyAccount">
