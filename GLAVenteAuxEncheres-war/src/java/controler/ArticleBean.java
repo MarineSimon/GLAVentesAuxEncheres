@@ -377,7 +377,11 @@ public class ArticleBean implements Serializable {
         boolean b2 = this.keywords.isEmpty() && this.category != 0 && this.subCategory != 0 && this.displayedArticles.isEmpty();
         boolean b3 = this.keywords.isEmpty() && this.category == 0 && this.subCategory != 0 && this.displayedArticles.isEmpty();
         boolean b4 = this.keywords.isEmpty() && this.category != 0 && this.subCategory == 0 && this.displayedArticles.isEmpty();
-        return (b1 || b2 || b3 || b4);
+        boolean b5 = this.minPrice == 0 && this.maxPrice == 0 && this.displayedArticles.isEmpty();
+        boolean b6 = this.minPrice != 0 && this.maxPrice == 0 && this.displayedArticles.isEmpty();
+        boolean b7 = this.minPrice == 0 && this.maxPrice != 0 && this.displayedArticles.isEmpty();
+        boolean b8 = this.minPrice != 0 && this.maxPrice != 0 && this.displayedArticles.isEmpty();
+        return (b1 || b2 || b3 || b4 || b5 || b6 || b7 || b8);
     }
     
     public ArrayList<Integer> minList(){
