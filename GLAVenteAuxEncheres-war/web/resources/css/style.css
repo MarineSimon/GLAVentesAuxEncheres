@@ -33,6 +33,7 @@ h1{
 h3{
     padding-bottom: 0;
     margin-bottom: 0;
+    font-family:  "helveticaneuelight";
 }
 
 a{
@@ -223,6 +224,7 @@ fieldset{
 
 .title {
     color:#f4b130;
+    font-family:  "helveticaneuelight";
 }
 
 .price{
