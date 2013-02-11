@@ -28,6 +28,7 @@ import persistence.Promotion;
 import persistence.SubCategory;
 import persistence.UserEnchere;
 import org.primefaces.context.RequestContext;
+import persistence.Notification;
 
 /**
  *
@@ -136,9 +137,10 @@ public class InitBaseSingleton {
         user1.setBilingAdress(biling1);
         user1.setDeliveryAdresses(adresses1);
         /*Articles*/
-        Calendar date12 = new GregorianCalendar();
-        date12.add(Calendar.DAY_OF_MONTH, 1);
+        Calendar date12 = Calendar.getInstance();
+        date12.add(Calendar.SECOND, 30);
         Article article1 = new Article("iMac","Bon état",800,date12,"resources/pictures/articles/imac.jpg");
+        
         article1.setSubCategory(subCategory2);
         article1.setOwner(user1);
         List<Article> articles1 = new ArrayList<Article>();
@@ -221,6 +223,7 @@ public class InitBaseSingleton {
         
         user4.setSellArticles(articles4);
        
+        
         
         /*Promotions*/
         ArrayList<Article> articles = new ArrayList<Article>();
@@ -314,6 +317,13 @@ public class InitBaseSingleton {
         em.persist(enchere3);
         em.persist(enchere4);
         em.persist(enchere5);
+        
+        timerService.createTimer(article1.getEndDate().getTime(), article1);
+        timerService.createTimer(article2.getEndDate().getTime(), article2);
+        timerService.createTimer(article3.getEndDate().getTime(), article3);
+        timerService.createTimer(article4.getEndDate().getTime(), article4);
+        timerService.createTimer(article5.getEndDate().getTime(), article5);
+        timerService.createTimer(article6.getEndDate().getTime(), article6);
     }
 
     @Schedule(second="0", minute="0",hour="0",dayOfMonth="*", month="*", year="*", persistent=false)
@@ -374,12 +384,27 @@ public class InitBaseSingleton {
     }
     
     public void addTimerToArticle(Article a){
-        timerService.createTimer(a.getEndDate().getTime(), "La vente de l'article "+a.getName()+" est terminée");
+        timerService.createTimer(a.getEndDate().getTime(), a);
     }
     
     @Timeout
     public void endArticle(Timer t){
-        System.out.println(""+t.getInfo());
+        Query query = em.createNamedQuery("Enchere.getRunningBillByArticle");
+        Article a = (Article)t.getInfo();
+        query.setParameter(1, a.getId());
+
+        List<Enchere> encheres = (List<Enchere>) query.getResultList();
+        Notification n = new Notification("La vente de l'article "+a.getName()+" est terminée");
+        for (int i = 0; i < encheres.size(); i++) {
+            encheres.get(i).getUserEnchere().getNotifications().add(n);
+            em.persist(n);
+            em.merge(encheres.get(i).getUserEnchere());
+        }
+        Notification n2 = new Notification("La vente de votre article "+a.getName()+" est terminée");
+        a.getOwner().getNotifications().add(n2);
+        em.persist(n2);
+        em.merge(a.getOwner());
+        
     }
     
 }

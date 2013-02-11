@@ -5,6 +5,7 @@
 package persistence;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -80,6 +81,7 @@ public class UserEnchere implements Serializable {
         this.email = email;
         this.birthday = birthday;
         this.abandonsRecorder = abandonsRecorder;
+        this.notifications = new ArrayList<Notification>();
     }
     
     public Long getId() {
