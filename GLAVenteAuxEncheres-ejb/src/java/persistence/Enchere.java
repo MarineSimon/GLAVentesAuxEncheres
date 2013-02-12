@@ -25,8 +25,9 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name="Enchere.getRunningBill", query="SELECT e from Enchere e WHERE e.userEnchere.id = ?1 ORDER BY e.amount ASC"),
     @NamedQuery(name="Enchere.getUserRunningBillArticle", query="SELECT e from Enchere e WHERE e.userEnchere.id = ?1 AND e.article.id = ?2 ORDER BY e.amount ASC"),
-     @NamedQuery(name="Enchere.getRunningBillByArticle", query="SELECT e from Enchere e WHERE e.article.id = ?1 ORDER BY e.amount ASC"),
+    @NamedQuery(name="Enchere.getRunningBillByArticle", query="SELECT e from Enchere e WHERE e.article.id = ?1 ORDER BY e.amount ASC"),
     @NamedQuery(name="Enchere.getRunningBillArticle", query="SELECT e from Enchere e WHERE e.article.id = ?1 ORDER BY e.amount ASC"),
+    @NamedQuery(name="Enchere.maxPrice", query="Select MAX(e.amount) from Enchere e")
 })
 public class Enchere implements Serializable {
     private static final long serialVersionUID = 1L;

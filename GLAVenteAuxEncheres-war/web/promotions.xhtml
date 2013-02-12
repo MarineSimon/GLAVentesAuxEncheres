@@ -18,8 +18,7 @@
         </div>
         
         <div id="articles">
-            <p:dataGrid columns="1" rows="5" paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                        var="article" value="#{articleBean.articlesInPromotion}" rowKey="#{article}" id="articles_dg">
+            <p:dataGrid columns="1" rows="5" var="article" value="#{articleBean.articlesInPromotion}" rowKey="#{article}" id="articles_dg">
                 <span>
                 <div class="article">
                    <h:graphicImage style="width: 90px;position: absolute;margin-left: -50px;" rendered="#{article.haveDeliveryFreePromotion()}" url="resources/pictures/freeDelivery.png"/>

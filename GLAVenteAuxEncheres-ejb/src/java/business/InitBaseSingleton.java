@@ -6,7 +6,9 @@ package business;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -147,7 +149,7 @@ public class InitBaseSingleton {
         user1.setDeliveryAdresses(adresses1);
         /*Articles*/
         Calendar date12 = Calendar.getInstance();
-        date12.add(Calendar.SECOND, 30);
+        date12.add(Calendar.SECOND, 20);
         Article article1 = new Article("iMac","Bon état",800,date12,"resources/pictures/articles/imac.jpg");
         
         article1.setSubCategory(subCategory2);
@@ -168,7 +170,7 @@ public class InitBaseSingleton {
         user2.setDeliveryAdresses(adresses2);
         /*Articles*/
         Calendar date22 = new GregorianCalendar();
-        date22.add(Calendar.DAY_OF_MONTH, 2);
+        date22.add(Calendar.SECOND, 30);
         Article article2 = new Article("iPhone","Etat neuf",800,date22,"resources/pictures/articles/iphone5.jpg");
         article2.setSubCategory(subCategory1);
         article2.setOwner(user2);
@@ -415,4 +417,26 @@ public class InitBaseSingleton {
         em.persist(n2);
         em.merge(a.getOwner());
     }
+    
+    public Calendar getRemainingTime(Article a){
+        Collection<Timer> timers = timerService.getTimers();
+        Iterator<Timer> iterator = timers.iterator();
+        boolean trouve = false;
+        Timer timer = null;
+        if (a != null){
+            while (iterator.hasNext()&&!trouve){
+                timer = iterator.next();
+                Article article = (Article)timer.getInfo();
+                if (article != null && article.getId().equals(a.getId())){
+                    trouve = true;
+                }
+            }
+        }
+        
+        Calendar cal = new GregorianCalendar();
+        cal.setTimeInMillis(timer.getTimeRemaining());
+        cal.add(Calendar.HOUR_OF_DAY, -1);
+        return cal;
+    }
+    
 }
