@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -17,6 +18,9 @@ import javax.ejb.Stateless;
 import javax.ejb.Timeout;
 import javax.ejb.Timer;
 import javax.ejb.TimerService;
+import javax.faces.context.FacesContext;
+import javax.interceptor.ExcludeDefaultInterceptors;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -36,12 +40,17 @@ import persistence.Notification;
  */
 @Singleton
 @Startup
+@ExcludeDefaultInterceptors
+@Interceptors({ ArticleBeanLocal.class })
 public class InitBaseSingleton {
     @PersistenceContext(unitName="GLAVenteAuxEncheres-PU")
     private EntityManager em;
     
     @Resource
     TimerService timerService;
+    
+    @EJB
+    ArticleBeanLocal articleBean;
     
     private List<Promotion> promotions;
     
@@ -387,6 +396,7 @@ public class InitBaseSingleton {
         timerService.createTimer(a.getEndDate().getTime(), a);
     }
     
+    //@Interceptors({ InterceptorRefresh.class })
     @Timeout
     public void endArticle(Timer t){
         Query query = em.createNamedQuery("Enchere.getRunningBillByArticle");
@@ -404,7 +414,5 @@ public class InitBaseSingleton {
         a.getOwner().getNotifications().add(n2);
         em.persist(n2);
         em.merge(a.getOwner());
-        
     }
-    
 }

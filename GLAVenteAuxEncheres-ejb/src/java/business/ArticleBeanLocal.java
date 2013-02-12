@@ -1,16 +1,20 @@
 package business;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
+import javax.interceptor.AroundTimeout;
+import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import library.ArticleBeanInterface;
+import org.primefaces.push.PushContext;
+import org.primefaces.push.PushContextFactory;
 import persistence.Article;
 import persistence.Category;
 import persistence.Enchere;
@@ -18,6 +22,8 @@ import persistence.Notification;
 import persistence.Promotion;
 import persistence.SubCategory;
 import persistence.UserEnchere;
+//import org.atmosphere.cpr.AsyncSupportListenerAdapter;
+
 
 /**
  *
@@ -26,6 +32,7 @@ import persistence.UserEnchere;
 @Stateful(name="ArticleBeanLocal")
 @LocalBean
 public class ArticleBeanLocal implements ArticleBeanInterface{
+    
     @PersistenceContext(unitName="GLAVenteAuxEncheres-PU")
     private EntityManager em;
     
@@ -269,4 +276,21 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         this.em.merge(a.getOwner());
     }
 
+    @AroundTimeout
+    public Object profile(InvocationContext ic) throws Exception {
+        System.out.println("*** PROFILING: " + ic.getMethod().getName() + " in class "
+                + ic.getTarget()
+                +" called " + Calendar.getInstance().getTime() + " ***");
+        System.out.println("Refresh...");
+        
+        PushContext pushContext = PushContextFactory.getDefault().getPushContext();
+        pushContext.push("/registrationEvent", "There was another registration");
+        
+//        RequestContext.update("j_idt9:j_idt24:j_idt28");
+//        RequestContext.update("j_idt9:j_idt24:sousCateg");
+//        RequestContext.update("j_idt9:articles_dg");
+//        RequestContext.getCurrentInstance().update("j_idt9:j_idt24:searchValue");
+        System.out.println("... done.");
+        return ic.proceed();
+    }
 }

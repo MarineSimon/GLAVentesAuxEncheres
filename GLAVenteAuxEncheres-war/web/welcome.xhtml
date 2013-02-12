@@ -4,14 +4,19 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
-    
+      xmlns:f="http://java.sun.com/jsf/core"
+      >    
 <ui:composition template="template.xhtml">
     <ui:define name="title">
         Accueil
     </ui:define>
 
     <ui:define name="content">
+         <p:socket channel="/registrationEvent">
+
+            <p:ajax event="message" update="j_idt9:articles_dg"/>
+
+        </p:socket>
         <div id="recherche">
             <h1>Recherche</h1>
             <h:form>
