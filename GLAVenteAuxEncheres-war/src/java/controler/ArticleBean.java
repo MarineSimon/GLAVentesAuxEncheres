@@ -137,6 +137,7 @@ public class ArticleBean implements Serializable {
     
     public List<Article> getDisplayedArticlesByUser(UserEnchere userConnected) throws ServletException {
         this.articleLocal = this.getStatefulBean();
+        userConnected.getLogin();
         return this.articleLocal.getCriticalsArticles(userConnected);
     }
 
