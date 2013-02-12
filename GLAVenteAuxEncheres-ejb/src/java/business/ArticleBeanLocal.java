@@ -280,11 +280,7 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         
         PushContext pushContext = PushContextFactory.getDefault().getPushContext();
         pushContext.push("/registrationEvent", "There was another registration");
-        
-//        RequestContext.update("j_idt9:j_idt24:j_idt28");
-//        RequestContext.update("j_idt9:j_idt24:sousCateg");
-//        RequestContext.update("j_idt9:articles_dg");
-//        RequestContext.getCurrentInstance().update("j_idt9:j_idt24:searchValue");
+
         System.out.println("... done.");
         return ic.proceed();
     }
