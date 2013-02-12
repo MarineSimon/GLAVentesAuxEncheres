@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import javax.ejb.Timer;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -223,19 +224,8 @@ public class ArticleBean implements Serializable {
     }
     
     public String getReminingTime(Article a){
-        Calendar endTime = a.getEndDate();
-        Calendar actualTime = new GregorianCalendar();
-        
-        long diff = endTime.getTimeInMillis() - actualTime.getTimeInMillis();
-        if (diff < 0) {
-            diff=0;
-        }
-        
-        Calendar remaining = new GregorianCalendar();
-        remaining.setTimeInMillis(diff);
-        remaining.add(Calendar.HOUR_OF_DAY, -1);
+        Calendar remaining = singleton.getRemainingTime(a);
         return (remaining.get(Calendar.DAY_OF_MONTH)-1)+"j "+remaining.get(Calendar.HOUR_OF_DAY)+"h "+remaining.get(Calendar.MINUTE)+"m "+remaining.get(Calendar.SECOND)+"s ";
-        
     }
     
     private ArticleBeanLocal getStatefulBean() throws ServletException {
@@ -387,7 +377,11 @@ public class ArticleBean implements Serializable {
         boolean b2 = this.keywords.isEmpty() && this.category != 0 && this.subCategory != 0 && this.displayedArticles.isEmpty();
         boolean b3 = this.keywords.isEmpty() && this.category == 0 && this.subCategory != 0 && this.displayedArticles.isEmpty();
         boolean b4 = this.keywords.isEmpty() && this.category != 0 && this.subCategory == 0 && this.displayedArticles.isEmpty();
-        return (b1 || b2 || b3 || b4);
+        boolean b5 = this.minPrice == 0 && this.maxPrice == 0 && this.displayedArticles.isEmpty();
+        boolean b6 = this.minPrice != 0 && this.maxPrice == 0 && this.displayedArticles.isEmpty();
+        boolean b7 = this.minPrice == 0 && this.maxPrice != 0 && this.displayedArticles.isEmpty();
+        boolean b8 = this.minPrice != 0 && this.maxPrice != 0 && this.displayedArticles.isEmpty();
+        return (b1 || b2 || b3 || b4 || b5 || b6 || b7 || b8);
     }
     
     public ArrayList<Integer> minList(){
