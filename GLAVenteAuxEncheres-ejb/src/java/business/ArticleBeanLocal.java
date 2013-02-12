@@ -133,33 +133,28 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
             query = em.createNamedQuery("Article.searchArticles");
             query.setParameter(1, "%"+keywords+"%");
             query.setParameter(2, "%"+keywords+"%");
-            System.out.println("cas 1");
         }else {
             if (subCategory == 0) {
                 /* cas ou on a seulement une categorie */
                 if (keywords.isEmpty()) {
                     query = em.createNamedQuery("Article.searchArticleByCategory");
                     query.setParameter(1, category);
-                    System.out.println("Cas 2");
                 } else {
                     query = em.createNamedQuery("Article.searchArticleByCategoryWithKeywords");
                     query.setParameter(1, "%"+keywords+"%");
                     query.setParameter(2, "%"+keywords+"%");
                     query.setParameter(3, category);
-                    System.out.println("Cas 3");
                 }  
             }
             else {
                 if (keywords.isEmpty()) {
                     query = em.createNamedQuery("Article.searchArticleBySubCategory");
                     query.setParameter(1, subCategory);
-                    System.out.println("Cas 4");
                 } else {
                     query = em.createNamedQuery("Article.searchArticleBySubCategoryWithKeywords");
                     query.setParameter(1, "%"+keywords+"%");
                     query.setParameter(2, "%"+keywords+"%");
                     query.setParameter(3, subCategory);
-                    System.out.println("Cas 5");
                 }           
             }
         }
