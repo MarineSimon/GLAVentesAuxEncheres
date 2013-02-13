@@ -277,9 +277,6 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
 
     @AroundTimeout
     public Object profile(InvocationContext ic) throws Exception {
-        System.out.println("*** PROFILING: " + ic.getMethod().getName() + " in class "
-                + ic.getTarget()
-                +" called " + Calendar.getInstance().getTime() + " ***");
         this.singleton.refresh();
         return ic.proceed();
     }

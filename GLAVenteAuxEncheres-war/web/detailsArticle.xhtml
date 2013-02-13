@@ -12,6 +12,11 @@
     </ui:define>
 
     <ui:define name="content">
+        <script type="text/javascript">
+            function returnToPreviousPage() {
+                history.back();
+            } 
+        </script>
         <div class="article2">
             <p:messages id="encherire" autoUpdate="true" closable="true">
                 <p:effect type="pulsate" event="load" delay="500" speed="500">  
@@ -49,6 +54,8 @@
                         <h:outputText rendered="#{enchereBean.isCanBuy(articleBean.selectedArticle)}" value="Montant de mon enchère : "></h:outputText>
                         <h:inputText rendered="#{enchereBean.isCanBuy(articleBean.selectedArticle)}" value="#{enchereBean.amount}"></h:inputText>
                         <p:commandButton rendered="#{enchereBean.isCanBuy(articleBean.selectedArticle)}" value="encherir" action="#{enchereBean.addEnchere(articleBean.selectedArticle)}"></p:commandButton>
+                        <p:commandButton value="Retour" onclick="returnToPreviousPage()"/>
+
                     </h:panelGrid>
 
                  </div>

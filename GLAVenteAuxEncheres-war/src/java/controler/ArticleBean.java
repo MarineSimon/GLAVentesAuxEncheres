@@ -416,4 +416,8 @@ public class ArticleBean implements Serializable {
             result.add(27+l, 10000*l);
         return result;
     }
+    
+    public void returnToPreviousPage() {
+        
+    }
 }

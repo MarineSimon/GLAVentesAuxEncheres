@@ -443,13 +443,8 @@ public class InitBaseSingleton {
     }
     
     public void refresh() {
-        System.out.println("Refresh...");
-        
         PushContext pushContext = PushContextFactory.getDefault().getPushContext();
         Future<String> f = pushContext.push("/registrationEvent", "There was another registration");
-        System.out.println("Push envoyé : "+f.isDone());
-
-        System.out.println("... done.");
     }
     
 }
