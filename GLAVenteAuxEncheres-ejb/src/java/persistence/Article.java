@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -221,6 +222,10 @@ public class Article implements Serializable {
     @Override
     public String toString() {
         return "persistence.Article[ id=" + id + " ]";
+    }
+    
+    public boolean isFinished() {
+        return this.getEndDate().after(new GregorianCalendar());
     }
     
 }

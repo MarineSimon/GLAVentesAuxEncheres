@@ -109,11 +109,11 @@ public class EnchereBean {
     
     public void removeEnchereArticle(Article a){
         enchereBeanLocal.removeEnchereArticle(this.getUserConnected(), a);
-        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueEncheresCompte");
-        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:notifications");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt26:vueEncheresCompte");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt26:notifications");
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
-        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueArticlesCompte");
-        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueEncheresCompte");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt26:vueArticlesCompte");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt26:vueEncheresCompte");
     }
     
     public boolean haveUserEnchere(Article a){

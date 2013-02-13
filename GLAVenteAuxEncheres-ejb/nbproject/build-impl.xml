@@ -782,16 +782,32 @@ exists or setup the property manually. For example like this:
     <target depends="compile,-library-inclusion-in-archive-weblogic,-library-inclusion-in-archive-by-user" name="library-inclusion-in-archive"/>
     <target if="is.jars.in.ejbjar" name="-library-inclusion-in-archive-by-user">
         <copyfiles files="${file.reference.primefaces-3.4.2.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.atmosphere-runtime-1.1.0-20130212.163210-91.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.slf4j-1.6.1-jul.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.atmosphere-compat-jbossweb-0.6.3.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.atmosphere-compat-tomcat-0.8-20110703.140443-41.jar}" todir="${build.classes.dir}"/>
     </target>
     <target if="is.server.weblogic" name="-library-inclusion-in-archive-weblogic">
         <basename file="${file.reference.primefaces-3.4.2.jar}" property="manifest.file.reference.primefaces-3.4.2.jar"/>
+        <basename file="${file.reference.atmosphere-runtime-1.1.0-20130212.163210-91.jar}" property="manifest.file.reference.atmosphere-runtime-1.1.0-20130212.163210-91.jar"/>
+        <basename file="${file.reference.slf4j-1.6.1-jul.jar}" property="manifest.file.reference.slf4j-1.6.1-jul.jar"/>
+        <basename file="${file.reference.atmosphere-compat-jbossweb-0.6.3.jar}" property="manifest.file.reference.atmosphere-compat-jbossweb-0.6.3.jar"/>
+        <basename file="${file.reference.atmosphere-compat-tomcat-0.8-20110703.140443-41.jar}" property="manifest.file.reference.atmosphere-compat-tomcat-0.8-20110703.140443-41.jar"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Extension-List" value="jar-1 "/>
+            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 "/>
             <attribute name="jar-1-Extension-Name" value="${manifest.file.reference.primefaces-3.4.2.jar}"/>
+            <attribute name="jar-2-Extension-Name" value="${manifest.file.reference.atmosphere-runtime-1.1.0-20130212.163210-91.jar}"/>
+            <attribute name="jar-3-Extension-Name" value="${manifest.file.reference.slf4j-1.6.1-jul.jar}"/>
+            <attribute name="jar-4-Extension-Name" value="${manifest.file.reference.atmosphere-compat-jbossweb-0.6.3.jar}"/>
+            <attribute name="jar-5-Extension-Name" value="${manifest.file.reference.atmosphere-compat-tomcat-0.8-20110703.140443-41.jar}"/>
         </manifest>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.primefaces-3.4.2.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.atmosphere-runtime-1.1.0-20130212.163210-91.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.slf4j-1.6.1-jul.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.atmosphere-compat-jbossweb-0.6.3.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.atmosphere-compat-tomcat-0.8-20110703.140443-41.jar}" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target name="-copy-meta-inf">

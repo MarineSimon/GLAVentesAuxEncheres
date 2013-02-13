@@ -27,6 +27,7 @@ import javax.ejb.Timer;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.interceptor.AroundTimeout;
@@ -307,12 +308,11 @@ public class ArticleBean implements Serializable {
     
     public void removeArticle(Article a){
         articleLocal.removeArticle(a, this.getUserConnected());
-        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueEncheresCompte");
-        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:notifications");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt26:vueEncheresCompte");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt26:notifications");
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
-        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueArticlesCompte");
-        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueEncheresCompte");
-        
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt26:vueArticlesCompte");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt26:vueEncheresCompte");        
     }
     
     public String addArticle() throws ServletException{  
@@ -414,5 +414,9 @@ public class ArticleBean implements Serializable {
         for (int l=1; l<10; l++)
             result.add(27+l, 10000*l);
         return result;
+    }
+    
+    public void returnToPreviousPage() {
+        
     }
 }

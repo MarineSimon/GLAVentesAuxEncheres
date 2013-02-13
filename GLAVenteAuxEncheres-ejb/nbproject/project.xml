@@ -6,6 +6,10 @@
             <name>GLAVenteAuxEncheres-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">file.reference.primefaces-3.4.2.jar</included-library>
+            <included-library dirs="200">file.reference.atmosphere-runtime-1.1.0-20130212.163210-91.jar</included-library>
+            <included-library dirs="200">file.reference.slf4j-1.6.1-jul.jar</included-library>
+            <included-library dirs="200">file.reference.atmosphere-compat-jbossweb-0.6.3.jar</included-library>
+            <included-library dirs="200">file.reference.atmosphere-compat-tomcat-0.8-20110703.140443-41.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>

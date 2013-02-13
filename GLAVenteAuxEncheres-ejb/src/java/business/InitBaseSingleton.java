@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.Future;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -34,6 +35,8 @@ import persistence.Promotion;
 import persistence.SubCategory;
 import persistence.UserEnchere;
 import org.primefaces.context.RequestContext;
+import org.primefaces.push.PushContext;
+import org.primefaces.push.PushContextFactory;
 import persistence.Notification;
 
 /**
@@ -437,6 +440,11 @@ public class InitBaseSingleton {
         cal.setTimeInMillis(timer.getTimeRemaining());
         cal.add(Calendar.HOUR_OF_DAY, -1);
         return cal;
+    }
+    
+    public void refresh() {
+        PushContext pushContext = PushContextFactory.getDefault().getPushContext();
+        Future<String> f = pushContext.push("/registrationEvent", "There was another registration");
     }
     
 }
