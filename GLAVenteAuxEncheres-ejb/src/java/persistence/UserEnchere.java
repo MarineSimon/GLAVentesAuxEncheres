@@ -173,7 +173,9 @@ public class UserEnchere implements Serializable {
     }
     
     public String getBirthdayToString() {
-        return birthday.get(Calendar.DAY_OF_MONTH)+"/"+(birthday.get(Calendar.MONTH)+1)+"/"+birthday.get(Calendar.YEAR);
+        if (this.birthday != null)
+            return birthday.get(Calendar.DAY_OF_MONTH)+"/"+(birthday.get(Calendar.MONTH)+1)+"/"+birthday.get(Calendar.YEAR);
+        else return "";
     }
 
     public void setBirthday(Calendar birthday) {
