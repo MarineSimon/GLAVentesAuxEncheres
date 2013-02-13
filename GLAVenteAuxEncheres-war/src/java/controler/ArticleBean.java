@@ -320,7 +320,7 @@ public class ArticleBean implements Serializable {
         Calendar cal = Calendar.getInstance();
         cal.setTime(this.finEnchere);
         if (cal.before(today)) {
-            FacesContext.getCurrentInstance().addMessage("j_idt9:formAddEvent:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"date de fin avant la date de début.",""));
+            FacesContext.getCurrentInstance().addMessage("j_idt9:formAddEvent:messages", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Date invalide : la date est antérieure à la date actuelle.",""));
             return null;
         }
         else {
