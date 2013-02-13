@@ -121,6 +121,11 @@
             <to-view-id>/welcome.xhtml</to-view-id>
             <redirect>/welcome.xhtml</redirect>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/welcome.xhtml</to-view-id>
+            <redirect>/welcome.xhtml</redirect>
+        </navigation-case>
     </navigation-rule>
     
     <navigation-rule>
