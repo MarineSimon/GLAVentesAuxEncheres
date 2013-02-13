@@ -3,7 +3,7 @@ Création de la base de données
 - Aller dans l'onglet Services
 - Faire un clique-droit sur "Java DB" > Créer une base de données
 - Remplir tous les champs avec "GLAVenteAuxEncheres"
-- Connecter la base en faisant un clique-droit que la connexion concernée
+- Connecter la base en faisant un clique-droit sur la connexion concernée
 
 Importation du projet dans Netbeans
 -----------------------------------
