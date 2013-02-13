@@ -14,16 +14,12 @@
     <ui:define name="content">
         <script type="text/javascript">
             function handleMessage(data) {
- 
                 document.getElementById('j_idt9:search:searchButton').click();
             } 
         </script>
         
         <p:socket channel="/registrationEvent" onMessage="handleMessage" />
        
-<!--        <p:socket channel="/registrationEvent">
-            <p:ajax event="message" immediate="true" async="true"/>
-        </p:socket>-->
         <div id="recherche">
             <h1>Recherche</h1>
             <h:form id="search">

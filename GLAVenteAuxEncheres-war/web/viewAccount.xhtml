@@ -13,6 +13,7 @@
 
 
     <ui:define name="content">
+        <f:event listener="#{loginBean.verifyUseLogin(event)}" type="preRenderView"/>
         <p:socket channel="/registrationEvent">
             <p:ajax event="message" immediate="true" update="j_idt9:j_idt26:vueArticlesCompte"/>
             <p:ajax event="message" immediate="true" update="j_idt9:j_idt26:vueEncheresCompte"/>

@@ -2,24 +2,23 @@ Création de la base de données
 -------------------------------
 - Aller dans l'onglet Services
 - Faire un clique-droit sur "Java DB" > Créer une base de données
-- Remplir tous les champs avec "PILAgendaDB"
-- Connecter la base en faisant un clique-droit que la connexion concernée
+- Remplir tous les champs avec "GLAVenteAuxEncheres"
+- Connecter la base en faisant un clique-droit sur la connexion concernée
 
 Importation du projet dans Netbeans
 -----------------------------------
 - Ne pas créer de projet et faire directement Team > Git > Clone.
-- Remplir les champs :
-	* Repository URL : http://git.assembla.com/projet-ingenierie-logicielle-2012-groupe-2.PIL.git/
-	* User : le login d'Assembla
-	* Password : le password d'Assembla
+- Remplir le champs Repository URL : https://github.com/MarineSimon/GLAVentesAuxEncheres.git
 - Sélectionner la branche master
 - Une pop-up apparaît et en proposant d'ouvrir un projet
-- Choisir le projet PILAgenda
+- Choisir le projet GLAVenteAuxEncheres
 
-Pour un tutoriel illustré, aller sur http://www.soleneantoine.com/fac/Git-Assembla.php
+Configuration de glassfish
+--------------------------
+- Afin d'utiliser certaines fonctionnalités de primefaces et en particulier les méthodes push, il faut configurer Glassfish (3.1 +) :
+  * Services -> Serveurs -> Glassfish
+  * Clic doit -> Propriétés
+  * cocher "Activer la prise en charge de Comet"
+  * redémarrer le serveur pour prendre la modification en compte.
 
-Notes :
-
-Pour créer un évènement, aller à l'URL http://localhost:8080/PILAgenda-war/faces/createEvent.xhtml (le bouton "créer un évènement" ne marche pas)
-
-Remarque : Si le projet comprend une erreur sur les bibliothèques javax (à cause des différentes versions de Java), faire clique-droit sur le projet ejb > Propriétés > Ok (cela met à jour les bibliothèques)
+Remarque : Si le projet comprend une erreur sur les bibliothèques javax (à cause des différentes versions de Java), faire clique-droit sur le projet ejb > Propriétés > Ok (cela met à jour les bibliothèques). Idem pour la partie "war" du projet.
