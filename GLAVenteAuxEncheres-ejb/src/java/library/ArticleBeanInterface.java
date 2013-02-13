@@ -27,5 +27,4 @@ public interface ArticleBeanInterface {
     public void removeArticle(Article a,UserEnchere u);
     public SubCategory getSubCategory(int i);
     public void addArticle(Article a);
-    public double getMaxPrice();
 }

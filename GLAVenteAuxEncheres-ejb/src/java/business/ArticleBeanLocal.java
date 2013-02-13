@@ -60,7 +60,10 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     }
     
     
-    
+    /**
+     * retourne la liste des articles en vente dans l'ordre de date de fin de l'enchère
+     * @return liste des articles en vente
+     */
     @Override
     public List<Article> getCriticalsArticles() {
         List<Article> result = new ArrayList<Article>();
@@ -79,6 +82,11 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         return result;
     }
     
+    /**
+     * retourne la liste des articles d'un utilisateur
+     * @param user : Utilisateur
+     * @return liste des articles 
+     */
     @Override
     public List<Article> getCriticalsArticles(UserEnchere user) {
         List<Article> result = new ArrayList<Article>();
@@ -96,7 +104,11 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         return result;
     }
     
-
+    /**
+     * retourne le prix de la dernière enchère d'un article
+     * @param a : Article
+     * @return prix de l'article
+     */
     @Override
     public double getActualPrice(Article a) {
         Query query = em.createNamedQuery("Article.findLastEnchereByArticles");
@@ -109,6 +121,10 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         return amount;
     }
 
+    /**
+     * retourne la liste des articles en vente et en promotion
+     * @return liste des articles en promotion
+     */
     @Override
     public List<Article> getArticlesInPromotion() {
         List<Article> result = new ArrayList<Article>();
@@ -135,6 +151,13 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         return result;
     }
 
+    /**
+     * retourne la liste des articles en vente à partir d'une catégorie et d'une sous-catégorie
+     * @param keywords : mot clés de la recherche
+     * @param category : catégorie de la recherche
+     * @param subCategory : sous-catégorie de la recherche
+     * @return liste des articles en vente correspondant
+     */
     @Override
     public List<Article> search(String keywords, int category, int subCategory) {
         List<Article> articles;
@@ -184,6 +207,12 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         return result;
     }
 
+    /**
+     * retourne la liste de toutes les catégories
+     * @param category : Catégorie
+     * @param subCategory : Sous-catégorie
+     * @return liste des catégories
+     */
     @Override
     public List<Category> getAllCategory(int category,int subCategory) {
         List<Category> listCategory = new ArrayList<Category>();
@@ -198,6 +227,12 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         return listCategory;
     }
     
+   /**
+    * retourne la liste de toutes les sous-catégories
+    * @param category : Catégorie
+    * @param subCategory : Sous-catégorie
+    * @return liste des sous-catégories
+    */
    @Override
     public List<SubCategory> getAllSubCategory(int category,int subCategory) {
         List<SubCategory> listSubCategory = new ArrayList<SubCategory>();
@@ -217,6 +252,11 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         return listSubCategory;
     }
 
+   /**
+    * supprime l'article d'un utilisateur
+    * @param a : Article
+    * @param user : Utilisateur
+    */
     @Override
     public void removeArticle(Article a, UserEnchere user) {
         List<Enchere> result = new ArrayList<Enchere>();
@@ -266,6 +306,10 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         return s;
     }
 
+    /**
+     * ajoute un article et envoie une notification à son propriétaire
+     * @param a : Article
+     */
     @Override
     public void addArticle(Article a) {
         this.em.persist(a);
@@ -275,17 +319,16 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         this.em.merge(a.getOwner());
     }
 
+    /**
+     * fonction appelée quand l'événement timeout est déclanché
+     * @param ic : InvocationContext
+     * @return
+     * @throws Exception 
+     */
     @AroundTimeout
     public Object profile(InvocationContext ic) throws Exception {
         this.singleton.refresh();
         return ic.proceed();
     }
-    @Override
-    public double getMaxPrice() {
-        Query query;
-        query = em.createNamedQuery("Enchere.maxPrice");
-        double result = (Double)query.getSingleResult();
-        return result;
-        
-    }
+    
 }

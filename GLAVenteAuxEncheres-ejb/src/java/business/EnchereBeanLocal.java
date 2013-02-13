@@ -30,7 +30,7 @@ import persistence.UserEnchere;
 public class EnchereBeanLocal implements EnchereBeanInterface {
     @PersistenceContext(unitName="GLAVenteAuxEncheres-PU")
     private EntityManager em;
-    
+
     @Override
     public void addEnchere(Calendar date, double amount, Article article, UserEnchere user) {
         Enchere e = new Enchere(date,amount,article,user);

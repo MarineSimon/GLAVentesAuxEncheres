@@ -59,6 +59,9 @@ public class InitBaseSingleton {
     
     private List<Promotion> promotions;
     
+    /**
+     * initialise la base de données
+     */
     @PostConstruct
     public void init(){
         /*Category*/
@@ -340,7 +343,10 @@ public class InitBaseSingleton {
         timerService.createTimer(article6.getEndDate().getTime(), article6);
     }
 
-    @Schedule(second="0", minute="0",hour="0",dayOfMonth="*", month="*", year="*", persistent=false)
+    /**
+     * modifie la liste des promotions tous les jours à minuit
+     */
+    @Schedule(second="0", minute="0",hour="0",dayOfMonth="*", month="*", year="*")
     private void loadPromotions() {
         Query query = em.createNamedQuery("Article.findArticles");
         List<Article> everyArticles = (List<Article>) query.getResultList();
@@ -352,12 +358,13 @@ public class InitBaseSingleton {
         }
         int random;
         Article article;
-        if (articles.size()>4){
-            for (int i = 0; i < articles.size(); i++) {
-                articles.get(i).getPromotions().remove(this.promotions.get(0));
-                articles.get(i).getPromotions().remove(this.promotions.get(1));
-                em.merge(articles.get(i));
-            }
+        for (int i = 0; i < articles.size(); i++) {
+            articles.get(i).getPromotions().remove(this.promotions.get(0));
+            articles.get(i).getPromotions().remove(this.promotions.get(1));
+            em.merge(articles.get(i));
+        }
+        if (articles.size()>=4){
+            
             for (int i = 0; i < 2; i++) {
                 random = (int)(Math.random()*articles.size());
                 article = articles.get(random);
@@ -380,6 +387,12 @@ public class InitBaseSingleton {
                 em.merge(article);
                 em.merge(this.promotions.get(1));
             }
+        } else {
+            for (int i = 0; i < articles.size(); i++) {
+                articles.get(i).getPromotions().add(this.promotions.get(0));
+                em.merge(articles.get(i));
+                em.merge(this.promotions.get(0));
+            }
         }
         
     }
@@ -401,7 +414,10 @@ public class InitBaseSingleton {
         timerService.createTimer(a.getEndDate().getTime(), a);
     }
     
-    //@Interceptors({ InterceptorRefresh.class })
+    /**
+     * envoie des notifications aux utilisateurs concernés par l'article dont l'enchère se termine
+     * @param t : timer
+     */
     @Timeout
     public void endArticle(Timer t){
         Query query = em.createNamedQuery("Enchere.getRunningBillByArticle");
@@ -420,6 +436,12 @@ public class InitBaseSingleton {
         em.persist(n2);
         em.merge(a.getOwner());
     }
+    
+    /**
+     * Renvoie le temps restant avant la fin de l'enchère d'un article
+     * @param a : article 
+     * @return temps restant avant la fin de l'enchere
+     */
     
     public Calendar getRemainingTime(Article a){
         Collection<Timer> timers = timerService.getTimers();
@@ -442,6 +464,9 @@ public class InitBaseSingleton {
         return cal;
     }
     
+    /**
+     * Envoie l'information de rafraichissement à la page jsf
+     */
     public void refresh() {
         PushContext pushContext = PushContextFactory.getDefault().getPushContext();
         Future<String> f = pushContext.push("/registrationEvent", "There was another registration");
