@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.interceptor.AroundTimeout;
@@ -35,6 +36,9 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
     
     @PersistenceContext(unitName="GLAVenteAuxEncheres-PU")
     private EntityManager em;
+    
+    @EJB 
+    InitBaseSingleton singleton;
     
     private Article selectedArticle;
     private String picture;
@@ -276,12 +280,7 @@ public class ArticleBeanLocal implements ArticleBeanInterface{
         System.out.println("*** PROFILING: " + ic.getMethod().getName() + " in class "
                 + ic.getTarget()
                 +" called " + Calendar.getInstance().getTime() + " ***");
-        System.out.println("Refresh...");
-        
-        PushContext pushContext = PushContextFactory.getDefault().getPushContext();
-        pushContext.push("/registrationEvent", "There was another registration");
-
-        System.out.println("... done.");
+        this.singleton.refresh();
         return ic.proceed();
     }
     @Override

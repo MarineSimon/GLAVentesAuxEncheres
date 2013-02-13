@@ -36,10 +36,11 @@
                         <h:outputText class="title" value="Vendeur"></h:outputText>
                         <h:outputText value="#{articleBean.selectedArticle.owner.login}"></h:outputText>
                         <h:outputText class="title" value="Temps restant"></h:outputText>
-                        <h:form>
-                            <h:outputText value="#{articleBean.getReminingTime(articleBean.selectedArticle)}" id="timeRemining"></h:outputText>
-                            <p:poll interval="1" listener="#{articleBean.getReminingTime(articleBean.selectedArticle)}" partialSubmit="true" update="timeRemining"/>  
-                        </h:form>
+                            <h:form rendered="#{articleBean.selectedArticle.finished}">
+                                <h:outputText value="#{articleBean.getReminingTime(articleBean.selectedArticle)}" id="timeRemining"></h:outputText>
+                                <p:poll interval="1" listener="#{articleBean.getReminingTime(articleBean.selectedArticle)}" partialSubmit="true" update="timeRemining"/>  
+                            </h:form>
+                        <h:outputText rendered="#{!articleBean.selectedArticle.isFinished()}" value="Vente terminée"></h:outputText>
                         
                         <h:outputText class="title" value="Prix initial"></h:outputText>
                         <h:outputText value="#{articleBean.selectedArticle.initialPrice} €"></h:outputText>

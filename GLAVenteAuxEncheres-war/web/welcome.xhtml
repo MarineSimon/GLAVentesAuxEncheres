@@ -12,14 +12,22 @@
     </ui:define>
 
     <ui:define name="content">
-         <p:socket channel="/registrationEvent">
-
-            <p:ajax event="message" update="j_idt9:articles_dg"/>
-
-        </p:socket>
+        <script type="text/javascript">
+            function handleMessage(data) {
+                //window.open ('fenetre_popup.html')                   
+                //window.location.reload();
+                document.search.searchButton.click();
+            } 
+        </script>
+        
+        <p:socket channel="/registrationEvent" onMessage="handleMessage" />
+       
+<!--        <p:socket channel="/registrationEvent">
+            <p:ajax event="message" immediate="true" async="true"/>
+        </p:socket>-->
         <div id="recherche">
             <h1>Recherche</h1>
-            <h:form>
+            <h:form id="search">
                 <p:inputText id="searchValue" value="#{articleBean.keywords}" style="width: 90%"/>
                 <p:selectOneMenu value="#{articleBean.category}" effect="fade" style="width:238px">  
                     <f:selectItem itemLabel="Toutes les catégories" itemValue="0"/>
@@ -41,10 +49,10 @@
                 </p:selectOneMenu>
                 
                 <h:panelGrid columns="2">
-                    <p:commandButton value="Rechercher" actionListener="#{articleBean.searchArticle}" ajax="false"/>
+                    <p:commandButton id="searchButton" value="Rechercher" actionListener="#{articleBean.searchArticle}" ajax="false"/>
                     <p:commandButton value="Annuler" action="resetResearch" process="@this"/>
                 </h:panelGrid>
-                
+                 
             </h:form>
             <p:messages id="error" autoUpdate="false" closable="true"/>
         </div>
@@ -71,10 +79,11 @@
                                     <h:outputText class="title" value="Vendeur"></h:outputText>
                                     <h:outputText value="#{article.owner.login}"></h:outputText>
                                     <h:outputText class="title" value="Temps restant"></h:outputText>
-                                    <h:form>
+                                    <h:form rendered="#{article.finished}">
                                         <h:outputText value="#{articleBean.getReminingTime(article)}" id="timeRemining"></h:outputText>
                                         <p:poll interval="1" listener="#{articleBean.getReminingTime(article)}" partialSubmit="true" update="timeRemining"/>  
                                     </h:form>
+                                    <h:outputText rendered="#{!article.isFinished()}" value="Vente terminée"></h:outputText>
                                     <h:outputText class="title" value="Prix initial"></h:outputText>
                                     <h:outputText value="#{article.initialPrice}€"></h:outputText>
                                     <h:outputText rendered="#{enchereBean.haveUserEnchere(article)}" class="title" value="Votre dernière enchere"/>
