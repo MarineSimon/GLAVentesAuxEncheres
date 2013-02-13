@@ -336,11 +336,12 @@ public class AccountBean implements Serializable{
             user.setLastname(lastname);
             user.setBirthday(birthday);
             user.setEmail(email);
+            userBean.addUser(user);
         } catch(ServletException ex){
             Logger.getLogger(AccountBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        userBean.addUser(user);
+        
         return "welcome";
     }
     

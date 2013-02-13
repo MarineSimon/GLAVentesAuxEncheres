@@ -308,12 +308,11 @@ public class ArticleBean implements Serializable {
     
     public void removeArticle(Article a){
         articleLocal.removeArticle(a, this.getUserConnected());
-        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueEncheresCompte");
-        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:notifications");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt26:vueEncheresCompte");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt26:notifications");
         RequestContext.getCurrentInstance().update("j_idt9:articles_dg");
-        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueArticlesCompte");
-        RequestContext.getCurrentInstance().update("j_idt9:j_idt23:vueEncheresCompte");
-        
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt26:vueArticlesCompte");
+        RequestContext.getCurrentInstance().update("j_idt9:j_idt26:vueEncheresCompte");        
     }
     
     public String addArticle() throws ServletException{  
